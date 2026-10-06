@@ -130,16 +130,16 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
-            컴퓨터 고장 증상으로
+            컴퓨터가 이상할 때,
             <br />
             <span className="text-blue-600">
-              원인과 해결 방법 찾기
+              어디부터 확인해야 할까요?
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-500 sm:text-lg">
             전원, 부팅, 화면, 블루스크린, 게임, 인터넷 등
-            PC에서 발생하는 다양한 고장 증상의 원인과 해결 방법을 찾아보세요.
+  PC에서 발생하는 다양한 문제를 증상으로 찾아보세요.
             <br className="hidden sm:block" />
             어려운 용어 대신 지금 겪고 있는 증상을 그대로 입력하면 됩니다.
           </p>
