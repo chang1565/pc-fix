@@ -23,8 +23,15 @@ export default function ContactPage() {
             </h2>
 
             <p className="mt-2 text-sm leading-6 text-slate-500">
-              서비스 공개 전 공식 문의 이메일 주소를 추가할 예정입니다.
+              문의 사항은 아래 이메일 주소로 보내주세요.
             </p>
+
+            <a
+              href="mailto:contact@pcfixbase.com"
+              className="mt-3 inline-block font-semibold text-blue-600 hover:underline"
+            >
+              contact@pcfixbase.com
+            </a>
           </div>
         </div>
       </article>
