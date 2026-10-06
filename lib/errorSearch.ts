@@ -1,0 +1,22 @@
+import { errorCodes, type ErrorCodeEntry } from "@/data/errorCodes";
+
+// 코드의 대소문자·공백·구분 기호 차이를 흡수합니다. 증상 검색 함수는 변경하지 않습니다.
+const normalizeCode = (value: string) => value.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
+export function searchErrorCodes(query: string): ErrorCodeEntry[] {
+  const normalized = normalizeCode(query);
+  if (!normalized) return [];
+  const tokens = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  return errorCodes.map(entry => {
+    const names = [entry.code, entry.slug, ...entry.aliases].map(normalizeCode);
+    const text = [entry.title, entry.description, entry.category, ...entry.aliases].join(" ").toLowerCase();
+    const score = names.includes(normalized) ? 1000
+      : normalized.length >= 3 && names.some(name => name.includes(normalized)) ? 100
+      : tokens.every(token => text.includes(token)) ? 10 : 0;
+    return { entry, score };
+  }).filter(item => item.score > 0).sort((a, b) => b.score - a.score).map(item => item.entry);
+}
+
+export function isExactErrorQuery(query: string): boolean {
+  const value = normalizeCode(query);
+  return Boolean(value) && errorCodes.some(entry => [entry.code, entry.slug, ...entry.aliases].some(alias => normalizeCode(alias) === value));
+}
