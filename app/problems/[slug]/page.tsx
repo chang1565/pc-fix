@@ -60,54 +60,6 @@ export async function generateMetadata({
   };
 }
 
-function createFaq(problem: Problem) {
-  const firstSolution = problem.solutions[0];
-
-  const secondSolution =
-    problem.solutions.length > 1
-      ? problem.solutions[1]
-      : undefined;
-
-  const causeAnswer =
-    problem.causes.length > 0
-      ? `${problem.causes.join(
-          ", "
-        )} 등이 주요 원인으로 볼 수 있습니다.`
-      : "여러 소프트웨어 또는 하드웨어 원인으로 발생할 수 있습니다.";
-
-  const firstActionAnswer = firstSolution
-    ? `${firstSolution.title}부터 확인하는 것이 좋습니다. ${
-        firstSolution.reason
-      } ${
-        firstSolution.steps.length > 0
-          ? `먼저 ${firstSolution.steps[0]}`
-          : ""
-      }`
-    : "가장 간단한 설정과 연결 상태부터 확인하는 것이 좋습니다.";
-
-  const nextActionAnswer = secondSolution
-    ? `첫 번째 방법으로 해결되지 않는다면 '${secondSolution.title}' 단계를 확인해 보세요. 문제가 계속되면 이후 해결 단계를 순서대로 진행하는 것이 좋습니다.`
-    : "기본적인 해결 방법으로 문제가 해결되지 않으면 하드웨어 이상 여부를 점검하거나 전문적인 점검을 받는 것이 좋습니다.";
-
-  return [
-    {
-      question: `${problem.title}의 주요 원인은 무엇인가요?`,
-      answer: causeAnswer,
-    },
-
-    {
-      question: `${problem.title}이 발생하면 무엇부터 확인해야 하나요?`,
-      answer: firstActionAnswer,
-    },
-
-    {
-      question:
-        "첫 번째 해결 방법으로 고쳐지지 않으면 어떻게 하나요?",
-      answer: nextActionAnswer,
-    },
-  ];
-}
-
 export default async function ProblemPage({
   params,
 }: PageProps) {
@@ -126,7 +78,7 @@ export default async function ProblemPage({
         Boolean(item)
     );
 
-  const faq = createFaq(problem);
+  const faq = problem.faqs;
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

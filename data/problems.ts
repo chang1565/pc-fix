@@ -9,6 +9,11 @@ export type SolutionStep = {
   checkPoint?: string;
 };
 
+export type ProblemFaq = {
+  question: string;
+  answer: string;
+};
+
 export type Problem = {
   slug: string;
   title: string;
@@ -18,6 +23,7 @@ export type Problem = {
   keywords: string[];
   causes: string[];
   solutions: SolutionStep[];
+  faqs: ProblemFaq[];
   warning?: string;
   seoTitle: string;
   seoDescription: string;
@@ -2265,6 +2271,122 @@ function buildSolutions(seed: ProblemSeed): SolutionStep[] {
           "제조사 BIOS 업데이트를 확인합니다.",
           "해당 모델의 절전·Modern Standby 알려진 이슈가 있는지 지원 문서를 확인합니다.",
         ]
+      ),
+    ]);
+  }
+
+  if (seed.slug === "screen-freeze") {
+    return withOrder([
+      step(
+        "키보드 단축키가 반응하는지 먼저 확인하기",
+        "화면만 멈춘 것인지 Windows 전체가 멈춘 것인지 구분하면 원인 범위를 빠르게 줄일 수 있습니다.",
+        "쉬움",
+        "2~5분",
+        [
+          "Ctrl + Alt + Delete를 눌러 보안 화면이 열리는지 확인합니다.",
+          "열리면 작업 관리자를 실행해 CPU·메모리·디스크 사용률이 비정상적으로 높은 프로세스를 확인합니다.",
+          "화면만 멈췄다면 Windows 키 + Ctrl + Shift + B로 그래픽 드라이버 재시작도 시도합니다.",
+          "어떤 입력도 전혀 반응하지 않을 때만 전원 버튼을 길게 눌러 강제 종료합니다. 이 경우 저장하지 않은 작업은 손실될 수 있습니다.",
+        ],
+        "Ctrl + Alt + Delete는 되는데 바탕화면만 멈춘다면 특정 앱·Explorer·그래픽 드라이버 문제 가능성이 상대적으로 높습니다."
+      ),
+      step(
+        "재부팅 후 신뢰성 기록과 이벤트 확인하기",
+        "프리징 직전의 앱 충돌·드라이버 오류·하드웨어 오류 기록이 남아 있으면 원인 추적에 도움이 됩니다.",
+        "보통",
+        "10~20분",
+        [
+          "Windows 검색에서 '신뢰성 기록 보기'를 열어 멈춘 시각의 오류를 확인합니다.",
+          "이벤트 뷰어 → Windows 로그 → 시스템에서 같은 시각의 오류를 확인합니다.",
+          "항상 같은 앱이나 드라이버 이름이 반복되는지 기록합니다.",
+        ]
+      ),
+      step(
+        "온도와 자원 사용률 확인하기",
+        "CPU·GPU 과열이나 메모리·디스크 포화는 시스템 전체 프리징을 만들 수 있습니다.",
+        "보통",
+        "15~30분",
+        [
+          "프리징이 발생하기 전 CPU·GPU 온도를 확인합니다.",
+          "작업 관리자에서 메모리와 디스크 사용률이 지속적으로 90~100%에 가까운지 확인합니다.",
+          "고부하에서만 멈춘다면 냉각과 전원 상태를 먼저 점검합니다.",
+        ]
+      ),
+      driverStep("그래픽"),
+      step(
+        "RAM과 저장장치 진단하기",
+        "완전한 시스템 프리징이 반복되면 메모리 오류나 저장장치 지연도 확인해야 합니다.",
+        "어려움",
+        "30~120분",
+        [
+          "Windows 메모리 진단 또는 신뢰할 수 있는 메모리 검사를 실행합니다.",
+          "시스템 드라이브의 SMART 상태와 제조사 진단 결과를 확인합니다.",
+          "오류가 발견되면 중요한 데이터를 먼저 백업하고 해당 부품의 교체를 검토합니다.",
+        ]
+      ),
+    ]);
+  }
+
+  if (seed.slug === "windows-time-wrong") {
+    return withOrder([
+      step(
+        "시간대와 자동 시간 설정 확인하기",
+        "시간대가 잘못됐거나 자동 시간 설정이 꺼져 있으면 실제 시각과 크게 어긋날 수 있습니다.",
+        "쉬움",
+        "3~5분",
+        [
+          "설정 → 시간 및 언어 → 날짜 및 시간을 엽니다.",
+          "시간 자동 설정을 켜고 현재 위치에 맞는 시간대가 선택되어 있는지 확인합니다.",
+          "추가 설정의 '지금 동기화'를 눌러 즉시 시간을 맞춥니다.",
+        ],
+        "동기화 직후에는 정상인데 재부팅할 때마다 다시 틀어진다면 Windows 설정보다 RTC/CMOS 쪽 가능성을 확인합니다."
+      ),
+      step(
+        "인터넷 연결과 Windows 시간 동기화 확인하기",
+        "온라인 시간 서버에 연결하지 못하면 자동 보정이 제대로 이루어지지 않을 수 있습니다.",
+        "보통",
+        "5~10분",
+        [
+          "인터넷이 정상적으로 연결되는지 확인합니다.",
+          "VPN·프록시를 사용 중이면 잠시 끄고 다시 동기화합니다.",
+          "services.msc에서 Windows Time 서비스가 오류로 중지되어 있지 않은지 확인하고 필요하면 다시 시작합니다.",
+        ]
+      ),
+      step(
+        "BIOS/UEFI의 날짜와 시간 비교하기",
+        "Windows를 시작하기 전부터 시간이 틀려 있다면 운영체제보다 메인보드 RTC 전원 문제 가능성이 높습니다.",
+        "보통",
+        "10~15분",
+        [
+          "PC를 종료한 뒤 BIOS/UEFI에 진입합니다.",
+          "BIOS에 표시되는 날짜와 시간이 정상인지 확인합니다.",
+          "시간을 맞춘 뒤 전원을 완전히 끄고 잠시 후 다시 들어가 시간이 유지되는지 확인합니다.",
+        ],
+        "BIOS 시간까지 반복해서 초기화되면 데스크톱의 CMOS 배터리 또는 노트북의 RTC 회로 점검이 필요할 수 있습니다."
+      ),
+      step(
+        "Windows 업데이트와 칩셋·BIOS 업데이트 확인하기",
+        "절전 복귀나 펌웨어 문제로 시간이 어긋나는 경우에는 시스템 업데이트가 도움이 될 수 있습니다.",
+        "보통",
+        "20~40분",
+        [
+          "Windows 업데이트를 적용합니다.",
+          "PC 제조사 지원 페이지에서 칩셋과 BIOS 업데이트를 확인합니다.",
+          "BIOS 업데이트를 진행할 때는 안정적인 전원을 유지하고 제조사 절차를 따릅니다.",
+        ]
+      ),
+      step(
+        "RTC/CMOS 배터리 또는 메인보드 점검하기",
+        "전원을 끌 때마다 BIOS 시간까지 초기화된다면 RTC를 유지하는 배터리나 회로 문제일 수 있습니다.",
+        "어려움",
+        "20분 이상",
+        [
+          "데스크톱은 모델에 맞는 CMOS 배터리 교체 절차를 확인합니다.",
+          "노트북은 RTC 배터리가 내장형일 수 있으므로 무리하게 분해하지 않습니다.",
+          "배터리 교체 후에도 시간이 초기화되면 메인보드 점검을 받습니다.",
+        ],
+        undefined,
+        "배터리/점검 비용 발생 가능"
       ),
     ]);
   }
@@ -6935,8 +7057,202 @@ function buildWarning(seed: ProblemSeed): string | undefined {
   return undefined;
 }
 
+const presetFocus: Record<string, string> = {
+  "no-power-desktop": "외부 전원 공급부터 파워서플라이와 메인보드 순으로 확인해 불필요한 분해를 줄이는 것이 핵심입니다.",
+  "no-power-laptop": "충전기·배터리·전원 관리 회로를 쉬운 항목부터 순서대로 구분하세요.",
+  "battery": "충전기와 배터리 상태, 제조사 전원 관리 설정을 차례로 확인하면 원인을 좁히기 쉽습니다.",
+  "power-instability": "전원 공급, 온도, 튜닝 설정을 분리해서 확인해야 갑작스러운 종료·재부팅 원인을 찾기 쉽습니다.",
+  "boot": "POST 단계와 Windows 시작 단계를 구분한 뒤 외부 장치, 부팅 설정, 복구 환경 순으로 확인하세요.",
+  "boot-loop": "반복 재부팅이 시작되는 시점을 기준으로 Windows 복구와 하드웨어 진단을 나눠 진행하세요.",
+  "boot-device": "BIOS에서 시스템 드라이브가 보이는지 먼저 확인한 뒤 부팅 순서와 Windows 복구를 진행하세요.",
+  "no-video": "모니터·케이블·입력 소스부터 GPU·RAM의 POST 상태까지 출력 경로를 한 단계씩 확인하세요.",
+  "display-cable": "입력 소스, 케이블, 포트, 다른 모니터 순으로 교차 테스트하면 출력 장치와 PC 문제를 구분할 수 있습니다.",
+  "black-screen-windows": "Windows가 동작하는지 먼저 확인하고 출력 모드와 그래픽 드라이버를 순서대로 점검하세요.",
+  "display-settings": "해상도·주사율·HDR·VRR과 케이블 대역폭을 함께 확인해야 설정 문제와 하드웨어 한계를 구분할 수 있습니다.",
+  "gpu-driver": "그래픽 드라이버 버전과 설치 상태, 출력 환경, 튜닝 설정을 하나씩 비교하세요.",
+  "gpu-hardware": "드라이버 문제를 배제한 뒤 온도·전원·장착 상태와 교차 테스트로 GPU 자체 이상 여부를 판단하세요.",
+  "gpu-performance": "GPU 사용률·온도·클럭과 게임 설정을 함께 확인해 성능 제한의 원인을 찾으세요.",
+  "game-crash": "오류 메시지, 게임 파일, 그래픽 드라이버, 오버레이와 하드웨어 안정성을 순서대로 확인하세요.",
+  "game-performance": "게임 설정을 낮춘 비교 테스트와 CPU·GPU 사용률 확인으로 병목과 스로틀링을 구분하세요.",
+  "game-network": "유선 비교, 백그라운드 트래픽, 공유기 상태를 확인해 PC·회선·게임 서버 문제를 분리하세요.",
+  "bsod": "중지 코드와 발생 시점을 기록한 뒤 최근 변경, RAM·저장장치, 시스템 파일 순으로 원인을 좁히세요.",
+  "windows-update": "재부팅과 저장 공간부터 확인한 뒤 업데이트 구성 요소와 시스템 파일 복구를 진행하세요.",
+  "windows-shell": "Explorer와 시작 프로그램, 시스템 파일, 사용자 프로필을 순서대로 확인하면 Windows 셸 문제를 구분하기 쉽습니다.",
+  "windows-login": "PIN·암호 같은 로그인 수단과 네트워크, 사용자 프로필을 분리해서 확인하세요.",
+  "app": "앱 자체 복구·재설치와 Windows 시스템 문제를 구분해 불필요한 초기화를 피하세요.",
+  "system-files": "시스템 파일 복구와 저장장치 상태, 최근 시스템 변경을 함께 확인하세요.",
+  "performance": "작업 관리자에서 CPU·메모리·디스크 병목을 먼저 찾고 시작 프로그램·저장 공간·온도를 확인하세요.",
+  "ram": "XMP/EXPO 같은 메모리 설정을 기본값으로 되돌린 뒤 진단과 모듈·슬롯 교차 테스트를 진행하세요.",
+  "cpu": "프로세스 부하, 전원 모드, 온도와 클럭을 함께 확인해 소프트웨어 부하와 하드웨어 제한을 구분하세요.",
+  "storage-detect": "BIOS와 디스크 관리에서 인식 위치를 확인하고 케이블·포트·슬롯을 교차 테스트하세요.",
+  "storage-health": "중요한 데이터 백업을 우선한 뒤 SMART와 제조사 진단으로 실제 드라이브 상태를 확인하세요.",
+  "storage-performance": "디스크를 사용하는 프로세스, 여유 공간, 연결 속도와 SMART를 순서대로 확인하세요.",
+  "wifi": "무선 어댑터 상태와 저장된 프로필, 공유기·신호 품질, 드라이버를 차례로 점검하세요.",
+  "ethernet": "랜 케이블·공유기 포트와 IP 할당 상태를 먼저 확인하고 드라이버와 네트워크 초기화는 뒤에 진행하세요.",
+  "dns": "인터넷 자체가 끊긴 것인지 이름 해석만 실패한 것인지 먼저 구분한 뒤 DNS 설정을 점검하세요.",
+  "network": "다른 기기와 유선 연결로 비교해 PC, 공유기, ISP 중 어느 구간에서 문제가 생기는지 좁히세요.",
+  "bluetooth": "Bluetooth 전원 상태와 페어링 정보를 초기화한 뒤 드라이버·간섭·장치 자체 문제를 확인하세요.",
+  "usb": "장치, 케이블, USB 포트를 교차 테스트한 뒤 전원 관리와 드라이버 문제를 확인하세요.",
+  "keyboard": "다른 포트·다른 PC에서 비교해 키보드 자체 문제와 Windows 입력 설정·드라이버 문제를 구분하세요.",
+  "mouse": "센서·배터리·무선 연결과 다른 포트 테스트를 통해 마우스 하드웨어와 PC 쪽 문제를 나누세요.",
+  "touchpad": "기능키와 터치패드 설정을 먼저 확인하고 제조사 드라이버와 BIOS 인식 상태를 점검하세요.",
+  "controller": "유선·무선 연결, 게임 내 입력 방식과 드라이버를 각각 확인해 충돌 원인을 찾으세요.",
+  "sdcard": "카드·리더기·포트를 교차 테스트하고 기존 데이터가 필요하면 포맷보다 백업과 복구를 우선하세요.",
+  "audio": "출력 장치 선택과 볼륨 믹서부터 드라이버·케이블·장치 자체 문제까지 순서대로 확인하세요.",
+  "microphone": "입력 장치 선택, 앱 권한, 입력 레벨을 먼저 확인한 뒤 드라이버와 하드웨어를 점검하세요.",
+  "printer": "프린터 상태와 연결, 인쇄 대기열, 드라이버 순으로 확인하면 PC와 프린터 어느 쪽 문제인지 구분하기 쉽습니다.",
+  "camera": "카메라 권한과 사용 중인 앱, 장치 인식 상태를 확인한 뒤 드라이버와 물리 연결을 점검하세요.",
+  "thermal": "고부하를 잠시 줄이고 온도·팬·통풍 상태를 확인한 뒤 냉각계통과 전력 설정을 점검하세요.",
+  "sleep": "절전 진입과 복귀 중 어느 단계에서 실패하는지 확인하고 드라이버·전원 정책·BIOS를 순서대로 점검하세요.",
+  "general": "증상이 발생하는 조건과 최근 변경 사항을 기록한 뒤 소프트웨어와 하드웨어 원인을 나눠 확인하세요.",
+};
+
+function stableVariant(seed: ProblemSeed, count: number) {
+  const hash = [...seed.slug].reduce(
+    (total, char) => total + char.charCodeAt(0),
+    0
+  );
+
+  return hash % count;
+}
+
+function causeSummary(seed: ProblemSeed) {
+  return seed.extraCauses.slice(0, 2).join(", ");
+}
+
+function buildDescription(seed: ProblemSeed) {
+  const symptom = seed.symptoms[0];
+  const causes = causeSummary(seed);
+  const focus = presetFocus[seed.preset] ?? presetFocus.general;
+
+  const variants = [
+    `“${symptom}” 증상이 보이는 경우 원인 후보로는 ${causes} 등이 있습니다. ${focus}`,
+    `${seed.category} 문제 중 “${symptom}” 증상은 ${causes}와 관련될 수 있습니다. ${focus}`,
+    `이 가이드는 “${symptom}” 상황에서 ${causes} 항목을 안전한 순서로 구분하도록 구성했습니다. ${focus}`,
+    `“${symptom}”이 반복된다면 여러 설정을 한꺼번에 바꾸기보다 ${causes}부터 범위를 좁히는 편이 좋습니다. ${focus}`,
+    `현재 증상이 “${symptom}”에 가깝다면 ${causes} 여부를 먼저 살펴보세요. ${focus}`,
+    `${seed.title} 해결에서는 원인을 한 번에 하나씩 배제하는 과정이 중요합니다. “${symptom}” 증상을 기준으로 ${causes}를 확인한 뒤 다음 단계를 진행하세요. ${focus}`,
+  ];
+
+  return variants[stableVariant(seed, variants.length)];
+}
+
+function buildSeoDescription(seed: ProblemSeed) {
+  const symptom = seed.symptoms[0];
+  const causes = causeSummary(seed);
+  const raw = `${seed.title}. ${symptom} 증상에서 ${causes} 등을 확인하는 순서와 안전한 해결 방법을 정리했습니다.`;
+
+  return raw.length > 155 ? `${raw.slice(0, 152)}...` : raw;
+}
+
+function personalizeSolutions(
+  seed: ProblemSeed,
+  solutions: SolutionStep[]
+): SolutionStep[] {
+  if (solutions.length === 0) {
+    return solutions;
+  }
+
+  const symptom = seed.symptoms[0];
+  const cause = seed.extraCauses[0];
+  const first = solutions[0];
+  const personalizedCheck = `이 단계 후 “${symptom}” 증상이 줄거나 사라지는지 확인하세요. 변화가 없다면 ${cause} 가능성도 다음 단계에서 함께 확인합니다.`;
+
+  return solutions.map((solution, index) =>
+    index === 0
+      ? {
+          ...solution,
+          checkPoint: solution.checkPoint
+            ? `${solution.checkPoint} ${personalizedCheck}`
+            : personalizedCheck,
+        }
+      : solution
+  );
+}
+
+function buildFaqs(
+  seed: ProblemSeed,
+  solutions: SolutionStep[],
+  warning?: string
+): ProblemFaq[] {
+  const firstSolution = solutions[0];
+  const secondSolution = solutions[1] ?? firstSolution;
+  const firstSymptom = seed.symptoms[0];
+  const firstCause = seed.extraCauses[0];
+
+  const safetyAnswer = warning
+    ? warning
+    : `위 해결 단계를 순서대로 진행해도 ${firstSymptom} 증상이 반복되거나, 타는 냄새·이상음·과열·부품 인식 실패처럼 하드웨어 이상 신호가 함께 나타나면 중요한 데이터를 백업한 뒤 전문 점검을 권장합니다.`;
+
+  return [
+    {
+      question: `${firstSymptom} 증상이 보이면 가장 먼저 무엇을 확인해야 하나요?`,
+      answer: `먼저 ‘${firstSolution.title}’ 단계부터 진행하세요. ${firstSolution.reason} 한 번에 여러 설정을 바꾸지 말고 각 단계 뒤에 증상이 달라지는지 확인하는 것이 좋습니다.`,
+    },
+    {
+      question: `원인 후보 ‘${firstCause}’는 어떻게 확인하나요?`,
+      answer: `첫 단계에서 변화가 없다면 ‘${secondSolution.title}’까지 순서대로 비교해 보세요. 특정 조치 직후 증상이 사라지거나 재현 조건이 바뀌면 원인 범위를 좁히는 중요한 단서가 됩니다.`,
+    },
+    {
+      question: `${seed.title}: 언제 전문 점검이 필요한가요?`,
+      answer: safetyAnswer,
+    },
+  ];
+}
+
+function tokenizeForRelated(problem: Omit<Problem, "relatedSlugs">) {
+  const text = [
+    problem.title,
+    problem.category,
+    ...problem.keywords,
+    ...problem.symptoms,
+    ...problem.causes,
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return new Set(
+    text
+      .split(/[^0-9a-zA-Z가-힣%]+/)
+      .map((word) => word.trim())
+      .filter((word) => word.length >= 2)
+  );
+}
+
+function getRelatedScore(
+  source: Omit<Problem, "relatedSlugs">,
+  sourceSeed: ProblemSeed,
+  candidate: Omit<Problem, "relatedSlugs">,
+  candidateSeed: ProblemSeed
+) {
+  let score = 0;
+
+  if (
+    sourceSeed.preset === candidateSeed.preset &&
+    sourceSeed.preset !== "general"
+  ) {
+    score += 60;
+  }
+  if (source.category === candidate.category) score += 40;
+
+  const sourceTokens = tokenizeForRelated(source);
+  const candidateTokens = tokenizeForRelated(candidate);
+
+  sourceTokens.forEach((token) => {
+    if (candidateTokens.has(token)) score += 3;
+  });
+
+  source.causes.forEach((cause) => {
+    if (candidate.causes.includes(cause)) score += 8;
+  });
+
+  return score;
+}
+
 const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
-  const description = `${seed.title} 증상이 발생할 때 확인해야 할 가능성이 높은 원인과 해결 순서를 정리했습니다. 가장 간단하고 안전한 확인부터 순서대로 진행하세요.`;
+  const description = buildDescription(seed);
+  const warning = buildWarning(seed);
+  const solutions = personalizeSolutions(seed, buildSolutions(seed));
 
   const keywords = Array.from(
     new Set([seed.title, seed.category, ...seed.keywords, ...seed.symptoms])
@@ -6950,33 +7266,42 @@ const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
     symptoms: seed.symptoms,
     keywords,
     causes: seed.extraCauses,
-    solutions: buildSolutions(seed),
-    warning: buildWarning(seed),
+    solutions,
+    faqs: buildFaqs(seed, solutions, warning),
+    warning,
     seoTitle: `${seed.title} 해결 방법 | PC FIX`,
-    seoDescription: description,
+    seoDescription: buildSeoDescription(seed),
   };
 });
 
 export const problems: Problem[] = baseProblems.map((problem, index, all) => {
-  const sameCategory = all
-    .filter(
-      (candidate, candidateIndex) =>
-        candidateIndex !== index && candidate.category === problem.category
+  const sourceSeed = issueSeeds[index];
+
+  const relatedSlugs = all
+    .map((candidate, candidateIndex) => ({
+      slug: candidate.slug,
+      candidateIndex,
+      score:
+        candidateIndex === index
+          ? -1
+          : getRelatedScore(
+              problem,
+              sourceSeed,
+              candidate,
+              issueSeeds[candidateIndex]
+            ),
+    }))
+    .filter((candidate) => candidate.candidateIndex !== index)
+    .sort(
+      (a, b) =>
+        b.score - a.score || a.candidateIndex - b.candidateIndex
     )
     .slice(0, 4)
     .map((candidate) => candidate.slug);
 
-  const fallback = all
-    .filter(
-      (candidate, candidateIndex) =>
-        candidateIndex !== index && !sameCategory.includes(candidate.slug)
-    )
-    .slice(0, Math.max(0, 4 - sameCategory.length))
-    .map((candidate) => candidate.slug);
-
   return {
     ...problem,
-    relatedSlugs: [...sameCategory, ...fallback],
+    relatedSlugs,
   };
 });
 
