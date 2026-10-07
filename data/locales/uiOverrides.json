@@ -181,7 +181,8 @@
     "시크릿 창이 정상이라면 해당 사이트의 쿠키만 삭제하세요. 로그아웃될 수 있습니다.": "If the site works in an incognito window, delete only that site’s cookies. This may sign you out.",
     "안전 모드에 진입할 수 있다면 최근 추가한 보안 프로그램을 제거하거나 공급업체 절차로 복구하세요.": "If you can enter Safe Mode, uninstall the recently added security software or repair it using the vendor’s instructions.",
     "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제: 언제 전문 점검이 필요한가요?": "System sounds work, but one app has no audio: when should I seek professional help?",
-    "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제. 특정 앱 소리 안남 증상에서 앱별 볼륨 믹서, 앱 출력 장치 설정 등을 확인하는 순서와 안전한 해결 방법을 정리했습니다.": "System sounds work, but a specific app has no audio. Follow safe checks for per-app volume mixer levels and audio output device settings."
+    "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제. 특정 앱 소리 안남 증상에서 앱별 볼륨 믹서, 앱 출력 장치 설정 등을 확인하는 순서와 안전한 해결 방법을 정리했습니다.": "System sounds work, but a specific app has no audio. Follow safe checks for per-app volume mixer levels and audio output device settings.",
+    "컴퓨터 고장 증상과 Windows 오류 코드를 검색하고, 원인과 단계별 해결 방법을 확인하세요.": "Search PC symptoms and Windows error codes, and find causes and step-by-step solutions."
   },
   "ja": {
     "통합 검색": "検索",
@@ -427,7 +428,8 @@
     "영상회의 카메라 안나옴": "ビデオ会議でカメラの映像が映らない",
     "영상 안나옴": "映像が映らない",
     "DLL 다운로드 사이트를 써도 되나요?": "DLLのダウンロードサイトを利用してもよいですか？",
-    "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제: 언제 전문 점검이 필요한가요?": "システム音は鳴るが、特定のアプリだけ音が出ない場合、いつ専門業者に相談すべきですか？"
+    "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제: 언제 전문 점검이 필요한가요?": "システム音は鳴るが、特定のアプリだけ音が出ない場合、いつ専門業者に相談すべきですか？",
+    "컴퓨터 고장 증상과 Windows 오류 코드를 검색하고, 원인과 단계별 해결 방법을 확인하세요.": "PCの不具合やWindowsのエラーコードを検索し、原因と解決手順を確認できます。"
   },
   "zh-CN": {
     "통합 검색": "搜索",
@@ -869,6 +871,7 @@
     "시크릿 창이 정상이라면 해당 사이트의 쿠키만 삭제하세요. 로그아웃될 수 있습니다.": "如果网站在无痕窗口中正常打开，请仅删除该网站的Cookie。这可能会使您退出登录。",
     "안전 모드에 진입할 수 있다면 최근 추가한 보안 프로그램을 제거하거나 공급업체 절차로 복구하세요.": "如果可以进入安全模式，请卸载最近添加的安全软件，或按供应商的说明修复。",
     "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제: 언제 전문 점검이 필요한가요?": "系统声音正常，但某个应用程序没有声音：什么时候需要专业检查？",
-    "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제. 특정 앱 소리 안남 증상에서 앱별 볼륨 믹서, 앱 출력 장치 설정 등을 확인하는 순서와 안전한 해결 방법을 정리했습니다.": "系统声音正常，但某个应用程序没有声音。按安全顺序检查应用程序的音量混合器和音频输出设备设置。"
+    "시스템 소리는 나는데 특정 앱에서만 소리가 안 나는 문제. 특정 앱 소리 안남 증상에서 앱별 볼륨 믹서, 앱 출력 장치 설정 등을 확인하는 순서와 안전한 해결 방법을 정리했습니다.": "系统声音正常，但某个应用程序没有声音。按安全顺序检查应用程序的音量混合器和音频输出设备设置。",
+    "컴퓨터 고장 증상과 Windows 오류 코드를 검색하고, 원인과 단계별 해결 방법을 확인하세요.": "搜索电脑故障症状和Windows错误代码，查看原因及分步解决方法。"
   }
 }

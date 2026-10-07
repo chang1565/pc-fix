@@ -5666,5 +5666,6 @@
   "관리자 터미널에서 ipconfig /flushdns, netsh winsock reset 등을 실행할 수 있습니다.": "管理端末からipconfig /flushdns、netsh winsock resetなどを実行できます。",
   "ipconfig /release 후 ipconfig /renew를 실행합니다.": "ipconfig /releaseの後にipconfig /renewを実行します。",
   "ipconfig /flushdns와 netsh winsock reset을 실행한 뒤 재부팅합니다.": "ipconfig /flushdnsとnetsh winsock resetを実行して再起動します。",
-  "chkdsk /r부터 실행해도 되나요?": "chkdsk /rから実行できますか？"
+  "chkdsk /r부터 실행해도 되나요?": "chkdsk /rから実行できますか？",
+  "컴퓨터 고장 증상과 Windows 오류 코드를 검색하고, 원인과 단계별 해결 방법을 확인하세요.": "PCの不具合やWindowsのエラーコードを検索し、原因と解決手順を確認できます。"
 }

@@ -6,7 +6,13 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata: Metadata = {
     metadataBase: new URL("https://pcfixbase.com"),
     title: "PC Troubleshooting by Symptom and Error Code | PC FIX",
-    description: "Check step-by-step the causes and solutions for each PC malfunction symptom, such as the computer not turning on, boot failure, black screen, blue screen, game crashing, and Internet/Wi-Fi problems.",
+    description: "Search PC symptoms and Windows error codes, and find causes and step-by-step solutions.",
+    openGraph: {
+        title: "PC Troubleshooting by Symptom and Error Code | PC FIX",
+        description: "Search PC symptoms and Windows error codes, and find causes and step-by-step solutions.",
+        siteName: "PC FIX",
+        type: "website",
+    },
     applicationName: "PC FIX",
     verification: {
         other: {

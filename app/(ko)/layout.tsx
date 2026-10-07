@@ -9,7 +9,14 @@ export const metadata: Metadata = {
   title: "컴퓨터 고장 증상별 원인과 해결 방법 | PC FIX",
 
   description:
-    "컴퓨터 전원 안 켜짐, 부팅 실패, 검은 화면, 블루스크린, 게임 튕김, 인터넷·Wi-Fi 문제 등 PC 고장 증상별 원인과 해결 방법을 단계별로 확인하세요.",
+    "컴퓨터 고장 증상과 Windows 오류 코드를 검색하고, 원인과 단계별 해결 방법을 확인하세요.",
+
+  openGraph: {
+    title: "컴퓨터 고장 증상별 원인과 해결 방법 | PC FIX",
+    description: "컴퓨터 고장 증상과 Windows 오류 코드를 검색하고, 원인과 단계별 해결 방법을 확인하세요.",
+    siteName: "PC FIX",
+    type: "website",
+  },
 
   applicationName: "PC FIX",
   verification: {
