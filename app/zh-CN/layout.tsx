@@ -8,6 +8,11 @@ export const metadata: Metadata = {
     title: "\u7535\u8111\u6545\u969C\u73B0\u8C61\u4E0E\u9519\u8BEF\u4EE3\u7801\uFF1A\u539F\u56E0\u53CA\u89E3\u51B3\u65B9\u6CD5 | PC FIX",
     description: "\u9010\u6B65\u68C0\u67E5\u6BCF\u4E2A\u7535\u8111\u6545\u969C\u75C7\u72B6\u7684\u539F\u56E0\u548C\u89E3\u51B3\u65B9\u6848\uFF0C\u4F8B\u5982\u7535\u8111\u65E0\u6CD5\u5F00\u673A\u3001\u542F\u52A8\u5931\u8D25\u3001\u9ED1\u5C4F\u3001\u84DD\u5C4F\u3001\u6E38\u620F\u5D29\u6E83\u548C\u4E92\u8054\u7F51/Wi-Fi \u95EE\u9898\u3002",
     applicationName: "PC FIX",
+    verification: {
+        other: {
+            "naver-site-verification": "6b525e41113b389484e65e8a18615d341056f46e",
+        },
+    },
     alternates: languageAlternates("/zh-CN"),
     robots: {
         index: true,

@@ -8,6 +8,11 @@ export const metadata: Metadata = {
     title: "PC Troubleshooting by Symptom and Error Code | PC FIX",
     description: "Check step-by-step the causes and solutions for each PC malfunction symptom, such as the computer not turning on, boot failure, black screen, blue screen, game crashing, and Internet/Wi-Fi problems.",
     applicationName: "PC FIX",
+    verification: {
+        other: {
+            "naver-site-verification": "6b525e41113b389484e65e8a18615d341056f46e",
+        },
+    },
     alternates: languageAlternates("/en"),
     robots: {
         index: true,

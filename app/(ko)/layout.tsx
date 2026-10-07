@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     "컴퓨터 전원 안 켜짐, 부팅 실패, 검은 화면, 블루스크린, 게임 튕김, 인터넷·Wi-Fi 문제 등 PC 고장 증상별 원인과 해결 방법을 단계별로 확인하세요.",
 
   applicationName: "PC FIX",
+  verification: {
+    other: {
+      "naver-site-verification": "6b525e41113b389484e65e8a18615d341056f46e",
+    },
+  },
   alternates: languageAlternates("/"),
 
   robots: {
