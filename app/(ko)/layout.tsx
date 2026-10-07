@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   verification: {
     other: {
       "naver-site-verification": "6b525e41113b389484e65e8a18615d341056f46e",
+      "google-adsense-account": "ca-pub-5914836791785057",
     },
   },
   alternates: languageAlternates("/"),
@@ -43,6 +44,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5914836791785057"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );
