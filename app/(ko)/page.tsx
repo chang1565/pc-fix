@@ -122,7 +122,7 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-slate-50 text-slate-900">
-      <SiteHeader /><DisplayAd label="광고" placement="top" />
+      <SiteHeader />
 
       {/* HERO */}
       <section className="border-b border-slate-200 bg-white">

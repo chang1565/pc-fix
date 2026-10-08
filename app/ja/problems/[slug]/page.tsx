@@ -128,7 +128,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
         }}/>
 
-      <SiteHeader /><DisplayAd label="広告" placement="top" />
+      <SiteHeader />
 
       <div className="mx-auto max-w-5xl px-5 py-8 sm:py-12">
         {/* Breadcrumb */}

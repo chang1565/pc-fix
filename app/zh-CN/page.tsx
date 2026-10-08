@@ -92,7 +92,7 @@ export default function Home() {
         updateSearchUrl("");
     }
     return (<main className="relative min-h-screen bg-slate-50 text-slate-900">
-      <SiteHeader /><DisplayAd label="广告" placement="top" />
+      <SiteHeader />
 
       {/* HERO */}
       <section className="border-b border-slate-200 bg-white">

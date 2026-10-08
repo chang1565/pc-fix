@@ -43,7 +43,7 @@ export default async function ErrorPage({ params }: Props) {
     ];
     return <main className="relative min-h-screen bg-slate-50 text-slate-900">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "\\u003c") }}/>
-    <SiteHeader /><DisplayAd label="Advertisement" placement="top" /><div className="mx-auto max-w-5xl px-5 py-10">
+    <SiteHeader /><div className="mx-auto max-w-5xl px-5 py-10">
       <nav aria-label="Current location" className="flex flex-wrap gap-2 text-sm text-slate-500"><Link href="/en">PC FIX</Link><span>›</span><Link href="/en/errors">{"error code"}</Link><span>›</span><span>{entry.code}</span></nav>
       <section className={panel}><span className="text-sm font-bold text-blue-600">{entry.category}</span><h1 className="mt-3 break-words text-3xl font-black sm:text-4xl">{entry.title}</h1>
         <h2 className="mt-6 text-lg font-bold">{"error meaning"}</h2><p className="mt-2 leading-7 text-slate-600">{entry.description}</p>

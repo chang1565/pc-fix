@@ -191,7 +191,7 @@ export default async function ProblemPage({
         }}
       />
 
-      <SiteHeader /><DisplayAd label="광고" placement="top" />
+      <SiteHeader />
 
       <div className="mx-auto max-w-5xl px-5 py-8 sm:py-12">
         {/* Breadcrumb */}
