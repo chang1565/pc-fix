@@ -1,3 +1,4 @@
+import DisplayAd from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -160,7 +161,7 @@ export default async function ProblemPage({
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
+    <main className="relative min-h-screen bg-slate-50 text-slate-900">
       {/* JSON-LD */}
 
       <script
@@ -190,7 +191,7 @@ export default async function ProblemPage({
         }}
       />
 
-      <SiteHeader />
+      <SiteHeader /><DisplayAd label="광고" placement="top" />
 
       <div className="mx-auto max-w-5xl px-5 py-8 sm:py-12">
         {/* Breadcrumb */}
@@ -530,7 +531,7 @@ export default async function ProblemPage({
         </section>
       </div>
 
-      <SiteFooter />
+      <div className="display-ad-sides"><DisplayAd label="광고" placement="left" /><DisplayAd label="광고" placement="right" /></div><DisplayAd label="광고" /><SiteFooter />
     </main>
   );
 }

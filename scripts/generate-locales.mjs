@@ -29,6 +29,7 @@ for (const locale of languages) {
     const source = ts.createSourceFile(filename, sourceText, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
     let needsTranslate = false;
     function text(value) {
+      if (value === "광고") return locale === "en" ? "Advertisement" : locale === "ja" ? "広告" : "广告";
       if (value === "개") return locale === "en" ? " results" : locale === "ja" ? "件" : "条";
       if (value === "개)") return locale === "en" ? " more)" : locale === "ja" ? "件)" : "条)";
       if (korean.test(value)) {

@@ -1,4 +1,5 @@
 "use client";
+import DisplayAd from "@/components/DisplayAd";
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -120,8 +121,8 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <SiteHeader />
+    <main className="relative min-h-screen bg-slate-50 text-slate-900">
+      <SiteHeader /><DisplayAd label="광고" placement="top" />
 
       {/* HERO */}
       <section className="border-b border-slate-200 bg-white">
@@ -493,7 +494,7 @@ export default function Home() {
         )}
       </div>
 
-      <SiteFooter />
+      <div className="display-ad-sides"><DisplayAd label="광고" placement="left" /><DisplayAd label="광고" placement="right" /></div><DisplayAd label="광고" /><SiteFooter />
     </main>
   );
 }
