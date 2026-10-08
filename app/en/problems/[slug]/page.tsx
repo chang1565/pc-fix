@@ -288,25 +288,15 @@ export default async function ProblemPage({ params, }: PageProps) {
             </p>
           </section>)}
 
-        {/* 자주 묻는 질문 */}
+        
 
-        <section className="mt-16">
-          <div>
-            <h2 className="text-2xl font-black text-slate-950">{" Frequently Asked Questions "}</h2>
-
-            <p className="mt-2 text-sm text-slate-500">{" We've put together a list of things we frequently check regarding this issue. "}</p>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
-          </div>
-        </section>
+        
 
 
     {/* 관련 문제 */}
 
         {relatedProblems.length > 0 && (<>
-    {/* FAQ와 관련 문제 사이 강제 여백 */}
+    {/* 관련 문제 위 여백 */}
     <div aria-hidden="true" style={{
                 height: "96px",
             }}/>
@@ -354,6 +344,17 @@ export default async function ProblemPage({ params, }: PageProps) {
           <p className="mt-3 text-sm leading-6 text-slate-300">{" If you enter the symptoms you are currently seeing in the PC FIX search box, we will find the related problem. "}</p>
 
           <Link href="/en" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100">{" Search for other issues \u2192 "}</Link>
+        </section>
+      <section className="mt-16">
+          <div>
+            <h2 className="text-2xl font-black text-slate-950">{" Frequently Asked Questions "}</h2>
+
+            <p className="mt-2 text-sm text-slate-500">{" We've put together a list of things we frequently check regarding this issue. "}</p>
+          </div>
+
+          <div className="mt-6 space-y-4">
+            {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
+          </div>
         </section>
       </div>
 

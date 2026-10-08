@@ -417,39 +417,16 @@ export default async function ProblemPage({
           </section>
         )}
 
-        {/* 자주 묻는 질문 */}
+        
 
-        <section className="mt-16">
-          <div>
-            <h2 className="text-2xl font-black text-slate-950">
-              자주 묻는 질문
-            </h2>
-
-            <p className="mt-2 text-sm text-slate-500">
-              이 문제와 관련해 자주 확인하는
-              내용을 정리했습니다.
-            </p>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            {faq.map(
-              (item, index) => (
-                <FaqItem
-                  key={index}
-                  question={item.question}
-                  answer={item.answer}
-                />
-              )
-            )}
-          </div>
-        </section>
+        
 
         
 {/* 관련 문제 */}
 
 {relatedProblems.length > 0 && (
   <>
-    {/* FAQ와 관련 문제 사이 강제 여백 */}
+    {/* 관련 문제 위 여백 */}
     <div
       aria-hidden="true"
       style={{
@@ -528,6 +505,30 @@ export default async function ProblemPage({
           >
             다른 문제 검색하기 →
           </Link>
+        </section>
+      <section className="mt-16">
+          <div>
+            <h2 className="text-2xl font-black text-slate-950">
+              자주 묻는 질문
+            </h2>
+
+            <p className="mt-2 text-sm text-slate-500">
+              이 문제와 관련해 자주 확인하는
+              내용을 정리했습니다.
+            </p>
+          </div>
+
+          <div className="mt-6 space-y-4">
+            {faq.map(
+              (item, index) => (
+                <FaqItem
+                  key={index}
+                  question={item.question}
+                  answer={item.answer}
+                />
+              )
+            )}
+          </div>
         </section>
       </div>
 
