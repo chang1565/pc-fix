@@ -3,6 +3,12 @@ import { localizePath } from "./lib/localization";
 import { languageCookie, visitorLocale } from "./lib/visitorLocale";
 
 export function proxy(request: NextRequest) {
+  if (request.headers.get("cf-visitor")?.match(/"scheme"\s*:\s*"http"/)) {
+    const url = request.nextUrl.clone();
+    url.protocol = "https:"; url.host = "pcfixbase.com"; url.port = "";
+    return NextResponse.redirect(url, 308);
+  }
+  if (request.nextUrl.pathname !== "/") return NextResponse.next();
   const country = request.headers.get("cf-ipcountry");
   const preference = request.cookies.get(languageCookie)?.value;
   // Keep local development in Korean unless a country or preference is supplied.
@@ -13,4 +19,4 @@ export function proxy(request: NextRequest) {
   return response;
 }
 
-export const config = { matcher: ["/"] };
+export const config = { matcher: ["/:path*"] };
