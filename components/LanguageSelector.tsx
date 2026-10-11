@@ -8,6 +8,7 @@ export default function LanguageSelector() {
   return <div className="shrink-0" translate="no">
     <select id="site-language" aria-label="Select language" value={localeFromPath(pathname)} onChange={event => {
       const locale = event.target.value as Locale;
+      document.cookie = `pcfix-language=${locale}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
       const url = new URL(window.location.href);
       url.pathname = localizePath(url.pathname, locale);
       // 다른 root layout으로 전환하며 검색어·해시·상세 slug를 유지합니다.
