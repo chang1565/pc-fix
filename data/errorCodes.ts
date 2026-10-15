@@ -121,6 +121,50 @@ function referenceFor(code: string, fallback: string) {
   return fallback;
 }
 
+// 노출이 확인된 검색어의 표현과 실제 해결 절차를 함께 설명합니다.
+const searchMetadata: Record<string, Pick<ErrorCodeEntry, "seoTitle" | "seoDescription">> = {
+  "Error 1722": {
+    seoTitle: "Error 1722 해결 방법: Windows Installer 설치 실패 | PC FIX",
+    seoDescription: "Windows 프로그램 설치 중 Error 1722가 뜨나요? 실패한 작업 이름과 설치 로그를 확인하고, 공식 설치 파일·필수 구성요소를 점검하는 순서를 안내합니다.",
+  },
+  "0x800736B1": {
+    seoTitle: "0x800736B1 해결 방법: Side-by-Side 구성 오류 | PC FIX",
+    seoDescription: "앱 실행 시 0x800736B1 또는 나란히 실행 구성이 잘못됐다는 메시지가 뜨나요? SideBySide 이벤트에서 필요한 Visual C++ 런타임의 버전·아키텍처를 확인하세요.",
+  },
+  ERR_NAME_NOT_RESOLVED: {
+    seoTitle: "ERR_NAME_NOT_RESOLVED 해결 방법: 크롬 DNS 오류 | PC FIX",
+    seoDescription: "크롬 ERR_NAME_NOT_RESOLVED로 사이트가 열리지 않나요? 주소 오타, DNS 캐시, 사내 VPN 필요 여부를 확인하고 다른 장치·네트워크와 비교하는 방법을 안내합니다.",
+  },
+  SYSTEM_SERVICE_EXCEPTION: {
+    seoTitle: "SYSTEM_SERVICE_EXCEPTION 해결: 드라이버·시스템 파일 점검 | PC FIX",
+    seoDescription: "SYSTEM_SERVICE_EXCEPTION 블루스크린의 .sys 파일명과 최근 드라이버 변경을 확인하세요. 드라이버 충돌 점검과 DISM·SFC 시스템 파일 복구 순서를 안내합니다.",
+  },
+  "0x8024200D": {
+    seoTitle: "0x8024200D 해결 방법: Windows 업데이트 설치 실패 | PC FIX",
+    seoDescription: "Windows 업데이트가 0x8024200D로 실패하나요? 추가 다운로드가 필요한 오류의 의미, 실패한 KB 번호 확인, 문제 해결 도구와 공식 패키지 재다운로드 절차를 안내합니다.",
+  },
+  DXGI_ERROR_DEVICE_RESET: {
+    seoTitle: "DXGI_ERROR_DEVICE_RESET 해결: 게임 종료·그래픽 장치 리셋 | PC FIX",
+    seoDescription: "게임이 DXGI_ERROR_DEVICE_RESET과 함께 종료되나요? 그래픽 설정 복원, 게임 파일 검사, 안정 드라이버와 공식 렌더링 모드 비교 순서를 확인하세요.",
+  },
+  DXGI_ERROR_INVALID_CALL: {
+    seoTitle: "DXGI_ERROR_INVALID_CALL 해결: 게임 그래픽 호출 오류 | PC FIX",
+    seoDescription: "게임에서 DXGI_ERROR_INVALID_CALL이 뜨나요? 해상도·창 모드·모드·오버레이를 점검하고 공식 패치를 확인하세요. 앱의 잘못된 API 호출은 개발사 수정이 필요할 수 있습니다.",
+  },
+  ERR_CACHE_MISS: {
+    seoTitle: "ERR_CACHE_MISS 오류 해결 방법: 크롬 양식 다시 제출 | PC FIX",
+    seoDescription: "크롬 ERR_CACHE_MISS 오류가 뜨나요? 양식 다시 제출의 의미와 시크릿 창·확장 기능 확인 방법을 안내합니다. 결제·주문은 중복 제출 전에 처리 내역부터 확인하세요.",
+  },
+  ERR_NETWORK_CHANGED: {
+    seoTitle: "ERR_NETWORK_CHANGED 오류 해결: 크롬 네트워크 변경 | PC FIX",
+    seoDescription: "크롬에서 ERR_NETWORK_CHANGED가 뜰 때 Wi-Fi 전환, VPN 재연결, 유선·무선 동시 연결을 확인하세요. 연결을 안정시킨 뒤 재시도하는 순서를 안내합니다.",
+  },
+  "Code 45": {
+    seoTitle: "코드 45 해결 방법: 하드웨어 장치가 연결되어 있지 않음 | PC FIX",
+    seoDescription: "장치 관리자에 ‘이 하드웨어 장치가 현재 컴퓨터에 연결되어 있지 않습니다. (코드 45)’가 뜨나요? 연결·전원·케이블과 이전 장치 기록을 구분해 확인하세요.",
+  },
+};
+
 export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entries.map(seed => {
   const [code, name, description, commonSituations, causes, firstCheck, action, checkPoint, question, answer] = seed;
   const title = `${code} ${name}`;
@@ -135,8 +179,8 @@ export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entrie
     ],
     faqs: [{ question, answer }, { question: `${code} 조치 후 무엇을 확인하나요?`, answer: checkPoint }],
     relatedProblemSlugs: group.related,
-    seoTitle: `${title} 원인과 해결 방법 | PC FIX`,
-    seoDescription: `${description} ${commonSituations} ${firstCheck}`,
+    seoTitle: searchMetadata[code]?.seoTitle ?? `${title} 원인과 해결 방법 | PC FIX`,
+    seoDescription: searchMetadata[code]?.seoDescription ?? `${description} ${commonSituations} ${firstCheck}`,
     sources: [{ title: group.category === "네트워크/브라우저" ? "Google Chrome 공식 도움말" : "Microsoft 공식 문서", url: referenceFor(code, group.source) }],
   };
 }));

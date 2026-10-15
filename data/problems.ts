@@ -33,6 +33,8 @@ export type Problem = {
 type StepInput = Omit<SolutionStep, "order">;
 
 type ProblemSeed = {
+  seoTitle?: string;
+  seoDescription?: string;
   slug: string;
   title: string;
   category: string;
@@ -3996,6 +3998,8 @@ const issueSeeds: ProblemSeed[] = [
   },
   {
     "slug": "bsod-system-service-exception",
+    "seoTitle": "SYSTEM_SERVICE_EXCEPTION 블루스크린 해결 방법 | PC FIX",
+    "seoDescription": "SYSTEM_SERVICE_EXCEPTION 블루스크린이 반복되나요? 오류 코드 기록부터 최근 드라이버 변경, 시스템 파일·메모리 점검까지 순서대로 확인하세요.",
     "title": "SYSTEM_SERVICE_EXCEPTION 블루스크린 문제",
     "category": "Windows",
     "preset": "bsod",
@@ -7269,8 +7273,8 @@ const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
     solutions,
     faqs: buildFaqs(seed, solutions, warning),
     warning,
-    seoTitle: `${seed.title} 해결 방법 | PC FIX`,
-    seoDescription: buildSeoDescription(seed),
+    seoTitle: seed.seoTitle ?? `${seed.title} 해결 방법 | PC FIX`,
+    seoDescription: seed.seoDescription ?? buildSeoDescription(seed),
   };
 });
 
