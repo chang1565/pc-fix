@@ -366,6 +366,7 @@ export default async function ProblemPage({
                   </div>
 
                   <div className="px-5 py-6 sm:px-6">
+                    {solution.location && <div className="mb-5 rounded-xl bg-blue-50 p-4 text-sm leading-7 text-blue-900"><strong>확인할 곳: </strong>{solution.location}</div>}
                     <ol className="space-y-4">
                       {solution.steps.map(
                         (step, index) => (
@@ -388,7 +389,7 @@ export default async function ProblemPage({
                     {solution.checkPoint && (
                       <div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
                         <p className="text-sm font-bold text-green-800">
-                          확인 포인트
+                          결과 판단과 다음 행동
                         </p>
 
                         <p className="mt-1 text-sm leading-6 text-green-700">

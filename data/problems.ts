@@ -1,5 +1,5 @@
 import problemDiagnostics from "./problemDiagnostics.json";
-import solutionOutcomes from "./solutionOutcomes.json";
+import procedureReview from "./procedureReview.json";
 import problemReferences from "./problemReferences.json";
 
 export type SolutionStep = {
@@ -11,6 +11,7 @@ export type SolutionStep = {
   cost: string;
   steps: string[];
   checkPoint?: string;
+  location?: string;
 };
 
 export type ProblemFaq = {
@@ -7105,14 +7106,16 @@ function personalizeSolutions(
   const followUps = ["hdd-clicking", "bitlocker-recovery-screen"].includes(seed.slug) ? [] : solutions;
   const seen = new Set<string>();
   return [specific, ...followUps].map((solution, index) => {
-    const checkPoint = solution.checkPoint ?? solutionOutcomes[solution.title as keyof typeof solutionOutcomes];
+    const reviewed = index === 0 ? undefined : procedureReview[solution.title as keyof typeof procedureReview];
+    if (index > 0 && !reviewed) throw new Error(`Missing procedure review: ${solution.title}`);
+    const checkPoint = reviewed?.checkPoint ?? solution.checkPoint;
     if (!checkPoint) throw new Error(`Missing action outcome: ${solution.title}`);
-    const steps = solution.steps.filter(action => {
+    const steps = (reviewed?.steps ?? solution.steps).filter(action => {
       if (seen.has(action)) return false;
       seen.add(action);
       return true;
     });
-    return { ...solution, steps, checkPoint, order: index + 1 };
+    return { ...solution, ...(reviewed ? { location: reviewed.location } : {}), steps, checkPoint, order: index + 1 };
   }).filter(solution => solution.steps.length).map((solution, index) => ({ ...solution, order: index + 1 }));
 }
 

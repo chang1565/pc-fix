@@ -7,6 +7,10 @@ const { problems } = load("data/problems.ts");
 const { errorCodes } = load("data/errorCodes.ts");
 const symptomBranches = JSON.parse(fs.readFileSync(new URL("../data/problemDiagnostics.json", import.meta.url), "utf8"));
 const errorBranches = JSON.parse(fs.readFileSync(new URL("../data/errorDiagnostics.json", import.meta.url), "utf8"));
+const procedures = load("data/procedureReview.json");
+const errorProcedures = load("data/errorProcedureReview.json");
+assert.equal(Object.keys(procedures).length, 198);
+assert.deepEqual(Object.keys(errorProcedures).sort(), errorCodes.map(e => e.code).sort());
 assert.deepEqual(Object.keys(symptomBranches).sort(), problems.map(p => p.slug).sort());
 assert.deepEqual(Object.keys(errorBranches).sort(), errorCodes.map(p => p.code).sort());
 assert.equal(new Set(Object.values(symptomBranches).map(v => JSON.stringify(v))).size, 217);
@@ -28,12 +32,27 @@ for (const page of [...problems, ...errorCodes]) {
 for (const problem of problems) {
   assert.deepEqual(problem.solutions[0].steps, symptomBranches[problem.slug], problem.slug);
   assert.ok(problem.solutions[0].steps.length === 3);
+  for (const solution of problem.solutions.slice(1)) {
+    const reviewed = procedures[solution.title];
+    assert.ok(reviewed, `unreviewed procedure: ${solution.title}`);
+    assert.equal(solution.location, reviewed.location, problem.slug);
+    assert.ok(solution.steps.every(action => reviewed.steps.includes(action)), problem.slug);
+    assert.equal(solution.checkPoint, reviewed.checkPoint, problem.slug);
+  }
 }
+assert.deepEqual(Object.keys(procedures).sort(), [...new Set(problems.flatMap(p => p.solutions.slice(1).map(s => s.title)))].sort());
 for (const error of errorCodes) {
   assert.equal(error.solutions.length, 4, error.code);
   assert.ok(error.solutions[0].steps.includes(errorBranches[error.code][0]), error.code);
   assert.ok(error.solutions.at(-1).steps.includes(errorBranches[error.code][1]), error.code);
+  assert.ok(error.solutions.every(s => s.location?.length > 10), `missing location: ${error.code}`);
+  assert.equal(error.solutions[1].checkPoint, errorProcedures[error.code].firstResult);
 }
+assert.match(procedures["USB 전원 절약 설정 확인하기"].checkPoint, /허브/);
+assert.match(procedures["케이블·전원·GPU 장착 상태 확인하기"].checkPoint, /GPU/);
+assert.ok(!procedures["유선 연결로 먼저 테스트하기"].checkPoint.includes("회선"));
+assert.match(procedures["IP·DNS 상태 초기화하기"].steps.join(" "), /고정 IP·조직망/);
+assert.match(procedures["클린 부팅 또는 새 사용자 계정으로 비교하기"].steps.join(" "), /Microsoft 서비스 숨기기/);
 // 고장 디스크 반복 검사와 복구 키 없는 일반 부팅 복구 경로를 노출하지 않습니다.
 assert.equal(problems.find(p => p.slug === "hdd-clicking").solutions.length, 1);
 assert.equal(problems.find(p => p.slug === "bitlocker-recovery-screen").solutions.length, 1);
@@ -44,7 +63,7 @@ assert.match(errorBranches["NET::ERR_CERT_AUTHORITY_INVALID"][1], /임의 루트
 for (const locale of ["en", "ja", "zh-CN"]) {
   const localized = load(`data/locales/${locale}.ts`);
   for (const page of [...localized.problems, ...localized.errorCodes]) {
-    const prose = page.solutions.map(s => [s.title, s.reason, s.steps, s.checkPoint, s.time]);
+    const prose = page.solutions.map(s => [s.title, s.reason, s.location, s.steps, s.checkPoint, s.time]);
     // difficulty는 기존 UI에서 번역하므로 데이터의 한국어 식별값은 제외합니다.
     assert.ok(!/[가-힣]/.test(JSON.stringify(prose)), `${locale}: untranslated ${page.slug}`);
   }

@@ -38,7 +38,7 @@ export function collectStrings() {
   }
   return [...values];
 }
-const commands = /DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
+const commands = /powercfg \/(?:batteryreport|lastwake|waketimers|a)|chrome:\/\/extensions|MemoryDiagnostics-Results|WLAN-AutoConfig|SideBySide|joy\.cpl|eventvwr\.msc|msconfig|\bresmon\b|\b(?:x86|x64|amd64|ARM64)\b|DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
 function protect(text) {
   const tokens = [];
   const masked = text.replace(commands, value => { const key = `ZXQCMD${tokens.length}ZXQ`; tokens.push(value); return key; });

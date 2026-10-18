@@ -254,6 +254,7 @@ export default async function ProblemPage({ params, }: PageProps) {
                   </div>
 
                   <div className="px-5 py-6 sm:px-6">
+                    {solution.location && <div className="mb-5 rounded-xl bg-blue-50 p-4 text-sm leading-7 text-blue-900"><strong>{"\u68C0\u67E5\u4F4D\u7F6E\uFF1A "}</strong>{solution.location}</div>}
                     <ol className="space-y-4">
                       {solution.steps.map((step, index) => (<li key={index} className="flex gap-3 text-sm leading-7 text-slate-700">
                             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-slate-100 text-xs font-bold text-slate-600">
@@ -267,7 +268,7 @@ export default async function ProblemPage({ params, }: PageProps) {
                     </ol>
 
                     {solution.checkPoint && (<div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
-                        <p className="text-sm font-bold text-green-800">{" \u786E\u8BA4\u70B9 "}</p>
+                        <p className="text-sm font-bold text-green-800">{" \u7ED3\u679C\u5224\u65AD\u4E0E\u4E0B\u4E00\u6B65 "}</p>
 
                         <p className="mt-1 text-sm leading-6 text-green-700">
                           {solution.checkPoint}
