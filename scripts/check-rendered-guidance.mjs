@@ -19,8 +19,9 @@ for (const locale of ["ko", "en", "ja", "zh-CN"]) {
       const html = fs.readFileSync(filename, "utf8");
       assert.ok(html.includes('<h1 '), filename);
       assert.ok(html.includes(`href="https://pcfixbase.com/${prefix}${kind}/${entry.slug}"`), `canonical: ${filename}`);
+      for (const text of [entry.beforeSteps, entry.unresolved].filter(Boolean)) assert.ok(html.includes(escape(text)), `missing branch in ${filename}`);
       for (const solution of entry.solutions) {
-        for (const text of [solution.location, ...solution.steps, solution.checkPoint].filter(Boolean)) {
+        for (const text of [solution.title, solution.location, ...solution.steps, solution.checkPoint].filter(Boolean)) {
           assert.ok(html.includes(escape(text)), `missing visible instruction in ${filename}: ${text}`);
         }
         sections++;

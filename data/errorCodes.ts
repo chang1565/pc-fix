@@ -5,6 +5,7 @@ export type ErrorCodeEntry = {
   slug: string; code: string; category: string; title: string;
   description: string; commonSituations: string; causes: string[]; firstCheck: string;
   aliases: string[]; updatedAt: string;
+  beforeSteps: string; unresolved: string;
   solutions: { order: number; title: string; reason: string; difficulty: "쉬움" | "보통" | "어려움"; time: string; steps: string[]; location?: string; checkPoint?: string }[];
   faqs: { question: string; answer: string }[];
   relatedProblemSlugs: string[]; seoTitle: string; seoDescription: string;
@@ -181,11 +182,10 @@ export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entrie
     description, commonSituations, causes: causes.split("|"), firstCheck,
     aliases: [code, code.replace(/_/g, " "), name, ...(group.category === "장치 관리자" ? [`장치 관리자 ${code}`, `코드 ${code.split(" ")[1]}`] : [])],
     updatedAt: errorsUpdatedAt,
+    beforeSteps: diagnostics[0], unresolved: diagnostics[1],
     solutions: [
-      { location: reviewed.firstLocation, order: 1, title: "발생 조건과 먼저 할 일", reason: "먼저 발생 범위를 나눠 해당되는 조치만 선택하세요.", difficulty: "쉬움" as const, time: "5분", steps: [diagnostics[0]], checkPoint: "중단·백업·관리자 확인이 필요한 경우 아래 조치를 계속 진행하지 마세요." },
-      { location: reviewed.firstLocation, order: 2, title: "첫 번째 조치", reason: "아래 변경을 하나만 적용한 뒤 실패했던 작업을 다시 확인하세요.", difficulty: "보통" as const, time: "5~15분", steps: "firstSteps" in reviewed ? reviewed.firstSteps : [actions[0]], checkPoint: reviewed.firstResult },
-      { location: reviewed.secondLocation, order: 3, title: "해결되지 않았을 때의 조치", reason: "첫 조치 후에도 같은 오류가 남을 때만 진행하세요. 작업 전 필요한 파일과 기존 설정을 보존하세요.", difficulty: "보통" as const, time: "10~30분", steps: "secondSteps" in reviewed ? reviewed.secondSteps : actions.slice(1), checkPoint },
-      { location: reviewed.secondLocation, order: 4, title: "결과 확인과 다음 행동", reason: "오류 창이 사라졌는지만 보지 말고 실패했던 기능을 같은 조건에서 확인하세요. 반복되면 아래 기준으로 다음 점검을 정하세요.", difficulty: "쉬움" as const, time: "5~10분", steps: [diagnostics[1]], checkPoint: "해결되면 추가 변경을 멈추세요. 계속되면 오류 코드·발생 시각·작업·변경 전후 결과를 기록해 해당 제품 지원에 전달하세요. 같은 초기화나 재설치를 반복하지 마세요." },
+      { location: reviewed.firstLocation, order: 1, title: reviewed.firstTitle, reason: "", difficulty: "보통" as const, time: "5~15분", steps: "firstSteps" in reviewed ? reviewed.firstSteps : [actions[0]], checkPoint: reviewed.firstResult },
+      { location: reviewed.secondLocation, order: 2, title: reviewed.secondTitle, reason: "", difficulty: "보통" as const, time: "10~30분", steps: "secondSteps" in reviewed ? reviewed.secondSteps : actions.slice(1), checkPoint },
     ],
     faqs: [{ question, answer }, { question: `${code} 조치 후 무엇을 확인하나요?`, answer: checkPoint }],
     relatedProblemSlugs: group.related,

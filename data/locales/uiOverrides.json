@@ -465,7 +465,20 @@
     "모드·녹화·성능 오버레이를 각각 하나씩 제외한 뒤 같은 조작을 반복하세요. 문제가 사라진 항목과 버전을 기록하세요.": "Disable game mods, recording overlays and performance overlays one at a time, repeating the same action after each change. Record the item and version associated with the failure.",
     "주소창의 철자·끝 도메인을 확인하고 사내 전용 이름인지 공개 주소인지 구분하세요. 사내 이름은 승인된 VPN·DNS에서 비교하세요.": "Check the spelling and domain suffix in the address bar. Determine whether the address is public or an internal name that requires an approved company VPN and DNS.",
     "공개 주소는 같은 네트워크의 다른 장치와 허용된 다른 회선에서 열어 실패 범위를 구분하세요. 인증서 경고를 피하려고 IP로 직접 로그인하지 마세요.": "For a public address, compare another device on the same network and another permitted network to determine the scope of the failure. Do not bypass certificate checks by logging in through a raw IP address.",
-    "진행 중인 파일 전송과 원격 작업을 안전하게 마친 뒤 정책상 허용되는 한 연결을 안정적으로 유지하고 같은 페이지를 새로고침하세요. 공유기를 공장 초기화하지 마세요.": "Safely finish active file transfers and remote-access work first. Keep one policy-approved connection stable, then reload the same page. Do not factory-reset the router."
+    "진행 중인 파일 전송과 원격 작업을 안전하게 마친 뒤 정책상 허용되는 한 연결을 안정적으로 유지하고 같은 페이지를 새로고침하세요. 공유기를 공장 초기화하지 마세요.": "Safely finish active file transfers and remote-access work first. Keep one policy-approved connection stable, then reload the same page. Do not factory-reset the router.",
+    "안전 모드에서 최근 보안 프로그램 복구하기": "Repair recently installed security software in Safe Mode",
+    "XMP·EXPO 메모리 설정을 기본값으로 되돌리기": "Restore default XMP·EXPO memory settings",
+    "최근 설치한 장치 드라이버 되돌리기": "Roll back the recently installed device driver",
+    "반복되는 오류의 덤프 파일 보관하기": "Save crash dumps when the error keeps returning",
+    "오류의 .sys 파일과 최근 드라이버 변경 비교하기": "Compare the .sys file in the error with recent driver changes",
+    "최근 드라이버 복원 후 저장장치 확인하기": "Roll back recent drivers, then check the storage device",
+    "최근 스토리지·칩셋 드라이버 되돌리기": "Roll back recent storage and chipset drivers",
+    "백업 후 SSD 펌웨어와 USB 장치 비교하기": "Back up files before checking SSD firmware and USB devices",
+    "GPU 기본 설정과 안정 드라이버로 비교하기": "Compare default GPU settings and a stable driver",
+    "게임 부하를 낮추고 팬·통풍 확인하기": "Reduce game load and check fans and airflow",
+    "직전에 바꾼 저장장치 모드 복원하기": "Restore the storage mode you just changed",
+    "최근 드라이버 복원과 시스템 파일 검사하기": "Roll back recent drivers and check system files",
+    "칩셋·무선랜·그래픽 드라이버 점검하기": "Check chipset, Wi-Fi and graphics drivers"
   },
   "ja": {
     "통합 검색": "検索",
@@ -1722,6 +1735,8 @@
     "모드·녹화·성능 오버레이를 각각 하나씩 제외한 뒤 같은 조작을 반복하세요. 문제가 사라진 항목과 버전을 기록하세요.": "逐一停用游戏模组、录制叠加层和性能监测叠加层，每次更改后重复同一操作，并记录与故障相关的项目和版本。",
     "주소창의 철자·끝 도메인을 확인하고 사내 전용 이름인지 공개 주소인지 구분하세요. 사내 이름은 승인된 VPN·DNS에서 비교하세요.": "检查地址栏的拼写和域名后缀，区分这是公开地址，还是需要获准的内部VPN和DNS才能访问的内部域名。",
     "공개 주소는 같은 네트워크의 다른 장치와 허용된 다른 회선에서 열어 실패 범위를 구분하세요. 인증서 경고를 피하려고 IP로 직접 로그인하지 마세요.": "对于公开地址，请分别用同一网络的其他设备和另一个获准网络进行比较，以确定故障范围。不要为绕过证书警告而直接用IP地址登录。",
-    "진행 중인 파일 전송과 원격 작업을 안전하게 마친 뒤 정책상 허용되는 한 연결을 안정적으로 유지하고 같은 페이지를 새로고침하세요. 공유기를 공장 초기화하지 마세요.": "先安全完成正在进行的文件传输和远程控制工作，再保持一个策略允许的稳定连接并刷新同一页面。不要将路由器恢复出厂设置。"
+    "진행 중인 파일 전송과 원격 작업을 안전하게 마친 뒤 정책상 허용되는 한 연결을 안정적으로 유지하고 같은 페이지를 새로고침하세요. 공유기를 공장 초기화하지 마세요.": "先安全完成正在进行的文件传输和远程控制工作，再保持一个策略允许的稳定连接并刷新同一页面。不要将路由器恢复出厂设置。",
+    "오류의 .sys 파일과 최근 드라이버 변경 비교하기": "将错误中的 .sys 文件与最近的驱动程序更改进行对照",
+    "최근 드라이버 복원 후 저장장치 확인하기": "回退最近更改的驱动程序后检查存储设备"
   }
 }

@@ -42,11 +42,14 @@ for (const problem of problems) {
 }
 assert.deepEqual(Object.keys(procedures).sort(), [...new Set(problems.flatMap(p => p.solutions.slice(1).map(s => s.title)))].sort());
 for (const error of errorCodes) {
-  assert.equal(error.solutions.length, 4, error.code);
-  assert.ok(error.solutions[0].steps.includes(errorBranches[error.code][0]), error.code);
-  assert.ok(error.solutions.at(-1).steps.includes(errorBranches[error.code][1]), error.code);
+  assert.equal(error.solutions.length, 2, error.code);
+  assert.equal(error.beforeSteps, errorBranches[error.code][0], error.code);
+  assert.equal(error.unresolved, errorBranches[error.code][1], error.code);
   assert.ok(error.solutions.every(s => s.location?.length > 10), `missing location: ${error.code}`);
-  assert.equal(error.solutions[1].checkPoint, errorProcedures[error.code].firstResult);
+  assert.equal(error.solutions[0].checkPoint, errorProcedures[error.code].firstResult);
+  assert.equal(error.solutions[0].title, errorProcedures[error.code].firstTitle);
+  assert.equal(error.solutions[1].title, errorProcedures[error.code].secondTitle);
+  assert.ok(error.solutions.every(s => !/첫 번째 조치|해결되지 않았을 때의 조치/.test(s.title)), error.code);
 }
 assert.match(procedures["USB 전원 절약 설정 확인하기"].checkPoint, /허브/);
 assert.match(procedures["케이블·전원·GPU 장착 상태 확인하기"].checkPoint, /GPU/);
@@ -63,6 +66,7 @@ assert.match(errorBranches["NET::ERR_CERT_AUTHORITY_INVALID"][1], /임의 루트
 for (const locale of ["en", "ja", "zh-CN"]) {
   const localized = load(`data/locales/${locale}.ts`);
   for (const page of [...localized.problems, ...localized.errorCodes]) {
+    if (page.beforeSteps) assert.ok(!/[가-힣]/.test(page.beforeSteps + page.unresolved), `${locale}: untranslated branches ${page.slug}`);
     const prose = page.solutions.map(s => [s.title, s.reason, s.location, s.steps, s.checkPoint, s.time]);
     // difficulty는 기존 UI에서 번역하므로 데이터의 한국어 식별값은 제외합니다.
     assert.ok(!/[가-힣]/.test(JSON.stringify(prose)), `${locale}: untranslated ${page.slug}`);
