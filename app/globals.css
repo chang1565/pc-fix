@@ -32,9 +32,12 @@ input {
 button {
   cursor: pointer;
 }
-.display-ad-sides { display: grid; gap: 24px; max-width: 1024px; margin: 32px auto; padding: 0 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.display-ad-sides { display: none; }
 .display-ad-side { width: 100%; min-width: 0; }
-@media (max-width: 639px) { .display-ad-sides { grid-template-columns: 1fr; } }
+.display-ad-block:has(ins[data-ad-status="unfilled"]),
+.display-ad-side:has(ins[data-ad-status="unfilled"]) { display: none; }
+.display-ad-block .adsbygoogle { min-height: 100px; }
+@media (min-width: 640px) { .display-ad-block .adsbygoogle { min-height: 250px; } }
 @media (min-width: 1200px) and (min-height: 720px) {
   main:has(.display-ad-sides) { padding-inline: 184px; }
   .display-ad-sides { display: contents; }

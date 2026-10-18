@@ -15,6 +15,15 @@ assert.equal(new Set(Object.values(errorBranches).map(v => JSON.stringify(v))).s
 for (const page of [...problems, ...errorCodes]) {
   assert.deepEqual(page.solutions.map(s => s.order), page.solutions.map((_, i) => i + 1), page.slug);
   assert.ok(page.solutions.every(s => s.steps.length && s.steps.every(v => v.trim())), page.slug);
+  assert.ok(page.solutions.every(s => s.checkPoint?.trim()), `missing result: ${page.slug}`);
+  const actions = page.solutions.flatMap(s => s.steps);
+  assert.equal(new Set(actions).size, actions.length, `repeated action: ${page.slug}`);
+  assert.ok(page.sources?.length, `missing references: ${page.slug}`);
+  for (const source of page.sources) {
+    const url = new URL(source.url);
+    assert.equal(url.protocol, "https:");
+    assert.ok(/^(support\.microsoft\.com|learn\.microsoft\.com|www\.microsoft\.com|support\.google\.com|www\.dell\.com|dl\.dell\.com|www\.seagate\.com)$/.test(url.hostname), source.url);
+  }
 }
 for (const problem of problems) {
   assert.deepEqual(problem.solutions[0].steps, symptomBranches[problem.slug], problem.slug);

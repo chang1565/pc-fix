@@ -1,4 +1,6 @@
 import problemDiagnostics from "./problemDiagnostics.json";
+import solutionOutcomes from "./solutionOutcomes.json";
+import problemReferences from "./problemReferences.json";
 
 export type SolutionStep = {
   order: number;
@@ -30,6 +32,7 @@ export type Problem = {
   seoTitle: string;
   seoDescription: string;
   relatedSlugs: string[];
+  sources: { title: string; url: string }[];
 };
 
 type StepInput = Omit<SolutionStep, "order">;
@@ -7063,65 +7066,6 @@ function buildWarning(seed: ProblemSeed): string | undefined {
   return undefined;
 }
 
-const presetFocus: Record<string, string> = {
-  "no-power-desktop": "외부 전원 공급부터 파워서플라이와 메인보드 순으로 확인해 불필요한 분해를 줄이는 것이 핵심입니다.",
-  "no-power-laptop": "충전기·배터리·전원 관리 회로를 쉬운 항목부터 순서대로 구분하세요.",
-  "battery": "충전기와 배터리 상태, 제조사 전원 관리 설정을 차례로 확인하면 원인을 좁히기 쉽습니다.",
-  "power-instability": "전원 공급, 온도, 튜닝 설정을 분리해서 확인해야 갑작스러운 종료·재부팅 원인을 찾기 쉽습니다.",
-  "boot": "POST 단계와 Windows 시작 단계를 구분한 뒤 외부 장치, 부팅 설정, 복구 환경 순으로 확인하세요.",
-  "boot-loop": "반복 재부팅이 시작되는 시점을 기준으로 Windows 복구와 하드웨어 진단을 나눠 진행하세요.",
-  "boot-device": "BIOS에서 시스템 드라이브가 보이는지 먼저 확인한 뒤 부팅 순서와 Windows 복구를 진행하세요.",
-  "no-video": "모니터·케이블·입력 소스부터 GPU·RAM의 POST 상태까지 출력 경로를 한 단계씩 확인하세요.",
-  "display-cable": "입력 소스, 케이블, 포트, 다른 모니터 순으로 교차 테스트하면 출력 장치와 PC 문제를 구분할 수 있습니다.",
-  "black-screen-windows": "Windows가 동작하는지 먼저 확인하고 출력 모드와 그래픽 드라이버를 순서대로 점검하세요.",
-  "display-settings": "해상도·주사율·HDR·VRR과 케이블 대역폭을 함께 확인해야 설정 문제와 하드웨어 한계를 구분할 수 있습니다.",
-  "gpu-driver": "그래픽 드라이버 버전과 설치 상태, 출력 환경, 튜닝 설정을 하나씩 비교하세요.",
-  "gpu-hardware": "드라이버 문제를 배제한 뒤 온도·전원·장착 상태와 교차 테스트로 GPU 자체 이상 여부를 판단하세요.",
-  "gpu-performance": "GPU 사용률·온도·클럭과 게임 설정을 함께 확인해 성능 제한의 원인을 찾으세요.",
-  "game-crash": "오류 메시지, 게임 파일, 그래픽 드라이버, 오버레이와 하드웨어 안정성을 순서대로 확인하세요.",
-  "game-performance": "게임 설정을 낮춘 비교 테스트와 CPU·GPU 사용률 확인으로 병목과 스로틀링을 구분하세요.",
-  "game-network": "유선 비교, 백그라운드 트래픽, 공유기 상태를 확인해 PC·회선·게임 서버 문제를 분리하세요.",
-  "bsod": "중지 코드와 발생 시점을 기록한 뒤 최근 변경, RAM·저장장치, 시스템 파일 순으로 원인을 좁히세요.",
-  "windows-update": "재부팅과 저장 공간부터 확인한 뒤 업데이트 구성 요소와 시스템 파일 복구를 진행하세요.",
-  "windows-shell": "Explorer와 시작 프로그램, 시스템 파일, 사용자 프로필을 순서대로 확인하면 Windows 셸 문제를 구분하기 쉽습니다.",
-  "windows-login": "PIN·암호 같은 로그인 수단과 네트워크, 사용자 프로필을 분리해서 확인하세요.",
-  "app": "앱 자체 복구·재설치와 Windows 시스템 문제를 구분해 불필요한 초기화를 피하세요.",
-  "system-files": "시스템 파일 복구와 저장장치 상태, 최근 시스템 변경을 함께 확인하세요.",
-  "performance": "작업 관리자에서 CPU·메모리·디스크 병목을 먼저 찾고 시작 프로그램·저장 공간·온도를 확인하세요.",
-  "ram": "XMP/EXPO 같은 메모리 설정을 기본값으로 되돌린 뒤 진단과 모듈·슬롯 교차 테스트를 진행하세요.",
-  "cpu": "프로세스 부하, 전원 모드, 온도와 클럭을 함께 확인해 소프트웨어 부하와 하드웨어 제한을 구분하세요.",
-  "storage-detect": "BIOS와 디스크 관리에서 인식 위치를 확인하고 케이블·포트·슬롯을 교차 테스트하세요.",
-  "storage-health": "중요한 데이터 백업을 우선한 뒤 SMART와 제조사 진단으로 실제 드라이브 상태를 확인하세요.",
-  "storage-performance": "디스크를 사용하는 프로세스, 여유 공간, 연결 속도와 SMART를 순서대로 확인하세요.",
-  "wifi": "무선 어댑터 상태와 저장된 프로필, 공유기·신호 품질, 드라이버를 차례로 점검하세요.",
-  "ethernet": "랜 케이블·공유기 포트와 IP 할당 상태를 먼저 확인하고 드라이버와 네트워크 초기화는 뒤에 진행하세요.",
-  "dns": "인터넷 자체가 끊긴 것인지 이름 해석만 실패한 것인지 먼저 구분한 뒤 DNS 설정을 점검하세요.",
-  "network": "다른 기기와 유선 연결로 비교해 PC, 공유기, ISP 중 어느 구간에서 문제가 생기는지 좁히세요.",
-  "bluetooth": "Bluetooth 전원 상태와 페어링 정보를 초기화한 뒤 드라이버·간섭·장치 자체 문제를 확인하세요.",
-  "usb": "장치, 케이블, USB 포트를 교차 테스트한 뒤 전원 관리와 드라이버 문제를 확인하세요.",
-  "keyboard": "다른 포트·다른 PC에서 비교해 키보드 자체 문제와 Windows 입력 설정·드라이버 문제를 구분하세요.",
-  "mouse": "센서·배터리·무선 연결과 다른 포트 테스트를 통해 마우스 하드웨어와 PC 쪽 문제를 나누세요.",
-  "touchpad": "기능키와 터치패드 설정을 먼저 확인하고 제조사 드라이버와 BIOS 인식 상태를 점검하세요.",
-  "controller": "유선·무선 연결, 게임 내 입력 방식과 드라이버를 각각 확인해 충돌 원인을 찾으세요.",
-  "sdcard": "카드·리더기·포트를 교차 테스트하고 기존 데이터가 필요하면 포맷보다 백업과 복구를 우선하세요.",
-  "audio": "출력 장치 선택과 볼륨 믹서부터 드라이버·케이블·장치 자체 문제까지 순서대로 확인하세요.",
-  "microphone": "입력 장치 선택, 앱 권한, 입력 레벨을 먼저 확인한 뒤 드라이버와 하드웨어를 점검하세요.",
-  "printer": "프린터 상태와 연결, 인쇄 대기열, 드라이버 순으로 확인하면 PC와 프린터 어느 쪽 문제인지 구분하기 쉽습니다.",
-  "camera": "카메라 권한과 사용 중인 앱, 장치 인식 상태를 확인한 뒤 드라이버와 물리 연결을 점검하세요.",
-  "thermal": "고부하를 잠시 줄이고 온도·팬·통풍 상태를 확인한 뒤 냉각계통과 전력 설정을 점검하세요.",
-  "sleep": "절전 진입과 복귀 중 어느 단계에서 실패하는지 확인하고 드라이버·전원 정책·BIOS를 순서대로 점검하세요.",
-  "general": "증상이 발생하는 조건과 최근 변경 사항을 기록한 뒤 소프트웨어와 하드웨어 원인을 나눠 확인하세요.",
-};
-
-function stableVariant(seed: ProblemSeed, count: number) {
-  const hash = [...seed.slug].reduce(
-    (total, char) => total + char.charCodeAt(0),
-    0
-  );
-
-  return hash % count;
-}
-
 function causeSummary(seed: ProblemSeed) {
   return seed.extraCauses.slice(0, 2).join(", ");
 }
@@ -7129,18 +7073,8 @@ function causeSummary(seed: ProblemSeed) {
 function buildDescription(seed: ProblemSeed) {
   const symptom = seed.symptoms[0];
   const causes = causeSummary(seed);
-  const focus = presetFocus[seed.preset] ?? presetFocus.general;
 
-  const variants = [
-    `“${symptom}” 증상이 보이는 경우 원인 후보로는 ${causes} 등이 있습니다. ${focus}`,
-    `${seed.category} 문제 중 “${symptom}” 증상은 ${causes}와 관련될 수 있습니다. ${focus}`,
-    `이 가이드는 “${symptom}” 상황에서 ${causes} 항목을 안전한 순서로 구분하도록 구성했습니다. ${focus}`,
-    `“${symptom}”이 반복된다면 여러 설정을 한꺼번에 바꾸기보다 ${causes}부터 범위를 좁히는 편이 좋습니다. ${focus}`,
-    `현재 증상이 “${symptom}”에 가깝다면 ${causes} 여부를 먼저 살펴보세요. ${focus}`,
-    `${seed.title} 해결에서는 원인을 한 번에 하나씩 배제하는 과정이 중요합니다. “${symptom}” 증상을 기준으로 ${causes}를 확인한 뒤 다음 단계를 진행하세요. ${focus}`,
-  ];
-
-  return variants[stableVariant(seed, variants.length)];
+  return `“${symptom}” 증상이 있을 때 확인할 원인 후보: ${causes}.`;
 }
 
 function buildSeoDescription(seed: ProblemSeed) {
@@ -7169,7 +7103,17 @@ function personalizeSolutions(
   );
   // 공통 점검은 증상별 분기 뒤에만 제공합니다. 안전 분기에서 중단했다면 실행하지 않습니다.
   const followUps = ["hdd-clicking", "bitlocker-recovery-screen"].includes(seed.slug) ? [] : solutions;
-  return [specific, ...followUps].map((solution, index) => ({ ...solution, order: index + 1 }));
+  const seen = new Set<string>();
+  return [specific, ...followUps].map((solution, index) => {
+    const checkPoint = solution.checkPoint ?? solutionOutcomes[solution.title as keyof typeof solutionOutcomes];
+    if (!checkPoint) throw new Error(`Missing action outcome: ${solution.title}`);
+    const steps = solution.steps.filter(action => {
+      if (seen.has(action)) return false;
+      seen.add(action);
+      return true;
+    });
+    return { ...solution, steps, checkPoint, order: index + 1 };
+  }).filter(solution => solution.steps.length).map((solution, index) => ({ ...solution, order: index + 1 }));
 }
 
 function buildFaqs(
@@ -7266,6 +7210,7 @@ const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
     symptoms: seed.symptoms,
     keywords,
     causes: seed.extraCauses,
+    sources: problemReferences[(seed.slug in problemReferences ? seed.slug : seed.preset) as keyof typeof problemReferences],
     solutions,
     faqs: buildFaqs(seed, warning),
     warning,

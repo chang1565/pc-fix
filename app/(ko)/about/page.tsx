@@ -40,6 +40,13 @@ export default function AboutPage() {
               물리적인 고장이 의심되는 경우 전문적인 점검을 받는 것을
               권장합니다.
             </p>
+            <section>
+              <h2 className="text-lg font-bold text-slate-950">작성·검토 방식</h2>
+              <p className="mt-2">PC FIX 운영자가 증상별 확인 순서, 결과에 따른 다음 조치, 중단해야 할 조건을 정리합니다. 제조사와 Microsoft·Google 등의 공식 문서를 참고하며, 상세 페이지에서 관련 자료를 확인할 수 있습니다. 공통 점검은 해당 증상의 분기로 원인을 좁힌 뒤 필요한 경우에만 진행합니다.</p>
+              <p className="mt-2">가이드는 모든 기기에서 직접 재현한 수리 기록이 아닙니다. 내용 검토일은 안내를 수정·검토한 날짜이며 모든 환경의 실험 완료를 뜻하지 않습니다. 메뉴 이름은 Windows 버전과 제조사에 따라 다를 수 있습니다.</p>
+              <p className="mt-2">영어·일본어·중국어 안내에는 자동 번역을 사용하며 기술 용어와 안전 문구를 점검합니다. 원문의 의미가 불명확하거나 실제 화면과 다르면 작업을 멈추고 공식 문서를 확인하세요.</p>
+              <a href="/contact" className="mt-2 inline-block text-blue-600 underline">내용 오류·수정 요청 보내기</a>
+            </section>
           </div>
         </div>
       </article>

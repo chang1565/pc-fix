@@ -1,0 +1,302 @@
+{
+  "no-power-desktop": [
+    {
+      "title": "Dell: 전원·POST·부팅·영상 출력 구분 (Dell 장치 기준)",
+      "url": "https://www.dell.com/support/kbdoc/en-us/000125609/resolve-no-power-no-post-no-boot-or-no-video-issues-with-your-dell-computer"
+    }
+  ],
+  "no-power-laptop": [
+    {
+      "title": "Dell: 전원·POST·부팅·영상 출력 구분 (Dell 장치 기준)",
+      "url": "https://www.dell.com/support/kbdoc/en-us/000125609/resolve-no-power-no-post-no-boot-or-no-video-issues-with-your-dell-computer"
+    }
+  ],
+  "battery": [
+    {
+      "title": "Dell: 전원·POST·부팅·영상 출력 구분 (Dell 장치 기준)",
+      "url": "https://www.dell.com/support/kbdoc/en-us/000125609/resolve-no-power-no-post-no-boot-or-no-video-issues-with-your-dell-computer"
+    }
+  ],
+  "power-instability": [
+    {
+      "title": "Dell: 전원·POST·부팅·영상 출력 구분 (Dell 장치 기준)",
+      "url": "https://www.dell.com/support/kbdoc/en-us/000125609/resolve-no-power-no-post-no-boot-or-no-video-issues-with-your-dell-computer"
+    }
+  ],
+  "boot": [
+    {
+      "title": "Microsoft: Windows 복구 옵션",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/recovery-options-in-windows"
+    }
+  ],
+  "boot-loop": [
+    {
+      "title": "Microsoft: Windows 복구 옵션",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/recovery-options-in-windows"
+    }
+  ],
+  "boot-device": [
+    {
+      "title": "Microsoft: Windows 복구 옵션",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/recovery-options-in-windows"
+    }
+  ],
+  "windows-login": [
+    {
+      "title": "Microsoft: Windows 복구 옵션",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/recovery-options-in-windows"
+    }
+  ],
+  "sleep": [
+    {
+      "title": "Microsoft: Windows 복구 옵션",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/recovery-options-in-windows"
+    }
+  ],
+  "no-video": [
+    {
+      "title": "Microsoft: Windows 검은 화면 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+    }
+  ],
+  "display-cable": [
+    {
+      "title": "Microsoft: Windows 검은 화면 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+    }
+  ],
+  "black-screen-windows": [
+    {
+      "title": "Microsoft: Windows 검은 화면 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+    }
+  ],
+  "display-settings": [
+    {
+      "title": "Microsoft: Windows 검은 화면 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+    }
+  ],
+  "gpu-driver": [
+    {
+      "title": "Microsoft: Windows 검은 화면 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+    }
+  ],
+  "gpu-hardware": [
+    {
+      "title": "Microsoft: Windows 검은 화면 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+    }
+  ],
+  "gpu-performance": [
+    {
+      "title": "Microsoft: Windows 성능 개선",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+    }
+  ],
+  "game-performance": [
+    {
+      "title": "Microsoft: Windows 성능 개선",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+    }
+  ],
+  "performance": [
+    {
+      "title": "Microsoft: Windows 성능 개선",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+    }
+  ],
+  "cpu": [
+    {
+      "title": "Microsoft: Windows 성능 개선",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+    }
+  ],
+  "general": [
+    {
+      "title": "Microsoft: Windows 성능 개선",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+    }
+  ],
+  "app": [
+    {
+      "title": "Microsoft: Windows 성능 개선",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+    }
+  ],
+  "game-crash": [
+    {
+      "title": "Microsoft: 예기치 않은 재시작과 중지 코드",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors"
+    }
+  ],
+  "bsod": [
+    {
+      "title": "Microsoft: 예기치 않은 재시작과 중지 코드",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors"
+    }
+  ],
+  "ram": [
+    {
+      "title": "Microsoft: 예기치 않은 재시작과 중지 코드",
+      "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors"
+    }
+  ],
+  "windows-update": [
+    {
+      "title": "Microsoft: DISM·SFC로 시스템 파일 복구",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files"
+    }
+  ],
+  "windows-shell": [
+    {
+      "title": "Microsoft: DISM·SFC로 시스템 파일 복구",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files"
+    }
+  ],
+  "system-files": [
+    {
+      "title": "Microsoft: DISM·SFC로 시스템 파일 복구",
+      "url": "https://support.microsoft.com/en-us/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files"
+    }
+  ],
+  "storage-detect": [
+    {
+      "title": "Seagate: SMART 경고와 데이터 백업",
+      "url": "https://www.seagate.com/support/kb/my-system-reported-a-smart-error-on-the-drive-184619en/"
+    }
+  ],
+  "storage-health": [
+    {
+      "title": "Seagate: SMART 경고와 데이터 백업",
+      "url": "https://www.seagate.com/support/kb/my-system-reported-a-smart-error-on-the-drive-184619en/"
+    }
+  ],
+  "storage-performance": [
+    {
+      "title": "Seagate: SMART 경고와 데이터 백업",
+      "url": "https://www.seagate.com/support/kb/my-system-reported-a-smart-error-on-the-drive-184619en/"
+    }
+  ],
+  "sdcard": [
+    {
+      "title": "Seagate: SMART 경고와 데이터 백업",
+      "url": "https://www.seagate.com/support/kb/my-system-reported-a-smart-error-on-the-drive-184619en/"
+    }
+  ],
+  "wifi": [
+    {
+      "title": "Microsoft: Wi-Fi 연결 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+    }
+  ],
+  "network": [
+    {
+      "title": "Microsoft: Wi-Fi 연결 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+    }
+  ],
+  "game-network": [
+    {
+      "title": "Microsoft: Wi-Fi 연결 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+    }
+  ],
+  "dns": [
+    {
+      "title": "Microsoft: Wi-Fi 연결 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+    }
+  ],
+  "ethernet": [
+    {
+      "title": "Microsoft: 이더넷 연결 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-ethernet-connection-problems-in-windows"
+    }
+  ],
+  "bluetooth": [
+    {
+      "title": "Microsoft: Bluetooth 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows"
+    }
+  ],
+  "controller": [
+    {
+      "title": "Microsoft: Bluetooth 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows"
+    }
+  ],
+  "usb": [
+    {
+      "title": "Microsoft: 마우스·키보드 연결 문제",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/input-devices/mouse-and-keyboard-problems-in-windows"
+    }
+  ],
+  "keyboard": [
+    {
+      "title": "Microsoft: 마우스·키보드 연결 문제",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/input-devices/mouse-and-keyboard-problems-in-windows"
+    }
+  ],
+  "mouse": [
+    {
+      "title": "Microsoft: 마우스·키보드 연결 문제",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/input-devices/mouse-and-keyboard-problems-in-windows"
+    }
+  ],
+  "touchpad": [
+    {
+      "title": "Microsoft: 마우스·키보드 연결 문제",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/input-devices/mouse-and-keyboard-problems-in-windows"
+    }
+  ],
+  "audio": [
+    {
+      "title": "Microsoft: 소리·오디오 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/audio/fix-sound-or-audio-problems-in-windows"
+    }
+  ],
+  "microphone": [
+    {
+      "title": "Microsoft: 소리·오디오 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/audio/fix-sound-or-audio-problems-in-windows"
+    }
+  ],
+  "printer": [
+    {
+      "title": "Microsoft: 프린터 연결·인쇄 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/printer/fix-printer-connection-and-printing-problems-in-windows"
+    }
+  ],
+  "camera": [
+    {
+      "title": "Microsoft: 카메라 문제 해결",
+      "url": "https://support.microsoft.com/en-us/windows/hardware/camera/camera-doesn-t-work-in-windows"
+    }
+  ],
+  "thermal": [
+    {
+      "title": "Dell: 과열·팬 점검 (Dell 장치 기준)",
+      "url": "https://www.dell.com/support/contents/en-us/article/product-support/self-support-knowledgebase/battery-and-power/fan"
+    }
+  ],
+  "battery-swollen": [
+    {
+      "title": "Dell: 팽창한 리튬이온 배터리 취급 (영문)",
+      "url": "https://dl.dell.com/topicspdf/swollenbattery-3_en-us.pdf"
+    }
+  ],
+  "hdd-clicking": [
+    {
+      "title": "Seagate: 하드디스크 소음과 고장 신호",
+      "url": "https://www.seagate.com/support/kb/identifying-hard-drive-sounds-and-determining-what-they-mean/"
+    }
+  ],
+  "bitlocker-recovery-screen": [
+    {
+      "title": "Microsoft: BitLocker 복구 키 찾기",
+      "url": "https://support.microsoft.com/en-us/windows/security/encryption/find-your-bitlocker-recovery-key"
+    }
+  ]
+}

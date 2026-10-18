@@ -10,7 +10,7 @@ declare global {
 
 export default function DisplayAd({ label = "광고", placement = "bottom" }: { label?: string; placement?: "top" | "bottom" | "left" | "right" }) {
   const side = placement === "left" || placement === "right";
-  const container = side ? `display-ad-side display-ad-${placement}` : "mx-auto my-8 w-full max-w-5xl px-5";
+  const container = side ? `display-ad-side display-ad-${placement}` : "display-ad-block mx-auto my-8 w-full max-w-5xl px-5";
   const height = side ? 600 : 250;
   const element = useRef<HTMLModElement>(null);
   const requested = useRef(false);
@@ -51,7 +51,7 @@ export default function DisplayAd({ label = "광고", placement = "bottom" }: { 
       <ins
         ref={element}
         className="adsbygoogle"
-        style={{ display: "block", minHeight: height }}
+        style={{ display: "block", ...(side ? { minHeight: height } : {}) }}
         data-ad-client="ca-pub-5914836791785057"
         data-ad-slot="4458770043"
         data-ad-format="auto"

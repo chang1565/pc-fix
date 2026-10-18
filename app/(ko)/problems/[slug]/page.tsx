@@ -403,6 +403,14 @@ export default async function ProblemPage({
           </div>
         </section>
 
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-lg font-black text-slate-950">공식 참고 문서와 적용 범위</h2>
+          <ul className="mt-3 space-y-2">{problem.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul>
+          <p className="mt-4 text-sm leading-7 text-slate-600">Windows 버전·장치 모델에 따라 메뉴와 지원 기능이 다릅니다. 제조사 문서의 적용 모델을 확인하세요. 아래 자료는 관련 절차의 참고 문서이며 모든 증상을 동일한 원인으로 확정하는 근거는 아닙니다.</p>
+          <p className="mt-3 text-xs text-slate-500">내용 검토일: 2026-10-18 · 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p>
+          <Link href="/contact" className="mt-3 inline-block text-sm text-blue-600 underline">설명 오류·다른 결과 제보하기</Link>
+        </section>
+
         {/* 주의사항 */}
 
         {problem.warning && (

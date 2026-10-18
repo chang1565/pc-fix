@@ -13,30 +13,31 @@ export default function PrivacyPage() {
 
           <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 1. Personal information processing "}</h2>
-
-              <p className="mt-2">{" PC FIX does not currently provide a membership registration function and does not directly collect personal information such as user name or phone number. "}</p>
+              <h2 className="text-lg font-bold text-slate-950">{"1. Site use and inquiries"}</h2>
+              <p className="mt-2">{"PC FIX can be used without membership registration. If you send an inquiry email, your reply address and inquiry content will be used to respond and correct errors. Please do not send sensitive information such as passwords, payment information, or recovery keys. To request deletion of inquiry information, please send it to contact@pcfixbase.com."}</p>
+              <p className="mt-2">{"For page serving and security purposes, our servers and Cloudflare may process your IP address, request address, and browser information. Cloudflare uses your country information to select your default language on your first visit."}</p>
+              <a className="text-blue-600 underline" href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">{"Cloudflare Privacy Policy"}</a>
             </section>
-
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 2. Cookies and external services "}</h2>
-
-              <p className="mt-2">{" Cookies or external services may be used to improve future services, analyze visit statistics, and serve advertisements. "}</p>
+              <h2 className="text-lg font-bold text-slate-950">{"2. Language selection cookie"}</h2>
+              <p className="mt-2">{"If you choose your own language, we will store your language selection in the pcfix-language cookie for up to one year. This is a functional cookie to display the same language on your next visit. You can delete or block them in your browser's site data settings. If you delete it, your default language will be reselected on your next visit based on your country information, etc."}</p>
             </section>
-
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 3. Advertising "}</h2>
-
-              <p className="mt-2">{" PC FIX may in the future use external advertising services, such as Google AdSense, and these services may use cookies for ad serving and measurement. "}</p>
+              <h2 className="text-lg font-bold text-slate-950">{"3. Google advertising and external cookies"}</h2>
+              <p className="mt-2">{"PC FIX has Google AdSense advertising code installed. Whether or not your ad appears is subject to Google's review and ad availability. Google and third-party advertising providers may process cookies, IP addresses, browser and device information, etc. to serve and measure ads and prevent fraud."}</p>
+              <p className="mt-2">{"Google and its partners may serve you personalized ads based on your past visits to this site or other websites. How we process advertising and information will vary depending on your jurisdiction and your consent choices. If a consent message is displayed, you can select whether to consent and detailed options."}</p>
+              <ul className="mt-3 list-disc space-y-2 pl-5">
+                <li><a className="text-blue-600 underline" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">{"How Google uses information from partner sites"}</a></li>
+                <li><a className="text-blue-600 underline" href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer">{"Turn Google personalized ads on and off"}</a></li>
+                <li><a className="text-blue-600 underline" href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer">{"Opting out of personalized advertising from third-party advertising vendors"}</a></li>
+              </ul>
+              <p className="mt-2">{"You can also delete or block cookies and site data in your browser settings. In this case, some features, such as language saving, may be different. Deleting cookies or turning off personalized advertising does not remove all advertising itself."}</p>
             </section>
-
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 4. Policy change "}</h2>
-
-              <p className="mt-2">{" The contents of this privacy policy may change as service functions change. "}</p>
+              <h2 className="text-lg font-bold text-slate-950">{"4. Inquiries and policy changes"}</h2>
+              <p className="mt-2">{"Please send inquiries regarding personal information and content to contact@pcfixbase.com. Changes to services and external services will be reflected on this page."}</p>
             </section>
-
-            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{" Effective date: October 6, 2026 "}</p>
+            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{"Effective date: October 6, 2026 Last modified: October 18, 2026"}</p>
           </div>
         </div>
       </article>

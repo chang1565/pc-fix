@@ -13,6 +13,7 @@ export default function ContactPage() {
 
           <p className="mt-6 leading-7 text-slate-600">{" This is a page for PC FIX content errors, correction requests, partnerships, and other inquiries. "}</p>
 
+          <p className="mt-4 text-sm leading-7 text-slate-600">{"In your correction request, please include the page address, error code, Windows version, action attempted, and result. Please hide the name, email, product key, and recovery key in the screen data. We don't ask for remote access or passwords."}</p>
           <div className="mt-8 rounded-xl bg-slate-50 p-5">
             <h2 className="font-bold text-slate-950">{" How to contact us "}</h2>
 

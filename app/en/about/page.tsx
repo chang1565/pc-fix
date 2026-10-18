@@ -19,6 +19,13 @@ export default function AboutPage() {
             <p>{" Where possible, solutions are organized starting with the easiest and least expensive method and progressing to more advanced steps. "}</p>
 
             <p>{" Because every computer environment may be different, the methods provided do not guarantee the same results in all situations. If you have important data, we recommend backing it up first and getting a professional inspection if you suspect a physical failure. "}</p>
+            <section>
+              <h2 className="text-lg font-bold text-slate-950">{"Writing/review method"}</h2>
+              <p className="mt-2">{"The PC FIX operator organizes the check order for each symptom, next actions based on the results, and conditions to stop. Please refer to the official documents of the manufacturer, Microsoft, Google, etc., and related information can be found on the detailed page. Common inspection is performed only when necessary after narrowing down the cause to the symptom branch."}</p>
+              <p className="mt-2">{"The guide is not a direct repair record for every device. The content review date is the date when the guidance was revised and reviewed and does not mean that the experiment in all environments has been completed. Menu names may vary depending on Windows version and manufacturer."}</p>
+              <p className="mt-2">{"We use automatic translation for guidance in English, Japanese, and Chinese and check technical terms and safety phrases. If the meaning of the original text is unclear or different from the actual screen, stop working and check the official document."}</p>
+              <a href="/en/contact" className="mt-2 inline-block text-blue-600 underline">{"Send content error/correction request"}</a>
+            </section>
           </div>
         </div>
       </article>
