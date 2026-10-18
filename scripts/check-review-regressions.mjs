@@ -25,6 +25,9 @@ assert.match(actions(problem('disk-unallocated')),/새 단순 볼륨/);
 assert.match(problem('battery-swollen').solutions[0].steps[0],/만지거나 옮기지/);
 assert.match(problem('fan-not-spinning').solutions[0].steps[0],/사용을 중단/);
 assert.match(actions(problem('windows-black-screen-cursor')),/explorer\.exe/);
+const installer=errorCodes.find(p=>p.code==='Error 1603');
+assert.match(installer.solutions[0].steps.join(' '),/cmd 검색.*명령 프롬프트/);
+assert.match(installer.solutions[0].steps.join(' '),/%TEMP%/);
 for(const slug of ['sleep-wake-problem','monitor-wakes-no-display','lid-close-not-sleep'])assert.doesNotMatch(problem(slug).solutions.slice(1).map(s=>s.title).join(' '),/깨우기.*해제|타이머.*해제/);
 for(const code of ['MEMORY_MANAGEMENT','PAGE_FAULT_IN_NONPAGED_AREA','KERNEL_SECURITY_CHECK_FAILURE','0xC0000005']) {
  const page=errorCodes.find(p=>p.code===code);

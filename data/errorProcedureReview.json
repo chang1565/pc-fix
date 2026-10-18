@@ -1055,13 +1055,13 @@
     ]
   },
   "Error 1603": {
-    "firstLocation": "공식 설치 파일·기존 제품의 수정·제거 화면과 설치 로그",
+    "firstLocation": "시작 → cmd 검색 → 관리자 권한으로 실행 → 명령 프롬프트",
     "firstResult": "MSI와 EXE의 로깅 방법을 구분하고 실제 MSI 경로에만 명령 예제를 적용하세요.",
     "secondLocation": "제작사가 안내한 설치 로그의 실패 작업·발생 시각",
     "firstTitle": "지원 설치 로깅 옵션으로 로그 저장하기",
     "secondTitle": "실패 직전 작업과 설치 로그 전달하기",
     "firstSteps": [
-      "제작사 지원 설치 로깅 옵션으로 실패 로그를 저장하세요. 공식 MSI 파일인 경우에만 관리자 터미널에서 msiexec /i \"C:\\경로\\제품.msi\" /L*v \"%TEMP%\\pcfix-install.log\"처럼 실제 파일 경로로 실행할 수 있습니다. EXE 파일에 이 MSI 명령을 적용하지 마세요."
+      "제작사 지원 로깅 옵션을 우선 사용하세요. 공식 MSI 파일인 경우에만 시작에서 cmd 검색 → 관리자 권한으로 실행하여 명령 프롬프트를 여세요. msiexec /i \"C:\\Install\\Product.msi\" /L*v \"%TEMP%\\pcfix-install.log\" 형식에서 MSI 경로를 실제 공식 파일로 바꿔 실행하세요. 이 예제는 명령 프롬프트용이며 EXE 파일에 적용하지 마세요."
     ],
     "secondSteps": [
       "Windows 키+R → %TEMP% → Enter에서 생성된 pcfix-install.log를 열고 실패 시각의 Return value 3 바로 앞 작업·오류를 확인하세요. 마지막 1603만으로 원인을 확정하지 마세요. 로그에 개인정보가 있을 수 있으므로 공개하지 말고 제작사에 필요한 부분을 전달하세요."

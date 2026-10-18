@@ -592,7 +592,9 @@
     "본인 서버라면 서버 터미널에서 서비스 관리 방식에 따라 systemctl status 서비스이름 또는 docker compose ps로 실행 상태를 확인하세요. ss -ltn으로 실제 수신 포트와 127.0.0.1 전용인지 확인하세요. 서비스이름은 실제 등록 이름을 써야 합니다.": "On your own server, use the appropriate service manager: systemctl status SERVICE or docker compose ps. Replace SERVICE with the actual registered service name. Use ss -ltn to inspect listening ports and whether the service binds only to 127.0.0.1.",
     "정확한 주소와 시크릿 결과 비교하기": "Compare the exact URL and the Incognito result",
     "보안 차단 기록과 실행 계정을 확인하고 임의 폴더로 옮기는 것을 보편 해결책으로 쓰지 마세요.": "Check security-blocking records and the account running the app. Moving the app to an arbitrary folder is not a general fix.",
-    "사용을 중단하세요. 기기가 뜨겁거나 연기가 나는 상태가 아니고 안전하게 가능할 때만 전원을 끄세요. 안전한 위치에서 충전 전원을 분리하고 눌리거나 가연물에 닿지 않게 하세요.": "Stop using the device. Only when it is not hot or smoking and it is safe to do so, switch it off and disconnect charging power safely. Keep it from being crushed or contacting flammable materials."
+    "사용을 중단하세요. 기기가 뜨겁거나 연기가 나는 상태가 아니고 안전하게 가능할 때만 전원을 끄세요. 안전한 위치에서 충전 전원을 분리하고 눌리거나 가연물에 닿지 않게 하세요.": "Stop using the device. Only when it is not hot or smoking and it is safe to do so, switch it off and disconnect charging power safely. Keep it from being crushed or contacting flammable materials.",
+    "제작사 지원 로깅 옵션을 우선 사용하세요. 공식 MSI 파일인 경우에만 시작에서 cmd 검색 → 관리자 권한으로 실행하여 명령 프롬프트를 여세요. msiexec /i \"C:\\Install\\Product.msi\" /L*v \"%TEMP%\\pcfix-install.log\" 형식에서 MSI 경로를 실제 공식 파일로 바꿔 실행하세요. 이 예제는 명령 프롬프트용이며 EXE 파일에 적용하지 마세요.": "Prefer the vendor supported logging option. Only for an official MSI package, search Start for cmd and choose Run as administrator to open Command Prompt. Use msiexec /i \"C:\\Install\\Product.msi\" /L*v \"%TEMP%\\pcfix-install.log\", replacing the MSI path with the actual official file. This example is for Command Prompt; do not apply it to an EXE file.",
+    "시작 → cmd 검색 → 관리자 권한으로 실행 → 명령 프롬프트": "Start → search cmd → Run as administrator → Command Prompt"
   },
   "ja": {
     "통합 검색": "検索",
@@ -1301,7 +1303,9 @@
     "허용된 다른 기기·회선에서 같은 주소를 비교하세요. 본인이 관리하는 VPN은 연결 전후를 비교하되 회사 보안·프록시 정책은 해제하지 마세요. 한 사이트만 계속 실패하면 주소·시각·오류를 운영자에게 전달하세요.": "許可された他の機器・回線で同じアドレスを比較してください。本人が管理するVPNは接続前後を比較しますが、会社のセキュリティ・プロキシポリシーは解除しないでください。 1つのサイトしか失敗しない場合は、アドレス、時刻、エラーを運営者に伝えてください。",
     "정확한 주소·프로토콜·포트 확인하기": "正確なアドレス・プロトコル・ポートを確認する",
     "주소·발급자·유효 기간을 기록하고 보안 경고를 우회하지 마세요.": "アドレス、発行者、有効期間を記録し、セキュリティ警告をバイパスしないでください。",
-    "사용을 중단하세요. 기기가 뜨겁거나 연기가 나는 상태가 아니고 안전하게 가능할 때만 전원을 끄세요. 안전한 위치에서 충전 전원을 분리하고 눌리거나 가연물에 닿지 않게 하세요.": "使用を中止してください。熱や煙がなく安全にできる場合だけ電源を切り、安全な場所で充電用の電源を外してください。押しつぶしたり可燃物に触れたりしないようにしてください。"
+    "사용을 중단하세요. 기기가 뜨겁거나 연기가 나는 상태가 아니고 안전하게 가능할 때만 전원을 끄세요. 안전한 위치에서 충전 전원을 분리하고 눌리거나 가연물에 닿지 않게 하세요.": "使用を中止してください。熱や煙がなく安全にできる場合だけ電源を切り、安全な場所で充電用の電源を外してください。押しつぶしたり可燃物に触れたりしないようにしてください。",
+    "제작사 지원 로깅 옵션을 우선 사용하세요. 공식 MSI 파일인 경우에만 시작에서 cmd 검색 → 관리자 권한으로 실행하여 명령 프롬프트를 여세요. msiexec /i \"C:\\Install\\Product.msi\" /L*v \"%TEMP%\\pcfix-install.log\" 형식에서 MSI 경로를 실제 공식 파일로 바꿔 실행하세요. 이 예제는 명령 프롬프트용이며 EXE 파일에 적용하지 마세요.": "メーカーが対応するログ記録方法を優先してください。公式MSIファイルの場合だけ、スタートでcmdを検索し、管理者として実行してコマンドプロンプトを開いてください。msiexec /i \"C:\\Install\\Product.msi\" /L*v \"%TEMP%\\pcfix-install.log\" のMSIパスを実際の公式ファイルへ置き換えて実行します。この例はコマンドプロンプト用です。EXEファイルへ適用しないでください。",
+    "시작 → cmd 검색 → 관리자 권한으로 실행 → 명령 프롬프트": "スタート → cmdを検索 → 管理者として実行 → コマンドプロンプト"
   },
   "zh-CN": {
     "통합 검색": "搜索",
@@ -2231,6 +2235,8 @@
     "시크릿 창에서 같은 주소 비교하기": "在无痕窗口窗口中比较相同的地址",
     "시크릿에서만 정상이라면 일반 창의 사이트 데이터·확장 범위를 조사하세요.": "如果仅在 无痕模式 中正常，请在常规窗口中检查站点数据/扩展名范围。",
     "여러 기기·시크릿에서도 같으면 사이트의 리디렉션·로그인 설정 문제일 수 있으므로 운영자에게 주소와 실패 시각을 전달하세요.": "如果在多个设备/无痕窗口上都相同，则可能是站点的重定向/登录设置有问题，因此请将地址和失败时间传达给管理员。",
-    "사용을 중단하세요. 기기가 뜨겁거나 연기가 나는 상태가 아니고 안전하게 가능할 때만 전원을 끄세요. 안전한 위치에서 충전 전원을 분리하고 눌리거나 가연물에 닿지 않게 하세요.": "停止使用设备。只有设备不发热、不冒烟且安全允许时，才关机并在安全位置断开充电电源。避免挤压或接触易燃材料。"
+    "사용을 중단하세요. 기기가 뜨겁거나 연기가 나는 상태가 아니고 안전하게 가능할 때만 전원을 끄세요. 안전한 위치에서 충전 전원을 분리하고 눌리거나 가연물에 닿지 않게 하세요.": "停止使用设备。只有设备不发热、不冒烟且安全允许时，才关机并在安全位置断开充电电源。避免挤压或接触易燃材料。",
+    "제작사 지원 로깅 옵션을 우선 사용하세요. 공식 MSI 파일인 경우에만 시작에서 cmd 검색 → 관리자 권한으로 실행하여 명령 프롬프트를 여세요. msiexec /i \"C:\\Install\\Product.msi\" /L*v \"%TEMP%\\pcfix-install.log\" 형식에서 MSI 경로를 실제 공식 파일로 바꿔 실행하세요. 이 예제는 명령 프롬프트용이며 EXE 파일에 적용하지 마세요.": "优先使用厂商支持的日志选项。仅对官方 MSI 包，在开始菜单搜索 cmd，选择以管理员身份运行，打开命令提示符。使用 msiexec /i \"C:\\Install\\Product.msi\" /L*v \"%TEMP%\\pcfix-install.log\"，将 MSI 路径替换为实际官方文件。此示例适用于命令提示符，不适用于 EXE 文件。",
+    "시작 → cmd 검색 → 관리자 권한으로 실행 → 명령 프롬프트": "开始 → 搜索 cmd → 以管理员身份运行 → 命令提示符"
   }
 }
