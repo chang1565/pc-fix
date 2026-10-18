@@ -1,3 +1,5 @@
+import problemDiagnostics from "./problemDiagnostics.json";
+
 export type SolutionStep = {
   order: number;
   title: string;
@@ -7157,30 +7159,24 @@ function personalizeSolutions(
     return solutions;
   }
 
-  const symptom = seed.symptoms[0];
-  const cause = seed.extraCauses[0];
-  const first = solutions[0];
-  const personalizedCheck = `이 단계 후 “${symptom}” 증상이 줄거나 사라지는지 확인하세요. 변화가 없다면 ${cause} 가능성도 다음 단계에서 함께 확인합니다.`;
-
-  return solutions.map((solution, index) =>
-    index === 0
-      ? {
-          ...solution,
-          checkPoint: solution.checkPoint
-            ? `${solution.checkPoint} ${personalizedCheck}`
-            : personalizedCheck,
-        }
-      : solution
+  const diagnostics = problemDiagnostics[seed.slug as keyof typeof problemDiagnostics];
+  if (!diagnostics) throw new Error(`Missing symptom diagnostics: ${seed.slug}`);
+  const specific = step(
+    "증상별 확인 순서와 결과 판단",
+    "먼저 아래 조건으로 발생 범위를 구분하세요. 중단·백업·점검이 필요한 결과라면 뒤의 일반 조치를 계속 진행하지 마세요.",
+    "쉬움", "5~15분", diagnostics,
+    "같은 조건에서 증상이 사라졌다면 조치를 멈추세요. 반복되면 확인한 결과와 변경한 항목을 기록하고 해당되는 추가 점검만 진행하세요."
   );
+  // 공통 점검은 증상별 분기 뒤에만 제공합니다. 안전 분기에서 중단했다면 실행하지 않습니다.
+  const followUps = ["hdd-clicking", "bitlocker-recovery-screen"].includes(seed.slug) ? [] : solutions;
+  return [specific, ...followUps].map((solution, index) => ({ ...solution, order: index + 1 }));
 }
 
 function buildFaqs(
   seed: ProblemSeed,
-  solutions: SolutionStep[],
   warning?: string
 ): ProblemFaq[] {
-  const firstSolution = solutions[0];
-  const secondSolution = solutions[1] ?? firstSolution;
+  const diagnostics = problemDiagnostics[seed.slug as keyof typeof problemDiagnostics];
   const firstSymptom = seed.symptoms[0];
   const firstCause = seed.extraCauses[0];
 
@@ -7191,11 +7187,11 @@ function buildFaqs(
   return [
     {
       question: `${firstSymptom} 증상이 보이면 가장 먼저 무엇을 확인해야 하나요?`,
-      answer: `먼저 ‘${firstSolution.title}’ 단계부터 진행하세요. ${firstSolution.reason} 한 번에 여러 설정을 바꾸지 말고 각 단계 뒤에 증상이 달라지는지 확인하는 것이 좋습니다.`,
+      answer: diagnostics[0],
     },
     {
       question: `원인 후보 ‘${firstCause}’는 어떻게 확인하나요?`,
-      answer: `첫 단계에서 변화가 없다면 ‘${secondSolution.title}’까지 순서대로 비교해 보세요. 특정 조치 직후 증상이 사라지거나 재현 조건이 바뀌면 원인 범위를 좁히는 중요한 단서가 됩니다.`,
+      answer: `${diagnostics[1]} ${diagnostics[2]}`,
     },
     {
       question: `${seed.title}: 언제 전문 점검이 필요한가요?`,
@@ -7271,7 +7267,7 @@ const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
     keywords,
     causes: seed.extraCauses,
     solutions,
-    faqs: buildFaqs(seed, solutions, warning),
+    faqs: buildFaqs(seed, warning),
     warning,
     seoTitle: seed.seoTitle ?? `${seed.title} 해결 방법 | PC FIX`,
     seoDescription: seed.seoDescription ?? buildSeoDescription(seed),
