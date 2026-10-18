@@ -170,13 +170,14 @@ const searchMetadata: Record<string, Pick<ErrorCodeEntry, "seoTitle" | "seoDescr
 };
 
 export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entries.map(seed => {
-  const [code, name, description, commonSituations, causes, firstCheck, action, checkPoint, question, answer] = seed;
+  const [code, name, description, commonSituations, causes, firstCheck, action, verification, question, answer] = seed;
   const title = `${code} ${name}`;
   const diagnostics = errorDiagnostics[code as keyof typeof errorDiagnostics];
   if (!diagnostics) throw new Error(`Missing error diagnostics: ${code}`);
   const actions = action.split("|");
   const reviewed = errorProcedureReview[code as keyof typeof errorProcedureReview];
   if (!reviewed) throw new Error(`Missing error procedure review: ${code}`);
+  const checkPoint = "secondResult" in reviewed && typeof reviewed.secondResult === "string" ? reviewed.secondResult : verification;
   return {
     slug: slugFor(group.category, code), code, category: group.category, title,
     description, commonSituations, causes: causes.split("|"), firstCheck,

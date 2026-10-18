@@ -1,6 +1,7 @@
 import problemDiagnostics from "./problemDiagnostics.json";
 import procedureReview from "./procedureReview.json";
 import problemReferences from "./problemReferences.json";
+import problemSolutionReview from "./problemSolutionReview.json";
 
 export type SolutionStep = {
   order: number;
@@ -7104,6 +7105,19 @@ function personalizeSolutions(
   );
   // 공통 점검은 증상별 분기 뒤에만 제공합니다. 안전 분기에서 중단했다면 실행하지 않습니다.
   const followUps = ["hdd-clicking", "bitlocker-recovery-screen"].includes(seed.slug) ? [] : solutions;
+  const replacement = problemSolutionReview[seed.slug as keyof typeof problemSolutionReview];
+  if (replacement) {
+    const authored = replacement as StepInput[];
+    const actions = new Set<string>(specific.steps);
+    return withOrder([specific, ...authored.map(solution => ({
+      ...solution,
+      steps: solution.steps.filter(action => {
+        if (actions.has(action)) return false;
+        actions.add(action);
+        return true;
+      }),
+    })).filter(solution => solution.steps.length)]);
+  }
   const seen = new Set<string>();
   return [specific, ...followUps].map((solution, index) => {
     const reviewed = index === 0 ? undefined : procedureReview[solution.title as keyof typeof procedureReview];

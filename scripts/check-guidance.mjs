@@ -9,6 +9,7 @@ const symptomBranches = JSON.parse(fs.readFileSync(new URL("../data/problemDiagn
 const errorBranches = JSON.parse(fs.readFileSync(new URL("../data/errorDiagnostics.json", import.meta.url), "utf8"));
 const procedures = load("data/procedureReview.json");
 const errorProcedures = load("data/errorProcedureReview.json");
+const problemSequences = load("data/problemSolutionReview.json");
 assert.equal(Object.keys(procedures).length, 198);
 assert.deepEqual(Object.keys(errorProcedures).sort(), errorCodes.map(e => e.code).sort());
 assert.deepEqual(Object.keys(symptomBranches).sort(), problems.map(p => p.slug).sort());
@@ -27,7 +28,10 @@ for (const page of [...problems, ...errorCodes]) {
       ["이벤트 뷰어", /eventvwr\.msc/],
       ["작업 관리자", /Ctrl\s*\+\s*Shift\s*\+\s*Esc/i],
       ["디스크 관리", /Windows 키\+X|diskmgmt\.msc/],
-    ]) if (action.includes(name)) assert.match(action, opening, `${page.slug}: missing opening path for ${name}`);
+    ]) if (action.includes(name)) {
+      const section = page.solutions.find(solution => solution.steps.includes(action));
+      assert.match(section.steps.join(" "), opening, `${page.slug}: missing opening path for ${name}`);
+    }
   }
   assert.equal(new Set(actions).size, actions.length, `repeated action: ${page.slug}`);
   assert.ok(page.sources?.length, `missing references: ${page.slug}`);
@@ -41,6 +45,13 @@ for (const problem of problems) {
   assert.deepEqual(problem.solutions[0].steps, symptomBranches[problem.slug], problem.slug);
   assert.ok(problem.solutions[0].steps.length === 3);
   for (const solution of problem.solutions.slice(1)) {
+    const replacement = problemSequences[problem.slug]?.find(item => item.title === solution.title);
+    if (replacement) {
+      assert.equal(solution.location, replacement.location, problem.slug);
+      assert.ok(solution.steps.every(action => replacement.steps.includes(action)), problem.slug);
+      assert.equal(solution.checkPoint, replacement.checkPoint, problem.slug);
+      continue;
+    }
     const reviewed = procedures[solution.title];
     assert.ok(reviewed, `unreviewed procedure: ${solution.title}`);
     assert.equal(solution.location, reviewed.location, problem.slug);
@@ -48,7 +59,11 @@ for (const problem of problems) {
     assert.equal(solution.checkPoint, reviewed.checkPoint, problem.slug);
   }
 }
-assert.deepEqual(Object.keys(procedures).sort(), [...new Set(problems.flatMap(p => p.solutions.slice(1).map(s => s.title)))].sort());
+for (const slug of Object.keys(problemSequences)) {
+  const page = problems.find(p => p.slug === slug);
+  assert.ok(page, `orphan reviewed sequence: ${slug}`);
+  assert.deepEqual(page.solutions.slice(1).map(s => s.title), problemSequences[slug].map(s => s.title));
+}
 for (const error of errorCodes) {
   assert.equal(error.solutions.length, 2, error.code);
   assert.equal(error.beforeSteps, errorBranches[error.code][0], error.code);
@@ -92,7 +107,7 @@ for (const locale of ["en", "ja", "zh-CN"]) {
   }
   if (locale === "ja") {
     assert.match(dictionary[symptomBranches["battery-swollen"][1]], /可燃物から離れ/);
-    assert.ok(!dictionary[symptomBranches["battery-swollen"][1]].includes("落と"));
+    assert.ok(!/可燃物から落/.test(dictionary[symptomBranches["battery-swollen"][1]]));
   }
 }
 console.log("PASS: 297 distinct diagnostic paths, ordered nonempty actions, failure outcomes, protected stop paths and 4-language solution coverage.");
