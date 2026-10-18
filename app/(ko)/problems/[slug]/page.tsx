@@ -320,9 +320,16 @@ export default async function ProblemPage({
             </p>
           </div>
 
+          <aside id="solution-1" className="mt-6 rounded-xl border border-blue-200 bg-blue-50 p-5">
+            <h3 className="font-bold text-blue-950">{problem.solutions[0].title}</h3>
+            <ul className="mt-3 list-disc space-y-3 pl-5 text-sm leading-7 text-blue-900">
+              {problem.solutions[0].steps.map(item => <li key={item}>{item}</li>)}
+            </ul>
+            <p className="mt-3 text-sm leading-7 text-blue-900">{problem.solutions[0].checkPoint}</p>
+          </aside>
           <div className="mt-6 space-y-6">
-            {problem.solutions.map(
-              (solution) => (
+            {problem.solutions.slice(1).map(
+              (solution, solutionIndex) => (
                 <article
                   key={solution.order}
                   id={`solution-${solution.order}`}
@@ -332,7 +339,7 @@ export default async function ProblemPage({
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex gap-4">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-black text-white">
-                          {solution.order}
+                          {solutionIndex + 1}
                         </div>
 
                         <div>
@@ -340,28 +347,11 @@ export default async function ProblemPage({
                             {solution.title}
                           </h3>
 
-                          <p className="mt-2 text-sm leading-6 text-slate-600">
-                            {solution.reason}
-                          </p>
+
                         </div>
                       </div>
 
-                      <div className="flex shrink-0 flex-wrap gap-2 text-xs font-semibold">
-                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">
-                          난이도{" "}
-                          {solution.difficulty}
-                        </span>
 
-                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">
-                          시간{" "}
-                          {solution.time}
-                        </span>
-
-                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">
-                          비용{" "}
-                          {solution.cost}
-                        </span>
-                      </div>
                     </div>
                   </div>
 

@@ -38,10 +38,12 @@ export function collectStrings() {
   }
   return [...values];
 }
-const commands = /powercfg \/(?:batteryreport|lastwake|waketimers|a)|chrome:\/\/extensions|MemoryDiagnostics-Results|WLAN-AutoConfig|SideBySide|joy\.cpl|eventvwr\.msc|msconfig|\bresmon\b|\b(?:x86|x64|amd64|ARM64)\b|DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
+const commands = /\bmsinfo32\b|\bexplorer\.exe\b|\bCtrl\+Shift\+Esc\b|\bCtrl\+Shift\+N\b|powercfg \/(?:batteryreport|lastwake|waketimers|a)|chrome:\/\/extensions|MemoryDiagnostics-Results|WLAN-AutoConfig|SideBySide|joy\.cpl|eventvwr\.msc|msconfig|\bresmon\b|\b(?:x86|x64|amd64|ARM64)\b|DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:all|flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
 function protect(text) {
   const tokens = [];
-  const masked = text.replace(commands, value => { const key = `ZXQCMD${tokens.length}ZXQ`; tokens.push(value); return key; });
+  const keyboard = /Windows\s*키\s*\+\s*(?:(?:Ctrl|Alt|Shift)\s*\+\s*)*(?:Space|Esc|Enter|[A-Z0-9])|(?:Ctrl|Alt|Shift)(?:\s*\+\s*(?:Ctrl|Alt|Shift))*\s*\+\s*(?:Esc|Delete|Enter|[A-Z0-9])/gi;
+  const keyed = text.replace(keyboard, value => { const key = `ZXQCMD${tokens.length}ZXQ`; tokens.push(value.replace(/Windows\s*키/g, "Windows").replace(/\s*\+\s*/g, "+")); return key; });
+  const masked = keyed.replace(commands, value => { const key = `ZXQCMD${tokens.length}ZXQ`; tokens.push(value); return key; });
   return { masked, restore(value) {
     tokens.forEach((token, index) => {
       const marker = new RegExp(`ZXQ\\s*CMD\\s*${index}\\s*ZXQ`, "gi");
@@ -53,13 +55,14 @@ function protect(text) {
 }
 async function translateBatch(batch, locale) {
   const protectedItems = batch.map(protect);
-  const query = protectedItems.map((item, index) => `⟦${String(index).padStart(4, "0")}⟧\n${item.masked}`).join("\n");
+  const query = batch.length === 1 ? protectedItems[0].masked : protectedItems.map((item, index) => `⟦${String(index).padStart(4, "0")}⟧\n${item.masked}`).join("\n");
   const url = new URL("https://translate.googleapis.com/translate_a/single");
   url.search = new URLSearchParams({ client: "gtx", sl: "ko", tl: locale, dt: "t", q: query }).toString();
   const response = await fetch(url, { signal: AbortSignal.timeout(45000) });
   if (!response.ok) throw new Error(`Translation HTTP ${response.status}`);
   const json = await response.json();
   const text = json[0].map(part => part[0] ?? "").join("");
+  if (batch.length === 1) return [protectedItems[0].restore(text.trim())];
   const markers = [...text.matchAll(/⟦\s*(\d{4})\s*⟧/g)];
   if (markers.length !== batch.length) throw new Error(`Translation boundary mismatch ${markers.length}/${batch.length}`);
   return markers.map((marker, index) => {
@@ -69,35 +72,52 @@ async function translateBatch(batch, locale) {
     return protectedItems[index].restore(translated);
   });
 }
+async function translateWithFallback(batch, locale) {
+  try { return await translateBatch(batch, locale); }
+  catch (error) {
+    if (/HTTP /.test(error.message)) throw error;
+    if (batch.length === 1) throw new Error(`${error.message}: ${locale}: ${batch[0]}`);
+    const middle = Math.ceil(batch.length / 2);
+    return [...await translateWithFallback(batch.slice(0, middle), locale), ...await translateWithFallback(batch.slice(middle), locale)];
+  }
+}
 async function run() {
   const strings = collectStrings();
   console.log(`Unique Korean strings: ${strings.length}; characters: ${strings.reduce((n, s) => n + s.length, 0)}`);
   if (process.argv.includes("--collect")) return;
   fs.mkdirSync(path.join(root, "data/locales"), { recursive: true });
-  await Promise.all(["en", "ja", "zh-CN"].map(async locale => {
+  for (const locale of ["en", "ja", "zh-CN"]) {
     const filename = path.join(root, `data/locales/${locale}.json`);
-    const dictionary = fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, "utf8")) : {};
-    const pending = strings.filter(value => !dictionary[value]);
+    const overrides = JSON.parse(fs.readFileSync(path.join(root, "data/locales/uiOverrides.json"), "utf8"));
+    const dictionary = { ...(fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, "utf8")) : {}), ...overrides[locale] };
+    fs.writeFileSync(filename, JSON.stringify(dictionary, null, 2) + "\n");
+    const pending = strings.filter(value => !dictionary[value] || korean.test(dictionary[value]));
     let done = 0;
     while (done < pending.length) {
       const batch = []; let length = 0;
-      while (done + batch.length < pending.length && length < 2600 && batch.length < 24) {
+      while (done + batch.length < pending.length && length < 650 && batch.length < 4) {
         const value = pending[done + batch.length]; batch.push(value); length += value.length + 35;
       }
       let translated;
       for (let attempt = 0; attempt < 4; attempt++) {
-        try { translated = await translateBatch(batch, locale); break; }
+        try { translated = await translateWithFallback(batch, locale); break; }
         catch (error) {
           if (attempt === 3) throw error;
-          await new Promise(resolve => setTimeout(resolve, 1500 * (attempt + 1)));
+          await new Promise(resolve => setTimeout(resolve, 15000 * (attempt + 1)));
+        }
+      }
+      for (let index = 0; index < translated.length; index++) {
+        if (korean.test(translated[index])) {
+          [translated[index]] = await translateWithFallback([batch[index]], locale);
+          if (korean.test(translated[index])) throw new Error(`Untranslated ${locale}: ${batch[index]}`);
         }
       }
       batch.forEach((value, index) => { dictionary[value] = translated[index]; });
       fs.writeFileSync(filename, JSON.stringify(dictionary, null, 2) + "\n");
       done += batch.length;
-      if (done % 240 < 24 || done === pending.length) console.log(`${locale}: ${done}/${pending.length}`);
-      await new Promise(resolve => setTimeout(resolve, 150));
+      if (done % 40 < batch.length || done === pending.length) console.log(`${locale}: ${done}/${pending.length}`);
+      await new Promise(resolve => setTimeout(resolve, 350));
     }
-  }));
+  }
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) run().catch(error => { console.error(error); process.exitCode = 1; });

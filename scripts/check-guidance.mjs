@@ -21,6 +21,14 @@ for (const page of [...problems, ...errorCodes]) {
   assert.ok(page.solutions.every(s => s.steps.length && s.steps.every(v => v.trim())), page.slug);
   assert.ok(page.solutions.every(s => s.checkPoint?.trim()), `missing result: ${page.slug}`);
   const actions = page.solutions.flatMap(s => s.steps);
+  for (const action of actions) {
+    for (const [name, opening] of [
+      ["장치 관리자", /devmgmt\.msc/],
+      ["이벤트 뷰어", /eventvwr\.msc/],
+      ["작업 관리자", /Ctrl\s*\+\s*Shift\s*\+\s*Esc/i],
+      ["디스크 관리", /Windows 키\+X|diskmgmt\.msc/],
+    ]) if (action.includes(name)) assert.match(action, opening, `${page.slug}: missing opening path for ${name}`);
+  }
   assert.equal(new Set(actions).size, actions.length, `repeated action: ${page.slug}`);
   assert.ok(page.sources?.length, `missing references: ${page.slug}`);
   for (const source of page.sources) {
@@ -51,6 +59,9 @@ for (const error of errorCodes) {
   assert.equal(error.solutions[1].title, errorProcedures[error.code].secondTitle);
   assert.ok(error.solutions.every(s => !/첫 번째 조치|해결되지 않았을 때의 조치/.test(s.title)), error.code);
 }
+assert.ok(!procedures["USB 장치를 뺐다가 다른 포트에 직접 연결하기"].location.includes("devmgmt.msc"));
+assert.ok(!procedures["SMART 상태와 온도 확인하기"].location.includes("디스크 관리"));
+assert.match(procedures["인쇄 대기열 지우기"].location, /Print Spooler/);
 assert.match(procedures["USB 전원 절약 설정 확인하기"].checkPoint, /허브/);
 assert.match(procedures["케이블·전원·GPU 장착 상태 확인하기"].checkPoint, /GPU/);
 assert.ok(!procedures["유선 연결로 먼저 테스트하기"].checkPoint.includes("회선"));

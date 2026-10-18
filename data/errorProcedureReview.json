@@ -4,33 +4,53 @@
     "firstResult": "안전 모드에서만 안정적이면 최근 보안 제품·드라이버를 비교하고, 여기서도 디스크 읽기가 실패하면 복구보다 백업을 우선하세요.",
     "secondLocation": "터미널(관리자) → DISM·SFC 실행 결과",
     "firstTitle": "안전 모드에서 최근 보안 프로그램 복구하기",
-    "secondTitle": "DISM과 SFC로 시스템 파일 복구하기"
+    "secondTitle": "DISM과 SFC로 시스템 파일 복구하기",
+    "firstSteps": [
+      "안전 모드에 진입할 수 있다면 최근 추가한 보안 프로그램을 제거하거나 공급업체 절차로 복구하세요."
+    ],
+    "secondSteps": [
+      "관리자 터미널(시작 버튼 우클릭 → 터미널(관리자), 없으면 cmd 검색 → 관리자 권한으로 실행)에서 DISM /Online /Cleanup-Image /RestoreHealth 완료 후 sfc /scannow를 실행하세요."
+    ]
   },
   "MEMORY_MANAGEMENT": {
     "firstLocation": "BIOS → Memory·DRAM → XMP·EXPO·속도",
     "firstResult": "기본 메모리 설정에서만 안정적이면 프로필 호환성을 확인하세요. 기본값에서도 반복되면 메모리 진단으로 진행하세요.",
-    "secondLocation": "Windows 검색 → Windows 메모리 진단 → MemoryDiagnostics-Results",
+    "secondLocation": "Windows 키 → 검색 → Windows 메모리 진단 → MemoryDiagnostics-Results",
     "firstTitle": "XMP·EXPO 메모리 설정을 기본값으로 되돌리기",
-    "secondTitle": "Windows 메모리 진단 실행하기"
+    "secondTitle": "Windows 메모리 진단 실행하기",
+    "firstSteps": [
+      "BIOS 확인이 필요하면 파일·BitLocker 복구 키를 먼저 보관하세요. 전원을 켠 직후 모델 설명서의 Setup 키를 누르세요. F2·Delete 등 키가 모델마다 다르므로 원래 설정을 사진으로 남기고 아래에서 안내한 항목만 바꾸세요.",
+      "메모리 오버클럭을 사용했다면 BIOS에서 메모리 설정만 기본값으로 되돌리세요."
+    ],
+    "secondSteps": [
+      "작업을 저장하고 Windows 메모리 진단을 실행하세요. 오류가 나오면 전원을 분리한 뒤 모듈별 점검을 의뢰하세요.",
+      "위 조건에 해당해 메모리 검사를 진행할 때는 작업을 저장한 뒤 Windows 키에서 Windows 메모리 진단을 검색해 실행하고 지금 다시 시작하여 확인을 선택하세요. 재부팅 후 Windows 키+R → eventvwr.msc → Enter → Windows 로그 → 시스템에서 MemoryDiagnostics-Results 결과를 확인하세요."
+    ]
   },
   "IRQL_NOT_LESS_OR_EQUAL": {
-    "firstLocation": "장치 관리자 → 최근 장치 → 속성 → 드라이버",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 최근 장치 → 속성 → 드라이버",
     "firstResult": "롤백 뒤 같은 장치 사용이 안정적이면 새 드라이버를 원인 후보로 기록하세요. 반복되면 덤프·메모리 점검으로 진행하세요.",
     "secondLocation": "신뢰성 기록의 같은 시각과 Windows Minidump 폴더",
     "firstTitle": "최근 설치한 장치 드라이버 되돌리기",
-    "secondTitle": "반복되는 오류의 덤프 파일 보관하기"
+    "secondTitle": "반복되는 오류의 덤프 파일 보관하기",
+    "firstSteps": [
+      "새로 설치한 장치 드라이버를 장치 관리자(Windows 키+R → devmgmt.msc 입력 → Enter)에서 이전 버전으로 되돌리세요."
+    ],
+    "secondSteps": [
+      "기본 메모리 설정에서도 반복된다면 덤프 파일을 보관하고 제조사 지원에 분석을 요청하세요."
+    ]
   },
   "SYSTEM_SERVICE_EXCEPTION": {
-    "firstLocation": "신뢰성 기록 → 오류 모듈, 장치 관리자 → GPU → 드라이버",
+    "firstLocation": "신뢰성 기록 → 오류 모듈, Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → GPU → 드라이버",
     "firstResult": "같은 앱에서 같은 .sys 파일이 반복되면 해당 제품 드라이버를 점검하세요. 버전을 되돌려도 같으면 시스템 파일을 검사하세요.",
     "secondLocation": "터미널(관리자) → DISM·SFC 완료 결과",
     "firstSteps": [
       "오류 화면의 .sys 파일명과 발생 작업을 기록하고 신뢰성 기록 보기에서 해당 시각의 제품·모듈을 비교하세요. Windows 핵심 파일명만으로 원인을 확정하지 마세요.",
-      "직전 GPU·장치 드라이버 변경이 있다면 장치 관리자 → 해당 장치 → 속성 → 드라이버에서 지원되는 롤백으로 같은 작업을 비교하세요.",
+      "직전 GPU·장치 드라이버 변경이 있다면 장치 관리자(Windows 키+R → devmgmt.msc 입력 → Enter) → 해당 장치 → 속성 → 드라이버에서 지원되는 롤백으로 같은 작업을 비교하세요.",
       "보안 제품 변경과 연결되면 보호를 통째로 끄지 말고 공급업체의 복구·업데이트 절차를 사용하세요."
     ],
     "secondSteps": [
-      "디스크가 정상 인식되고 읽기 오류가 없을 때 관리자 터미널에서 DISM /Online /Cleanup-Image /RestoreHealth를 실행하세요.",
+      "디스크가 정상 인식되고 읽기 오류가 없을 때 관리자 터미널(시작 버튼 우클릭 → 터미널(관리자), 없으면 cmd 검색 → 관리자 권한으로 실행)에서 DISM /Online /Cleanup-Image /RestoreHealth를 실행하세요.",
       "DISM 결과를 확인한 뒤 sfc /scannow를 실행하고 재시작 후 같은 작업·파일명으로 재발하는지 기록하세요. 읽기 오류면 복구 명령 반복보다 백업이 우선입니다."
     ],
     "firstTitle": "오류의 .sys 파일과 최근 드라이버 변경 비교하기",
@@ -41,190 +61,348 @@
     "firstResult": "기본 설정의 메모리 검사에서 오류가 나오면 모듈·슬롯 점검을 받으세요. 검사 정상만으로 드라이버 문제까지 배제하지 마세요.",
     "secondLocation": "Windows 안전 모드와 제조사 저장장치 진단",
     "firstTitle": "메모리 기본 설정에서 진단하기",
-    "secondTitle": "최근 드라이버 복원 후 저장장치 확인하기"
+    "secondTitle": "최근 드라이버 복원 후 저장장치 확인하기",
+    "firstSteps": [
+      "메모리 오버클럭을 해제하고 Windows 메모리 진단을 실행하세요.",
+      "위 조건에 해당해 메모리 검사를 진행할 때는 작업을 저장한 뒤 Windows 키에서 Windows 메모리 진단을 검색해 실행하고 지금 다시 시작하여 확인을 선택하세요. 재부팅 후 Windows 키+R → eventvwr.msc → Enter → Windows 로그 → 시스템에서 MemoryDiagnostics-Results 결과를 확인하세요."
+    ],
+    "secondSteps": [
+      "안전 모드에서 최근 추가한 드라이버를 되돌리고 중요 파일을 백업한 뒤 저장장치 상태를 확인하세요."
+    ]
   },
   "WHEA_UNCORRECTABLE_ERROR": {
     "firstLocation": "BIOS·기존 튜닝 앱의 CPU·RAM 전압·프로필",
     "firstResult": "기본값에서만 안정적이면 튜닝을 다시 적용하지 마세요. 기본값에서도 WHEA가 반복되면 장치·발열·전원 점검이 필요합니다.",
-    "secondLocation": "이벤트 뷰어 → Windows 로그 → 시스템 → WHEA-Logger",
+    "secondLocation": "Windows 키+R → eventvwr.msc 입력 → Enter → 이벤트 뷰어 → Windows 로그 → 시스템 → WHEA-Logger",
     "firstTitle": "CPU·RAM 튜닝을 기본값으로 되돌리기",
-    "secondTitle": "온도·팬과 WHEA 오류 장치 확인하기"
+    "secondTitle": "온도·팬과 WHEA 오류 장치 확인하기",
+    "firstSteps": [
+      "사용 중인 CPU·RAM 오버클럭 및 언더볼트를 기본값으로 되돌리세요."
+    ],
+    "secondSteps": [
+      "하드웨어 모니터링으로 온도와 팬 동작을 확인하고 이벤트의 오류 장치 정보를 제조사에 전달하세요."
+    ]
   },
   "DPC_WATCHDOG_VIOLATION": {
-    "firstLocation": "장치 관리자 → 저장소 컨트롤러·시스템 장치 → 드라이버",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 저장소 컨트롤러·시스템 장치 → 드라이버",
     "firstResult": "이전 지원 버전에서 디스크 작업이 안정적이면 변경한 드라이버를 기록하세요. 재발하면 SSD 상태·주변 장치를 분리해 확인하세요.",
     "secondLocation": "SSD 제조사 도구 → 상태·펌웨어, 본체 USB 포트",
     "firstTitle": "최근 스토리지·칩셋 드라이버 되돌리기",
-    "secondTitle": "백업 후 SSD 펌웨어와 USB 장치 비교하기"
+    "secondTitle": "백업 후 SSD 펌웨어와 USB 장치 비교하기",
+    "firstSteps": [
+      "PC 제조사의 스토리지·칩셋 드라이버를 확인하고 최근 변경했다면 이전 안정 버전으로 되돌리세요."
+    ],
+    "secondSteps": [
+      "SSD 펌웨어 변경은 백업 후 제조사 도구로 진행하고 주변 USB 장치를 하나씩 분리해 비교하세요."
+    ]
   },
   "VIDEO_TDR_FAILURE": {
-    "firstLocation": "GPU 튜닝 앱의 기본 프로필과 장치 관리자 → GPU 드라이버",
+    "firstLocation": "GPU 튜닝 앱의 기본 프로필과 Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → GPU 드라이버",
     "firstResult": "기본 클럭·안정 드라이버에서만 정상이라면 이전 튜닝을 복원하지 마세요. 기본 상태도 실패하면 부하·발열을 비교하세요.",
     "secondLocation": "게임 그래픽 설정과 GPU 온도·팬 동작",
     "firstTitle": "GPU 기본 설정과 안정 드라이버로 비교하기",
-    "secondTitle": "게임 부하를 낮추고 팬·통풍 확인하기"
+    "secondTitle": "게임 부하를 낮추고 팬·통풍 확인하기",
+    "firstSteps": [
+      "GPU 오버클럭을 기본값으로 복원하고 그래픽 제조사의 안정 드라이버를 설치하세요."
+    ],
+    "secondSteps": [
+      "게임 프레임 제한과 낮은 그래픽 옵션으로 부하를 줄여 비교하고 팬·통풍 상태를 확인하세요."
+    ]
   },
   "INACCESSIBLE_BOOT_DEVICE": {
     "firstLocation": "BIOS → SATA·RAID·VMD 설정의 변경 전 기록",
     "firstResult": "원래 모드로 복원한 뒤 부팅되면 다른 모드를 시험하지 마세요. 드라이브 자체가 없으면 저장장치 인식을 먼저 점검하세요.",
     "secondLocation": "WinRE → 문제 해결 → 고급 옵션 → 시작 복구",
     "firstTitle": "직전에 바꾼 저장장치 모드 복원하기",
-    "secondTitle": "시작 복구와 디스크 인식 상태 확인하기"
+    "secondTitle": "시작 복구와 디스크 인식 상태 확인하기",
+    "firstSteps": [
+      "직전에 저장장치 모드를 바꿨다면 기존 모드로 복원하세요. 변경 이력이 없다면 임의로 전환하지 마세요."
+    ],
+    "secondSteps": [
+      "복구 환경에서 시동 복구를 시도하고 디스크가 인식되지 않으면 케이블·장치 점검을 먼저 진행하세요."
+    ]
   },
   "KERNEL_SECURITY_CHECK_FAILURE": {
     "firstLocation": "최근 장치 속성 → 드라이버, 터미널(관리자)의 SFC 결과",
     "firstResult": "변경 복원 후 같은 작업이 정상이면 추가 제거를 멈추세요. 다른 작업에서도 재발하면 기본 메모리 검사로 진행하세요.",
     "secondLocation": "Windows 메모리 진단과 블루스크린 미니덤프",
     "firstTitle": "최근 드라이버 복원과 시스템 파일 검사하기",
-    "secondTitle": "메모리 진단 후 덤프 파일 보관하기"
+    "secondTitle": "메모리 진단 후 덤프 파일 보관하기",
+    "firstSteps": [
+      "최근 추가한 드라이버를 되돌리고 시스템 파일 검사를 수행하세요."
+    ],
+    "secondSteps": [
+      "기본 메모리 설정에서 Windows 메모리 진단을 실행하고 덤프를 보관하세요.",
+      "위 조건에 해당해 메모리 검사를 진행할 때는 작업을 저장한 뒤 Windows 키에서 Windows 메모리 진단을 검색해 실행하고 지금 다시 시작하여 확인을 선택하세요. 재부팅 후 Windows 키+R → eventvwr.msc → Enter → Windows 로그 → 시스템에서 MemoryDiagnostics-Results 결과를 확인하세요."
+    ]
   },
   "DRIVER_POWER_STATE_FAILURE": {
     "firstLocation": "연결된 외장 USB·독과 시작 → 전원 → 절전",
     "firstResult": "외장 장치를 뺀 상태에서만 절전·복귀가 정상이면 장치를 하나씩 연결해 범위를 좁히세요.",
     "secondLocation": "제조사 모델별 칩셋·무선·GPU 드라이버",
     "firstTitle": "외장 USB 없이 절전·복귀 비교하기",
-    "secondTitle": "칩셋·무선랜·그래픽 드라이버 점검하기"
+    "secondTitle": "칩셋·무선랜·그래픽 드라이버 점검하기",
+    "firstSteps": [
+      "외부 USB 장치를 분리한 상태에서 절전과 복귀를 시험하세요."
+    ],
+    "secondSteps": [
+      "PC 제조사에서 칩셋·무선랜·그래픽 드라이버를 업데이트하거나 최근 변경 버전을 되돌리세요."
+    ]
   },
   "UNEXPECTED_STORE_EXCEPTION": {
     "firstLocation": "다른 정상 저장장치의 백업과 SSD 제조사 상태·SMART",
     "firstResult": "SMART 경고·읽기 실패가 있으면 복구 명령 반복을 중단하고 파일 확보·교체를 우선하세요.",
-    "secondLocation": "장치 관리자 → 스토리지 드라이버, 설치된 보안 앱, 관리자 터미널",
+    "secondLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 스토리지 드라이버, 설치된 보안 앱, 관리자 터미널",
     "firstTitle": "파일 백업 후 SSD 상태 진단하기",
-    "secondTitle": "최근 스토리지·보안 앱 복원 후 시스템 파일 검사하기"
+    "secondTitle": "최근 스토리지·보안 앱 복원 후 시스템 파일 검사하기",
+    "firstSteps": [
+      "중요 파일을 백업하고 제조사 SSD 진단 도구로 상태를 확인하세요."
+    ],
+    "secondSteps": [
+      "최근 변경한 스토리지 드라이버와 보안 프로그램을 복원하고 시스템 파일 검사를 진행하세요."
+    ]
   },
   "NTFS_FILE_SYSTEM": {
     "firstLocation": "파일 탐색기 → 중요 파일 → 별도 정상 드라이브",
     "firstResult": "다른 드라이브에서 백업 파일이 열리는지 확인하세요. 반복 클릭·읽기 실패면 검사하지 말고 복구 상담을 받으세요.",
     "secondLocation": "정상 인식되는 Windows 시스템 드라이브, 터미널(관리자)",
     "firstTitle": "읽을 수 있는 파일부터 백업하기",
-    "secondTitle": "저장장치 상태에 따라 파일 시스템 검사하기"
+    "secondTitle": "저장장치 상태에 따라 파일 시스템 검사하기",
+    "firstSteps": [
+      "읽기 가능한 파일을 다른 드라이브로 백업하세요. 소음이나 반복적인 읽기 실패가 있으면 사용을 중단하세요."
+    ],
+    "secondSteps": [
+      "정상 상태의 드라이브에서 관리자 터미널(시작 버튼 우클릭 → 터미널(관리자), 없으면 cmd 검색 → 관리자 권한으로 실행)로 chkdsk C: /scan을 실행하고 결과에 따라 수리 여부를 판단하세요."
+    ]
   },
   "DRIVER_IRQL_NOT_LESS_OR_EQUAL": {
-    "firstLocation": "장치 관리자 → 오류의 .sys에 해당하는 장치 → 드라이버",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 오류의 .sys에 해당하는 장치 → 드라이버",
     "firstResult": "같은 장치 작업이 안정화되면 해당 버전을 유지하세요. 계속되면 최근 VPN·보안 필터의 공급업체 절차로 비교하세요.",
     "secondLocation": "VPN·보안 앱의 공식 복구·제거 화면",
     "firstTitle": "오류에 표시된 드라이버 되돌리기",
-    "secondTitle": "최근 추가한 VPN·보안 필터 복원하기"
+    "secondTitle": "최근 추가한 VPN·보안 필터 복원하기",
+    "firstSteps": [
+      "해당 장치의 드라이버를 제조사 안정 버전으로 변경하세요."
+    ],
+    "secondSteps": [
+      "VPN 또는 보안 네트워크 필터를 최근 추가했다면 공급업체의 제거 절차로 비교 테스트하세요."
+    ]
   },
   "0x80070005": {
     "firstLocation": "파일 탐색기 → 본인 문서 폴더와 실패하던 저장 경로",
     "firstResult": "문서 폴더만 성공하면 대상 폴더 권한·보안 제한을 확인하세요. 전체 디스크 소유권을 바꾸지 마세요.",
     "secondLocation": "공식 설치 파일의 속성·관리자 실행과 조직 앱 정책",
     "firstTitle": "작업 경로의 쓰기 권한 확인하기",
-    "secondTitle": "신뢰할 수 있는 설치 파일의 실행 권한 확인하기"
+    "secondTitle": "신뢰할 수 있는 설치 파일의 실행 권한 확인하기",
+    "firstSteps": [
+      "자신의 사용자 문서 폴더에 같은 파일을 저장해 권한 범위를 비교하세요."
+    ],
+    "secondSteps": [
+      "신뢰할 수 있는 설치 파일만 관리자 권한으로 실행하고 회사 PC의 정책 제한은 관리자에게 문의하세요."
+    ]
   },
   "0x80070002": {
-    "firstLocation": "설정 → 앱 → 설치된 앱 → 해당 앱 → 수정·복구",
+    "firstLocation": "Windows 키+I → 설정 → 앱 → 설치된 앱 → 해당 앱 → 수정·복구",
     "firstResult": "공식 새 파일로 복구한 뒤 앱이 열리면 이전 누락 파일 문제로 좁히세요. 업데이트에서 발생한 코드는 KB별로 따로 확인하세요.",
-    "secondLocation": "Windows 업데이트 → 업데이트 기록·도움말 보기",
+    "secondLocation": "Windows 업데이트 → 업데이트 기록·Windows 키 → 도움말 보기 검색·실행",
     "firstTitle": "앱 오류면 공식 설치 파일로 복구하기",
-    "secondTitle": "업데이트 오류면 문제 해결 도구 실행하기"
+    "secondTitle": "업데이트 오류면 문제 해결 도구 실행하기",
+    "firstSteps": [
+      "프로그램 오류라면 공식 설치 파일을 다시 받고 복구 설치를 진행하세요."
+    ],
+    "secondSteps": [
+      "업데이트 오류라면 설정의 Windows Update 문제 해결을 실행하고 실패한 KB 번호를 기록하세요."
+    ]
   },
   "0x80070057": {
     "firstLocation": "실패한 입력·파일 경로와 본인이 쓸 수 있는 로컬 문서 폴더",
     "firstResult": "간단한 경로에서만 성공하면 입력 형식·경로·권한을 확인하세요. 디스크 작업에서는 대상 모델을 확인하기 전 진행하지 마세요.",
     "secondLocation": "해당 Windows 기능의 문제 해결, 백업 및 디스크 관리",
     "firstTitle": "간단한 로컬 경로로 같은 작업 비교하기",
-    "secondTitle": "대상 드라이브와 파일 형식 확인하기"
+    "secondTitle": "대상 드라이브와 파일 형식 확인하기",
+    "firstSteps": [
+      "파일 경로와 저장 위치를 확인하고 간단한 로컬 경로로 같은 작업을 비교하세요."
+    ],
+    "secondSteps": [
+      "Windows 작업이라면 해당 문제 해결 도구를 사용하고 디스크 작업은 백업 후 대상·형식을 다시 확인하세요."
+    ]
   },
   "0x8007000D": {
     "firstLocation": "해당 앱 설정의 정상 백업 파일과 현재 설정",
     "firstResult": "정상 설정만 성공하면 원래 파일 손상을 의심하세요. Windows 업데이트에서 발생했다면 앱 설정 대신 KB 복구로 진행하세요.",
-    "secondLocation": "도움말 보기 → Windows Update 문제 해결·공식 KB 패키지",
+    "secondLocation": "Windows 키 → 도움말 보기 검색·실행 → Windows Update 문제 해결·공식 KB 패키지",
     "firstTitle": "변경한 앱 설정을 정상 상태로 복원하기",
-    "secondTitle": "업데이트 패키지를 공식 출처에서 다시 받기"
+    "secondTitle": "업데이트 패키지를 공식 출처에서 다시 받기",
+    "firstSteps": [
+      "앱 설정 변경 직후라면 백업해 둔 정상 설정으로 복원하세요."
+    ],
+    "secondSteps": [
+      "업데이트에서 발생했다면 문제 해결 도구를 실행하고 패키지를 공식 출처에서 다시 받으세요."
+    ]
   },
   "0x80070070": {
-    "firstLocation": "설정 → 시스템 → 저장소 → 임시 파일의 삭제 목록",
+    "firstLocation": "Windows 키+I → 설정 → 시스템 → 저장소 → 임시 파일의 삭제 목록",
     "firstResult": "설치 프로그램이 요구한 여유 공간과 비교하세요. 부족하면 개인 파일 이동 후 원본 삭제 여부를 따로 판단하세요.",
     "secondLocation": "설치 대상·시스템 드라이브의 남은 공간과 별도 백업",
     "firstTitle": "저장소에서 불필요한 임시 파일 정리하기",
-    "secondTitle": "개인 파일 이동 후 설치 공간 확보하기"
+    "secondTitle": "개인 파일 이동 후 설치 공간 확보하기",
+    "firstSteps": [
+      "설정의 저장소에서 임시 파일을 검토하고 필요 없는 항목만 제거하세요."
+    ],
+    "secondSteps": [
+      "큰 개인 파일은 별도 드라이브에 백업·이동한 뒤 설치 안내의 공간 요구량을 확보하세요."
+    ]
   },
   "0x80070570": {
     "firstLocation": "Microsoft 설치 미디어 생성 도구와 새 정상 USB",
     "firstResult": "다른 정상 USB에서 설치가 진행되면 기존 미디어·포트를 의심하세요. 여러 USB도 실패하면 RAM·대상 드라이브를 확인하세요.",
     "secondLocation": "별도 백업 드라이브와 제조사 저장장치 진단",
     "firstTitle": "공식 도구로 설치 USB 다시 만들기",
-    "secondTitle": "파일 백업 후 기존 드라이브 진단하기"
+    "secondTitle": "파일 백업 후 기존 드라이브 진단하기",
+    "firstSteps": [
+      "설치 중이라면 Microsoft 공식 도구로 다른 USB에 설치 미디어를 다시 만드세요."
+    ],
+    "secondSteps": [
+      "기존 드라이브에서 발생하면 읽을 수 있는 데이터를 먼저 백업하고 제조사 진단 도구를 실행하세요."
+    ]
   },
   "0x800F081F": {
     "firstLocation": "Windows 업데이트 연결 상태와 DISM·기능 설치의 원본 누락 로그",
     "firstResult": "일반 인터넷과 업데이트 원본 접근은 다릅니다. 같은 원본 오류가 남으면 OS 빌드·언어·에디션에 맞는 원본을 준비하세요.",
     "secondLocation": "현재 Windows 버전·언어·에디션과 공식 설치 이미지",
     "firstTitle": "Windows Update 복구 원본 접근 확인하기",
-    "secondTitle": "현재 Windows에 맞는 복구 원본 준비하기"
+    "secondTitle": "현재 Windows에 맞는 복구 원본 준비하기",
+    "firstSteps": [
+      "네트워크 연결과 Windows Update 원본 접근을 확인하고 같은 작업을 다시 실행하세요."
+    ],
+    "secondSteps": [
+      "오프라인 원본이 필요하면 현재 OS에 맞는 공식 설치 미디어를 준비하고 일치하는 이미지의 복구 원본을 지정하세요."
+    ]
   },
   "0x800F0906": {
-    "firstLocation": "설정 → 앱 → 선택적 기능 또는 Windows 기능 화면",
+    "firstLocation": "Windows 키+I → 설정 → 앱 → 선택적 기능 또는 Windows 기능 화면",
     "firstResult": "허용된 연결에서만 설치되면 원래 네트워크의 업데이트 정책을 확인하세요. 제한된 PC는 관리자 원본을 사용하세요.",
     "secondLocation": "조직의 업데이트 정책·승인된 기능 설치 원본",
     "firstTitle": "허용된 연결에서 기능 설치 다시 시도하기",
-    "secondTitle": "조직이 승인한 설치 원본 확인하기"
+    "secondTitle": "조직이 승인한 설치 원본 확인하기",
+    "firstSteps": [
+      "허용된 네트워크에서 Windows Update 접근을 확인하고 선택적 기능 설치를 재시도하세요."
+    ],
+    "secondSteps": [
+      "관리되는 PC는 관리자가 승인한 원본이나 정책 설정으로 설치하도록 요청하세요."
+    ]
   },
   "0x800F0922": {
-    "firstLocation": "도움말 보기 → Windows Update, 네트워크 → VPN",
+    "firstLocation": "Windows 키 → 도움말 보기 검색·실행 → Windows Update, 네트워크 → VPN",
     "firstResult": "직접 연결에서만 설치되면 VPN·업데이트 경로를 확인하세요. 같은 KB면 파티션을 임의 수정하지 말고 로그를 점검받으세요.",
     "secondLocation": "업데이트 기록·CBS 로그와 디스크 관리의 파티션 상태",
     "firstTitle": "업데이트 문제 해결과 연결 비교하기",
-    "secondTitle": "실패한 KB의 로그·파티션 점검받기"
+    "secondTitle": "실패한 KB의 로그·파티션 점검받기",
+    "firstSteps": [
+      "Windows Update 문제 해결 도구를 실행하고 VPN 사용 중이라면 허용된 직접 연결로 비교하세요."
+    ],
+    "secondSteps": [
+      "같은 KB가 반복 실패하면 CBS 로그와 파티션 상태를 점검받으세요. 시스템 파티션을 임의로 삭제하거나 확장하지 마세요."
+    ]
   },
   "0x80070422": {
-    "firstLocation": "Win+R → services.msc → Windows Update 서비스",
+    "firstLocation": "Windows 키+R → services.msc 입력 → Enter → Windows Update 서비스",
     "firstResult": "개인적으로 껐던 서비스를 원래 설정으로 복원한 후 다운로드가 시작되는지 확인하세요. 조직 관리 설정이면 변경을 멈추세요.",
-    "secondLocation": "설정 → Windows 업데이트의 관리됨 표시와 조직 관리자",
+    "secondLocation": "Windows 키+I → 설정 → Windows 업데이트의 관리됨 표시와 조직 관리자",
     "firstTitle": "직접 끈 서비스 설정 복원하기",
-    "secondTitle": "조직 PC의 서비스 정책 확인하기"
+    "secondTitle": "조직 PC의 서비스 정책 확인하기",
+    "firstSteps": [
+      "개인 PC에서 직접 서비스를 껐다면 원래 설정으로 복원하고 Windows Update 문제 해결 도구를 실행하세요."
+    ],
+    "secondSteps": [
+      "조직이 관리하는 PC는 서비스 정책을 임의로 바꾸지 말고 관리자에게 확인하세요."
+    ]
   },
   "0x80073712": {
     "firstLocation": "터미널(관리자) → DISM 실행 결과",
     "firstResult": "복구 성공이면 SFC와 업데이트 설치를 이어서 확인하세요. 원본 누락·읽기 실패면 그 오류를 먼저 해결하세요.",
     "secondLocation": "같은 관리자 터미널의 SFC 결과와 업데이트 기록",
     "firstTitle": "DISM으로 구성요소 저장소 복구하기",
-    "secondTitle": "SFC 검사 후 업데이트 다시 시도하기"
+    "secondTitle": "SFC 검사 후 업데이트 다시 시도하기",
+    "firstSteps": [
+      "관리자 터미널(시작 버튼 우클릭 → 터미널(관리자), 없으면 cmd 검색 → 관리자 권한으로 실행)에서 DISM /Online /Cleanup-Image /RestoreHealth를 실행하세요."
+    ],
+    "secondSteps": [
+      "DISM 완료 후 sfc /scannow를 실행하고 재부팅한 뒤 업데이트를 다시 확인하세요."
+    ]
   },
   "0x80070020": {
-    "firstLocation": "설정 → 업데이트 설치 진행, 작업 관리자의 다른 설치·검사",
+    "firstLocation": "Windows 키+I → 설정 → 업데이트 설치 진행, Ctrl+Shift+Esc → 작업 관리자의 다른 설치·검사",
     "firstResult": "다른 설치가 끝난 뒤에만 성공하면 파일 점유 충돌을 의심하세요. 계속되면 필요한 앱 설정을 보존하고 클린 부팅으로 비교하세요.",
-    "secondLocation": "시스템 구성 → 서비스와 작업 관리자 → 시작 앱",
+    "secondLocation": "시스템 구성 → 서비스와 Ctrl+Shift+Esc → 작업 관리자 → 시작 앱",
     "firstTitle": "다른 설치를 마친 뒤 재부팅하기",
-    "secondTitle": "클린 부팅으로 타사 서비스 충돌 비교하기"
+    "secondTitle": "클린 부팅으로 타사 서비스 충돌 비교하기",
+    "firstSteps": [
+      "다른 설치와 검사를 끝내고 PC를 재부팅한 뒤 업데이트만 실행하세요."
+    ],
+    "secondSteps": [
+      "계속 실패하면 클린 부팅으로 타사 서비스 충돌을 비교하고 시험 후 정상 시작 설정을 복원하세요."
+    ]
   },
   "0x80072EE2": {
     "firstLocation": "Windows 업데이트 진행률과 같은 연결의 일반 사이트",
     "firstResult": "시간을 두고 재시도할 때 진행률이 오르면 일시 응답 지연일 수 있습니다. 같은 지점이면 다른 허용 연결로 비교하세요.",
-    "secondLocation": "설정 → 네트워크 및 인터넷 → VPN·프록시",
+    "secondLocation": "Windows 키+I → 설정 → 네트워크 및 인터넷 → VPN·프록시",
     "firstTitle": "안정된 연결에서 업데이트 다시 시도하기",
-    "secondTitle": "VPN·프록시와 다른 연결 비교하기"
+    "secondTitle": "VPN·프록시와 다른 연결 비교하기",
+    "firstSteps": [
+      "안정된 네트워크에서 시간을 두고 다시 확인하세요."
+    ],
+    "secondSteps": [
+      "VPN·프록시를 사용 중이면 조직 정책을 확인하고 허용된 다른 연결로 비교하세요."
+    ]
   },
   "0x80072EFE": {
     "firstLocation": "유선 또는 허용된 다른 네트워크의 동일 업데이트",
     "firstResult": "다른 연결에서 끝까지 완료되면 기존 연결·필터를 확인하세요. 어느 연결도 같은 KB면 패키지·서버 문제를 확인하세요.",
     "secondLocation": "프록시·보안 제품의 차단 기록과 조직 네트워크 담당자",
     "firstTitle": "다른 네트워크로 업데이트 비교하기",
-    "secondTitle": "프록시·보안 필터의 연결 종료 기록 확인하기"
+    "secondTitle": "프록시·보안 필터의 연결 종료 기록 확인하기",
+    "firstSteps": [
+      "안정된 유선 또는 허용된 다른 네트워크로 업데이트를 재시도하세요."
+    ],
+    "secondSteps": [
+      "프록시·보안 필터 변경 직후라면 공급업체나 관리자에게 연결 종료 기록을 확인해 달라고 요청하세요."
+    ]
   },
   "0x8024402C": {
-    "firstLocation": "설정 → 네트워크 및 인터넷 → 프록시 → 수동 설정·설정 스크립트",
+    "firstLocation": "Windows 키+I → 설정 → 네트워크 및 인터넷 → 프록시 → 수동 설정·설정 스크립트",
     "firstResult": "불필요한 개인 프록시만 복원했을 때 성공하면 설정 경로를 확인하세요. 조직이 관리하는 값은 임의 삭제하지 마세요.",
     "secondLocation": "조직의 WSUS·프록시·DNS 관리 기록",
     "firstTitle": "사용하지 않는 수동 프록시 확인하기",
-    "secondTitle": "조직의 WSUS·프록시 이름 확인 요청하기"
+    "secondTitle": "조직의 WSUS·프록시 이름 확인 요청하기",
+    "firstSteps": [
+      "개인 PC라면 사용하지 않는 수동 프록시가 설정됐는지 확인하세요."
+    ],
+    "secondSteps": [
+      "회사 PC는 WSUS와 프록시 주소의 이름 확인을 관리자에게 요청하세요."
+    ]
   },
   "0x80240034": {
-    "firstLocation": "도움말 보기 → Windows Update와 재부팅 후 업데이트 기록",
+    "firstLocation": "Windows 키 → 도움말 보기 검색·실행 → Windows Update와 재부팅 후 업데이트 기록",
     "firstResult": "같은 KB가 성공인지 확인하세요. 한 KB만 반복되면 현재 Windows 버전·아키텍처와 패키지 일치 여부를 비교하세요.",
-    "secondLocation": "설정 → 시스템 → 정보, Microsoft Update Catalog의 KB 검색",
+    "secondLocation": "Windows 키+I → 설정 → 시스템 → 정보, Microsoft Update Catalog의 KB 검색",
     "firstTitle": "업데이트 문제 해결 도구 실행하기",
-    "secondTitle": "실패한 KB의 일치 패키지 확인하기"
+    "secondTitle": "실패한 KB의 일치 패키지 확인하기",
+    "firstSteps": [
+      "재부팅 후 안정된 연결에서 Windows Update 문제 해결 도구를 실행하세요."
+    ],
+    "secondSteps": [
+      "특정 KB만 실패하면 Windows 버전·아키텍처를 확인하고 Microsoft Update Catalog의 일치 패키지로 비교하세요."
+    ]
   },
   "0x8024200D": {
-    "firstLocation": "도움말 보기 → Windows Update, 업데이트 기록의 실패 KB",
+    "firstLocation": "Windows 키 → 도움말 보기 검색·실행 → Windows Update, 업데이트 기록의 실패 KB",
     "firstResult": "다시 받은 KB가 설치 완료면 추가 캐시 삭제를 멈추세요. 계속 실패하면 KB·OS 정보와 패키지를 대조하세요.",
     "secondLocation": "시스템 정보·업데이트 기록과 Microsoft Update Catalog",
     "firstSteps": [
-      "설정 → Windows 업데이트 → 업데이트 기록에서 실패한 KB 번호·오류 코드·설치 날짜를 적고 작업 저장 후 다시 시작하세요.",
-      "도움말 보기의 Windows Update 문제 해결을 실행한 뒤 업데이트 확인으로 해당 KB를 다시 다운로드하세요.",
+      "Windows 키+I로 설정을 여세요. 설정 → Windows 업데이트 → 업데이트 기록에서 실패한 KB 번호·오류 코드·설치 날짜를 적고 작업 저장 후 다시 시작하세요.",
+      "도움말 보기(Windows 키를 누르고 이름을 검색해 실행)의 Windows Update 문제 해결을 실행한 뒤 업데이트 확인으로 해당 KB를 다시 다운로드하세요.",
       "업데이트 기록에 설치 성공이 나타나고 요구된 재시작까지 끝났는지 보세요. 다운로드 완료 표시만으로 설치 성공이라 판단하지 마세요."
     ],
     "secondSteps": [
@@ -235,102 +413,186 @@
     "secondTitle": "Windows 버전에 맞는 KB 패키지 비교하기"
   },
   "0x80070643": {
-    "firstLocation": "도움말 보기 → Windows Update와 실패 KB 기록",
+    "firstLocation": "Windows 키 → 도움말 보기 검색·실행 → Windows Update와 실패 KB 기록",
     "firstResult": "일반 재시도 뒤에도 같은 KB면 숫자 코드만으로 조치하지 말고 그 KB의 전제 조건을 확인하세요.",
     "secondLocation": "KB별 알려진 문제·Windows 복구 환경 파티션 상태",
     "firstTitle": "재부팅 후 업데이트 문제 해결 실행하기",
-    "secondTitle": "실패한 KB의 알려진 문제·전제 조건 확인하기"
+    "secondTitle": "실패한 KB의 알려진 문제·전제 조건 확인하기",
+    "firstSteps": [
+      "재부팅과 업데이트 문제 해결을 먼저 수행하세요."
+    ],
+    "secondSteps": [
+      "같은 KB가 실패하면 그 KB의 공식 알려진 문제와 전제 조건을 확인하세요. 복구 파티션 변경은 안내 확인과 백업 후 진행해야 합니다."
+    ]
   },
   "0x80070003": {
-    "firstLocation": "도움말 보기 → Windows Update와 재부팅 결과",
+    "firstLocation": "Windows 키 → 도움말 보기 검색·실행 → Windows Update와 재부팅 결과",
     "firstResult": "경로 오류가 사라지면 추가 변경을 멈추세요. 같은 경로가 남으면 사용자 지정 경로 변경 여부와 구성요소를 확인하세요.",
     "secondLocation": "Windows 시스템 경로 변경 기록·터미널(관리자) → DISM",
     "firstTitle": "업데이트 문제 해결 후 재부팅하기",
-    "secondTitle": "변경한 경로 복원과 구성요소 검사하기"
+    "secondTitle": "변경한 경로 복원과 구성요소 검사하기",
+    "firstSteps": [
+      "Windows Update 문제 해결 도구를 실행하고 재부팅하세요."
+    ],
+    "secondSteps": [
+      "시스템 경로를 바꾼 뒤 발생했다면 변경을 복원하고 DISM으로 구성요소 상태를 점검하세요."
+    ]
   },
   "0xC1900101": {
     "firstLocation": "외장 USB·독과 제조사 OS 업그레이드 호환 목록",
     "firstResult": "필수 장치만 연결해도 같은 단계에서 롤백되면 드라이버 이름과 실패 단계를 기록하세요.",
     "secondLocation": "업그레이드 롤백 로그·복구 키·제조사 지원 OS 목록",
     "firstTitle": "외장 USB 분리 후 제조사 드라이버 확인하기",
-    "secondTitle": "파일·복구 키 확보 후 OS 호환성 확인하기"
+    "secondTitle": "파일·복구 키 확보 후 OS 호환성 확인하기",
+    "firstSteps": [
+      "필수 장치만 남기고 외부 USB 장치를 분리한 뒤 제조사 드라이버를 확인하세요."
+    ],
+    "secondSteps": [
+      "중요 파일과 복구 키를 백업하고 제조사의 OS 호환 안내에 따라 재시도하세요."
+    ]
   },
   "Code 10": {
-    "firstLocation": "장치 관리자 → 문제 장치 → 일반·드라이버, 본체 다른 포트",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 문제 장치 → 일반·드라이버, 본체 다른 포트",
     "firstResult": "다른 포트에서 시작되면 포트·전원을 확인하세요. 같은 장치 코드가 남으면 지원 드라이버 버전을 비교하세요.",
     "secondLocation": "장치 속성 → 드라이버 → 드라이버 롤백",
     "firstTitle": "다른 포트와 제조사 드라이버로 비교하기",
-    "secondTitle": "최근 드라이버를 이전 버전으로 되돌리기"
+    "secondTitle": "최근 드라이버를 이전 버전으로 되돌리기",
+    "firstSteps": [
+      "재부팅 후 다른 포트로 연결하고 제조사 드라이버를 설치하세요."
+    ],
+    "secondSteps": [
+      "업데이트 직후 시작됐다면 드라이버 롤백으로 비교하세요."
+    ]
   },
   "Code 28": {
-    "firstLocation": "장치 관리자 → 알 수 없는 장치 → 속성 → 자세히 → 하드웨어 ID",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 알 수 없는 장치 → 속성 → 자세히 → 하드웨어 ID",
     "firstResult": "지원 패키지 후 정확한 장치명으로 바뀌는지 확인하세요. 여전히 알 수 없으면 ID와 설치 모델을 대조하세요.",
     "secondLocation": "제조사 모델·하드웨어 ID별 공식 드라이버 패키지",
     "firstTitle": "PC 모델에 맞는 장치 드라이버 설치하기",
-    "secondTitle": "하드웨어 ID에 맞는 공식 드라이버 찾기"
+    "secondTitle": "하드웨어 ID에 맞는 공식 드라이버 찾기",
+    "firstSteps": [
+      "PC 제조사의 모델별 칩셋·장치 드라이버를 설치하세요."
+    ],
+    "secondSteps": [
+      "별도 장치는 하드웨어 ID에 맞는 공식 공급업체 드라이버를 사용하세요."
+    ]
   },
   "Code 31": {
-    "firstLocation": "장치 관리자 → 해당 장치 → 일반·드라이버",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 해당 장치 → 일반·드라이버",
     "firstResult": "맞는 패키지 설치 후 장치가 시작되고 기능도 되는지 확인하세요. 최근 필터 앱 변경 뒤면 그 변경을 비교하세요.",
     "secondLocation": "VPN·장치 관리 소프트웨어의 복구·제거 화면",
     "firstTitle": "제조사 드라이버로 복구 설치하기",
-    "secondTitle": "최근 변경한 필터 소프트웨어 복원하기"
+    "secondTitle": "최근 변경한 필터 소프트웨어 복원하기",
+    "firstSteps": [
+      "제조사의 맞는 드라이버 패키지로 복구 설치하세요."
+    ],
+    "secondSteps": [
+      "VPN 등 필터 소프트웨어 변경 뒤 발생했다면 공급업체 절차로 복원하세요."
+    ]
   },
   "Code 43": {
     "firstLocation": "종료된 PC의 외장 장치 전원·케이블과 문제 장치 상태",
     "firstResult": "다시 연결한 뒤 코드가 사라지고 기능도 정상이면 추가 제거를 멈추세요. 반복되면 다른 포트·PC로 비교하세요.",
     "secondLocation": "정상 데이터 케이블·다른 PC와 제조사 장치 드라이버",
     "firstTitle": "완전히 종료한 뒤 외장장치 다시 연결하기",
-    "secondTitle": "제조사 드라이버와 다른 포트·PC로 비교하기"
+    "secondTitle": "제조사 드라이버와 다른 포트·PC로 비교하기",
+    "firstSteps": [
+      "작업을 저장하고 PC를 완전히 종료한 뒤 외장장치를 다시 연결하세요."
+    ],
+    "secondSteps": [
+      "제조사 드라이버로 교체하고 외장장치는 다른 포트·PC에서 비교하세요."
+    ]
   },
   "Code 45": {
-    "firstLocation": "장치 관리자의 현재 연결 장치와 사용하려는 실제 장치·케이블",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자의 현재 연결 장치와 사용하려는 실제 장치·케이블",
     "firstResult": "실제 장치를 꽂은 뒤 새 현재 항목이 정상이라면 숨겨진 이전 기록은 고장 증거가 아닙니다.",
-    "secondLocation": "장치 관리자 → 보기 → 숨겨진 장치 표시와 현재 장치 기능",
+    "secondLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 보기 → 숨겨진 장치 표시와 현재 장치 기능",
     "firstTitle": "장치 전원·케이블을 연결하기",
-    "secondTitle": "제거한 장치 기록인지 확인하기"
+    "secondTitle": "제거한 장치 기록인지 확인하기",
+    "firstSteps": [
+      "사용할 장치를 다시 연결하고 전원·케이블을 확인하세요."
+    ],
+    "secondSteps": [
+      "이미 제거한 장치 기록이라면 현재 기능에 문제가 없는지 확인하세요."
+    ]
   },
   "Code 52": {
-    "firstLocation": "장치 관리자 → 드라이버 서명 오류 항목과 제조사 지원 패키지",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 드라이버 서명 오류 항목과 제조사 지원 패키지",
     "firstResult": "서명된 지원 버전에서도 남으면 현재 Windows 호환성을 문의하세요. 서명 검사를 끄지 마세요.",
     "secondLocation": "제조사 지원 목록의 Windows 버전·서명 정보",
     "firstTitle": "Windows에 맞는 서명된 드라이버 설치하기",
-    "secondTitle": "공급업체에 정식 호환 드라이버 문의하기"
+    "secondTitle": "공급업체에 정식 호환 드라이버 문의하기",
+    "firstSteps": [
+      "현재 Windows를 지원하는 제조사의 서명된 드라이버를 다시 설치하세요."
+    ],
+    "secondSteps": [
+      "정식 지원 패키지가 없다면 공급업체에 호환 버전을 문의하세요."
+    ]
   },
   "Code 19": {
-    "firstLocation": "Windows 검색 → 복원 지점 만들기 → 시스템 복원",
+    "firstLocation": "Windows 키 → 검색 → 복원 지점 만들기 → 시스템 복원",
     "firstResult": "문제 시작 전 복원 후 정상이면 최근 장치 소프트웨어 변경을 확인하세요. 복원 불가면 수동 레지스트리 삭제를 하지 마세요.",
     "secondLocation": "제조사 장치 소프트웨어의 복구 설치 화면",
     "firstTitle": "변경 전 복원 지점 확인하기",
-    "secondTitle": "장치 소프트웨어 복구 설치하기"
+    "secondTitle": "장치 소프트웨어 복구 설치하기",
+    "firstSteps": [
+      "변경 이전 복원 지점이 있다면 시스템 복원을 검토하세요."
+    ],
+    "secondSteps": [
+      "제조사 장치 소프트웨어를 복구 설치하고 수동 레지스트리 편집 대신 공식 장치별 안내를 사용하세요."
+    ]
   },
   "Code 22": {
-    "firstLocation": "장치 관리자 → 해당 장치 우클릭 → 장치 사용",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 해당 장치 우클릭 → 장치 사용",
     "firstResult": "본인이 끈 장치를 켠 뒤 정상 시작되는지 확인하세요. 관리 정책으로 다시 꺼지면 반복 변경하지 마세요.",
     "secondLocation": "조직 장치 사용 정책과 관리자 승인",
     "firstTitle": "직접 비활성화한 장치 다시 사용하기",
-    "secondTitle": "조직 장치의 사용 승인 확인하기"
+    "secondTitle": "조직 장치의 사용 승인 확인하기",
+    "firstSteps": [
+      "자신이 비활성화한 장치라면 장치 사용을 선택하세요."
+    ],
+    "secondSteps": [
+      "회사 정책으로 비활성화된 장치는 관리자에게 사용 승인을 요청하세요."
+    ]
   },
   "Code 39": {
     "firstLocation": "제조사 모델별 드라이버 설치 프로그램과 장치 상태",
     "firstResult": "다른 장치까지 같은 로드 실패면 개별 재설치 반복보다 시스템 파일 검사를 진행하세요.",
     "secondLocation": "터미널(관리자) → DISM·SFC 결과",
     "firstTitle": "공식 장치 드라이버 복구 설치하기",
-    "secondTitle": "여러 장치 오류면 DISM·SFC 검사하기"
+    "secondTitle": "여러 장치 오류면 DISM·SFC 검사하기",
+    "firstSteps": [
+      "공식 제조사 패키지를 다시 받아 드라이버를 복구 설치하세요."
+    ],
+    "secondSteps": [
+      "여러 기본 장치에서 발생하면 DISM과 SFC로 시스템 파일을 검사하세요."
+    ]
   },
   "DXGI_ERROR_DEVICE_HUNG": {
     "firstLocation": "게임 런처 → 파일 검사·업데이트와 GPU 튜닝 프로필",
     "firstResult": "같은 장면이 기본 클럭에서 정상이면 튜닝을 복원하지 마세요. 한 API에서만 실패하면 지원 렌더링 모드로 비교하세요.",
     "secondLocation": "게임의 공식 DirectX 선택 메뉴·안정 GPU 드라이버",
     "firstTitle": "게임 파일 검사와 GPU 기본값 적용하기",
-    "secondTitle": "지원되는 DirectX 모드·안정 드라이버 비교하기"
+    "secondTitle": "지원되는 DirectX 모드·안정 드라이버 비교하기",
+    "firstSteps": [
+      "게임 패치와 파일 무결성 검사를 실행하고 GPU 오버클럭을 해제하세요."
+    ],
+    "secondSteps": [
+      "게임이 공식 지원하는 다른 DirectX 모드와 안정 드라이버로 비교하세요."
+    ]
   },
   "DXGI_ERROR_DEVICE_REMOVED": {
     "firstLocation": "GPU 앱의 기본 튜닝 프로필과 PC 다시 시작",
     "firstResult": "기본 설정 뒤 같은 장면을 비교하세요. HUNG·RESET 같은 추가 사유가 있으면 그 기록으로 범위를 좁히세요.",
-    "secondLocation": "장치 관리자 GPU 드라이버·게임 파일 검사",
+    "secondLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 GPU 드라이버·게임 파일 검사",
     "firstTitle": "GPU 기본값 복원 후 재부팅하기",
-    "secondTitle": "드라이버 변경과 게임 파일 상태 비교하기"
+    "secondTitle": "드라이버 변경과 게임 파일 상태 비교하기",
+    "firstSteps": [
+      "GPU 설정을 기본값으로 복원하고 PC를 재부팅하세요."
+    ],
+    "secondSteps": [
+      "최근 드라이버 변경 전후를 비교하고 게임 업데이트·파일 검사를 수행하세요."
+    ]
   },
   "DXGI_ERROR_DEVICE_RESET": {
     "firstLocation": "게임 → 그래픽 설정 초기값과 런처의 파일 검사",
@@ -342,17 +604,23 @@
     ],
     "secondSteps": [
       "게임이 공식 제공하는 다른 렌더링 모드가 있으면 한 항목만 바꿔 같은 장면을 비교하세요. 임의 실행 옵션은 추가하지 마세요.",
-      "장치 관리자에서 GPU 드라이버 버전을 기록하고 업데이트 직후 시작됐으면 제조사 이전 안정 버전과 비교하세요. 여러 앱도 실패하면 기본 클럭·온도·전원을 점검하세요."
+      "장치 관리자(Windows 키+R → devmgmt.msc 입력 → Enter)에서 GPU 드라이버 버전을 기록하고 업데이트 직후 시작됐으면 제조사 이전 안정 버전과 비교하세요. 여러 앱도 실패하면 기본 클럭·온도·전원을 점검하세요."
     ],
     "firstTitle": "게임 기본 설정과 GPU 드라이버 비교하기",
     "secondTitle": "지원되는 다른 렌더링 모드로 비교하기"
   },
   "DXGI_ERROR_DRIVER_INTERNAL_ERROR": {
-    "firstLocation": "장치 관리자 → 디스플레이 어댑터 → 드라이버 롤백",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 → 디스플레이 어댑터 → 드라이버 롤백",
     "firstResult": "이전 안정 버전에서만 정상이면 새 버전의 회귀로 기록하세요. 여러 앱 모두 실패하면 공식 재설치로 비교하세요.",
     "secondLocation": "GPU 제조사 설치 프로그램의 복구·새로 설치 옵션",
     "firstTitle": "최근 GPU 드라이버를 안정 버전으로 되돌리기",
-    "secondTitle": "공식 절차로 GPU 드라이버 재설치하기"
+    "secondTitle": "공식 절차로 GPU 드라이버 재설치하기",
+    "firstSteps": [
+      "최근 드라이버가 원인이라면 이전 안정 버전으로 되돌리세요."
+    ],
+    "secondSteps": [
+      "여러 프로그램에서 재현되면 제조사의 공식 재설치 절차를 사용하고 오류 로그를 보관하세요."
+    ]
   },
   "DXGI_ERROR_INVALID_CALL": {
     "firstLocation": "게임 → 화면 → 창 모드·기본 해상도와 오버레이·모드 설정",
@@ -370,53 +638,95 @@
     "secondTitle": "최신 패치와 모드 없는 상태로 비교하기"
   },
   "DXGI_ERROR_UNSUPPORTED": {
-    "firstLocation": "장치 관리자 GPU 이름·게임 최소 요구 기능·Windows 그래픽 옵션",
+    "firstLocation": "Windows 키+R → devmgmt.msc 입력 → Enter → 장치 관리자 GPU 이름·게임 최소 요구 기능·Windows 그래픽 옵션",
     "firstResult": "고성능 GPU에서도 필요한 기능 수준이 없으면 소프트웨어 설치로 추가할 수 없습니다. 지원되는 낮은 API만 검토하세요.",
     "secondLocation": "게임의 공식 지원 API 모드와 GPU 기능 수준",
     "firstTitle": "그래픽 드라이버와 고성능 GPU 확인하기",
-    "secondTitle": "게임이 지원하는 낮은 API 모드 확인하기"
+    "secondTitle": "게임이 지원하는 낮은 API 모드 확인하기",
+    "firstSteps": [
+      "그래픽 드라이버가 정상 설치됐는지 확인하고 노트북의 고성능 GPU로 게임을 실행하세요."
+    ],
+    "secondSteps": [
+      "게임이 지원하는 낮은 API 모드가 있는지 공식 안내를 확인하세요."
+    ]
   },
   "DNS_PROBE_FINISHED_NXDOMAIN": {
     "firstLocation": "Chrome 주소창과 같은 회선의 다른 기기",
     "firstResult": "철자를 고친 주소만 열리면 오타를 수정하세요. 같은 주소가 여러 회선에서 실패하면 사이트 DNS 가능성을 확인하세요.",
     "secondLocation": "터미널(관리자) → DNS 캐시와 허용된 다른 네트워크",
     "firstTitle": "주소 철자와 다른 사이트 접속 비교하기",
-    "secondTitle": "이 PC의 DNS 캐시 지우고 다시 접속하기"
+    "secondTitle": "이 PC의 DNS 캐시 지우고 다시 접속하기",
+    "firstSteps": [
+      "주소를 다시 입력하고 다른 사이트와 비교하세요."
+    ],
+    "secondSteps": [
+      "개인 PC에서 관리자 터미널(시작 버튼 우클릭 → 터미널(관리자), 없으면 cmd 검색 → 관리자 권한으로 실행)로 ipconfig /flushdns를 실행한 뒤 재시도하세요. 여러 네트워크에서 실패하면 사이트 측 DNS를 확인해야 합니다."
+    ]
   },
   "DNS_PROBE_FINISHED_BAD_CONFIG": {
     "firstLocation": "연결된 Wi-Fi·이더넷 → DNS 서버 할당 → 편집",
     "firstResult": "원래 자동 DNS로 복원했을 때 정상이면 잘못된 수동값을 기록하세요. 계속되면 VPN·다른 기기를 비교하세요.",
     "secondLocation": "VPN 설정과 공유기의 승인된 DNS 설정",
     "firstTitle": "잘못 입력한 수동 DNS 복원하기",
-    "secondTitle": "다른 장치와 VPN·공유기 DNS 비교하기"
+    "secondTitle": "다른 장치와 VPN·공유기 DNS 비교하기",
+    "firstSteps": [
+      "개인 네트워크에서 수동 DNS를 잘못 입력했다면 기존 설정 또는 자동 할당으로 복원하세요."
+    ],
+    "secondSteps": [
+      "VPN 연결 전후와 다른 장치를 비교하고 공유기 DNS 설정을 확인하세요."
+    ]
   },
   "DNS_PROBE_FINISHED_NO_INTERNET": {
     "firstLocation": "Wi-Fi 연결 상태와 공공망의 로그인 안내",
     "firstResult": "인증 뒤 다른 사이트가 열리면 추가 초기화를 멈추세요. 여러 기기도 안 되면 공유기·회선 상태로 진행하세요.",
     "secondLocation": "공유기 Internet 상태등과 회선 장애 안내",
     "firstTitle": "공공 Wi-Fi 로그인 완료하기",
-    "secondTitle": "다른 기기와 공유기·회선 상태 확인하기"
+    "secondTitle": "다른 기기와 공유기·회선 상태 확인하기",
+    "firstSteps": [
+      "공공 Wi-Fi라면 로그인 페이지 인증을 완료하세요."
+    ],
+    "secondSteps": [
+      "다른 기기도 안 되면 공유기·모뎀 상태를 확인하고 회선 제공업체에 장애를 문의하세요."
+    ]
   },
   "ERR_CONNECTION_RESET": {
     "firstLocation": "시크릿 창·다른 허용 네트워크의 같은 사이트",
     "firstResult": "시크릿에서만 정상은 브라우저 확장·쿠키를, 다른 회선에서만 정상은 VPN·회선 경로를 확인하세요.",
     "secondLocation": "Windows VPN·프록시 설정과 사이트 운영 문의",
     "firstTitle": "시크릿 창과 다른 네트워크에서 비교하기",
-    "secondTitle": "VPN·프록시 경로 확인 후 운영자에게 알리기"
+    "secondTitle": "VPN·프록시 경로 확인 후 운영자에게 알리기",
+    "firstSteps": [
+      "시크릿 창과 다른 네트워크로 같은 사이트를 비교하세요."
+    ],
+    "secondSteps": [
+      "VPN·프록시 사용 중이면 정책에 맞게 연결을 비교하고 사이트 운영자에게 재현 조건을 전달하세요."
+    ]
   },
   "ERR_CONNECTION_TIMED_OUT": {
     "firstLocation": "다른 기기·다른 회선의 동일한 접속 주소",
     "firstResult": "여러 회선에서도 한 사이트만 지연되면 시간을 두고 운영자에게 확인하세요. 내 회선만 같으면 경로를 비교하세요.",
     "secondLocation": "VPN·프록시와 공유기 연결 상태",
     "firstTitle": "사이트 장애 여부 확인 후 다시 접속하기",
-    "secondTitle": "본인 네트워크의 VPN·공유기 경로 확인하기"
+    "secondTitle": "본인 네트워크의 VPN·공유기 경로 확인하기",
+    "firstSteps": [
+      "사이트 전체 장애인지 확인하고 시간을 두고 다시 접속하세요."
+    ],
+    "secondSteps": [
+      "본인 네트워크에서만 실패하면 VPN·프록시·공유기 경로를 확인하세요."
+    ]
   },
   "ERR_CONNECTION_REFUSED": {
     "firstLocation": "본인 서버의 실행 서비스·설정 포트 또는 외부 사이트의 주소창",
     "firstResult": "같은 호스트의 올바른 포트에서만 응답하면 주소·서비스 설정을 수정하세요. 소유하지 않은 서버 포트는 임의 변경하지 마세요.",
     "secondLocation": "서버 서비스 로그·수신 주소 또는 외부 사이트 문의",
     "firstTitle": "본인 서버의 서비스·수신 포트 확인하기",
-    "secondTitle": "외부 사이트는 다른 네트워크로 비교하기"
+    "secondTitle": "외부 사이트는 다른 네트워크로 비교하기",
+    "firstSteps": [
+      "본인 서버라면 서비스 실행 상태와 수신 포트를 확인하세요."
+    ],
+    "secondSteps": [
+      "외부 사이트라면 다른 네트워크로 비교하고 운영자에게 접속 주소를 전달하세요."
+    ]
   },
   "ERR_NAME_NOT_RESOLVED": {
     "firstLocation": "사내 주소의 승인된 VPN·DNS 또는 공개 주소의 다른 기기",
@@ -427,22 +737,22 @@
       "공개 주소는 같은 네트워크의 다른 장치와 허용된 다른 회선에서 열어 실패 범위를 구분하세요. 인증서 경고를 피하려고 IP로 직접 로그인하지 마세요."
     ],
     "secondSteps": [
-      "이 PC에서만 공개 이름 해석이 실패하면 관리자 터미널에서 ipconfig /flushdns를 실행하고 브라우저를 다시 열어 비교하세요.",
+      "이 PC에서만 공개 이름 해석이 실패하면 관리자 터미널(시작 버튼 우클릭 → 터미널(관리자), 없으면 cmd 검색 → 관리자 권한으로 실행)에서 ipconfig /flushdns를 실행하고 브라우저를 다시 열어 비교하세요.",
       "연결된 어댑터의 DNS 할당에서 원래 자동·조직 설정과 다른 변경이 있는지 확인하세요. 여러 회선에서도 같은 이름만 실패하면 도메인 운영자에게 확인하세요."
     ],
     "firstTitle": "주소 철자와 사내 전용 주소인지 확인하기",
     "secondTitle": "DNS 캐시를 지우고 공개 주소 다시 열기"
   },
   "ERR_NETWORK_CHANGED": {
-    "firstLocation": "설정 → 네트워크 및 인터넷의 현재 연결과 VPN 상태",
+    "firstLocation": "Windows 키+I → 설정 → 네트워크 및 인터넷의 현재 연결과 VPN 상태",
     "firstResult": "네트워크 전환이 멈춘 뒤 정상화되면 추가 초기화를 멈추세요. 전환 없이도 반복되면 연결 기록을 확인하세요.",
-    "secondLocation": "이벤트 뷰어 → WLAN-AutoConfig 연결 기록·VPN 앱 로그",
+    "secondLocation": "Windows 키+R → eventvwr.msc 입력 → Enter → 이벤트 뷰어 → WLAN-AutoConfig 연결 기록·VPN 앱 로그",
     "firstSteps": [
-      "설정 → 네트워크 및 인터넷에서 현재 Wi-Fi·이더넷·VPN 중 실제 사용하는 연결을 확인하고 로밍·재연결 중인지 보세요.",
+      "Windows 키+I로 설정을 여세요. 설정 → 네트워크 및 인터넷에서 현재 Wi-Fi·이더넷·VPN 중 실제 사용하는 연결을 확인하고 로밍·재연결 중인지 보세요.",
       "진행 중인 파일 전송과 원격 작업을 안전하게 마친 뒤 정책상 허용되는 한 연결을 안정적으로 유지하고 같은 페이지를 새로고침하세요. 공유기를 공장 초기화하지 마세요."
     ],
     "secondSteps": [
-      "무선 반복 끊김은 이벤트 뷰어 → 응용 프로그램 및 서비스 로그 → Microsoft → Windows → WLAN-AutoConfig → Operational에서 오류 시각과 재연결 기록을 비교하세요.",
+      "무선 반복 끊김은 이벤트 뷰어(Windows 키+R → eventvwr.msc 입력 → Enter) → 응용 프로그램 및 서비스 로그 → Microsoft → Windows → WLAN-AutoConfig → Operational에서 오류 시각과 재연결 기록을 비교하세요.",
       "VPN 재접속과 맞물리면 해당 앱의 연결 로그·킬 스위치·조직 정책을 담당자와 확인하세요. 연결이 바뀌지 않는데 반복되면 어댑터 드라이버 버전도 기록하세요."
     ],
     "firstTitle": "실제 사용하는 연결을 하나로 정해 비교하기",
@@ -453,35 +763,65 @@
     "firstResult": "연결 표시만 돌아온 것이 아니라 실제 웹 접속도 되는지 확인하세요. 모든 기기가 실패하면 라우터·회선을 확인하세요.",
     "secondLocation": "같은 공유기의 다른 기기·모뎀 Internet 표시",
     "firstTitle": "Wi-Fi·유선 연결과 어댑터 복구하기",
-    "secondTitle": "다른 기기와 공유기·회선 상태 확인하기"
+    "secondTitle": "다른 기기와 공유기·회선 상태 확인하기",
+    "firstSteps": [
+      "Wi-Fi 또는 유선 연결을 복구하고 네트워크 어댑터가 켜져 있는지 확인하세요."
+    ],
+    "secondSteps": [
+      "다른 기기의 인터넷도 끊겼다면 라우터와 회선 상태를 확인하세요."
+    ]
   },
   "ERR_TOO_MANY_REDIRECTS": {
     "firstLocation": "Chrome 시크릿 창과 사이트별 쿠키 설정",
     "firstResult": "시크릿만 정상일 때만 해당 사이트 쿠키를 삭제하세요. 모든 브라우저가 같으면 로그인·리디렉션은 운영자가 수정해야 합니다.",
     "secondLocation": "다른 브라우저의 최종 주소와 사이트 운영 문의",
     "firstTitle": "시크릿 비교 후 해당 사이트 쿠키만 지우기",
-    "secondTitle": "다른 브라우저도 실패하면 운영자에게 알리기"
+    "secondTitle": "다른 브라우저도 실패하면 운영자에게 알리기",
+    "firstSteps": [
+      "시크릿 창이 정상이라면 해당 사이트의 쿠키만 삭제하세요. 로그아웃될 수 있습니다."
+    ],
+    "secondSteps": [
+      "다른 브라우저도 실패하면 사이트 운영자가 리디렉션·인증 설정을 확인해야 합니다."
+    ]
   },
   "ERR_SSL_PROTOCOL_ERROR": {
     "firstLocation": "Chrome 메뉴 → 도움말 → Chrome 정보와 HTTPS 주소",
     "firstResult": "브라우저 업데이트 뒤 경고 없이 열리는지 확인하세요. 조직 회선만 실패하면 TLS 검사 정책을 확인하세요.",
     "secondLocation": "조직 보안 장비의 TLS 검사·사이트 HTTPS 설정",
     "firstTitle": "Chrome 업데이트 후 정확한 HTTPS 주소 열기",
-    "secondTitle": "조직 네트워크의 TLS 검사 설정 확인하기"
+    "secondTitle": "조직 네트워크의 TLS 검사 설정 확인하기",
+    "firstSteps": [
+      "브라우저를 업데이트하고 HTTPS를 제공하는 정확한 주소로 접속하세요."
+    ],
+    "secondSteps": [
+      "회사 네트워크에서만 실패하면 보안 TLS 검사 설정을 관리자에게 문의하세요."
+    ]
   },
   "NET::ERR_CERT_DATE_INVALID": {
-    "firstLocation": "설정 → 시간 및 언어 → 날짜 및 시간 → 시간대·지금 동기화",
+    "firstLocation": "Windows 키+I → 설정 → 시간 및 언어 → 날짜 및 시간 → 시간대·지금 동기화",
     "firstResult": "실제 시간이 맞아진 뒤 경고가 없어지면 시간 설정 문제입니다. 다른 장치도 같은 경고면 서버 인증서를 확인받으세요.",
     "secondLocation": "인증서 만료일·다른 장치의 동일 주소",
     "firstTitle": "PC 날짜·시간을 자동으로 동기화하기",
-    "secondTitle": "다른 장치도 실패하면 인증서 만료 알리기"
+    "secondTitle": "다른 장치도 실패하면 인증서 만료 알리기",
+    "firstSteps": [
+      "Windows 시간 자동 설정과 시간 동기화를 확인하세요."
+    ],
+    "secondSteps": [
+      "시간이 정상이고 다른 장치도 실패하면 운영자에게 인증서 만료를 알리세요."
+    ]
   },
   "NET::ERR_CERT_AUTHORITY_INVALID": {
     "firstLocation": "최신 브라우저·Windows와 다른 허용 네트워크",
     "firstResult": "공개 사이트가 한 조직망에서만 실패하면 인증서 검사 정책을 관리자에게 확인하세요. 임의 루트 인증서를 설치하지 마세요.",
     "secondLocation": "조직의 공식 루트 인증서 배포·서버 인증서 체인",
     "firstTitle": "다른 네트워크와 최신 브라우저로 비교하기",
-    "secondTitle": "내부 사이트의 인증서 배포를 관리자에게 확인하기"
+    "secondTitle": "내부 사이트의 인증서 배포를 관리자에게 확인하기",
+    "firstSteps": [
+      "공개 사이트는 다른 네트워크로 비교하고 브라우저·OS를 업데이트하세요."
+    ],
+    "secondSteps": [
+      "내부 사이트는 관리자에게 공식 루트 인증서 배포와 인증서 체인을 확인해 달라고 요청하세요."
+    ]
   },
   "ERR_CACHE_MISS": {
     "firstLocation": "Chrome 메뉴 → 새 탭 → 사이트 시작 주소",
@@ -503,105 +843,196 @@
     "firstResult": "기본 상태에서 같은 작업만 성공하면 플러그인을 하나씩 복원하세요. 여러 앱도 실패하면 메모리를 점검하세요.",
     "secondLocation": "BIOS 메모리 프로필·Windows 메모리 진단",
     "firstTitle": "앱 업데이트 후 플러그인·모드 없이 비교하기",
-    "secondTitle": "여러 앱 오류면 기본 설정에서 메모리 진단하기"
+    "secondTitle": "여러 앱 오류면 기본 설정에서 메모리 진단하기",
+    "firstSteps": [
+      "문제 앱을 업데이트하고 플러그인·모드를 제외한 기본 상태로 비교하세요."
+    ],
+    "secondSteps": [
+      "여러 앱에서 발생하면 메모리 오버클럭을 해제하고 Windows 메모리 진단을 실행하세요.",
+      "위 조건에 해당해 메모리 검사를 진행할 때는 작업을 저장한 뒤 Windows 키에서 Windows 메모리 진단을 검색해 실행하고 지금 다시 시작하여 확인을 선택하세요. 재부팅 후 Windows 키+R → eventvwr.msc → Enter → Windows 로그 → 시스템에서 MemoryDiagnostics-Results 결과를 확인하세요."
+    ]
   },
   "0xC000007B": {
     "firstLocation": "앱 설치 프로그램의 복구·파일 검사와 오류 DLL 경로",
     "firstResult": "복구 뒤 앱이 시작되면 따로 받은 DLL을 덧씌우지 마세요. 같은 오류면 앱의 32·64비트 런타임을 확인하세요.",
-    "secondLocation": "설정 → 설치된 앱 → Microsoft Visual C++ 재배포 패키지",
+    "secondLocation": "Windows 키+I → 설정 → 설치된 앱 → Microsoft Visual C++ 재배포 패키지",
     "firstTitle": "앱 파일 검사·복구로 라이브러리 복원하기",
-    "secondTitle": "앱 아키텍처에 맞는 Visual C++ 설치하기"
+    "secondTitle": "앱 아키텍처에 맞는 Visual C++ 설치하기",
+    "firstSteps": [
+      "앱의 공식 파일 검사 또는 복구 설치로 원래 라이브러리를 복원하세요."
+    ],
+    "secondSteps": [
+      "앱 요구사항에 맞는 Microsoft Visual C++ 재배포 패키지의 아키텍처를 설치하세요."
+    ]
   },
   "0xC0000142": {
-    "firstLocation": "설정 → 설치된 앱 → Microsoft 365·Office → 수정·복구",
+    "firstLocation": "Windows 키+I → 설정 → 설치된 앱 → Microsoft 365·Office → 수정·복구",
     "firstResult": "Office 복구 후 같은 앱이 열리는지 확인하세요. 다른 앱이면 Office 조치를 적용하지 말고 그 앱의 복구를 사용하세요.",
     "secondLocation": "문제 앱의 공식 복구·확장 기능 없는 시작",
     "firstTitle": "Office 복구 후 업데이트·재부팅하기",
-    "secondTitle": "다른 앱은 복구 설치 후 확장 기능 없이 비교하기"
+    "secondTitle": "다른 앱은 복구 설치 후 확장 기능 없이 비교하기",
+    "firstSteps": [
+      "Office라면 앱의 복구 기능을 실행하고 업데이트 완료 후 재부팅하세요."
+    ],
+    "secondSteps": [
+      "다른 앱은 공식 복구 설치와 확장 기능 없는 시작으로 비교하세요."
+    ]
   },
   "0xC0000135": {
     "firstLocation": "앱 제작사의 필수 구성요소 목록과 설치된 .NET·Visual C++",
     "firstResult": "필요한 런타임 버전을 설치한 뒤 메시지와 실행을 확인하세요. 이미 설치됐으면 앱 복구·격리 내역을 확인하세요.",
     "secondLocation": "앱 설치 프로그램의 복구와 Windows 보안 → 보호 기록",
     "firstTitle": "앱이 요구하는 공식 런타임 설치하기",
-    "secondTitle": "앱 복구와 보안 격리 기록 확인하기"
+    "secondTitle": "앱 복구와 보안 격리 기록 확인하기",
+    "firstSteps": [
+      "앱 제작사가 요구하는 .NET 또는 Visual C++ 런타임을 공식 출처에서 설치하세요."
+    ],
+    "secondSteps": [
+      "런타임이 이미 있으면 앱 복구와 보안 격리 기록을 확인하세요."
+    ]
   },
   "0xC000012F": {
     "firstLocation": "오류 메시지의 전체 DLL 경로와 앱 복구 화면",
     "firstResult": "앱 폴더 파일이 복원된 뒤 실행되면 앱 손상으로 좁히세요. Windows 경로면 시스템 파일 복구로 진행하세요.",
     "secondLocation": "터미널(관리자) → DISM·SFC와 CBS 로그",
     "firstTitle": "앱 폴더의 DLL을 복구 설치로 복원하기",
-    "secondTitle": "Windows 파일이면 DISM·SFC 검사하기"
+    "secondTitle": "Windows 파일이면 DISM·SFC 검사하기",
+    "firstSteps": [
+      "앱 폴더의 DLL이면 해당 앱을 복구 설치하세요."
+    ],
+    "secondSteps": [
+      "Windows 파일이면 관리자 터미널(시작 버튼 우클릭 → 터미널(관리자), 없으면 cmd 검색 → 관리자 권한으로 실행)의 DISM 복구 완료 후 SFC 검사를 실행하세요."
+    ]
   },
   "0xC0000022": {
     "firstLocation": "제작사의 공식 설치 프로그램·본인이 쓰기 가능한 설치 경로",
     "firstResult": "허용된 계정·경로에서만 실행되면 접근 제한을 확인하세요. 보안 차단을 우회하려고 전체 폴더 권한을 열지 마세요.",
     "secondLocation": "Windows 보안 → 보호 기록과 조직 앱 정책",
     "firstTitle": "허용된 경로에 앱 복구 설치하기",
-    "secondTitle": "보안 차단 기록과 조직 정책 확인하기"
+    "secondTitle": "보안 차단 기록과 조직 정책 확인하기",
+    "firstSteps": [
+      "공식 설치 프로그램으로 사용자에게 허용된 경로에 복구 설치하세요."
+    ],
+    "secondSteps": [
+      "보안 차단 기록을 확인하고 조직 정책에 걸린 앱이면 관리자에게 문의하세요."
+    ]
   },
   "VCRUNTIME140.dll": {
-    "firstLocation": "설정 → 설치된 앱 → Microsoft Visual C++ v14 → 수정·복구",
+    "firstLocation": "Windows 키+I → 설정 → 설치된 앱 → Microsoft Visual C++ v14 → 수정·복구",
     "firstResult": "앱과 같은 아키텍처의 패키지 복구 후 DLL 메시지가 사라지는지 보세요. 남으면 앱 설치 의존성을 복원하세요.",
     "secondLocation": "앱 제작사의 설치 프로그램 → 복구·필수 구성요소",
     "firstTitle": "앱에 맞는 Visual C++ v14 설치·복구하기",
-    "secondTitle": "공식 앱 설치 프로그램으로 의존성 복원하기"
+    "secondTitle": "공식 앱 설치 프로그램으로 의존성 복원하기",
+    "firstSteps": [
+      "Microsoft 공식 Visual C++ v14 재배포 패키지를 앱에 맞게 설치하거나 복구하세요."
+    ],
+    "secondSteps": [
+      "앱의 공식 설치 프로그램을 다시 실행해 함께 제공되는 의존성을 복원하세요."
+    ]
   },
   "VCRUNTIME140_1.dll": {
     "firstLocation": "Microsoft Visual C++ v14 설치·복구 화면과 앱 아키텍처",
     "firstResult": "현재 Windows가 64비트여도 32비트 앱은 x86 런타임이 필요합니다. 앱 기준으로 설치 후 재실행하세요.",
     "secondLocation": "설치된 앱 → 해당 v14 패키지 → 수정·복구",
     "firstTitle": "아키텍처에 맞는 Visual C++ v14 업데이트하기",
-    "secondTitle": "앱 재시작 후 런타임 복구하기"
+    "secondTitle": "앱 재시작 후 런타임 복구하기",
+    "firstSteps": [
+      "Microsoft 공식 지원 v14 런타임을 올바른 아키텍처로 업데이트하세요."
+    ],
+    "secondSteps": [
+      "설치 완료 후 앱을 다시 시작하고 필요하면 패키지 복구를 실행하세요."
+    ]
   },
   "MSVCP140.dll": {
     "firstLocation": "Microsoft Visual C++ v14 설치·복구 화면",
     "firstResult": "표준 라이브러리 메시지 없이 실제 기능이 열리는지 확인하세요. 설치 성공만으로 끝내지 말고 앱 파일도 검사하세요.",
     "secondLocation": "런처·앱 설치 프로그램의 파일 검사",
     "firstTitle": "공식 Visual C++ v14 설치·복구하기",
-    "secondTitle": "앱 파일 검사로 누락된 구성요소 복원하기"
+    "secondTitle": "앱 파일 검사로 누락된 구성요소 복원하기",
+    "firstSteps": [
+      "Microsoft 공식 Visual C++ v14 재배포 패키지를 설치·복구하세요."
+    ],
+    "secondSteps": [
+      "앱 파일 검사로 설치 폴더의 구성요소가 누락되지 않았는지 확인하세요."
+    ]
   },
   "MSVCP120.dll": {
     "firstLocation": "앱 요구사항의 Visual C++ 2013과 32·64비트 구분",
     "firstResult": "2013 패키지가 설치돼도 앱 아키텍처와 다르면 해결되지 않습니다. 일치하는 지원 패키지를 확인하세요.",
     "secondLocation": "앱 제작사의 지원 Windows·런타임 요구사항",
     "firstTitle": "앱에 맞는 Visual C++ 2013 설치하기",
-    "secondTitle": "앱 제작사에 현재 Windows 지원 확인하기"
+    "secondTitle": "앱 제작사에 현재 Windows 지원 확인하기",
+    "firstSteps": [
+      "Microsoft 공식 Visual C++ 2013 재배포 패키지를 앱 아키텍처에 맞게 설치하세요."
+    ],
+    "secondSteps": [
+      "현재 OS 지원 여부도 앱 제작사에 확인하세요."
+    ]
   },
   "MSVCR100.dll": {
     "firstLocation": "앱 제작사의 공식 설치 파일과 Visual C++ 2010 요구사항",
     "firstResult": "호환 런타임 후에도 실패하거나 OS가 미지원이면 지원되는 앱 버전으로 이전을 검토하세요.",
     "secondLocation": "제작사의 현재 지원 버전·마이그레이션 안내",
     "firstTitle": "공식 앱 패키지와 2010 런타임 확인하기",
-    "secondTitle": "지원되는 최신 앱으로 이전 검토하기"
+    "secondTitle": "지원되는 최신 앱으로 이전 검토하기",
+    "firstSteps": [
+      "제작사의 공식 설치 패키지와 Microsoft 공식 2010 런타임 안내를 사용하세요."
+    ],
+    "secondSteps": [
+      "지원이 끝난 앱은 유지되는 최신 버전으로 이전을 검토하세요."
+    ]
   },
   "D3DX9_43.dll": {
     "firstLocation": "Microsoft DirectX 레거시 런타임 또는 게임이 제공하는 의존성 설치",
     "firstResult": "Windows의 최신 DirectX 표시와 레거시 DLL 설치는 다릅니다. 지원 런타임 설치 후 같은 게임을 시작하세요.",
     "secondLocation": "게임 런처 → 파일 무결성·복구 검사",
     "firstTitle": "공식 DirectX 레거시 구성요소 설치하기",
-    "secondTitle": "게임 파일 검사로 누락된 파일 복원하기"
+    "secondTitle": "게임 파일 검사로 누락된 파일 복원하기",
+    "firstSteps": [
+      "Microsoft 공식 DirectX End-User Runtime 안내에 따라 레거시 구성요소를 설치하세요."
+    ],
+    "secondSteps": [
+      "게임의 공식 파일 검사를 실행하고 개별 DLL 다운로드는 피하세요."
+    ]
   },
   "XINPUT1_3.dll": {
     "firstLocation": "게임 설치 폴더의 공식 DirectX 의존성 설치",
     "firstResult": "DLL 메시지가 사라지면 게임 시작과 실제 컨트롤러 입력도 시험하세요. 남으면 게임 파일을 검사하세요.",
     "secondLocation": "게임 파일 검사·joy.cpl의 컨트롤러 테스트",
     "firstTitle": "공식 DirectX 의존성 설치하기",
-    "secondTitle": "게임 파일과 컨트롤러 동작 검사하기"
+    "secondTitle": "게임 파일과 컨트롤러 동작 검사하기",
+    "firstSteps": [
+      "게임이 제공하는 공식 DirectX 의존성 설치 또는 Microsoft 레거시 런타임을 사용하세요."
+    ],
+    "secondSteps": [
+      "게임 파일 검사 후 키보드와 컨트롤러 동작을 시험하세요."
+    ]
   },
   "Error 1603": {
     "firstLocation": "공식 설치 파일·기존 제품의 수정·제거 화면과 설치 로그",
     "firstResult": "설치 완료 후 앱도 열리는지 확인하세요. 같은 구성 단계에서 실패하면 로그를 확보하고 수동 레지스트리 삭제를 하지 마세요.",
     "secondLocation": "제작사가 안내한 설치 로그의 실패 작업·발생 시각",
     "firstTitle": "재부팅 후 로컬 설치 파일로 복구하기",
-    "secondTitle": "반복 실패한 설치의 상세 로그 전달하기"
+    "secondTitle": "반복 실패한 설치의 상세 로그 전달하기",
+    "firstSteps": [
+      "재부팅 후 공식 설치 파일을 로컬 경로에서 실행하고 기존 제품의 복구·제거 기능을 확인하세요."
+    ],
+    "secondSteps": [
+      "반복 실패하면 상세 설치 로그를 제작사에 전달하세요. 코드만 보고 레지스트리를 삭제하지 마세요."
+    ]
   },
   "Error 1618": {
-    "firstLocation": "설정 → Windows 업데이트와 현재 실행 중인 설치 화면",
+    "firstLocation": "Windows 키+I → 설정 → Windows 업데이트와 현재 실행 중인 설치 화면",
     "firstResult": "다른 설치가 실제 완료된 뒤 새 설치가 시작되는지 확인하세요. 설치 프로세스를 강제 종료하지 마세요.",
     "secondLocation": "파일 저장 후 PC 다시 시작과 단일 설치 프로그램",
     "firstTitle": "진행 중인 설치가 끝난 뒤 하나씩 실행하기",
-    "secondTitle": "설치 완료 후 재부팅하고 다시 설치하기"
+    "secondTitle": "설치 완료 후 재부팅하고 다시 설치하기",
+    "firstSteps": [
+      "현재 설치가 끝날 때까지 기다리고 새 설치는 하나씩 실행하세요."
+    ],
+    "secondSteps": [
+      "작업이 끝났는데도 계속되면 저장 후 재부팅하여 다시 시도하세요."
+    ]
   },
   "Error 1722": {
     "firstLocation": "공식 최신 설치 파일·제작사의 필수 구성요소와 상세 설치 로그",
@@ -613,18 +1044,18 @@
       "설치 화면·제작사 로그가 특정 런타임이나 서비스 전제 조건을 지목할 때만 해당 조건을 먼저 복구한 뒤 한 번 다시 설치하세요."
     ],
     "secondSteps": [
-      "이벤트 뷰어 → Windows 로그 → 응용 프로그램에서 설치 실패 시각의 MsiInstaller 항목과 설치 프로그램이 제공하는 상세 로그를 보관하세요.",
+      "이벤트 뷰어(Windows 키+R → eventvwr.msc 입력 → Enter) → Windows 로그 → 응용 프로그램에서 설치 실패 시각의 MsiInstaller 항목과 설치 프로그램이 제공하는 상세 로그를 보관하세요.",
       "같은 작업 이름·종료 코드에서 실패하면 제품 버전·Windows 빌드·로그를 제작사에 전달하세요. Installer 상태나 레지스트리를 통째로 초기화하지 마세요."
     ],
     "firstTitle": "Installer 작업 오류 확인 후 공식 패키지로 복구하기",
     "secondTitle": "설치 로그와 실패한 작업 이름 확인하기"
   },
   "0x800736B1": {
-    "firstLocation": "이벤트 뷰어 → Windows 로그 → 응용 프로그램 → SideBySide",
+    "firstLocation": "Windows 키+R → eventvwr.msc 입력 → Enter → 이벤트 뷰어 → Windows 로그 → 응용 프로그램 → SideBySide",
     "firstResult": "로그의 어셈블리 이름·버전·아키텍처와 같은 런타임을 설치하세요. 아무 v14 패키지나 설치하면 해결되는 것은 아닙니다.",
     "secondLocation": "설치된 Visual C++ 패키지·앱 복구 설치·SideBySide 새 이벤트",
     "firstSteps": [
-      "Win+R → eventvwr.msc → Windows 로그 → 응용 프로그램에서 앱 실행 실패 시각의 SideBySide 항목을 열어 일반 탭 내용을 기록하세요.",
+      "Windows 키+R → eventvwr.msc → Windows 로그 → 응용 프로그램에서 앱 실행 실패 시각의 SideBySide 항목을 열어 일반 탭 내용을 기록하세요.",
       "어셈블리 이름·버전·processorArchitecture의 x86·amd64 등을 앱 요구사항과 대조하세요. 64비트 Windows라도 앱이 32비트면 x86 구성요소가 필요합니다.",
       "로그가 지목한 지원 런타임의 정확한 버전·아키텍처를 공식 설치 프로그램으로 설치·복구하고 앱을 다시 실행하세요."
     ],
