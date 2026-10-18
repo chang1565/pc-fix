@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
@@ -13,26 +13,34 @@ export default function DisplayAd({ label = "광고", placement = "bottom" }: { 
   const container = side ? `display-ad-side display-ad-${placement}` : "display-ad-block mx-auto my-8 w-full max-w-5xl px-5";
   const height = side ? 600 : 250;
   const element = useRef<HTMLModElement>(null);
+  const wrapper = useRef<HTMLElement>(null);
+  const [ready, setReady] = useState(false);
   const requested = useRef(false);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") return;
-    const ad = element.current;
-    if (!ad) return;
+    // AdSense는 전역 큐에서 ins를 선택하므로 숨겨진 칸은 아직 생성하지 않습니다.
+    const box = wrapper.current;
+    if (!box) return;
     const observer = new ResizeObserver(() => {
-      if (requested.current || ad.getBoundingClientRect().width === 0) return;
-      requested.current = true;
+      if (box.getBoundingClientRect().width === 0) return;
+      setReady(true);
       observer.disconnect();
-      try {
-        window.adsbygoogle ??= [] as Record<string, never>[];
-        window.adsbygoogle.push({});
-      } catch (error) {
-        console.warn("Display ad could not be initialized", error);
-      }
     });
-    observer.observe(ad);
+    observer.observe(box);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (!ready || !element.current || requested.current) return;
+    requested.current = true;
+    try {
+      window.adsbygoogle ??= [] as Record<string, never>[];
+      window.adsbygoogle.push({});
+    } catch (error) {
+      console.warn("Display ad could not be initialized", error);
+    }
+  }, [ready]);
 
   if (process.env.NODE_ENV !== "production") {
     return (
@@ -46,17 +54,17 @@ export default function DisplayAd({ label = "광고", placement = "bottom" }: { 
   }
 
   return (
-    <aside aria-label={label} data-ad-placement={placement} className={container}>
+    <aside ref={wrapper} aria-label={label} data-ad-placement={placement} className={container}>
       <p className="mb-3 text-center text-xs text-slate-400">{label}</p>
-      <ins
+      {ready ? <ins
         ref={element}
         className="adsbygoogle"
-        style={{ display: "block", ...(side ? { minHeight: height } : {}) }}
+        style={side ? { width: 160, height: 600 } : { display: "block" }}
         data-ad-client="ca-pub-5914836791785057"
         data-ad-slot="4458770043"
-        data-ad-format="auto"
-        data-full-width-responsive={side ? "false" : "true"}
-      />
+        data-ad-format={side ? undefined : "auto"}
+        data-full-width-responsive={side ? undefined : "true"}
+      /> : <div aria-hidden="true" className="display-ad-space" style={side ? { minHeight: height } : undefined} />}
     </aside>
   );
 }

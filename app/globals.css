@@ -34,14 +34,16 @@ button {
 }
 .display-ad-sides { display: none; }
 .display-ad-side { width: 100%; min-width: 0; }
+.display-ad-side .adsbygoogle { display: none; }
 .display-ad-block:has(ins[data-ad-status="unfilled"]),
 .display-ad-side:has(ins[data-ad-status="unfilled"]) { display: none; }
-.display-ad-block .adsbygoogle { min-height: 100px; }
-@media (min-width: 640px) { .display-ad-block .adsbygoogle { min-height: 250px; } }
+.display-ad-block .adsbygoogle, .display-ad-block .display-ad-space { min-height: 100px; }
+@media (min-width: 640px) { .display-ad-block .adsbygoogle, .display-ad-block .display-ad-space { min-height: 250px; } }
 @media (min-width: 1200px) and (min-height: 720px) {
   main:has(.display-ad-sides) { padding-inline: 184px; }
   .display-ad-sides { display: contents; }
   .display-ad-side { position: fixed; top: 110px; width: 160px; z-index: 10; }
+  .display-ad-side .adsbygoogle { display: block; }
   .display-ad-left { left: 12px; }
   .display-ad-right { right: 12px; }
 }
