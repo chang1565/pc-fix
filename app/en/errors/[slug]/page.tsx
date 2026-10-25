@@ -51,6 +51,7 @@ export default async function ErrorPage({ params }: Props) {
       <section className={panel}><h2 className="text-xl font-black">{"main causes"}</h2><ul className="mt-4 list-disc space-y-2 pl-5 text-slate-600">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
       <section className="mt-10"><h2 className="text-2xl font-black">{"Step-by-step solution"}</h2><p className="mt-2 text-sm text-slate-500">{"If it is checked and resolved from above, you do not need to proceed to the next step."}</p>
         {entry.solutions.map(solution => <article key={solution.order} className={panel}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3>
+          {solution.reason && <p className="mt-2 leading-7 text-slate-600">{solution.reason}</p>}
           <div className="mt-4 text-sm leading-7 text-blue-900">{solution.location && <><strong>{"Where to check: "}</strong>{solution.location}</>}</div><ol className="mt-5 list-decimal space-y-3 pl-5 leading-7 text-slate-700">{solution.steps.map(step => <li key={step}>{step}</li>)}</ol>
           <p className="mt-5 rounded-xl bg-green-50 p-4 leading-7 text-green-800"><strong>{"Result and next step: "}</strong>{solution.checkPoint}</p></article>)}<aside className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5"><h3 className="font-bold text-amber-950">{"If it still doesn't work"}</h3><p className="mt-2 leading-7 text-amber-900">{entry.unresolved}</p></aside></section>
 

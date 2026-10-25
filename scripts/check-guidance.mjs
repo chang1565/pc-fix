@@ -83,8 +83,11 @@ assert.ok(!procedures["유선 연결로 먼저 테스트하기"].checkPoint.incl
 assert.match(procedures["IP·DNS 상태 초기화하기"].steps.join(" "), /고정 IP·조직망/);
 assert.match(procedures["클린 부팅 또는 새 사용자 계정으로 비교하기"].steps.join(" "), /Microsoft 서비스 숨기기/);
 // 고장 디스크 반복 검사와 복구 키 없는 일반 부팅 복구 경로를 노출하지 않습니다.
-assert.equal(problems.find(p => p.slug === "hdd-clicking").solutions.length, 1);
-assert.equal(problems.find(p => p.slug === "bitlocker-recovery-screen").solutions.length, 1);
+for (const slug of ["hdd-clicking", "bitlocker-recovery-screen"]) {
+  const page = problems.find(p => p.slug === slug);
+  assert.ok(page.solutions.length >= 3, `missing safe follow-up: ${slug}`);
+  assert.doesNotMatch(page.solutions.slice(1).map(s => s.title).join(" "), /시작 복구|시스템 파일 검사|Windows 업데이트|포맷하기|CHKDSK 실행/, slug);
+}
 assert.match(symptomBranches["disk-unallocated"][2], /쓰기를 멈추세요/);
 assert.match(symptomBranches["battery-swollen"].join(" "), /사용을 중단/);
 assert.match(errorBranches["NET::ERR_CERT_AUTHORITY_INVALID"][1], /임의 루트 인증서를 설치하지/);

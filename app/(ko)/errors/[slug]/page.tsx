@@ -45,6 +45,7 @@ export default async function ErrorPage({ params }: Props) {
       <section className={panel}><h2 className="text-xl font-black">주요 원인</h2><ul className="mt-4 list-disc space-y-2 pl-5 text-slate-600">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
       <section className="mt-10"><h2 className="text-2xl font-black">단계별 해결 방법</h2><p className="mt-2 text-sm text-slate-500">위에서부터 확인하고 해결되면 다음 단계는 진행하지 않아도 됩니다.</p>
         {entry.solutions.map(solution => <article key={solution.order} className={panel}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3>
+          {solution.reason && <p className="mt-2 leading-7 text-slate-600">{solution.reason}</p>}
           <div className="mt-4 text-sm leading-7 text-blue-900">{solution.location && <><strong>확인할 곳: </strong>{solution.location}</>}</div><ol className="mt-5 list-decimal space-y-3 pl-5 leading-7 text-slate-700">{solution.steps.map(step => <li key={step}>{step}</li>)}</ol>
           <p className="mt-5 rounded-xl bg-green-50 p-4 leading-7 text-green-800"><strong>결과 판단과 다음 행동: </strong>{solution.checkPoint}</p></article>)}<aside className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5"><h3 className="font-bold text-amber-950">그래도 해결되지 않으면</h3><p className="mt-2 leading-7 text-amber-900">{entry.unresolved}</p></aside></section>
       

@@ -6,7 +6,7 @@ import { locales, localizePath, languageAlternates } from "@/lib/localization";
 const baseUrl =
   (process.env.NEXT_PUBLIC_SITE_URL || "https://pcfixbase.com").replace(/\/$/, "");
 
-const problemsUpdatedAt = "2026-10-18T00:00:00.000Z";
+const problemsUpdatedAt = "2026-10-25T00:00:00.000Z";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const problemPages = problems.map((problem) => ({
@@ -36,7 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return locales.map(locale => ({
       ...page,
       url: `${baseUrl}${localizePath(pathname, locale)}`,
-      ...(locale !== "ko" ? { lastModified: errorsUpdatedAt } : {}),
       alternates: { languages },
     }));
   });

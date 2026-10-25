@@ -236,8 +236,7 @@ export default async function ProblemPage({ params, }: PageProps) {
                           <h3 className="text-lg font-bold text-slate-950 sm:text-xl">
                             {solution.title}
                           </h3>
-
-
+                          {solution.reason && <p className="mt-2 text-sm leading-6 text-slate-600">{solution.reason}</p>}
                         </div>
                       </div>
 
