@@ -3,6 +3,7 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/en/contact") };
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 export default function ContactPage() {
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
@@ -19,9 +20,7 @@ export default function ContactPage() {
 
             <p className="mt-2 text-sm leading-6 text-slate-500">{" Please send any inquiries to the email address below. "}</p>
 
-            <a href="mailto:contact@pcfixbase.com" className="mt-3 inline-block font-semibold text-blue-600 hover:underline">
-              contact@pcfixbase.com
-            </a>
+            <div className="mt-3"><ContactEmail link/></div>
           </div>
         </div>
       </article>

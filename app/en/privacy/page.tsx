@@ -3,6 +3,7 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/en/privacy") };
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
+import { ContactEmailText } from "@/components/ContactEmail";
 export default function PrivacyPage() {
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
@@ -14,7 +15,7 @@ export default function PrivacyPage() {
           <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
             <section>
               <h2 className="text-lg font-bold text-slate-950">{"1. Site use and inquiries"}</h2>
-              <p className="mt-2">{"PC FIX can be used without membership registration. If you send an inquiry email, your reply address and inquiry content will be used to respond and correct errors. Please do not send sensitive information such as passwords, payment information, or recovery keys. To request deletion of inquiry information, please send it to contact@pcfixbase.com."}</p>
+              <p className="mt-2"><ContactEmailText>{"PC FIX can be used without membership registration. If you send an inquiry email, your reply address and inquiry content will be used to respond and correct errors. Please do not send sensitive information such as passwords, payment information, or recovery keys. To request deletion of inquiry information, please send it to contact@pcfixbase.com."}</ContactEmailText></p>
               <p className="mt-2">{"For page serving and security purposes, our servers and Cloudflare may process your IP address, request address, and browser information. Cloudflare uses your country information to select your default language on your first visit."}</p>
               <a className="text-blue-600 underline" href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">{"Cloudflare Privacy Policy"}</a>
             </section>
@@ -35,7 +36,7 @@ export default function PrivacyPage() {
             </section>
             <section>
               <h2 className="text-lg font-bold text-slate-950">{"4. Inquiries and policy changes"}</h2>
-              <p className="mt-2">{"Please send inquiries regarding personal information and content to contact@pcfixbase.com. Changes to services and external services will be reflected on this page."}</p>
+              <p className="mt-2"><ContactEmailText>{"Please send inquiries regarding personal information and content to contact@pcfixbase.com. Changes to services and external services will be reflected on this page."}</ContactEmailText></p>
             </section>
             <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{"Effective date: October 6, 2026 Last modified: October 18, 2026"}</p>
           </div>

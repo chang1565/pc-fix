@@ -3,6 +3,7 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/zh-CN/contact") };
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 export default function ContactPage() {
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
@@ -19,9 +20,7 @@ export default function ContactPage() {
 
             <p className="mt-2 text-sm leading-6 text-slate-500">{" \u8BF7\u5C06\u4EFB\u4F55\u7591\u95EE\u53D1\u9001\u81F3\u4EE5\u4E0B\u7535\u5B50\u90AE\u4EF6\u5730\u5740\u3002 "}</p>
 
-            <a href="mailto:contact@pcfixbase.com" className="mt-3 inline-block font-semibold text-blue-600 hover:underline">
-              contact@pcfixbase.com
-            </a>
+            <div className="mt-3"><ContactEmail link/></div>
           </div>
         </div>
       </article>

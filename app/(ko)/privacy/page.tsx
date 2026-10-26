@@ -2,6 +2,7 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/privacy") };
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import { ContactEmailText } from "@/components/ContactEmail";
 
 export default function PrivacyPage() {
   return (
@@ -17,7 +18,7 @@ export default function PrivacyPage() {
           <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
             <section>
               <h2 className="text-lg font-bold text-slate-950">1. 사이트 이용과 문의</h2>
-              <p className="mt-2">PC FIX는 회원가입 없이 이용할 수 있습니다. 문의 이메일을 보내면 회신 주소와 문의 내용을 답변 및 오류 수정에 사용합니다. 비밀번호, 결제 정보, 복구 키 등 민감한 정보는 보내지 마세요. 문의 정보의 삭제 요청은 contact@pcfixbase.com으로 보내주세요.</p>
+              <p className="mt-2"><ContactEmailText>PC FIX는 회원가입 없이 이용할 수 있습니다. 문의 이메일을 보내면 회신 주소와 문의 내용을 답변 및 오류 수정에 사용합니다. 비밀번호, 결제 정보, 복구 키 등 민감한 정보는 보내지 마세요. 문의 정보의 삭제 요청은 contact@pcfixbase.com으로 보내주세요.</ContactEmailText></p>
               <p className="mt-2">페이지 제공과 보안 처리를 위해 서버 및 Cloudflare가 IP 주소, 요청 주소, 브라우저 정보 등을 처리할 수 있습니다. Cloudflare의 국가 정보는 첫 방문의 기본 언어 선택에 사용합니다.</p>
               <a className="text-blue-600 underline" href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare 개인정보처리방침</a>
             </section>
@@ -38,7 +39,7 @@ export default function PrivacyPage() {
             </section>
             <section>
               <h2 className="text-lg font-bold text-slate-950">4. 문의와 방침 변경</h2>
-              <p className="mt-2">개인정보와 콘텐츠에 관한 문의는 contact@pcfixbase.com으로 보내주세요. 서비스와 외부 서비스의 변경 사항은 이 페이지에 반영합니다.</p>
+              <p className="mt-2"><ContactEmailText>개인정보와 콘텐츠에 관한 문의는 contact@pcfixbase.com으로 보내주세요. 서비스와 외부 서비스의 변경 사항은 이 페이지에 반영합니다.</ContactEmailText></p>
             </section>
             <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">시행일: 2026년 10월 6일 · 최종 수정일: 2026년 10월 18일</p>
           </div>

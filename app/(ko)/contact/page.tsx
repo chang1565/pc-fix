@@ -2,6 +2,7 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/contact") };
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 
 export default function ContactPage() {
   return (
@@ -29,12 +30,7 @@ export default function ContactPage() {
               문의 사항은 아래 이메일 주소로 보내주세요.
             </p>
 
-            <a
-              href="mailto:contact@pcfixbase.com"
-              className="mt-3 inline-block font-semibold text-blue-600 hover:underline"
-            >
-              contact@pcfixbase.com
-            </a>
+            <div className="mt-3"><ContactEmail link /></div>
           </div>
         </div>
       </article>

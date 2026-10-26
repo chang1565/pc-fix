@@ -3,6 +3,7 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/zh-CN/privacy") };
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
+import { ContactEmailText } from "@/components/ContactEmail";
 export default function PrivacyPage() {
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
@@ -14,7 +15,7 @@ export default function PrivacyPage() {
           <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
             <section>
               <h2 className="text-lg font-bold text-slate-950">{"1. \u7F51\u7AD9\u4F7F\u7528\u53CA\u67E5\u8BE2"}</h2>
-              <p className="mt-2">{"PC FIX\u65E0\u9700\u6CE8\u518C\u4F1A\u5458\u5373\u53EF\u4F7F\u7528\u3002\u5982\u679C\u60A8\u53D1\u9001\u67E5\u8BE2\u7535\u5B50\u90AE\u4EF6\uFF0C\u60A8\u7684\u56DE\u590D\u5730\u5740\u548C\u67E5\u8BE2\u5185\u5BB9\u5C06\u7528\u4E8E\u56DE\u590D\u548C\u66F4\u6B63\u9519\u8BEF\u3002\u8BF7\u4E0D\u8981\u53D1\u9001\u5BC6\u7801\u3001\u4ED8\u6B3E\u4FE1\u606F\u6216\u6062\u590D\u5BC6\u94A5\u7B49\u654F\u611F\u4FE1\u606F\u3002\u5982\u9700\u8BF7\u6C42\u5220\u9664\u67E5\u8BE2\u4FE1\u606F\uFF0C\u8BF7\u5C06\u5176\u53D1\u9001\u81F3 contact@pcfixbase.com\u3002"}</p>
+              <p className="mt-2"><ContactEmailText>{"PC FIX\u65E0\u9700\u6CE8\u518C\u4F1A\u5458\u5373\u53EF\u4F7F\u7528\u3002\u5982\u679C\u60A8\u53D1\u9001\u67E5\u8BE2\u7535\u5B50\u90AE\u4EF6\uFF0C\u60A8\u7684\u56DE\u590D\u5730\u5740\u548C\u67E5\u8BE2\u5185\u5BB9\u5C06\u7528\u4E8E\u56DE\u590D\u548C\u66F4\u6B63\u9519\u8BEF\u3002\u8BF7\u4E0D\u8981\u53D1\u9001\u5BC6\u7801\u3001\u4ED8\u6B3E\u4FE1\u606F\u6216\u6062\u590D\u5BC6\u94A5\u7B49\u654F\u611F\u4FE1\u606F\u3002\u5982\u9700\u8BF7\u6C42\u5220\u9664\u67E5\u8BE2\u4FE1\u606F\uFF0C\u8BF7\u5C06\u5176\u53D1\u9001\u81F3 contact@pcfixbase.com\u3002"}</ContactEmailText></p>
               <p className="mt-2">{"\u51FA\u4E8E\u9875\u9762\u670D\u52A1\u548C\u5B89\u5168\u76EE\u7684\uFF0C\u6211\u4EEC\u7684\u670D\u52A1\u5668\u548C Cloudflare \u53EF\u80FD\u4F1A\u5904\u7406\u60A8\u7684 IP \u5730\u5740\u3001\u8BF7\u6C42\u5730\u5740\u548C\u6D4F\u89C8\u5668\u4FE1\u606F\u3002 Cloudflare \u4F7F\u7528\u60A8\u7684\u56FD\u5BB6/\u5730\u533A\u4FE1\u606F\u5728\u60A8\u9996\u6B21\u8BBF\u95EE\u65F6\u9009\u62E9\u9ED8\u8BA4\u8BED\u8A00\u3002"}</p>
               <a className="text-blue-600 underline" href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">{"Cloudflare \u9690\u79C1\u653F\u7B56"}</a>
             </section>
@@ -35,7 +36,7 @@ export default function PrivacyPage() {
             </section>
             <section>
               <h2 className="text-lg font-bold text-slate-950">{"4. \u67E5\u8BE2\u53CA\u653F\u7B56\u53D8\u66F4"}</h2>
-              <p className="mt-2">{"\u8BF7\u5C06\u6709\u5173\u4E2A\u4EBA\u4FE1\u606F\u548C\u5185\u5BB9\u7684\u67E5\u8BE2\u53D1\u9001\u81F3 contact@pcfixbase.com\u3002\u670D\u52A1\u548C\u5916\u90E8\u670D\u52A1\u7684\u66F4\u6539\u5C06\u53CD\u6620\u5728\u6B64\u9875\u9762\u4E0A\u3002"}</p>
+              <p className="mt-2"><ContactEmailText>{"\u8BF7\u5C06\u6709\u5173\u4E2A\u4EBA\u4FE1\u606F\u548C\u5185\u5BB9\u7684\u67E5\u8BE2\u53D1\u9001\u81F3 contact@pcfixbase.com\u3002\u670D\u52A1\u548C\u5916\u90E8\u670D\u52A1\u7684\u66F4\u6539\u5C06\u53CD\u6620\u5728\u6B64\u9875\u9762\u4E0A\u3002"}</ContactEmailText></p>
             </section>
             <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{"\u751F\u6548\u65E5\u671F\uFF1A2026 \u5E74 10 \u6708 6 \u65E5\u6700\u540E\u4FEE\u6539\uFF1A2026 \u5E74 10 \u6708 18 \u65E5"}</p>
           </div>

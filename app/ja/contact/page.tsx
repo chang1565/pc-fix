@@ -3,6 +3,7 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/ja/contact") };
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 export default function ContactPage() {
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
@@ -19,9 +20,7 @@ export default function ContactPage() {
 
             <p className="mt-2 text-sm leading-6 text-slate-500">{" \u304A\u554F\u3044\u5408\u308F\u305B\u306F\u4E0B\u8A18\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u307E\u3067\u304A\u9001\u308A\u304F\u3060\u3055\u3044\u3002 "}</p>
 
-            <a href="mailto:contact@pcfixbase.com" className="mt-3 inline-block font-semibold text-blue-600 hover:underline">
-              contact@pcfixbase.com
-            </a>
+            <div className="mt-3"><ContactEmail link/></div>
           </div>
         </div>
       </article>
