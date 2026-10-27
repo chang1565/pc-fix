@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import FaqItem from "@/components/FaqItem";
+import { ProcedureAccess, ProcedureOverview, ProcedureVisual } from "@/components/locales/zh-CN/ProcedureGuide";
 import { errorCodes, findErrorBySlug } from "@/data/locales/zh-CN";
 import { findProblemBySlug } from "@/data/locales/zh-CN";
 import { languageAlternates } from "@/lib/localization";
@@ -47,12 +48,15 @@ export default async function ErrorPage({ params }: Props) {
       <section className={panel}><span className="text-sm font-bold text-blue-600">{entry.category}</span><h1 className="mt-3 break-words text-3xl font-black sm:text-4xl">{entry.title}</h1>
         <h2 className="mt-6 text-lg font-bold">{"\u9519\u8BEF\u542B\u4E49"}</h2><p className="mt-2 leading-7 text-slate-600">{entry.description}</p>
         <h2 className="mt-6 text-lg font-bold">{"\u7ECF\u5E38\u53D1\u751F\u7684\u60C5\u51B5"}</h2><p className="mt-2 leading-7 text-slate-600">{entry.commonSituations}</p>
-        <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">{"\u9996\u5148\u8981\u68C0\u67E5"}</h2><p className="mt-2 leading-7 text-blue-900">{entry.beforeSteps}</p></div></section>
+        <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">{"\u9996\u5148\u8981\u68C0\u67E5"}</h2><p className="mt-2 leading-7 text-blue-900">{entry.beforeSteps}</p></div>
+        <ProcedureOverview solutions={entry.solutions}/></section>
       <section className={panel}><h2 className="text-xl font-black">{"\u4E3B\u8981\u539F\u56E0"}</h2><ul className="mt-4 list-disc space-y-2 pl-5 text-slate-600">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
       <section className="mt-10"><h2 className="text-2xl font-black">{"\u5206\u6B65\u89E3\u51B3\u65B9\u6848"}</h2><p className="mt-2 text-sm text-slate-500">{"\u5982\u679C\u4EE5\u4E0A\u68C0\u67E5\u5747\u5DF2\u89E3\u51B3\uFF0C\u5219\u65E0\u9700\u7EE7\u7EED\u4E0B\u4E00\u6B65\u3002"}</p>
-        {entry.solutions.map(solution => <article key={solution.order} className={panel}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3>
+        {entry.solutions.map(solution => <article id={`solution-${solution.order}`} key={solution.order} className={`${panel} scroll-mt-24`}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3>
           {solution.reason && <p className="mt-2 leading-7 text-slate-600">{solution.reason}</p>}
+          <div className="mt-4"><ProcedureAccess access={solution.access}/></div>
           <div className="mt-4 text-sm leading-7 text-blue-900">{solution.location && <><strong>{"\u68C0\u67E5\u4F4D\u7F6E\uFF1A "}</strong>{solution.location}</>}</div><ol className="mt-5 list-decimal space-y-3 pl-5 leading-7 text-slate-700">{solution.steps.map(step => <li key={step}>{step}</li>)}</ol>
+          {solution.order === 1 && <ProcedureVisual access={solution.access}/>}
           <p className="mt-5 rounded-xl bg-green-50 p-4 leading-7 text-green-800"><strong>{"\u7ED3\u679C\u5224\u65AD\u4E0E\u4E0B\u4E00\u6B65\uFF1A "}</strong>{solution.checkPoint}</p></article>)}<aside className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5"><h3 className="font-bold text-amber-950">{"\u5982\u679C\u8FD8\u662F\u4E0D\u884C"}</h3><p className="mt-2 leading-7 text-amber-900">{entry.unresolved}</p></aside></section>
 
       <section className={panel}><h2 className="text-xl font-black">{"\u76F8\u5173 PC FIX \u95EE\u9898"}</h2><div className="mt-5 grid gap-4 sm:grid-cols-2">{entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item)).map(problem => problem && <Link key={problem.slug} href={`/zh-CN/problems/${problem.slug}`} className="rounded-xl border border-slate-200 p-4 hover:border-blue-400"><h3 className="font-bold">{problem.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{problem.description}</p></Link>)}</div></section>

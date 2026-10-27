@@ -2,6 +2,10 @@ import problemDiagnostics from "./problemDiagnostics.json";
 import procedureReview from "./procedureReview.json";
 import problemReferences from "./problemReferences.json";
 import problemSolutionReview from "./problemSolutionReview.json";
+import procedureAccess from "./procedureAccess.json";
+import accessProfiles from "./accessProfiles.json";
+
+export type AccessGuide = { kind: string; when: string; route: string[]; caution: string };
 
 export type SolutionStep = {
   order: number;
@@ -13,6 +17,7 @@ export type SolutionStep = {
   steps: string[];
   checkPoint?: string;
   location?: string;
+  access?: AccessGuide;
 };
 
 export type ProblemFaq = {
@@ -7087,7 +7092,7 @@ function buildSeoDescription(seed: ProblemSeed) {
   return raw.length > 155 ? `${raw.slice(0, 152)}...` : raw;
 }
 
-function personalizeSolutions(
+function basePersonalizeSolutions(
   seed: ProblemSeed,
   solutions: SolutionStep[]
 ): SolutionStep[] {
@@ -7131,6 +7136,16 @@ function personalizeSolutions(
     });
     return { ...solution, ...(reviewed ? { location: reviewed.location } : {}), steps, checkPoint, order: index + 1 };
   }).filter(solution => solution.steps.length).map((solution, index) => ({ ...solution, order: index + 1 }));
+}
+
+function personalizeSolutions(seed: ProblemSeed, solutions: SolutionStep[]): SolutionStep[] {
+  return basePersonalizeSolutions(seed, solutions).map((solution, index) => {
+    if (index === 0) return solution;
+    const id = procedureAccess[solution.title as keyof typeof procedureAccess];
+    const access = accessProfiles[id as keyof typeof accessProfiles];
+    if (!access) throw new Error(`Missing access review: ${seed.slug}: ${solution.title}`);
+    return { ...solution, access };
+  });
 }
 
 function buildFaqs(

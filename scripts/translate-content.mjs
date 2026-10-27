@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const korean = /[가-힣]/;
 const sourceDir = fs.existsSync(path.join(root, "app/(ko)")) ? "app/(ko)" : "app";
-export const sourceFiles = ["layout.tsx", "page.tsx", "not-found.tsx", "about/page.tsx", "contact/page.tsx", "privacy/page.tsx", "terms/page.tsx", "category/[category]/page.tsx", "problems/[slug]/page.tsx", "errors/page.tsx", "errors/[slug]/page.tsx"].map(p => `${sourceDir}/${p}`).concat(["components/SiteHeader.tsx", "components/SiteFooter.tsx", "components/ErrorBrowser.tsx", "components/ErrorCard.tsx", "lib/unifiedSearch.ts", "lib/errorSearch.ts"]);
+export const sourceFiles = ["layout.tsx", "page.tsx", "not-found.tsx", "about/page.tsx", "contact/page.tsx", "privacy/page.tsx", "terms/page.tsx", "category/[category]/page.tsx", "problems/[slug]/page.tsx", "errors/page.tsx", "errors/[slug]/page.tsx"].map(p => `${sourceDir}/${p}`).concat(["components/SiteHeader.tsx", "components/SiteFooter.tsx", "components/ErrorBrowser.tsx", "components/ErrorCard.tsx", "components/ProcedureGuide.tsx", "lib/unifiedSearch.ts", "lib/errorSearch.ts"]);
 export function loadData(filename) {
   const output = ts.transpileModule(fs.readFileSync(path.join(root, filename), "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, esModuleInterop: true } }).outputText;
   const loaded = { exports: {} };
@@ -38,7 +38,7 @@ export function collectStrings() {
   }
   return [...values];
 }
-const commands = /\bmsinfo32\b|\bexplorer\.exe\b|\bCtrl\+Shift\+Esc\b|\bCtrl\+Shift\+N\b|powercfg \/(?:batteryreport|lastwake|waketimers|a)|chrome:\/\/extensions|MemoryDiagnostics-Results|WLAN-AutoConfig|SideBySide|joy\.cpl|eventvwr\.msc|msconfig|\bresmon\b|\b(?:x86|x64|amd64|ARM64)\b|DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:all|flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
+const commands = /\boptionalfeatures\b|\bdxdiag\b|\bwinver\b|\brstrui\.exe\b|\bmsinfo32\b|\bexplorer\.exe\b|\bCtrl\+Shift\+Esc\b|\bCtrl\+Shift\+N\b|powercfg \/(?:batteryreport|lastwake|waketimers|a)|chrome:\/\/extensions|MemoryDiagnostics-Results|WLAN-AutoConfig|SideBySide|joy\.cpl|eventvwr\.msc|msconfig|\bresmon\b|\b(?:x86|x64|amd64|ARM64)\b|DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:all|flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
 function protect(text) {
   const tokens = [];
   const keyboard = /Windows\s*키\s*\+\s*(?:(?:Ctrl|Alt|Shift)\s*\+\s*)*(?:Space|Esc|Enter|[A-Z0-9])|(?:Ctrl|Alt|Shift)(?:\s*\+\s*(?:Ctrl|Alt|Shift))*\s*\+\s*(?:Esc|Delete|Enter|[A-Z0-9])/gi;

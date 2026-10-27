@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import FaqItem from "@/components/FaqItem";
+import { ProcedureAccess, ProcedureOverview, ProcedureVisual } from "@/components/locales/ja/ProcedureGuide";
 import { errorCodes, findErrorBySlug } from "@/data/locales/ja";
 import { findProblemBySlug } from "@/data/locales/ja";
 import { languageAlternates } from "@/lib/localization";
@@ -47,12 +48,15 @@ export default async function ErrorPage({ params }: Props) {
       <section className={panel}><span className="text-sm font-bold text-blue-600">{entry.category}</span><h1 className="mt-3 break-words text-3xl font-black sm:text-4xl">{entry.title}</h1>
         <h2 className="mt-6 text-lg font-bold">{"\u30A8\u30E9\u30FC\u306E\u610F\u5473"}</h2><p className="mt-2 leading-7 text-slate-600">{entry.description}</p>
         <h2 className="mt-6 text-lg font-bold">{"\u983B\u7E41\u306B\u767A\u751F\u3059\u308B\u72B6\u6CC1"}</h2><p className="mt-2 leading-7 text-slate-600">{entry.commonSituations}</p>
-        <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">{"\u6700\u521D\u306B\u78BA\u8A8D\u3059\u308B"}</h2><p className="mt-2 leading-7 text-blue-900">{entry.beforeSteps}</p></div></section>
+        <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">{"\u6700\u521D\u306B\u78BA\u8A8D\u3059\u308B"}</h2><p className="mt-2 leading-7 text-blue-900">{entry.beforeSteps}</p></div>
+        <ProcedureOverview solutions={entry.solutions}/></section>
       <section className={panel}><h2 className="text-xl font-black">{"\u4E3B\u306A\u539F\u56E0"}</h2><ul className="mt-4 list-disc space-y-2 pl-5 text-slate-600">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
       <section className="mt-10"><h2 className="text-2xl font-black">{"\u6BB5\u968E\u7684\u306A\u89E3\u6C7A\u7B56"}</h2><p className="mt-2 text-sm text-slate-500">{"\u4E0A\u8A18\u304B\u3089\u78BA\u8A8D\u3057\u3066\u89E3\u6C7A\u3057\u305F\u3089\u3001\u6B21\u306E\u30B9\u30C6\u30C3\u30D7\u3092\u9032\u3081\u308B\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002"}</p>
-        {entry.solutions.map(solution => <article key={solution.order} className={panel}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3>
+        {entry.solutions.map(solution => <article id={`solution-${solution.order}`} key={solution.order} className={`${panel} scroll-mt-24`}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3>
           {solution.reason && <p className="mt-2 leading-7 text-slate-600">{solution.reason}</p>}
+          <div className="mt-4"><ProcedureAccess access={solution.access}/></div>
           <div className="mt-4 text-sm leading-7 text-blue-900">{solution.location && <><strong>{"\u78BA\u8A8D\u3059\u308B\u5834\u6240\uFF1A "}</strong>{solution.location}</>}</div><ol className="mt-5 list-decimal space-y-3 pl-5 leading-7 text-slate-700">{solution.steps.map(step => <li key={step}>{step}</li>)}</ol>
+          {solution.order === 1 && <ProcedureVisual access={solution.access}/>}
           <p className="mt-5 rounded-xl bg-green-50 p-4 leading-7 text-green-800"><strong>{"\u7D50\u679C\u306E\u5224\u65AD\u3068\u6B21\u306E\u5BFE\u5FDC\uFF1A "}</strong>{solution.checkPoint}</p></article>)}<aside className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5"><h3 className="font-bold text-amber-950">{"\u305D\u308C\u3067\u3082\u89E3\u6C7A\u3057\u306A\u3044\u5834\u5408"}</h3><p className="mt-2 leading-7 text-amber-900">{entry.unresolved}</p></aside></section>
 
       <section className={panel}><h2 className="text-xl font-black">{"\u95A2\u9023PC FIX\u306E\u554F\u984C"}</h2><div className="mt-5 grid gap-4 sm:grid-cols-2">{entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item)).map(problem => problem && <Link key={problem.slug} href={`/ja/problems/${problem.slug}`} className="rounded-xl border border-slate-200 p-4 hover:border-blue-400"><h3 className="font-bold">{problem.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{problem.description}</p></Link>)}</div></section>

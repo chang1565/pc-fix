@@ -7,6 +7,7 @@ import FaqItem from "@/components/FaqItem";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import ErrorCard from "@/components/ErrorCard";
+import { ProcedureAccess, ProcedureOverview, ProcedureVisual } from "@/components/ProcedureGuide";
 import { errorCodes } from "@/data/errorCodes";
 import { languageAlternates } from "@/lib/localization";
 
@@ -239,20 +240,7 @@ export default async function ProblemPage({
             {problem.description}
           </p>
 
-          <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50 p-4">
-            <p className="text-sm leading-6 text-blue-900">
-              <strong>
-                해결 순서
-              </strong>
-
-              <br />
-
-              가장 간단하고 비용이 적게 드는
-              방법부터 정리되어 있습니다.
-              위쪽 해결 방법부터 하나씩
-              확인하세요.
-            </p>
-          </div>
+          <ProcedureOverview solutions={problem.solutions.slice(1)} />
         </section>
 
         {/* 증상 + 원인 */}
@@ -333,7 +321,7 @@ export default async function ProblemPage({
                 <article
                   key={solution.order}
                   id={`solution-${solution.order}`}
-                  className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+                  className="scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
                 >
                   <div className="border-b border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -355,6 +343,7 @@ export default async function ProblemPage({
                   </div>
 
                   <div className="px-5 py-6 sm:px-6">
+                    <ProcedureAccess access={solution.access} />
                     {solution.location && <div className="mb-5 rounded-xl bg-blue-50 p-4 text-sm leading-7 text-blue-900"><strong>확인할 곳: </strong>{solution.location}</div>}
                     <ol className="space-y-4">
                       {solution.steps.map(
@@ -374,6 +363,8 @@ export default async function ProblemPage({
                         )
                       )}
                     </ol>
+
+                    {solutionIndex === 0 && <ProcedureVisual access={solution.access} />}
 
                     {solution.checkPoint && (
                       <div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
@@ -397,7 +388,7 @@ export default async function ProblemPage({
           <h2 className="text-lg font-black text-slate-950">공식 참고 문서와 적용 범위</h2>
           <ul className="mt-3 space-y-2">{problem.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul>
           <p className="mt-4 text-sm leading-7 text-slate-600">Windows 버전·장치 모델에 따라 메뉴와 지원 기능이 다릅니다. 제조사 문서의 적용 모델을 확인하세요. 아래 자료는 관련 절차의 참고 문서이며 모든 증상을 동일한 원인으로 확정하는 근거는 아닙니다.</p>
-          <p className="mt-3 text-xs text-slate-500">내용 검토일: 2026-10-18 · 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p>
+          <p className="mt-3 text-xs text-slate-500">내용 검토일: 2026-10-27 · 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p>
           <Link href="/contact" className="mt-3 inline-block text-sm text-blue-600 underline">설명 오류·다른 결과 제보하기</Link>
         </section>
 

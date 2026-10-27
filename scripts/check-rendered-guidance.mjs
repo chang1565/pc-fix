@@ -19,6 +19,17 @@ for (const locale of ["ko", "en", "ja", "zh-CN"]) {
       const html = fs.readFileSync(filename, "utf8").replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
       assert.ok(html.includes('<h1 '), filename);
       assert.ok(html.includes(`href="https://pcfixbase.com/${prefix}${kind}/${entry.slug}"`), `canonical: ${filename}`);
+      const actions = kind === "problems" ? entry.solutions.slice(1) : entry.solutions;
+      const jumps = [...html.matchAll(/href="#solution-(\d+)"/g)].map(match => Number(match[1]));
+      assert.deepEqual(jumps, actions.map(s => s.order), `action jumps: ${filename}`);
+      assert.equal((html.match(/<figure\b/g) ?? []).length, 1, `one meaningful route diagram: ${filename}`);
+      assert.match(html, /<svg role="img" aria-label="[^"]+"/, `accessible diagram: ${filename}`);
+      for (const action of actions) {
+        assert.ok(html.includes(`id="solution-${action.order}"`), `jump target: ${filename}`);
+        for (const text of [action.access.when, ...action.access.route, action.access.caution]) {
+          assert.ok(html.includes(escape(text)), `missing access guide: ${filename}: ${text}`);
+        }
+      }
       for (const text of [entry.beforeSteps, entry.unresolved].filter(Boolean)) assert.ok(html.includes(escape(text)), `missing branch in ${filename}`);
       for (const solution of entry.solutions) {
         for (const text of [solution.title, solution.location, ...solution.steps, solution.checkPoint, ...(entry.beforeSteps || solution.order > 1 ? [solution.reason] : [])].filter(Boolean)) {

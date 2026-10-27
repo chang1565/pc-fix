@@ -7,6 +7,7 @@ import FaqItem from "@/components/FaqItem";
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 import ErrorCard from "@/components/locales/en/ErrorCard";
+import { ProcedureAccess, ProcedureOverview, ProcedureVisual } from "@/components/locales/en/ProcedureGuide";
 import { errorCodes } from "@/data/locales/en";
 import { languageAlternates } from "@/lib/localization";
 import { findProblemBySlug, problems, type Problem, } from "@/data/locales/en";
@@ -167,12 +168,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             {problem.description}
           </p>
 
-          <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50 p-4">
-            <p className="text-sm leading-6 text-blue-900">
-              <strong>{" Solving Order "}</strong>
-
-              <br />{" We've organized the methods starting with the simplest and least expensive ones. Please check the solutions one by one, starting from the top. "}</p>
-          </div>
+          <ProcedureOverview solutions={problem.solutions.slice(1)}/>
         </section>
 
         {/* 증상 + 원인 */}
@@ -224,7 +220,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             <p className="mt-3 text-sm leading-7 text-blue-900">{problem.solutions[0].checkPoint}</p>
           </aside>
           <div className="mt-6 space-y-6">
-            {problem.solutions.slice(1).map((solution, solutionIndex) => (<article key={solution.order} id={`solution-${solution.order}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            {problem.solutions.slice(1).map((solution, solutionIndex) => (<article key={solution.order} id={`solution-${solution.order}`} className="scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="border-b border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex gap-4">
@@ -245,6 +241,7 @@ export default async function ProblemPage({ params, }: PageProps) {
                   </div>
 
                   <div className="px-5 py-6 sm:px-6">
+                    <ProcedureAccess access={solution.access}/>
                     {solution.location && <div className="mb-5 rounded-xl bg-blue-50 p-4 text-sm leading-7 text-blue-900"><strong>{"Where to check: "}</strong>{solution.location}</div>}
                     <ol className="space-y-4">
                       {solution.steps.map((step, index) => (<li key={index} className="flex gap-3 text-sm leading-7 text-slate-700">
@@ -257,6 +254,8 @@ export default async function ProblemPage({ params, }: PageProps) {
                             </span>
                           </li>))}
                     </ol>
+
+                    {solutionIndex === 0 && <ProcedureVisual access={solution.access}/>}
 
                     {solution.checkPoint && (<div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
                         <p className="text-sm font-bold text-green-800">{" Result and next step "}</p>
@@ -274,7 +273,7 @@ export default async function ProblemPage({ params, }: PageProps) {
           <h2 className="text-lg font-black text-slate-950">{"Official reference documents and coverage"}</h2>
           <ul className="mt-3 space-y-2">{problem.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul>
           <p className="mt-4 text-sm leading-7 text-slate-600">{"Menus and supported functions vary depending on the Windows version and device model. Please check the applicable model in the manufacturer's documentation. The material below is a reference document for related procedures and is not a basis for confirming that all symptoms have the same cause."}</p>
-          <p className="mt-3 text-xs text-slate-500">{"Content review date: 2026-10-18 \u00B7 This is not a repair record directly reproduced on all devices."}</p>
+          <p className="mt-3 text-xs text-slate-500">{"Content review date: 2026-10-27 \u00B7 This is not a repair record directly reproduced on all devices."}</p>
           <Link href="/en/contact" className="mt-3 inline-block text-sm text-blue-600 underline">{"Report errors in explanation or different results"}</Link>
         </section>
 

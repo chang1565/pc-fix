@@ -10,5 +10,5 @@ export const findProblemBySlug = (slug: string) => problems.find(entry => entry.
 export const findErrorBySlug = (slug: string) => errorCodes.find(entry => entry.slug === slug);
 export const translate = (text: string) => (dictionary as Record<string, string>)[text] ?? text;
 export { errorsUpdatedAt };
-export type { Problem } from "@/data/problems";
+export type { Problem, AccessGuide } from "@/data/problems";
 export type { ErrorCodeEntry } from "@/data/errorCodes";

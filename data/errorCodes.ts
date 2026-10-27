@@ -1,19 +1,22 @@
 import errorDiagnostics from "./errorDiagnostics.json";
 import errorProcedureReview from "./errorProcedureReview.json";
+import procedureAccess from "./procedureAccess.json";
+import accessProfiles from "./accessProfiles.json";
+import type { AccessGuide } from "./problems";
 
 export type ErrorCodeEntry = {
   slug: string; code: string; category: string; title: string;
   description: string; commonSituations: string; causes: string[]; firstCheck: string;
   aliases: string[]; updatedAt: string;
   beforeSteps: string; unresolved: string;
-  solutions: { order: number; title: string; reason: string; difficulty: "쉬움" | "보통" | "어려움"; time: string; steps: string[]; location?: string; checkPoint?: string }[];
+  solutions: { order: number; title: string; reason: string; difficulty: "쉬움" | "보통" | "어려움"; time: string; steps: string[]; location?: string; checkPoint?: string; access?: AccessGuide }[];
   faqs: { question: string; answer: string }[];
   relatedProblemSlugs: string[]; seoTitle: string; seoDescription: string;
   sources: { title: string; url: string }[];
 };
 
 // 날짜는 내용을 검토·수정했을 때만 갱신합니다.
-export const errorsUpdatedAt = "2026-10-18T00:00:00.000Z";
+export const errorsUpdatedAt = "2026-10-27T00:00:00.000Z";
 type Seed = [code: string, name: string, meaning: string, situation: string, causes: string, first: string, action: string, verification: string, question: string, answer: string];
 const groups: { category: string; related: string[]; source: string; entries: Seed[] }[] = [
   { category: "블루스크린", related: ["windows-blue-screen", "computer-boot-failure"], source: "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-code-reference2", entries: [
@@ -182,12 +185,17 @@ export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entrie
     slug: slugFor(group.category, code), code, category: group.category, title,
     description, commonSituations, causes: causes.split("|"), firstCheck,
     aliases: [code, code.replace(/_/g, " "), name, ...(group.category === "장치 관리자" ? [`장치 관리자 ${code}`, `코드 ${code.split(" ")[1]}`] : [])],
-    updatedAt: "firstReason" in reviewed ? "2026-10-25T00:00:00.000Z" : errorsUpdatedAt,
+    updatedAt: errorsUpdatedAt,
     beforeSteps: diagnostics[0], unresolved: diagnostics[1],
     solutions: [
       { location: reviewed.firstLocation, order: 1, title: reviewed.firstTitle, reason: "firstReason" in reviewed ? reviewed.firstReason : "", difficulty: "보통" as const, time: "5~15분", steps: "firstSteps" in reviewed ? reviewed.firstSteps : [actions[0]], checkPoint: reviewed.firstResult },
       { location: reviewed.secondLocation, order: 2, title: reviewed.secondTitle, reason: "secondReason" in reviewed ? reviewed.secondReason : "", difficulty: "보통" as const, time: "10~30분", steps: "secondSteps" in reviewed ? reviewed.secondSteps : actions.slice(1), checkPoint },
-    ],
+    ].map(solution => {
+      const id = procedureAccess[solution.title as keyof typeof procedureAccess];
+      const access = accessProfiles[id as keyof typeof accessProfiles];
+      if (!access) throw new Error(`Missing access review: ${code}: ${solution.title}`);
+      return { ...solution, access };
+    }),
     faqs: [{ question, answer }, { question: `${code} 조치 후 무엇을 확인하나요?`, answer: checkPoint }],
     relatedProblemSlugs: group.related,
     seoTitle: searchMetadata[code]?.seoTitle ?? `${title} 원인과 해결 방법 | PC FIX`,

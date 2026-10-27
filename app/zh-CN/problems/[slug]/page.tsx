@@ -7,6 +7,7 @@ import FaqItem from "@/components/FaqItem";
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
 import ErrorCard from "@/components/locales/zh-CN/ErrorCard";
+import { ProcedureAccess, ProcedureOverview, ProcedureVisual } from "@/components/locales/zh-CN/ProcedureGuide";
 import { errorCodes } from "@/data/locales/zh-CN";
 import { languageAlternates } from "@/lib/localization";
 import { findProblemBySlug, problems, type Problem, } from "@/data/locales/zh-CN";
@@ -167,12 +168,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             {problem.description}
           </p>
 
-          <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50 p-4">
-            <p className="text-sm leading-6 text-blue-900">
-              <strong>{" \u6C42\u89E3\u987A\u5E8F "}</strong>
-
-              <br />{" \u6211\u4EEC\u4ECE\u6700\u7B80\u5355\u3001\u6700\u4FBF\u5B9C\u7684\u65B9\u6CD5\u5F00\u59CB\u7EC4\u7EC7\u8FD9\u4E9B\u65B9\u6CD5\u3002\u8BF7\u4ECE\u4E0A\u5230\u4E0B\uFF0C\u4E00\u4E00\u68C0\u67E5\u89E3\u51B3\u65B9\u6848\u3002 "}</p>
-          </div>
+          <ProcedureOverview solutions={problem.solutions.slice(1)}/>
         </section>
 
         {/* 증상 + 원인 */}
@@ -224,7 +220,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             <p className="mt-3 text-sm leading-7 text-blue-900">{problem.solutions[0].checkPoint}</p>
           </aside>
           <div className="mt-6 space-y-6">
-            {problem.solutions.slice(1).map((solution, solutionIndex) => (<article key={solution.order} id={`solution-${solution.order}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            {problem.solutions.slice(1).map((solution, solutionIndex) => (<article key={solution.order} id={`solution-${solution.order}`} className="scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   <div className="border-b border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                       <div className="flex gap-4">
@@ -245,6 +241,7 @@ export default async function ProblemPage({ params, }: PageProps) {
                   </div>
 
                   <div className="px-5 py-6 sm:px-6">
+                    <ProcedureAccess access={solution.access}/>
                     {solution.location && <div className="mb-5 rounded-xl bg-blue-50 p-4 text-sm leading-7 text-blue-900"><strong>{"\u68C0\u67E5\u4F4D\u7F6E\uFF1A "}</strong>{solution.location}</div>}
                     <ol className="space-y-4">
                       {solution.steps.map((step, index) => (<li key={index} className="flex gap-3 text-sm leading-7 text-slate-700">
@@ -257,6 +254,8 @@ export default async function ProblemPage({ params, }: PageProps) {
                             </span>
                           </li>))}
                     </ol>
+
+                    {solutionIndex === 0 && <ProcedureVisual access={solution.access}/>}
 
                     {solution.checkPoint && (<div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
                         <p className="text-sm font-bold text-green-800">{" \u7ED3\u679C\u5224\u65AD\u4E0E\u4E0B\u4E00\u6B65 "}</p>
@@ -274,7 +273,7 @@ export default async function ProblemPage({ params, }: PageProps) {
           <h2 className="text-lg font-black text-slate-950">{"\u5B98\u65B9\u53C2\u8003\u6587\u4EF6\u548C\u8986\u76D6\u8303\u56F4"}</h2>
           <ul className="mt-3 space-y-2">{problem.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul>
           <p className="mt-4 text-sm leading-7 text-slate-600">{"\u83DC\u5355\u548C\u652F\u6301\u7684\u529F\u80FD\u56E0 Windows \u7248\u672C\u548C\u8BBE\u5907\u578B\u53F7\u800C\u5F02\u3002\u8BF7\u68C0\u67E5\u5236\u9020\u5546\u6587\u6863\u4E2D\u7684\u9002\u7528\u578B\u53F7\u3002\u4EE5\u4E0B\u6750\u6599\u662F\u76F8\u5173\u7A0B\u5E8F\u7684\u53C2\u8003\u6587\u4EF6\uFF0C\u5E76\u975E\u786E\u8BA4\u6240\u6709\u75C7\u72B6\u5177\u6709\u76F8\u540C\u539F\u56E0\u7684\u4F9D\u636E\u3002"}</p>
-          <p className="mt-3 text-xs text-slate-500">{"\u5185\u5BB9\u5BA1\u6838\u65E5\u671F\uFF1A2026-10-18 \u00B7 \u8FD9\u4E0D\u662F\u6240\u6709\u8BBE\u5907\u4E0A\u76F4\u63A5\u91CD\u73B0\u7684\u7EF4\u4FEE\u8BB0\u5F55\u3002"}</p>
+          <p className="mt-3 text-xs text-slate-500">{"\u5185\u5BB9\u5BA1\u6838\u65E5\u671F\uFF1A2026-10-27 \u00B7 \u8FD9\u4E0D\u662F\u6240\u6709\u8BBE\u5907\u4E0A\u76F4\u63A5\u91CD\u73B0\u7684\u7EF4\u4FEE\u8BB0\u5F55\u3002"}</p>
           <Link href="/zh-CN/contact" className="mt-3 inline-block text-sm text-blue-600 underline">{"\u62A5\u544A\u89E3\u91CA\u9519\u8BEF\u6216\u4E0D\u540C\u7ED3\u679C"}</Link>
         </section>
 
