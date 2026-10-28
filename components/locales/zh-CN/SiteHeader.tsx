@@ -2,10 +2,10 @@
 import Link from "next/link";
 import LanguageSelector from "@/components/LanguageSelector";
 export default function SiteHeader() {
-    return (<header className="border-b border-slate-200 bg-white">
+    return (<header className="site-header">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
         <Link href="/zh-CN" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 font-black text-white">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 font-black text-white">
             P
           </div>
 
@@ -22,6 +22,7 @@ export default function SiteHeader() {
           <Link href="/zh-CN" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950">{" \u641C\u7D22 "}</Link>
 
           <Link href="/zh-CN/about" className="hidden rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950 sm:block">{" \u5173\u4E8EPC FIX "}</Link>
+          <Link href="/zh-CN/errors" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950">{"\u9519\u8BEF\u4EE3\u7801"}</Link>
           <LanguageSelector />
         </nav>
       </div>

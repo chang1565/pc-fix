@@ -1,4 +1,5 @@
 import DisplayAd from "@/components/DisplayAd";
+import DiagnosticNotes from "@/components/DiagnosticNotes";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -35,11 +36,11 @@ export default async function ErrorPage({ params }: Props) {
     { "@context": "https://schema.org", "@type": "TechArticle", headline: entry.title, description: entry.seoDescription, url: pageUrl, inLanguage: "ko", dateModified: entry.updatedAt, about: entry.code, author: { "@type": "Organization", name: "PC FIX" }, publisher: { "@type": "Organization", name: "PC FIX" } },
     { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: entry.faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
   ];
-  return <main className="relative min-h-screen bg-slate-50 text-slate-900">
+  return <main className="guide-page relative min-h-screen text-slate-900">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "\\u003c") }} />
     <SiteHeader /><div className="mx-auto max-w-5xl px-5 py-10">
       <nav aria-label="현재 위치" className="flex flex-wrap gap-2 text-sm text-slate-500"><Link href="/">PC FIX</Link><span>›</span><Link href="/errors">오류 코드</Link><span>›</span><span>{entry.code}</span></nav>
-      <section className={panel}><span className="text-sm font-bold text-blue-600">{entry.category}</span><h1 className="mt-3 break-words text-3xl font-black sm:text-4xl">{entry.title}</h1>
+      <section className={panel}><span className="text-sm font-bold text-blue-600">{entry.category}</span><h1 className="mt-3 break-words text-3xl font-black sm:text-4xl">{entry.title}</h1><div className="guide-meta"><span>문서 기반 점검 안내</span><a href="#official-sources">공식 참고 자료 {entry.sources.length}개 ↓</a></div>
         <h2 className="mt-6 text-lg font-bold">오류 의미</h2><p className="mt-2 leading-7 text-slate-600">{entry.description}</p>
         <h2 className="mt-6 text-lg font-bold">자주 발생하는 상황</h2><p className="mt-2 leading-7 text-slate-600">{entry.commonSituations}</p>
         <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">가장 먼저 확인할 것</h2><p className="mt-2 leading-7 text-blue-900">{entry.beforeSteps}</p></div>
@@ -54,7 +55,8 @@ export default async function ErrorPage({ params }: Props) {
           <p className="mt-5 rounded-xl bg-green-50 p-4 leading-7 text-green-800"><strong>결과 판단과 다음 행동: </strong>{solution.checkPoint}</p></article>)}<aside className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-5"><h3 className="font-bold text-amber-950">그래도 해결되지 않으면</h3><p className="mt-2 leading-7 text-amber-900">{entry.unresolved}</p></aside></section>
       
       <section className={panel}><h2 className="text-xl font-black">관련 PC FIX 문제</h2><div className="mt-5 grid gap-4 sm:grid-cols-2">{entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item)).map(problem => problem && <Link key={problem.slug} href={`/problems/${problem.slug}`} className="rounded-xl border border-slate-200 p-4 hover:border-blue-400"><h3 className="font-bold">{problem.title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{problem.description}</p></Link>)}</div></section>
-      <section className={panel}><h2 className="font-bold">공식 참고 문서</h2><ul className="mt-3 space-y-2">{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul><p className="mt-4 text-sm leading-7 text-slate-600">공식 문서의 적용 제품·버전을 확인하세요. 내용 검토일은 안내를 검토한 날짜이며 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p><Link href="/contact" className="mt-3 inline-block text-sm text-blue-600 underline">설명 오류·다른 결과 제보하기</Link><p className="mt-4 text-xs text-slate-500">내용 검토일: {entry.updatedAt.slice(0, 10)}</p></section>
+      <section id="official-sources" className={panel}><h2 className="font-bold">공식 참고 문서</h2><ul className="mt-3 space-y-2">{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul><p className="mt-4 text-sm leading-7 text-slate-600">공식 문서의 적용 제품·버전을 확인하세요. 내용 검토일은 안내를 검토한 날짜이며 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p><Link href="/contact" className="mt-3 inline-block text-sm text-blue-600 underline">설명 오류·다른 결과 제보하기</Link><p className="mt-4 text-xs text-slate-500">내용 검토일: {entry.updatedAt.slice(0, 10)}</p></section>
+      <DiagnosticNotes key={entry.slug} title={entry.title} />
       <Link href="/" className="mt-8 inline-flex rounded-xl bg-blue-600 px-6 py-4 font-bold text-white">다른 증상·오류 검색하기 →</Link>
     <section className="mt-12"><h2 className="mb-5 text-2xl font-black">자주 묻는 질문</h2><div className="space-y-4">{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq} />)}</div></section>
       </div><div className="display-ad-sides"><DisplayAd label="광고" placement="left" /><DisplayAd label="광고" placement="right" /></div><DisplayAd label="광고" /><SiteFooter /></main>;

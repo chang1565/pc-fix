@@ -3,19 +3,10 @@ import type { AccessGuide } from "@/data/problems";
 type Item = { order: number; title: string; access?: AccessGuide };
 
 export function ProcedureOverview({ solutions }: { solutions: Item[] }) {
-  return <nav aria-label="해결 방법 바로가기" className="mt-6 rounded-2xl border border-blue-200 bg-blue-50/70 p-5 sm:p-6">
-    <h2 className="text-lg font-black text-slate-950">내 상황에 맞는 방법 선택</h2>
-    <p className="mt-2 text-sm leading-6 text-slate-600">해당하는 항목을 누르면 조치로 이동합니다. 해결되면 다음 단계는 진행하지 않아도 됩니다.</p>
-    <ol className="mt-4 grid gap-3 sm:grid-cols-2">
-      {solutions.map((solution, index) => <li key={solution.order} className="min-w-0">
-        <a href={`#solution-${solution.order}`} className="flex h-full gap-3 rounded-xl border border-blue-100 bg-white p-4 transition hover:border-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-          <span aria-hidden="true" className="font-black text-blue-600">{String(index + 1).padStart(2, "0")}</span>
-          <span className="min-w-0"><span className="block text-sm font-bold leading-6 text-slate-900">{solution.title} <span aria-hidden="true">↓</span></span>
-            {solution.access && <span className="mt-1 block text-xs leading-5 text-slate-600">{solution.access.when}</span>}
-          </span>
-        </a>
-      </li>)}
-    </ol>
+  return <nav aria-label="해결 방법 바로가기" className="procedure-overview">
+    <h2 className="text-lg font-bold text-slate-950">필요한 점검으로 바로 이동</h2>
+    <p className="mt-2 text-sm leading-6 text-slate-600">내 증상에 해당하는 단계만 확인하세요. 해결되면 다음 단계는 진행하지 않아도 됩니다.</p>
+    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span><span aria-hidden="true" className="ml-auto">↓</span></a></li>)}</ol>
   </nav>;
 }
 
@@ -75,7 +66,7 @@ export function ProcedureVisual({ access }: { access?: AccessGuide }) {
   const heights = labels.map(lines => Math.max(110, 48 + lines.length * 27));
   const positions = heights.map((_, i) => 96 + heights.slice(0, i).reduce((sum, h) => sum + h + 32, 0));
   const height = positions[2] + heights[2] + 20;
-  return <figure className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+  return <details className="route-visual"><summary>설정 화면을 여는 경로 도식 보기</summary><figure className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
     <figcaption className="border-b border-slate-200 bg-white px-4 py-3 text-xs font-semibold leading-5 text-slate-600">확인 경로 도식 · 실제 오류 화면이 아닌 안내 그림입니다.</figcaption>
     <svg role="img" aria-label={access.route.join(" → ")} viewBox={`0 0 440 ${height}`} width="440" height={height} className="mx-auto h-auto w-full max-w-md" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(186 15)" fill="none" stroke="#2563eb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><Icon kind={access.kind}/></g>
@@ -88,5 +79,5 @@ export function ProcedureVisual({ access }: { access?: AccessGuide }) {
       </g>)}
     </svg>
     <p className="border-t border-slate-200 px-4 py-3 text-xs leading-6 text-slate-600">{access.caution}</p>
-  </figure>;
+  </figure></details>;
 }

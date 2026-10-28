@@ -12,7 +12,7 @@ const problemsUpdatedAt = "2026-10-27T00:00:00.000Z";
 export default function sitemap(): MetadataRoute.Sitemap {
   const problemPages = problems.map((problem) => ({
     url: `${baseUrl}/problems/${problem.slug}`,
-    lastModified: diagnosticWorkflows[problem.slug] ? "2026-10-28T00:00:00.000Z" : problemsUpdatedAt,
+    lastModified: diagnosticWorkflows[problem.slug] ? "2026-10-28T00:00:00.000Z" : `${problem.updatedAt}T00:00:00.000Z`,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));

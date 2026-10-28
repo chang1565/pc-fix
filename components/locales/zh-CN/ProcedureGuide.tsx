@@ -8,19 +8,10 @@ type Item = {
 export function ProcedureOverview({ solutions }: {
     solutions: Item[];
 }) {
-    return <nav aria-label="转到解决方案" className="mt-6 rounded-2xl border border-blue-200 bg-blue-50/70 p-5 sm:p-6">
-    <h2 className="text-lg font-black text-slate-950">{"\u9009\u62E9\u9002\u5408\u60A8\u60C5\u51B5\u7684\u65B9\u6CD5"}</h2>
-    <p className="mt-2 text-sm leading-6 text-slate-600">{"\u5355\u51FB\u76F8\u5E94\u7684\u9879\u76EE\u5373\u53EF\u6267\u884C\u64CD\u4F5C\u3002\u89E3\u51B3\u540E\uFF0C\u60A8\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u4E0B\u4E00\u6B65\u3002"}</p>
-    <ol className="mt-4 grid gap-3 sm:grid-cols-2">
-      {solutions.map((solution, index) => <li key={solution.order} className="min-w-0">
-        <a href={`#solution-${solution.order}`} className="flex h-full gap-3 rounded-xl border border-blue-100 bg-white p-4 transition hover:border-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-          <span aria-hidden="true" className="font-black text-blue-600">{String(index + 1).padStart(2, "0")}</span>
-          <span className="min-w-0"><span className="block text-sm font-bold leading-6 text-slate-900">{solution.title} <span aria-hidden="true">↓</span></span>
-            {solution.access && <span className="mt-1 block text-xs leading-5 text-slate-600">{solution.access.when}</span>}
-          </span>
-        </a>
-      </li>)}
-    </ol>
+    return <nav aria-label="转到解决方案" className="procedure-overview">
+    <h2 className="text-lg font-bold text-slate-950">{"\u8DF3\u8F6C\u5230\u6240\u9700\u68C0\u67E5"}</h2>
+    <p className="mt-2 text-sm leading-6 text-slate-600">{"\u8BF7\u4EC5\u68C0\u67E5\u4E0E\u60A8\u7684\u75C7\u72B6\u76F8\u5BF9\u5E94\u7684\u6B65\u9AA4\u3002\u89E3\u51B3\u540E\uFF0C\u60A8\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u4E0B\u4E00\u6B65\u3002"}</p>
+    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span><span aria-hidden="true" className="ml-auto">↓</span></a></li>)}</ol>
   </nav>;
 }
 export function ProcedureAccess({ access }: {
@@ -112,7 +103,7 @@ export function ProcedureVisual({ access }: {
     const heights = labels.map(lines => Math.max(110, 48 + lines.length * 27));
     const positions = heights.map((_, i) => 96 + heights.slice(0, i).reduce((sum, h) => sum + h + 32, 0));
     const height = positions[2] + heights[2] + 20;
-    return <figure className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+    return <details className="route-visual"><summary>{"\u6253\u5F00\u8BBE\u7F6E\u5C4F\u5E55\u7684\u8DEF\u5F84\u793A\u610F\u56FE"}</summary><figure className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
     <figcaption className="border-b border-slate-200 bg-white px-4 py-3 text-xs font-semibold leading-5 text-slate-600">{"\u786E\u8BA4\u8DEF\u5F84\u56FE \u00B7 \u8FD9\u662F\u6307\u5BFC\u56FE\u7247\uFF0C\u800C\u4E0D\u662F\u5B9E\u9645\u7684\u9519\u8BEF\u5C4F\u5E55\u3002"}</figcaption>
     <svg role="img" aria-label={access.route.join(" \u2192 ")} viewBox={`0 0 440 ${height}`} width="440" height={height} className="mx-auto h-auto w-full max-w-md" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(186 15)" fill="none" stroke="#2563eb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><Icon kind={access.kind}/></g>
@@ -125,5 +116,5 @@ export function ProcedureVisual({ access }: {
       </g>)}
     </svg>
     <p className="border-t border-slate-200 px-4 py-3 text-xs leading-6 text-slate-600">{access.caution}</p>
-  </figure>;
+  </figure></details>;
 }

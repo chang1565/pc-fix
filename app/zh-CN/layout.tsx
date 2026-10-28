@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, }: Readonly<{
     children: ReactNode;
 }>) {
-    return (<html lang="zh-CN">
+    return (<html lang="zh-CN" data-scroll-behavior="smooth">
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5914836791785057" crossOrigin="anonymous"/>
       </head>

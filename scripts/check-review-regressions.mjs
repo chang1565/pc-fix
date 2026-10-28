@@ -60,3 +60,14 @@ for(const locale of ['en','ja','zh-CN']) {
  if(locale==='ja')assert.match(d['파일 탐색기(Windows 키+E로 열기)뿐 아니라 디스크 관리(Windows 키+X → 디스크 관리로 열기)에서 외장 드라이브의 정확한 용량을 확인하세요.'],/Windows\+E.*Windows\+X/);
 }
 console.log('PASS: reviewed symptom sequences, execution environments, diagnostic outcomes and critical translation regressions.');
+
+const procedures = load('data/procedureReview.json');
+for (const title of ['언어·반복 입력·필터 키 설정 확인하기', '물리 키 상태와 오염 확인하기']) {
+ assert.doesNotMatch(procedures[title].checkPoint, /마우스|스크롤|포인팅/);
+ assert.match(procedures[title].checkPoint, /키|입력/);
+ for (const locale of ['en', 'ja', 'zh-CN']) {
+  const text = load(`data/locales/${locale}.json`)[procedures[title].checkPoint];
+  assert.ok(text, `missing keyboard result: ${locale}`);
+  assert.doesNotMatch(text, /mouse|マウス|鼠标/i);
+ }
+}

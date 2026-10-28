@@ -8,19 +8,10 @@ type Item = {
 export function ProcedureOverview({ solutions }: {
     solutions: Item[];
 }) {
-    return <nav aria-label="回避策ショートカット" className="mt-6 rounded-2xl border border-blue-200 bg-blue-50/70 p-5 sm:p-6">
-    <h2 className="text-lg font-black text-slate-950">{"\u79C1\u306E\u72B6\u6CC1\u306B\u5408\u3046\u65B9\u6CD5\u3092\u9078\u3076"}</h2>
-    <p className="mt-2 text-sm leading-6 text-slate-600">{"\u8A72\u5F53\u3059\u308B\u9805\u76EE\u3092\u30BF\u30C3\u30D7\u3059\u308B\u3068\u30A2\u30AF\u30B7\u30E7\u30F3\u306B\u79FB\u52D5\u3057\u307E\u3059\u3002\u89E3\u6C7A\u3057\u305F\u3089\u3001\u6B21\u306E\u624B\u9806\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002"}</p>
-    <ol className="mt-4 grid gap-3 sm:grid-cols-2">
-      {solutions.map((solution, index) => <li key={solution.order} className="min-w-0">
-        <a href={`#solution-${solution.order}`} className="flex h-full gap-3 rounded-xl border border-blue-100 bg-white p-4 transition hover:border-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
-          <span aria-hidden="true" className="font-black text-blue-600">{String(index + 1).padStart(2, "0")}</span>
-          <span className="min-w-0"><span className="block text-sm font-bold leading-6 text-slate-900">{solution.title} <span aria-hidden="true">↓</span></span>
-            {solution.access && <span className="mt-1 block text-xs leading-5 text-slate-600">{solution.access.when}</span>}
-          </span>
-        </a>
-      </li>)}
-    </ol>
+    return <nav aria-label="回避策ショートカット" className="procedure-overview">
+    <h2 className="text-lg font-bold text-slate-950">{"\u5FC5\u8981\u306A\u78BA\u8A8D\u3078\u79FB\u52D5"}</h2>
+    <p className="mt-2 text-sm leading-6 text-slate-600">{"\u81EA\u5206\u306E\u75C7\u72B6\u306B\u5BFE\u5FDC\u3059\u308B\u624B\u9806\u3060\u3051\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u89E3\u6C7A\u3057\u305F\u3089\u3001\u6B21\u306E\u624B\u9806\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002"}</p>
+    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span><span aria-hidden="true" className="ml-auto">↓</span></a></li>)}</ol>
   </nav>;
 }
 export function ProcedureAccess({ access }: {
@@ -112,7 +103,7 @@ export function ProcedureVisual({ access }: {
     const heights = labels.map(lines => Math.max(110, 48 + lines.length * 27));
     const positions = heights.map((_, i) => 96 + heights.slice(0, i).reduce((sum, h) => sum + h + 32, 0));
     const height = positions[2] + heights[2] + 20;
-    return <figure className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+    return <details className="route-visual"><summary>{"\u8A2D\u5B9A\u753B\u9762\u3092\u958B\u304F\u30D1\u30B9\u56F3\u3092\u898B\u308B"}</summary><figure className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
     <figcaption className="border-b border-slate-200 bg-white px-4 py-3 text-xs font-semibold leading-5 text-slate-600">{"\u78BA\u8A8D\u7D4C\u8DEF\u56F3 \u30FB\u5B9F\u969B\u306E\u30A8\u30E9\u30FC\u753B\u9762\u3067\u306F\u306A\u304F\u6848\u5185\u56F3\u3067\u3059\u3002"}</figcaption>
     <svg role="img" aria-label={access.route.join(" \u2192 ")} viewBox={`0 0 440 ${height}`} width="440" height={height} className="mx-auto h-auto w-full max-w-md" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(186 15)" fill="none" stroke="#2563eb" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><Icon kind={access.kind}/></g>
@@ -125,5 +116,5 @@ export function ProcedureVisual({ access }: {
       </g>)}
     </svg>
     <p className="border-t border-slate-200 px-4 py-3 text-xs leading-6 text-slate-600">{access.caution}</p>
-  </figure>;
+  </figure></details>;
 }

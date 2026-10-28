@@ -38,7 +38,7 @@ for (const locale of languages) {
         return leading + dictionary[value].trim() + trailing;
       }
       if (value === "@/data/problems" || value === "@/data/errorCodes" || value === "@/data/diagnosticWorkflows") return `@/data/locales/${locale}`;
-      if (["@/components/SiteHeader", "@/components/SiteFooter", "@/components/ErrorBrowser", "@/components/ErrorCard", "@/components/ProcedureGuide", "@/components/DiagnosticWorkflow"].includes(value)) return value.replace("@/components/", `@/components/locales/${locale}/`);
+      if (["@/components/SiteHeader", "@/components/SiteFooter", "@/components/ErrorBrowser", "@/components/ErrorCard", "@/components/ProcedureGuide", "@/components/DiagnosticWorkflow", "@/components/SymptomNavigator", "@/components/DiagnosticNotes", "@/components/HomeContent"].includes(value)) return value.replace("@/components/", `@/components/locales/${locale}/`);
       if (["@/lib/unifiedSearch", "@/lib/errorSearch"].includes(value)) return value.replace("@/lib/", `@/lib/locales/${locale}/`);
       if (value === "ko") return locale;
       if (value === "/") return `/${locale}`;

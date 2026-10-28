@@ -1,4 +1,5 @@
 import DisplayAd from "@/components/DisplayAd";
+import DiagnosticNotes from "@/components/DiagnosticNotes";
 import DiagnosticWorkflow from "@/components/DiagnosticWorkflow";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -163,7 +164,7 @@ export default async function ProblemPage({
   };
 
   return (
-    <main className="relative min-h-screen bg-slate-50 text-slate-900">
+    <main className="guide-page relative min-h-screen text-slate-900">
       {/* JSON-LD */}
 
       <script
@@ -236,12 +237,25 @@ export default async function ProblemPage({
           <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
             {problem.title}
           </h1>
+          <div className="guide-meta"><span>문서 기반 점검 안내</span><a href="#official-sources">공식 참고 자료 {problem.sources.length}개 ↓</a></div>
 
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
             {problem.description}
           </p>
 
         </section>
+
+        {problem.warning && (
+          <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
+            <h2 className="text-lg font-black text-amber-900">
+              주의사항
+            </h2>
+
+            <p className="mt-2 text-sm leading-7 text-amber-800">
+              {problem.warning}
+            </p>
+          </section>
+        )}
 
         <DiagnosticWorkflow slug={problem.slug} />
         <ProcedureOverview solutions={problem.solutions.slice(1)} />
@@ -387,27 +401,19 @@ export default async function ProblemPage({
           </div>
         </section>
 
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
+        <section id="official-sources" className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
           <h2 className="text-lg font-black text-slate-950">공식 참고 문서와 적용 범위</h2>
           <ul className="mt-3 space-y-2">{problem.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul>
           <p className="mt-4 text-sm leading-7 text-slate-600">Windows 버전·장치 모델에 따라 메뉴와 지원 기능이 다릅니다. 제조사 문서의 적용 모델을 확인하세요. 아래 자료는 관련 절차의 참고 문서이며 모든 증상을 동일한 원인으로 확정하는 근거는 아닙니다.</p>
-          <p className="mt-3 text-xs text-slate-500">내용 검토일: 2026-10-27 · 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p>
+          <p className="mt-3 text-xs text-slate-500">내용 검토일: {problem.updatedAt} · 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p>
           <Link href="/contact" className="mt-3 inline-block text-sm text-blue-600 underline">설명 오류·다른 결과 제보하기</Link>
         </section>
 
+        <DiagnosticNotes key={problem.slug} title={problem.title} />
+
         {/* 주의사항 */}
 
-        {problem.warning && (
-          <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <h2 className="text-lg font-black text-amber-900">
-              주의사항
-            </h2>
 
-            <p className="mt-2 text-sm leading-7 text-amber-800">
-              {problem.warning}
-            </p>
-          </section>
-        )}
 
         
 

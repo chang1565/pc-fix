@@ -7,14 +7,14 @@ export default function DiagnosticWorkflow({ slug }: {
     const guide = diagnosticWorkflows[slug];
     if (!guide)
         return null;
-    return <section aria-labelledby="comparison-heading" className="mt-6 rounded-2xl border border-blue-200 bg-white p-6 sm:p-8">
+    return <section aria-labelledby="comparison-heading" className="comparison-guide">
     <h2 id="comparison-heading" className="text-xl font-black text-slate-950">{"\u8A2D\u5B9A\u3092\u5909\u66F4\u3059\u308B\u524D\u3001\u539F\u56E0\u7BC4\u56F2\u3092\u7D5E\u308A\u8FBC\u3080"}</h2>
     <p className="mt-3 text-sm leading-7 text-slate-600">{"\u9069\u7528\u7BC4\u56F2\uFF1A "}{guide.scope}</p>
     <p className="mt-3 leading-7 text-slate-800">{guide.compare}</p>
-    <ol className="mt-5 space-y-4">{guide.branches.map(([result, action]) => <li key={result} className="rounded-xl bg-slate-50 p-4">
+    <ol className="comparison-branches">{guide.branches.map(([result, action]) => <li key={result} className="min-w-0">
       <h3 className="font-bold text-slate-950">{result}</h3><p className="mt-2 leading-7 text-slate-700">{action}</p>
     </li>)}</ol>
-    <div className="mt-5 space-y-3 text-sm leading-7 text-slate-700">
+    <div className="comparison-outcomes">
       <p><strong>{"\u89E3\u6C7A\u306E\u78BA\u8A8D: "}</strong>{guide.verify}</p>
       <p><strong>{"\u3053\u3053\u3067\u306F\u4E2D\u65AD\uFF1A "}</strong>{guide.stop}</p>
       <p><strong>{"\u304A\u554F\u3044\u5408\u308F\u305B\u524D\u306B\u8A18\u9332\uFF1A "}</strong>{guide.record}</p>
