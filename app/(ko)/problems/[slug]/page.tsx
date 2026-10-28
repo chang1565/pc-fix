@@ -260,56 +260,6 @@ export default async function ProblemPage({
         <DiagnosticWorkflow slug={problem.slug} />
         <ProcedureOverview solutions={problem.solutions.slice(1)} />
 
-        {/* 증상 + 원인 */}
-
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">
-              이런 증상이 있나요?
-            </h2>
-
-            <ul className="mt-5 space-y-3">
-              {problem.symptoms.map(
-                (symptom, index) => (
-                  <li
-                    key={index}
-                    className="flex gap-3 text-sm leading-6 text-slate-700"
-                  >
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-500" />
-
-                    <span>
-                      {symptom}
-                    </span>
-                  </li>
-                )
-              )}
-            </ul>
-          </section>
-
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">
-              주요 원인
-            </h2>
-
-            <ul className="mt-5 space-y-3">
-              {problem.causes.map(
-                (cause, index) => (
-                  <li
-                    key={index}
-                    className="flex gap-3 text-sm leading-6 text-slate-700"
-                  >
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-orange-500" />
-
-                    <span>
-                      {cause}
-                    </span>
-                  </li>
-                )
-              )}
-            </ul>
-          </section>
-        </div>
-
         {/* 해결 방법 */}
 
         <section className="mt-10">
@@ -396,6 +346,76 @@ export default async function ProblemPage({
                     )}
                   </div>
                 </article>
+              )
+            )}
+          </div>
+        </section>
+
+        {/* 증상 + 원인 */}
+
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">
+              이런 증상이 있나요?
+            </h2>
+
+            <ul className="mt-5 space-y-3">
+              {problem.symptoms.map(
+                (symptom, index) => (
+                  <li
+                    key={index}
+                    className="flex gap-3 text-sm leading-6 text-slate-700"
+                  >
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-500" />
+
+                    <span>
+                      {symptom}
+                    </span>
+                  </li>
+                )
+              )}
+            </ul>
+          </section>
+
+          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">
+              주요 원인
+            </h2>
+
+            <ul className="mt-5 space-y-3">
+              {problem.causes.map(
+                (cause, index) => (
+                  <li
+                    key={index}
+                    className="flex gap-3 text-sm leading-6 text-slate-700"
+                  >
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-orange-500" />
+
+                    <span>
+                      {cause}
+                    </span>
+                  </li>
+                )
+              )}
+            </ul>
+          </section>
+        </div>
+
+      <section className="mt-10">
+          <div>
+            <h2 className="text-2xl font-black text-slate-950">
+              자주 묻는 질문
+            </h2>
+          </div>
+
+          <div className="mt-6 space-y-4">
+            {faq.map(
+              (item, index) => (
+                <FaqItem
+                  key={index}
+                  question={item.question}
+                  answer={item.answer}
+                />
               )
             )}
           </div>
@@ -504,30 +524,7 @@ export default async function ProblemPage({
             다른 문제 검색하기
           </Link>
         </section>
-      <section className="mt-16">
-          <div>
-            <h2 className="text-2xl font-black text-slate-950">
-              자주 묻는 질문
-            </h2>
 
-            <p className="mt-2 text-sm text-slate-500">
-              이 문제와 관련해 자주 확인하는
-              내용을 정리했습니다.
-            </p>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            {faq.map(
-              (item, index) => (
-                <FaqItem
-                  key={index}
-                  question={item.question}
-                  answer={item.answer}
-                />
-              )
-            )}
-          </div>
-        </section>
       </div>
 
       <div className="display-ad-sides"><DisplayAd label="광고" placement="left" /><DisplayAd label="광고" placement="right" /></div><DisplayAd label="광고" /><SiteFooter />

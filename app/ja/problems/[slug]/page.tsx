@@ -184,38 +184,6 @@ export default async function ProblemPage({ params, }: PageProps) {
         <DiagnosticWorkflow slug={problem.slug}/>
         <ProcedureOverview solutions={problem.solutions.slice(1)}/>
 
-        {/* 증상 + 원인 */}
-
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">{" \u3053\u306E\u3088\u3046\u306A\u75C7\u72B6\u306F\u3042\u308A\u307E\u3059\u304B\uFF1F "}</h2>
-
-            <ul className="mt-5 space-y-3">
-              {problem.symptoms.map((symptom, index) => (<li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-500"/>
-
-                    <span>
-                      {symptom}
-                    </span>
-                  </li>))}
-            </ul>
-          </section>
-
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">{" \u4E3B\u306A\u539F\u56E0 "}</h2>
-
-            <ul className="mt-5 space-y-3">
-              {problem.causes.map((cause, index) => (<li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-orange-500"/>
-
-                    <span>
-                      {cause}
-                    </span>
-                  </li>))}
-            </ul>
-          </section>
-        </div>
-
         {/* 해결 방법 */}
 
         <section className="mt-10">
@@ -279,6 +247,48 @@ export default async function ProblemPage({ params, }: PageProps) {
                       </div>)}
                   </div>
                 </article>))}
+          </div>
+        </section>
+
+        {/* 증상 + 원인 */}
+
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">{" \u3053\u306E\u3088\u3046\u306A\u75C7\u72B6\u306F\u3042\u308A\u307E\u3059\u304B\uFF1F "}</h2>
+
+            <ul className="mt-5 space-y-3">
+              {problem.symptoms.map((symptom, index) => (<li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-500"/>
+
+                    <span>
+                      {symptom}
+                    </span>
+                  </li>))}
+            </ul>
+          </section>
+
+          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">{" \u4E3B\u306A\u539F\u56E0 "}</h2>
+
+            <ul className="mt-5 space-y-3">
+              {problem.causes.map((cause, index) => (<li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
+                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-orange-500"/>
+
+                    <span>
+                      {cause}
+                    </span>
+                  </li>))}
+            </ul>
+          </section>
+        </div>
+
+      <section className="mt-10">
+          <div>
+            <h2 className="text-2xl font-black text-slate-950">{" \u3088\u304F\u3042\u308B\u8CEA\u554F "}</h2>
+          </div>
+
+          <div className="mt-6 space-y-4">
+            {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
           </div>
         </section>
 
@@ -353,17 +363,7 @@ export default async function ProblemPage({ params, }: PageProps) {
 
           <Link href="/ja" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100">{" \u4ED6\u306E\u554F\u984C\u3092\u691C\u7D22\u3059\u308B "}</Link>
         </section>
-      <section className="mt-16">
-          <div>
-            <h2 className="text-2xl font-black text-slate-950">{" \u3088\u304F\u3042\u308B\u8CEA\u554F "}</h2>
 
-            <p className="mt-2 text-sm text-slate-500">{" \u3053\u306E\u554F\u984C\u306B\u95A2\u3057\u3066\u983B\u7E41\u306B\u78BA\u8A8D\u3059\u308B\u5185\u5BB9\u3092\u307E\u3068\u3081\u307E\u3057\u305F\u3002 "}</p>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
-          </div>
-        </section>
       </div>
 
       <div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter />

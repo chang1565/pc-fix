@@ -10209,5 +10209,20 @@
   "작성·검증 기준 읽기": "Read the writing/verification standards",
   "데스크톱 전원이 안 켜짐": "Desktop will not power on",
   "모니터에 신호 없음": "Monitor shows no signal",
-  "Windows 부팅 실패": "Windows will not boot"
+  "Windows 부팅 실패": "Windows will not boot",
+  "확인 결과에 따라 다음에는 무엇을 해야 하나요?": "What should I do next based on the results?",
+  "점검 전에 주의할 점은 무엇인가요?": "What precautions should I take before troubleshooting?",
+  "타는 냄새·연기·배터리 팽창이 있으면 작업과 충전을 중단하고 전문 점검을 받으세요. 백업을 위해 다시 켜지 마세요. 위험 신호가 없는 경우에는 중요한 파일을 백업하고, 해결되지 않은 단계와 오류 메시지를 기록해 지원을 요청하세요.": "If you notice a burning smell, smoke, or battery swelling, stop using and charging the device and seek professional service. Do not turn it on again to make a backup. If there are no danger signs, back up important files and record the failed step and error message before requesting support.",
+  "장치 관리자에서 오디오 인식 상태 확인하기": "Check audio device detection in Device Manager",
+  "출력 장치가 목록에 없으면 음량 조정보다 장치 인식과 드라이버 상태를 먼저 확인해야 합니다.": "If no output device is listed, check device detection and driver status before adjusting volume.",
+  "Windows 키+R → devmgmt.msc → Enter → 사운드, 비디오 및 게임 컨트롤러": "Windows+R → devmgmt.msc → Enter → Sound, video and game controllers",
+  "Windows 키+R → devmgmt.msc → Enter로 장치 관리자를 열고 사운드, 비디오 및 게임 컨트롤러와 오디오 입력 및 출력을 펼치세요. 장치 이름과 속성의 오류 코드를 기록하세요.": "Press Windows+R, enter devmgmt.msc, and press Enter. Expand Sound, video and game controllers and Audio inputs and outputs. Record the device name and any error code in its properties.",
+  "직접 비활성화한 장치라면 우클릭 → 디바이스 사용을 선택하세요. 항목이 없으면 동작 → 하드웨어 변경 사항 검색을 한 번 실행하세요. 회색으로만 보이는 이전 장치를 현재 연결된 장치로 판단하지 마세요.": "If you disabled the device yourself, right-click it and select Enable device. If it is missing, run Action → Scan for hardware changes once. A greyed-out entry for a previous device does not prove it is currently connected.",
+  "오류가 남거나 장치가 계속 없으면 정확한 PC 모델의 제조사 지원 페이지에서 오디오 드라이버와 필요한 칩셋 구성요소를 확인하세요. HDMI·DisplayPort 소리만 없으면 해당 GPU의 디스플레이 오디오 드라이버도 확인하세요.": "If the error persists or the device remains missing, check the audio driver and required chipset components on the support page for your exact PC model. If only HDMI or DisplayPort audio is missing, also check the GPU display audio driver.",
+  "장치가 다시 나타나면 Windows 소리 설정에서 해당 출력을 선택해 테스트하세요. 계속 인식되지 않으면 모델명과 오류 코드를 제조사에 전달하세요. 출력 장치가 없는 상태에서 음질 설정을 반복 변경하지 마세요.": "When the device reappears, select it in Windows sound settings and test it. If it is still not detected, send the model and error code to the manufacturer. Do not keep changing sound-quality settings while no output device is detected.",
+  "HDD에서 새로운 반복 클릭과 읽기 실패가 함께 나타날 때": "When an HDD develops repeated clicking together with read failures",
+  "고장 의심 HDD의 사용·재연결 중단": "Stop using or reconnecting the suspect HDD",
+  "다른 기기에서 기존 백업 확인": "Check existing backups on another device",
+  "원본 보존 → 복구·교체 상담": "Preserve the original drive → discuss recovery or replacement",
+  "백업을 새로 만들려고 고장 의심 HDD를 다시 켜지 마세요. 반복 검사·CHKDSK·포맷을 중단하고 기존 백업과 복구 필요 여부부터 확인하세요.": "Do not power on the suspect HDD again to create a new backup. Stop repeated tests, CHKDSK, and formatting. First check existing backups and whether data recovery is needed."
 }

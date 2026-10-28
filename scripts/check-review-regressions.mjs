@@ -6,6 +6,17 @@ const {errorCodes}=load('data/errorCodes.ts');
 const reviewed=load('data/problemSolutionReview.json');
 const problem=slug=>problems.find(p=>p.slug===slug);
 const actions=page=>page.solutions.flatMap(s=>s.steps).join(' ');
+assert.match(problem('audio-device-missing').solutions[1].title, /장치 관리자/);
+assert.doesNotMatch(problem('audio-device-missing').solutions.slice(1).map(s=>s.title).join(' '), /음소거|향상 기능|기본 형식/);
+for (const slug of ['hdd-clicking', 'battery-swollen']) {
+ assert.doesNotMatch(problem(slug).solutions[0].checkPoint, /증상이 사라졌다면/);
+ assert.doesNotMatch(problem(slug).warning, /백업을 먼저|가능하면 사용/);
+}
+for (const solution of problem('hdd-clicking').solutions.slice(1)) {
+ assert.match(solution.access.caution, /다시 켜지 마세요/);
+ assert.doesNotMatch(solution.access.route.join(' '), /다른 정상 저장장치로 복사/);
+}
+for (const page of problems) assert.doesNotMatch(page.faqs.map(f=>f.question+' '+f.answer).join(' '), /원인 후보 ‘|백업한 뒤 전문 점검/);
 for (const [slug, sections] of Object.entries(reviewed)) {
   assert.ok(sections.length >= 2, `missing detailed follow-up: ${slug}`);
   assert.ok(sections.every(s => s.location && s.checkPoint && s.steps.length), slug);

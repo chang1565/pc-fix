@@ -27,7 +27,7 @@ for (const entry of all) {
   records.push({ url: `https://pcfixbase.com/${entry.code ? "errors" : "problems"}/${entry.slug}`, actions: solutions.length, guides: solutions.map(s => map[s.title]) });
 }
 assert.equal(all.length, 297);
-assert.equal(titles.size, 434);
+assert.equal(titles.size, 435);
 assert.deepEqual([...titles].sort(), Object.keys(map).sort());
 const forTitle = text => profiles[map[text]];
 assert.match(forTitle("그래픽 드라이버를 단축키로 재시작하기").route.join(" "), /Windows 키\+Ctrl\+Shift\+B/);
@@ -36,7 +36,7 @@ assert.match(forTitle("팬 정지 상태에서 부하 시험 중단하기").rout
 assert.doesNotMatch(forTitle("포트·케이블·링크 속도 확인하기").route.join(" "), /Wi-Fi|공유기/);
 assert.match(forTitle("직접 설정한 안전 부팅 해제하기").route[0], /msconfig/);
 assert.match(forTitle("복구 키 ID에 맞는 48자리 키 찾기").route.join(" "), /48자리/);
-const critical = ["stop-battery", "fan-stop", "hardware", "storage-link", "bitlocker", "certificate", "command", "disk"];
+const critical = ["stop-battery", "stop-disk", "fan-stop", "hardware", "storage-link", "bitlocker", "certificate", "command", "disk"];
 for (const locale of ["en", "ja", "zh-CN"]) {
   const dataset = load(`data/locales/${locale}.ts`);
   const localized = [...dataset.problems, ...dataset.errorCodes];

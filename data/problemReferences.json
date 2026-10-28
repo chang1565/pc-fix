@@ -298,5 +298,11 @@
       "title": "Microsoft: BitLocker 복구 키 찾기",
       "url": "https://support.microsoft.com/en-us/windows/security/encryption/find-your-bitlocker-recovery-key"
     }
+  ],
+  "audio-device-missing": [
+    {
+      "title": "Microsoft: 소리·오디오 문제 해결",
+      "url": "https://support.microsoft.com/en-gb/windows/hardware/audio/fix-missing-or-undetected-audio-output-device-in-windows"
+    }
   ]
 }

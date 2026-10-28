@@ -1,6 +1,5 @@
 import problemDiagnostics from "./problemDiagnostics.json";
 import procedureReview from "./procedureReview.json";
-import procedureReviewDates from "./procedureReviewDates.json";
 import problemReferences from "./problemReferences.json";
 import problemSolutionReview from "./problemSolutionReview.json";
 import procedureAccess from "./procedureAccess.json";
@@ -7048,8 +7047,11 @@ const issueSeeds: ProblemSeed[] = [
 ];
 
 function buildWarning(seed: ProblemSeed): string | undefined {
+  if (seed.slug === "hdd-clicking") {
+    return problemDiagnostics["hdd-clicking"][1];
+  }
   if (seed.slug === "battery-swollen") {
-    return "부풀어 오른 배터리는 누르거나 찌르거나 계속 충전하지 마세요. 가능하면 사용을 중지하고 제조사 또는 전문 서비스센터에서 교체하세요.";
+    return problemSolutionReview["battery-swollen"][0].checkPoint;
   }
 
   if (
@@ -7142,7 +7144,12 @@ function basePersonalizeSolutions(
 
 function personalizeSolutions(seed: ProblemSeed, solutions: SolutionStep[]): SolutionStep[] {
   return basePersonalizeSolutions(seed, solutions).map((solution, index) => {
-    if (index === 0) return solution;
+    if (index === 0) {
+      if (seed.slug === "battery-swollen" || seed.slug === "hdd-clicking") {
+        return { ...solution, checkPoint: problemSolutionReview[seed.slug][0].checkPoint };
+      }
+      return solution;
+    }
     const id = procedureAccess[solution.title as keyof typeof procedureAccess];
     const access = accessProfiles[id as keyof typeof accessProfiles];
     if (!access) throw new Error(`Missing access review: ${seed.slug}: ${solution.title}`);
@@ -7156,11 +7163,9 @@ function buildFaqs(
 ): ProblemFaq[] {
   const diagnostics = problemDiagnostics[seed.slug as keyof typeof problemDiagnostics];
   const firstSymptom = seed.symptoms[0];
-  const firstCause = seed.extraCauses[0];
-
   const safetyAnswer = warning
     ? warning
-    : `위 해결 단계를 순서대로 진행해도 ${firstSymptom} 증상이 반복되거나, 타는 냄새·이상음·과열·부품 인식 실패처럼 하드웨어 이상 신호가 함께 나타나면 중요한 데이터를 백업한 뒤 전문 점검을 권장합니다.`;
+    : "타는 냄새·연기·배터리 팽창이 있으면 작업과 충전을 중단하고 전문 점검을 받으세요. 백업을 위해 다시 켜지 마세요. 위험 신호가 없는 경우에는 중요한 파일을 백업하고, 해결되지 않은 단계와 오류 메시지를 기록해 지원을 요청하세요.";
 
   return [
     {
@@ -7168,11 +7173,11 @@ function buildFaqs(
       answer: diagnostics[0],
     },
     {
-      question: `원인 후보 ‘${firstCause}’는 어떻게 확인하나요?`,
+      question: "확인 결과에 따라 다음에는 무엇을 해야 하나요?",
       answer: `${diagnostics[1]} ${diagnostics[2]}`,
     },
     {
-      question: `${seed.title}: 언제 전문 점검이 필요한가요?`,
+      question: "점검 전에 주의할 점은 무엇인가요?",
       answer: safetyAnswer,
     },
   ];
@@ -7238,7 +7243,7 @@ const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
 
   return {
     slug: seed.slug,
-    updatedAt: solutions.some(solution => solution.title in procedureReviewDates) ? "2026-10-28" : "2026-10-27",
+    updatedAt: "2026-10-28",
     title: seed.title,
     category: seed.category,
     description,

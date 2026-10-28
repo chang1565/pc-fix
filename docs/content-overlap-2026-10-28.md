@@ -1,14 +1,14 @@
 # PC FIX 절차 중복 점검 — 2026-10-28
 
-증상 217개 중 첫 진단을 제외한 추가 절차의 실행 문장과 순서가 같은 그룹 49개, 해당 문서 183개.
+증상 217개 중 첫 진단을 제외한 추가 절차의 실행 문장과 순서가 같은 그룹 49개, 해당 문서 182개.
 
 전체 본문의 중복 판정이 아니다. 첫 진단·제목·증상·출처·FAQ가 다를 수 있다. 자동 삭제·리다이렉트·noindex 대상 목록으로 사용하지 않는다.
 
 | 그룹 | 문서 수 | URL slug |
 | --- | --- | --- |
 | 1 | 10 | video-tdr-failure, windows-blue-screen, bsod-memory-management, bsod-irql-not-less-or-equal, bsod-page-fault, bsod-whea-uncorrectable, bsod-dpc-watchdog, bsod-critical-process-died, bsod-driver-power-state, bsod-system-service-exception |
-| 2 | 10 | game-audio-cut, bluetooth-connected-no-sound, bluetooth-audio-low-quality, no-sound, audio-device-missing, audio-crackling, audio-low-volume, sound-after-update, headphones-not-detected, app-sound-only-not-working |
-| 3 | 9 | game-crash, game-black-screen-restart, game-freeze, game-launch-fail, game-not-responding, game-alt-tab-crash, game-dx12-crash, game-only-pc-restart, game-only-shutdown |
+| 2 | 9 | game-crash, game-black-screen-restart, game-freeze, game-launch-fail, game-not-responding, game-alt-tab-crash, game-dx12-crash, game-only-pc-restart, game-only-shutdown |
+| 3 | 9 | game-audio-cut, bluetooth-connected-no-sound, bluetooth-audio-low-quality, no-sound, audio-crackling, audio-low-volume, sound-after-update, headphones-not-detected, app-sound-only-not-working |
 | 4 | 7 | gpu-high-temp, cpu-overheating, computer-overheating, laptop-overheating, fan-loud, fan-always-on, laptop-shuts-down-hot |
 | 5 | 6 | external-drive-disconnects, usb-not-recognized, usb-disconnect-reconnect, usb-port-not-working, usb-device-code43, usb-hub-issues |
 | 6 | 6 | drive-read-only, disk-smart-error, corrupted-files, chkdsk-loop, nvme-disappears-under-load, disk-freeze-system |
