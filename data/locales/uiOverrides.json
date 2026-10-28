@@ -694,7 +694,10 @@
     "긴 자가 검사나 표면 검사를 시작하지 마세요. 중요한 데이터가 있다면 사용을 중단하고 데이터 복구 가능성부터 상담하세요.": "Do not run a lengthy self-test or surface scan. If the data matters, stop using the drive and consult a data recovery service first.",
     "공유기 관리자가 예약 주소·임대 목록·중복 DHCP 서버를 확인하도록 하세요. 재연결로 잠시 해결돼도 같은 경고가 재발하면 설정 원인을 찾아야 합니다.": "Ask the router administrator to check DHCP reservations, leases, and duplicate DHCP servers. If the warning returns after reconnecting, investigate the configuration instead of repeatedly reconnecting.",
     "게이트웨이부터 손실이 있고 유선에서는 회복": "Packet loss to the gateway disappears on a wired connection",
-    "문서 크기·해상도·양면·고품질 설정을 확인하세요. 복사본에서 낮은 품질로 비교하고 원본을 보존하세요.": "Check document size, resolution, duplex, and print quality settings. Use a copy of the document to compare a lower quality setting and preserve the original."
+    "문서 크기·해상도·양면·고품질 설정을 확인하세요. 복사본에서 낮은 품질로 비교하고 원본을 보존하세요.": "Check document size, resolution, duplex, and print quality settings. Use a copy of the document to compare a lower quality setting and preserve the original.",
+    "어떤 문제가 있나요?": "What is not working?",
+    "많이 찾는 해결 방법": "Popular guides",
+    "소리": "Audio"
   },
   "ja": {
     "통합 검색": "検索",
@@ -1493,7 +1496,9 @@
     "제조사 로고 이전부터 반복": "メーカーロゴが出る前に再起動を繰り返す",
     "Windows 로고 뒤 오류와 함께 반복": "Windowsロゴの後にエラーが出て再起動を繰り返す",
     "Windows 복구보다 전원·POST·최근 RAM 변경 점검이 우선입니다. 모델별 메모리 트레이닝 시간을 확인하고 위험 징후가 있으면 중단하세요.": "Windowsの回復操作より先に、電源、POST、最近のRAM変更を確認してください。モデルごとのメモリトレーニング所要時間を確認し、危険な兆候があれば中止してください。",
-    "게임만 종료한 뒤 파일 검사와 모드·오버레이 비교를 진행하세요. 로딩 중 디스크 작업이 계속되면 강제 종료 전에 진행 여부를 더 관찰하세요.": "ゲームを終了し、ファイルの検証とMOD・オーバーレイを一つずつ無効にした比較を行ってください。読み込み中にディスクの動作が続いている場合は、強制終了の前に進行状況を確認してください。"
+    "게임만 종료한 뒤 파일 검사와 모드·오버레이 비교를 진행하세요. 로딩 중 디스크 작업이 계속되면 강제 종료 전에 진행 여부를 더 관찰하세요.": "ゲームを終了し、ファイルの検証とMOD・オーバーレイを一つずつ無効にした比較を行ってください。読み込み中にディスクの動作が続いている場合は、強制終了の前に進行状況を確認してください。",
+    "많이 찾는 해결 방법": "よくあるトラブル",
+    "기기별 문제 찾기": "機器から探す"
   },
   "zh-CN": {
     "통합 검색": "搜索",
@@ -2519,6 +2524,7 @@
     "Windows 로고 뒤 오류와 함께 반복": "Windows 徽标出现后报错并反复重启",
     "Windows 복구보다 전원·POST·최근 RAM 변경 점검이 우선입니다. 모델별 메모리 트레이닝 시간을 확인하고 위험 징후가 있으면 중단하세요.": "先检查电源、POST 和最近的 RAM 变更，再考虑 Windows 恢复。确认该型号所需的内存训练时间，出现危险迹象时立即停止。",
     "게임만 종료한 뒤 파일 검사와 모드·오버레이 비교를 진행하세요. 로딩 중 디스크 작업이 계속되면 강제 종료 전에 진행 여부를 더 관찰하세요.": "关闭游戏，验证游戏文件，并逐一停用模组和叠加层进行比较。加载时若磁盘仍在工作，请先观察进度，再决定是否强制结束游戏。",
-    "드라이버만 원인으로 단정하지 마세요. 모니터 입력·케이블·출력 포트를 확인하고 하드웨어 표시 문제로 분리하세요.": "不要认定只有驱动程序会导致此问题。检查显示器输入、电缆和输出端口，排查硬件显示问题。"
+    "드라이버만 원인으로 단정하지 마세요. 모니터 입력·케이블·출력 포트를 확인하고 하드웨어 표시 문제로 분리하세요.": "不要认定只有驱动程序会导致此问题。检查显示器输入、电缆和输出端口，排查硬件显示问题。",
+    "많이 찾는 해결 방법": "常见问题指南"
   }
 }

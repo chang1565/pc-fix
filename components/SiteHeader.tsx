@@ -1,4 +1,3 @@
-import SupportIcon from "@/components/SupportIcon";
 import Link from "next/link";
 import LanguageSelector from "@/components/LanguageSelector";
 
@@ -6,20 +5,9 @@ export default function SiteHeader() {
   return (
     <header className="site-header">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="brand-mark">
-            <SupportIcon name="display" />
-          </div>
-
-          <div>
-            <div className="text-lg font-black tracking-tight text-slate-950">
-              PC FIX
-            </div>
-
-            <div className="hidden text-[11px] text-slate-400 sm:block">
-              컴퓨터 문제 해결 가이드
-            </div>
-          </div>
+        <Link href="/" className="support-brand">
+          <span className="support-wordmark">PC FIX</span>
+          <span className="support-tagline">컴퓨터 문제 해결 가이드</span>
         </Link>
 
         <nav className="flex items-center gap-1 text-sm font-medium text-slate-600">

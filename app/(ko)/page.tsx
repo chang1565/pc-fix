@@ -1,5 +1,6 @@
 import HomeContent from "@/components/HomeContent";
 import { problems } from "@/data/problems";
+import { errorCodes } from "@/data/errorCodes";
 
 const popularSlugs = [
   "internet-not-working",
@@ -20,5 +21,9 @@ export default function Home() {
     return problem ? [{ slug: problem.slug, title: problem.title, category: problem.category, description: problem.description }] : [];
   });
   const categories = [...new Set(problems.map(problem => problem.category))].map(name => ({ name, count: problems.filter(problem => problem.category === name).length }));
-  return <HomeContent popularProblems={popularProblems} categories={categories} />;
+  const commonErrors = ["0xC0000005", "Code 43", "0x80070057", "0x80070005", "INACCESSIBLE_BOOT_DEVICE"].flatMap(code => {
+    const error = errorCodes.find(item => item.code === code);
+    return error ? [{ slug: error.slug, code: error.code, title: error.title.replace(error.code, "").trim() }] : [];
+  });
+  return <HomeContent popularProblems={popularProblems} categories={categories} commonErrors={commonErrors} />;
 }

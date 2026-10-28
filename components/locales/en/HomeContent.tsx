@@ -4,6 +4,7 @@ import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
 import SymptomNavigator from "@/components/locales/en/SymptomNavigator";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
@@ -16,11 +17,16 @@ type Card = {
 type SearchCard = Card & {
     href: string;
 };
-export default function HomeContent({ popularProblems, categories }: {
+export default function HomeContent({ popularProblems, categories, commonErrors }: {
     popularProblems: Card[];
     categories: {
         name: string;
         count: number;
+    }[];
+    commonErrors: {
+        slug: string;
+        code: string;
+        title: string;
     }[];
 }) {
     const [searchState, setSearchState] = useState<{
@@ -110,73 +116,34 @@ export default function HomeContent({ popularProblems, categories }: {
     return (<main className="home-page relative min-h-screen text-slate-900">
       <SiteHeader />
 
-      {/* HERO */}
-      <section className="home-hero">
-        <div className="hero-grid"><div className="hero-copy">
-          <div className="support-emblem" aria-hidden="true"><SupportIcon name="display"/></div>
-
-          <h1 className="hero-title">{" PC errors and faults. "}<br />
-            <span className="hero-accent">{" Troubleshooting guides. "}</span>
-          </h1>
-
-          {/* 검색 영역 */}
-          <div className="hero-search" style={{
-            width: "min(760px, 100%)",
+      <section className="support-hero">
+        <div className="support-hero-inner">
+          <h1>{"What is not working?"}</h1>
+          <p className="support-intro">{"From Windows to hardware, find a solution that fits your symptom."}</p>
+          <form className="support-search" role="search" onSubmit={event => {
+            event.preventDefault();
+            handleExampleSearch(inputQuery.trim());
+            document.getElementById("support-content")?.scrollIntoView({ behavior: "smooth", block: "start" });
         }}>
-            <div className="search-input-wrap" style={{
-            position: "relative",
-            width: "100%",
-        }}>
-              <SupportIcon name="search" className="search-icon"/>
-              <input type="text" aria-label="Search PC symptoms or error codes" disabled={!isSearchStateReady} aria-busy={!isSearchStateReady} value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="Try: black screen while gaming, 0xc0000005, Code 43" style={{
-            display: "block",
-            width: "100%",
-            height: "64px",
-            boxSizing: "border-box",
-            paddingLeft: "22px",
-            paddingRight: "54px",
-            borderRadius: "16px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#ffffff",
-            fontSize: "16px",
-            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
-        }} className="placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"/>
-
-              {inputQuery && (<button type="button" onClick={handleClear} aria-label="Clear search term" style={{
-                position: "absolute",
-                right: "14px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "34px",
-                height: "34px",
-                borderRadius: "8px",
-            }} className="text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
-                  ✕
-                </button>)}
-            </div>
-
-            {/* 빠른 검색 */}
-            <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
-              <button type="button" onClick={() => handleExampleSearch("While playing a game, a black screen appears and reboots.")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" black screen while gaming "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("The game keeps crashing")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" Game crashing "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("My computer is so slow")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" computer slows down "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("The internet suddenly doesn't work")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" No internet "}</button>
-            </div>
+            <SupportIcon name="search"/>
+            <input type="search" aria-label="Search PC symptoms or error codes" placeholder="Please enter your symptom or error code" disabled={!isSearchStateReady} value={inputQuery} onChange={event => setInputQuery(event.target.value)}/>
+            <button type="submit" disabled={!isSearchStateReady}>{"search"}</button>
+          </form>
+          <div className="support-devices">
+            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload/>
+            <nav aria-label="Find issues by device" className="device-links">
+              <Link href={`/en/category/${encodeURIComponent("Power")}`}><span>{"Power"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Display")}`}><span>{"Display"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Internet")}`}><span>{"Internet"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Audio")}`}><span>{"Audio"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Gaming")}`}><span>{"Gaming"}</span></Link>
+            </nav>
           </div>
-        </div>
-        <nav className="quick-routes" aria-label="Symptom shortcuts">
-          <Link href="/en/problems/desktop-no-power"><SupportIcon name="power"/><span>{"Desktop will not power on"}</span></Link>
-          <Link href="/en/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"Monitor shows no signal"}</span></Link>
-          <Link href="/en/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows will not boot"}</span></Link>
-        </nav>
         </div>
       </section>
 
       {/* 본문 */}
-      <div className="mx-auto max-w-6xl px-5 py-12">
+      <div id="support-content" className="support-content mx-auto max-w-6xl px-5 py-12">
         {isSearching ? (<section id="search-results" aria-live="polite" aria-label="Search results">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
@@ -231,12 +198,11 @@ export default function HomeContent({ popularProblems, categories }: {
                 <button type="button" onClick={handleClear} className="mt-5 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700">{" Search again "}</button>
               </div>)}
           </section>) : (<>
-            <SymptomNavigator />
             <div className="knowledge-layout">
             {/* 대표 가이드 */}
             <section className="featured-guides">
               <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" Guides to narrow down the cause "}</h2>
+                <h2 className="text-2xl font-black text-slate-950">{" Popular guides "}</h2>
               </div>
 
               <div className="featured-grid">
@@ -257,6 +223,18 @@ export default function HomeContent({ popularProblems, categories }: {
               </div>
             </section>
 
+            <div className="support-side">
+              <section className="error-library">
+                <div className="library-heading"><h2>{"Find by error code"}</h2><Link href="/en/errors">{"See all"}</Link></div>
+                <div className="error-shortcuts">{commonErrors.map(error => <Link href={`/en/errors/${error.slug}`} key={error.slug}><code>{error.code}</code><span>{error.title}</span></Link>)}</div>
+              </section>
+              <Link className="windows-library" href="/en/category/Windows">
+                <span className="window-symbol" aria-hidden="true"><i /><i /><i /><i /></span>
+                <span><strong>{"Windows Troubleshooting Guide"}</strong><span>{"Update/Settings/System Error"}</span></span>
+              </Link>
+            </div>
+            </div>
+            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">
@@ -278,7 +256,6 @@ export default function HomeContent({ popularProblems, categories }: {
               </div>
             </section>
 
-            </div>
           </>)}
       </div>
 

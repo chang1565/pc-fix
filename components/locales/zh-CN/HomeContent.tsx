@@ -4,6 +4,7 @@ import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
 import SymptomNavigator from "@/components/locales/zh-CN/SymptomNavigator";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
@@ -16,11 +17,16 @@ type Card = {
 type SearchCard = Card & {
     href: string;
 };
-export default function HomeContent({ popularProblems, categories }: {
+export default function HomeContent({ popularProblems, categories, commonErrors }: {
     popularProblems: Card[];
     categories: {
         name: string;
         count: number;
+    }[];
+    commonErrors: {
+        slug: string;
+        code: string;
+        title: string;
     }[];
 }) {
     const [searchState, setSearchState] = useState<{
@@ -110,73 +116,34 @@ export default function HomeContent({ popularProblems, categories }: {
     return (<main className="home-page relative min-h-screen text-slate-900">
       <SiteHeader />
 
-      {/* HERO */}
-      <section className="home-hero">
-        <div className="hero-grid"><div className="hero-copy">
-          <div className="support-emblem" aria-hidden="true"><SupportIcon name="display"/></div>
-
-          <h1 className="hero-title">{" \u7535\u8111\u6545\u969C\u4E0E\u9519\u8BEF "}<br />
-            <span className="hero-accent">{" \u6309\u75C7\u72B6\u67E5\u627E\u89E3\u51B3\u6307\u5357 "}</span>
-          </h1>
-
-          {/* 검색 영역 */}
-          <div className="hero-search" style={{
-            width: "min(760px, 100%)",
+      <section className="support-hero">
+        <div className="support-hero-inner">
+          <h1>{"\u6709\u4EC0\u4E48\u95EE\u9898\u5417\uFF1F"}</h1>
+          <p className="support-intro">{"\u4ECE Windows \u5230\u786C\u4EF6\uFF0C\u627E\u5230\u9002\u5408\u60A8\u75C7\u72B6\u7684\u89E3\u51B3\u65B9\u6848\u3002"}</p>
+          <form className="support-search" role="search" onSubmit={event => {
+            event.preventDefault();
+            handleExampleSearch(inputQuery.trim());
+            document.getElementById("support-content")?.scrollIntoView({ behavior: "smooth", block: "start" });
         }}>
-            <div className="search-input-wrap" style={{
-            position: "relative",
-            width: "100%",
-        }}>
-              <SupportIcon name="search" className="search-icon"/>
-              <input type="text" aria-label="搜索电脑故障现象或错误代码" disabled={!isSearchStateReady} aria-busy={!isSearchStateReady} value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例如：游戏中黑屏、0xc0000005、Code 43" style={{
-            display: "block",
-            width: "100%",
-            height: "64px",
-            boxSizing: "border-box",
-            paddingLeft: "22px",
-            paddingRight: "54px",
-            borderRadius: "16px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#ffffff",
-            fontSize: "16px",
-            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
-        }} className="placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"/>
-
-              {inputQuery && (<button type="button" onClick={handleClear} aria-label="清除搜索词" style={{
-                position: "absolute",
-                right: "14px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "34px",
-                height: "34px",
-                borderRadius: "8px",
-            }} className="text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
-                  ✕
-                </button>)}
-            </div>
-
-            {/* 빠른 검색 */}
-            <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
-              <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u51FA\u73B0\u9ED1\u5C4F\u5E76\u91CD\u65B0\u542F\u52A8\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u6E38\u620F\u603B\u662F\u5D29\u6E83")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u6E38\u620F\u5D29\u6E83 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u6211\u7684\u7535\u8111\u592A\u6162\u4E86")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u7535\u8111\u901F\u5EA6\u53D8\u6162 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u7F51\u7EDC\u7A81\u7136\u4E0D\u80FD\u7528\u4E86")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u6CA1\u6709\u4E92\u8054\u7F51 "}</button>
-            </div>
+            <SupportIcon name="search"/>
+            <input type="search" aria-label="搜索电脑故障现象或错误代码" placeholder="请输入您的症状或错误代码" disabled={!isSearchStateReady} value={inputQuery} onChange={event => setInputQuery(event.target.value)}/>
+            <button type="submit" disabled={!isSearchStateReady}>{"\u641C\u7D22"}</button>
+          </form>
+          <div className="support-devices">
+            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload/>
+            <nav aria-label="按设备查找问题" className="device-links">
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u7535\u6E90")}`}><span>{"\u7535\u6E90"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u5C4F\u5E55")}`}><span>{"\u5C4F\u5E55"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u4E92\u8054\u7F51")}`}><span>{"\u4E92\u8054\u7F51"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u97F3\u9891")}`}><span>{"\u58F0\u97F3"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u6E38\u620F")}`}><span>{"\u6E38\u620F"}</span></Link>
+            </nav>
           </div>
-        </div>
-        <nav className="quick-routes" aria-label="症状快捷入口">
-          <Link href="/zh-CN/problems/desktop-no-power"><SupportIcon name="power"/><span>{"\u53F0\u5F0F\u673A\u65E0\u6CD5\u901A\u7535"}</span></Link>
-          <Link href="/zh-CN/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"\u663E\u793A\u5668\u63D0\u793A\u65E0\u4FE1\u53F7"}</span></Link>
-          <Link href="/zh-CN/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows \u65E0\u6CD5\u542F\u52A8"}</span></Link>
-        </nav>
         </div>
       </section>
 
       {/* 본문 */}
-      <div className="mx-auto max-w-6xl px-5 py-12">
+      <div id="support-content" className="support-content mx-auto max-w-6xl px-5 py-12">
         {isSearching ? (<section id="search-results" aria-live="polite" aria-label="搜索结果">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
@@ -231,12 +198,11 @@ export default function HomeContent({ popularProblems, categories }: {
                 <button type="button" onClick={handleClear} className="mt-5 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700">{" \u518D\u6B21\u641C\u7D22 "}</button>
               </div>)}
           </section>) : (<>
-            <SymptomNavigator />
             <div className="knowledge-layout">
             {/* 대표 가이드 */}
             <section className="featured-guides">
               <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u5E2E\u52A9\u7F29\u5C0F\u539F\u56E0\u8303\u56F4\u7684\u6307\u5357 "}</h2>
+                <h2 className="text-2xl font-black text-slate-950">{" \u5E38\u89C1\u95EE\u9898\u6307\u5357 "}</h2>
               </div>
 
               <div className="featured-grid">
@@ -257,6 +223,18 @@ export default function HomeContent({ popularProblems, categories }: {
               </div>
             </section>
 
+            <div className="support-side">
+              <section className="error-library">
+                <div className="library-heading"><h2>{"\u901A\u8FC7\u9519\u8BEF\u4EE3\u7801\u67E5\u627E"}</h2><Link href="/zh-CN/errors">{"\u67E5\u770B\u5168\u90E8"}</Link></div>
+                <div className="error-shortcuts">{commonErrors.map(error => <Link href={`/zh-CN/errors/${error.slug}`} key={error.slug}><code>{error.code}</code><span>{error.title}</span></Link>)}</div>
+              </section>
+              <Link className="windows-library" href="/zh-CN/category/Windows">
+                <span className="window-symbol" aria-hidden="true"><i /><i /><i /><i /></span>
+                <span><strong>{"Windows \u6545\u969C\u6392\u9664\u6307\u5357"}</strong><span>{"\u66F4\u65B0/\u8BBE\u7F6E/\u7CFB\u7EDF\u9519\u8BEF"}</span></span>
+              </Link>
+            </div>
+            </div>
+            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">
@@ -278,7 +256,6 @@ export default function HomeContent({ popularProblems, categories }: {
               </div>
             </section>
 
-            </div>
           </>)}
       </div>
 

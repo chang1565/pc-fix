@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "../globals.css";
+import "../support-library.css";
 import { languageAlternates } from "@/lib/localization";
 export const metadata: Metadata = {
     metadataBase: new URL("https://pcfixbase.com"),

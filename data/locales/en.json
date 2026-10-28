@@ -10817,5 +10817,16 @@
   "Microsoft: Microsoft Store 실행 문제": "Microsoft: Issues launching Microsoft Store",
   "Microsoft: 앱·서비스 메모리 누수 조사": "Microsoft: Investigating app and service memory leaks",
   "Seagate: SMART 경고 해석 (Seagate 도구 기준)": "Seagate: Interpreting SMART alerts (based on Seagate tools)",
-  "Microsoft: Windows 프록시 설정": "Microsoft: Windows proxy settings"
+  "Microsoft: Windows 프록시 설정": "Microsoft: Windows proxy settings",
+  "어떤 문제가 있나요?": "What is not working?",
+  "Windows부터 하드웨어까지, 증상에 맞는 해결 방법을 찾아보세요.": "From Windows to hardware, find a solution that fits your symptom.",
+  "증상이나 오류 코드를 입력하세요": "Please enter your symptom or error code",
+  "검색": "search",
+  "기기별 문제 찾기": "Find issues by device",
+  "소리": "Audio",
+  "많이 찾는 해결 방법": "Popular guides",
+  "오류 코드로 찾기": "Find by error code",
+  "전체 보기": "See all",
+  "Windows 문제 해결 가이드": "Windows Troubleshooting Guide",
+  "업데이트·설정·시스템 오류": "Update/Settings/System Error"
 }

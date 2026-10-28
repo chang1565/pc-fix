@@ -10824,5 +10824,16 @@
   "Microsoft: Microsoft Store 실행 문제": "Microsoft: Microsoft Store の実行に関する問題",
   "Microsoft: 앱·서비스 메모리 누수 조사": "Microsoft：アプリ・サービスメモリリーク調査",
   "Seagate: SMART 경고 해석 (Seagate 도구 기준)": "Seagate：SMART警告の解釈（Seagateツールに基づく）",
-  "Microsoft: Windows 프록시 설정": "Microsoft：Windowsプロキシの設定"
+  "Microsoft: Windows 프록시 설정": "Microsoft：Windowsプロキシの設定",
+  "어떤 문제가 있나요?": "どんな問題がありますか？",
+  "Windows부터 하드웨어까지, 증상에 맞는 해결 방법을 찾아보세요.": "Windowsからハードウェアまで、症状に合った解決策を見つけてください。",
+  "증상이나 오류 코드를 입력하세요": "症状またはエラーコードを入力してください",
+  "검색": "検索",
+  "기기별 문제 찾기": "機器から探す",
+  "소리": "音",
+  "많이 찾는 해결 방법": "よくあるトラブル",
+  "오류 코드로 찾기": "エラーコードで探す",
+  "전체 보기": "全て見る",
+  "Windows 문제 해결 가이드": "Windowsトラブルシューティングガイド",
+  "업데이트·설정·시스템 오류": "アップデート・設定・システムエラー"
 }

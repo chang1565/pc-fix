@@ -4,6 +4,7 @@ import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
 import SymptomNavigator from "@/components/locales/ja/SymptomNavigator";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
@@ -16,11 +17,16 @@ type Card = {
 type SearchCard = Card & {
     href: string;
 };
-export default function HomeContent({ popularProblems, categories }: {
+export default function HomeContent({ popularProblems, categories, commonErrors }: {
     popularProblems: Card[];
     categories: {
         name: string;
         count: number;
+    }[];
+    commonErrors: {
+        slug: string;
+        code: string;
+        title: string;
     }[];
 }) {
     const [searchState, setSearchState] = useState<{
@@ -110,73 +116,34 @@ export default function HomeContent({ popularProblems, categories }: {
     return (<main className="home-page relative min-h-screen text-slate-900">
       <SiteHeader />
 
-      {/* HERO */}
-      <section className="home-hero">
-        <div className="hero-grid"><div className="hero-copy">
-          <div className="support-emblem" aria-hidden="true"><SupportIcon name="display"/></div>
-
-          <h1 className="hero-title">{" \u30D1\u30BD\u30B3\u30F3\u306E\u4E0D\u5177\u5408\u30FB\u30A8\u30E9\u30FC "}<br />
-            <span className="hero-accent">{" \u75C7\u72B6\u5225\u306E\u5BFE\u51E6\u30AC\u30A4\u30C9 "}</span>
-          </h1>
-
-          {/* 검색 영역 */}
-          <div className="hero-search" style={{
-            width: "min(760px, 100%)",
+      <section className="support-hero">
+        <div className="support-hero-inner">
+          <h1>{"\u3069\u3093\u306A\u554F\u984C\u304C\u3042\u308A\u307E\u3059\u304B\uFF1F"}</h1>
+          <p className="support-intro">{"Windows\u304B\u3089\u30CF\u30FC\u30C9\u30A6\u30A7\u30A2\u307E\u3067\u3001\u75C7\u72B6\u306B\u5408\u3063\u305F\u89E3\u6C7A\u7B56\u3092\u898B\u3064\u3051\u3066\u304F\u3060\u3055\u3044\u3002"}</p>
+          <form className="support-search" role="search" onSubmit={event => {
+            event.preventDefault();
+            handleExampleSearch(inputQuery.trim());
+            document.getElementById("support-content")?.scrollIntoView({ behavior: "smooth", block: "start" });
         }}>
-            <div className="search-input-wrap" style={{
-            position: "relative",
-            width: "100%",
-        }}>
-              <SupportIcon name="search" className="search-icon"/>
-              <input type="text" aria-label="PCの症状またはエラーコードを検索" disabled={!isSearchStateReady} aria-busy={!isSearchStateReady} value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例：ゲーム中の黒い画面、0xc0000005、Code 43" style={{
-            display: "block",
-            width: "100%",
-            height: "64px",
-            boxSizing: "border-box",
-            paddingLeft: "22px",
-            paddingRight: "54px",
-            borderRadius: "16px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#ffffff",
-            fontSize: "16px",
-            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
-        }} className="placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"/>
-
-              {inputQuery && (<button type="button" onClick={handleClear} aria-label="クエリをクリア" style={{
-                position: "absolute",
-                right: "14px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "34px",
-                height: "34px",
-                borderRadius: "8px",
-            }} className="text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
-                  ✕
-                </button>)}
-            </div>
-
-            {/* 빠른 검색 */}
-            <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
-              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u9ED2\u3044\u753B\u9762\u304C\u51FA\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30B2\u30FC\u30E0\u4E2D\u306E\u9ED2\u3044\u753B\u9762 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u306F\u5F3E\u304D\u7D9A\u3051\u307E\u3059\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30B2\u30FC\u30E0\u3092\u30AF\u30E9\u30C3\u30B7\u30E5\u3059\u308B "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3059\u304E\u307E\u3057\u305F\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3044 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306F\u7A81\u7136\u3067\u304D\u307E\u305B\u3093\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306A\u3057 "}</button>
-            </div>
+            <SupportIcon name="search"/>
+            <input type="search" aria-label="PCの症状またはエラーコードを検索" placeholder="症状またはエラーコードを入力してください" disabled={!isSearchStateReady} value={inputQuery} onChange={event => setInputQuery(event.target.value)}/>
+            <button type="submit" disabled={!isSearchStateReady}>{"\u691C\u7D22"}</button>
+          </form>
+          <div className="support-devices">
+            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload/>
+            <nav aria-label="機器から探す" className="device-links">
+              <Link href={`/ja/category/${encodeURIComponent("\u96FB\u6E90")}`}><span>{"\u96FB\u6E90"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u753B\u9762")}`}><span>{"\u753B\u9762"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8")}`}><span>{"\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u30AA\u30FC\u30C7\u30A3\u30AA")}`}><span>{"\u97F3"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u30B2\u30FC\u30E0")}`}><span>{"\u30B2\u30FC\u30E0"}</span></Link>
+            </nav>
           </div>
-        </div>
-        <nav className="quick-routes" aria-label="症状別ショートカット">
-          <Link href="/ja/problems/desktop-no-power"><SupportIcon name="power"/><span>{"\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\u306E\u96FB\u6E90\u304C\u5165\u3089\u306A\u3044"}</span></Link>
-          <Link href="/ja/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"\u30E2\u30CB\u30BF\u30FC\u306B\u4FE1\u53F7\u306A\u3057\u3068\u8868\u793A\u3055\u308C\u308B"}</span></Link>
-          <Link href="/ja/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows\u304C\u8D77\u52D5\u3057\u306A\u3044"}</span></Link>
-        </nav>
         </div>
       </section>
 
       {/* 본문 */}
-      <div className="mx-auto max-w-6xl px-5 py-12">
+      <div id="support-content" className="support-content mx-auto max-w-6xl px-5 py-12">
         {isSearching ? (<section id="search-results" aria-live="polite" aria-label="検索結果">
             <div className="mb-6 flex items-end justify-between gap-4">
               <div>
@@ -231,12 +198,11 @@ export default function HomeContent({ popularProblems, categories }: {
                 <button type="button" onClick={handleClear} className="mt-5 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700">{" \u3082\u3046\u4E00\u5EA6\u691C\u7D22\u3059\u308B "}</button>
               </div>)}
           </section>) : (<>
-            <SymptomNavigator />
             <div className="knowledge-layout">
             {/* 대표 가이드 */}
             <section className="featured-guides">
               <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u539F\u56E0\u3092\u7D5E\u308A\u8FBC\u3080\u30AC\u30A4\u30C9 "}</h2>
+                <h2 className="text-2xl font-black text-slate-950">{" \u3088\u304F\u3042\u308B\u30C8\u30E9\u30D6\u30EB "}</h2>
               </div>
 
               <div className="featured-grid">
@@ -257,6 +223,18 @@ export default function HomeContent({ popularProblems, categories }: {
               </div>
             </section>
 
+            <div className="support-side">
+              <section className="error-library">
+                <div className="library-heading"><h2>{"\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3067\u63A2\u3059"}</h2><Link href="/ja/errors">{"\u5168\u3066\u898B\u308B"}</Link></div>
+                <div className="error-shortcuts">{commonErrors.map(error => <Link href={`/ja/errors/${error.slug}`} key={error.slug}><code>{error.code}</code><span>{error.title}</span></Link>)}</div>
+              </section>
+              <Link className="windows-library" href="/ja/category/Windows">
+                <span className="window-symbol" aria-hidden="true"><i /><i /><i /><i /></span>
+                <span><strong>{"Windows\u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0\u30AC\u30A4\u30C9"}</strong><span>{"\u30A2\u30C3\u30D7\u30C7\u30FC\u30C8\u30FB\u8A2D\u5B9A\u30FB\u30B7\u30B9\u30C6\u30E0\u30A8\u30E9\u30FC"}</span></span>
+              </Link>
+            </div>
+            </div>
+            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">
@@ -278,7 +256,6 @@ export default function HomeContent({ popularProblems, categories }: {
               </div>
             </section>
 
-            </div>
           </>)}
       </div>
 

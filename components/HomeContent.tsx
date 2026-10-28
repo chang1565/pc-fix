@@ -4,6 +4,7 @@ import DisplayAd from "@/components/DisplayAd";
 import SymptomNavigator from "@/components/SymptomNavigator";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import SiteFooter from "@/components/SiteFooter";
@@ -12,7 +13,7 @@ import SiteHeader from "@/components/SiteHeader";
 type Card = { slug: string; title: string; category: string; description: string };
 type SearchCard = Card & { href: string };
 
-export default function HomeContent({ popularProblems, categories }: { popularProblems: Card[]; categories: { name: string; count: number }[] }) {
+export default function HomeContent({ popularProblems, categories, commonErrors }: { popularProblems: Card[]; categories: { name: string; count: number }[]; commonErrors: { slug: string; code: string; title: string }[] }) {
   const [searchState, setSearchState] = useState<{ query: string; results: SearchCard[]; failed: boolean }>({ query: "", results: [], failed: false });
   const [inputQuery, setInputQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -114,138 +115,34 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
     <main className="home-page relative min-h-screen text-slate-900">
       <SiteHeader />
 
-      {/* HERO */}
-      <section className="home-hero">
-        <div className="hero-grid"><div className="hero-copy">
-          <div className="support-emblem" aria-hidden="true"><SupportIcon name="display" /></div>
-
-          <h1 className="hero-title">
-            컴퓨터 오류·고장,
-            <br />
-            <span className="hero-accent">
-              증상별 해결 가이드
-            </span>
-          </h1>
-
-          {/* 검색 영역 */}
-          <div
-            className="hero-search"
-            style={{
-              width: "min(760px, 100%)",
-            }}
-          >
-            <div
-              className="search-input-wrap"
-              style={{
-                position: "relative",
-                width: "100%",
-              }}
-            >
-              <SupportIcon name="search" className="search-icon" />
-              <input
-                type="text"
-                aria-label="컴퓨터 증상 또는 오류 코드 검색"
-                disabled={!isSearchStateReady}
-                aria-busy={!isSearchStateReady}
-                value={inputQuery}
-                onChange={(event) =>
-                  setInputQuery(event.target.value)
-                }
-                placeholder="예: 게임 중 검은 화면, 0xc0000005, Code 43"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "64px",
-                  boxSizing: "border-box",
-                  paddingLeft: "22px",
-                  paddingRight: "54px",
-                  borderRadius: "16px",
-                  border: "1px solid #cbd5e1",
-                  backgroundColor: "#ffffff",
-                  fontSize: "16px",
-                  boxShadow:
-                    "0 8px 24px rgba(15, 23, 42, 0.08)",
-                }}
-                className="placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
-              />
-
-              {inputQuery && (
-                <button
-                  type="button"
-                  onClick={handleClear}
-                  aria-label="검색어 지우기"
-                  style={{
-                    position: "absolute",
-                    right: "14px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "34px",
-                    height: "34px",
-                    borderRadius: "8px",
-                  }}
-                  className="text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-
-            {/* 빠른 검색 */}
-            <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
-              <button
-                type="button"
-                onClick={() =>
-                  handleExampleSearch(
-                    "게임하다가 검은 화면이 나오고 재부팅돼요"
-                  )
-                }
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600"
-              >
-                게임 중 검은 화면
-              </button>
-
-              <button
-                type="button"
-                onClick={() =>
-                  handleExampleSearch("게임이 계속 튕겨요")
-                }
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600"
-              >
-                게임 튕김
-              </button>
-
-              <button
-                type="button"
-                onClick={() =>
-                  handleExampleSearch("컴퓨터가 너무 느려졌어요")
-                }
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600"
-              >
-                컴퓨터 느려짐
-              </button>
-
-              <button
-                type="button"
-                onClick={() =>
-                  handleExampleSearch("인터넷이 갑자기 안돼요")
-                }
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600"
-              >
-                인터넷 안됨
-              </button>
-            </div>
+      <section className="support-hero">
+        <div className="support-hero-inner">
+          <h1>어떤 문제가 있나요?</h1>
+          <p className="support-intro">Windows부터 하드웨어까지, 증상에 맞는 해결 방법을 찾아보세요.</p>
+          <form className="support-search" role="search" onSubmit={event => {
+            event.preventDefault();
+            handleExampleSearch(inputQuery.trim());
+            document.getElementById("support-content")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}>
+            <SupportIcon name="search" />
+            <input type="search" aria-label="컴퓨터 증상 또는 오류 코드 검색" placeholder="증상이나 오류 코드를 입력하세요" disabled={!isSearchStateReady} value={inputQuery} onChange={event => setInputQuery(event.target.value)} />
+            <button type="submit" disabled={!isSearchStateReady}>검색</button>
+          </form>
+          <div className="support-devices">
+            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload />
+            <nav aria-label="기기별 문제 찾기" className="device-links">
+              <Link href={`/category/${encodeURIComponent("전원")}`}><span>전원</span></Link>
+              <Link href={`/category/${encodeURIComponent("화면")}`}><span>화면</span></Link>
+              <Link href={`/category/${encodeURIComponent("인터넷")}`}><span>인터넷</span></Link>
+              <Link href={`/category/${encodeURIComponent("오디오")}`}><span>소리</span></Link>
+              <Link href={`/category/${encodeURIComponent("게임")}`}><span>게임</span></Link>
+            </nav>
           </div>
-        </div>
-        <nav className="quick-routes" aria-label="증상 바로가기">
-          <Link href="/problems/desktop-no-power"><SupportIcon name="power" /><span>데스크톱 전원이 안 켜짐</span></Link>
-          <Link href="/problems/monitor-no-signal"><SupportIcon name="display" /><span>모니터에 신호 없음</span></Link>
-          <Link href="/problems/computer-boot-failure"><SupportIcon name="speed" /><span>Windows 부팅 실패</span></Link>
-        </nav>
         </div>
       </section>
 
       {/* 본문 */}
-      <div className="mx-auto max-w-6xl px-5 py-12">
+      <div id="support-content" className="support-content mx-auto max-w-6xl px-5 py-12">
         {isSearching ? (
           <section id="search-results" aria-live="polite" aria-label="검색 결과">
             <div className="mb-6 flex items-end justify-between gap-4">
@@ -344,13 +241,12 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
           </section>
         ) : (
           <>
-            <SymptomNavigator />
             <div className="knowledge-layout">
             {/* 대표 가이드 */}
             <section className="featured-guides">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">
-                  원인을 좁히는 대표 가이드
+                  많이 찾는 해결 방법
                 </h2>
               </div>
 
@@ -379,6 +275,18 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
               </div>
             </section>
 
+            <div className="support-side">
+              <section className="error-library">
+                <div className="library-heading"><h2>오류 코드로 찾기</h2><Link href="/errors">전체 보기</Link></div>
+                <div className="error-shortcuts">{commonErrors.map(error => <Link href={`/errors/${error.slug}`} key={error.slug}><code>{error.code}</code><span>{error.title}</span></Link>)}</div>
+              </section>
+              <Link className="windows-library" href="/category/Windows">
+                <span className="window-symbol" aria-hidden="true"><i /><i /><i /><i /></span>
+                <span><strong>Windows 문제 해결 가이드</strong><span>업데이트·설정·시스템 오류</span></span>
+              </Link>
+            </div>
+            </div>
+            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">
@@ -410,7 +318,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
               </div>
             </section>
 
-            </div>
           </>
         )}
       </div>
