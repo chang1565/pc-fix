@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-10-28T07:11:44.548Z",
+  "release": "4ba55dd",
+  "urls": 1280,
+  "details": 1184,
+  "redirects": [
+    {
+      "prefix": "",
+      "status": 308,
+      "target": "/problems/high-cpu-usage"
+    },
+    {
+      "prefix": "/en",
+      "status": 308,
+      "target": "/en/problems/high-cpu-usage"
+    },
+    {
+      "prefix": "/ja",
+      "status": 308,
+      "target": "/ja/problems/high-cpu-usage"
+    },
+    {
+      "prefix": "/zh-CN",
+      "status": 308,
+      "target": "/zh-CN/problems/high-cpu-usage"
+    }
+  ],
+  "endpoints": [
+    {
+      "path": "/robots.txt",
+      "status": 200
+    },
+    {
+      "path": "/ads.txt",
+      "status": 200
+    }
+  ],
+  "failures": []
+}
