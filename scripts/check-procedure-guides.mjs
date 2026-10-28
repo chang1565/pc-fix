@@ -26,7 +26,7 @@ for (const entry of all) {
   }
   records.push({ url: `https://pcfixbase.com/${entry.code ? "errors" : "problems"}/${entry.slug}`, actions: solutions.length, guides: solutions.map(s => map[s.title]) });
 }
-assert.equal(all.length, 297);
+assert.equal(all.length, 296);
 assert.equal(titles.size, 435);
 assert.deepEqual([...titles].sort(), Object.keys(map).sort());
 const forTitle = text => profiles[map[text]];
@@ -40,7 +40,7 @@ const critical = ["stop-battery", "stop-disk", "fan-stop", "hardware", "storage-
 for (const locale of ["en", "ja", "zh-CN"]) {
   const dataset = load(`data/locales/${locale}.ts`);
   const localized = [...dataset.problems, ...dataset.errorCodes];
-  assert.equal(localized.length, 297);
+  assert.equal(localized.length, 296);
   for (const entry of localized) for (const s of entry.code ? entry.solutions : entry.solutions.slice(1)) {
     assert.ok(s.access && !/[가-힣]/.test(JSON.stringify(s.access)), `${locale}: ${entry.slug}`);
   }
@@ -70,5 +70,5 @@ if (baseline) {
   console.log("PASS: all prior URLs, titles, search metadata, branch text, warnings and article relationships preserved; action counts not reduced.");
 }
 const report = process.argv.find(v => v.startsWith("--report="))?.slice(9);
-if (report) fs.writeFileSync(report, JSON.stringify({ reviewedAt: "2026-10-27", articles: all.length, localizedPages: 1188, procedureTitles: titles.size, accessProfiles: Object.keys(profiles).length, primaryDiagramTypes: primary.size, actions, records }, null, 2) + "\n");
+if (report) fs.writeFileSync(report, JSON.stringify({ reviewedAt: "2026-10-27", articles: all.length, localizedPages: 1184, procedureTitles: titles.size, accessProfiles: Object.keys(profiles).length, primaryDiagramTypes: primary.size, actions, records }, null, 2) + "\n");
 console.log(`PASS: ${all.length} articles, ${actions} actions, ${titles.size} exact procedure mappings, ${Object.keys(profiles).length} access profiles, ${primary.size} primary diagram types; four-language conditions and critical safety translations.`);

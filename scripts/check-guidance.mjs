@@ -14,7 +14,7 @@ assert.equal(Object.keys(procedures).length, 198);
 assert.deepEqual(Object.keys(errorProcedures).sort(), errorCodes.map(e => e.code).sort());
 assert.deepEqual(Object.keys(symptomBranches).sort(), problems.map(p => p.slug).sort());
 assert.deepEqual(Object.keys(errorBranches).sort(), errorCodes.map(p => p.code).sort());
-assert.equal(new Set(Object.values(symptomBranches).map(v => JSON.stringify(v))).size, 217);
+assert.equal(new Set(Object.values(symptomBranches).map(v => JSON.stringify(v))).size, 216);
 assert.equal(new Set(Object.values(errorBranches).map(v => JSON.stringify(v))).size, 80);
 
 for (const page of [...problems, ...errorCodes]) {
@@ -113,4 +113,4 @@ for (const locale of ["en", "ja", "zh-CN"]) {
     assert.ok(!/可燃物から落/.test(dictionary[symptomBranches["battery-swollen"][1]]));
   }
 }
-console.log("PASS: 297 distinct diagnostic paths, ordered nonempty actions, failure outcomes, protected stop paths and 4-language solution coverage.");
+console.log("PASS: 296 distinct diagnostic paths, ordered nonempty actions, failure outcomes, protected stop paths and 4-language solution coverage.");

@@ -51,5 +51,5 @@ for (const locale of ["ko", "en", "ja", "zh-CN"]) {
     }
   }
 }
-assert.equal(pages, 1188);
+assert.equal(pages, 1184);
 console.log(`PASS: ${pages} built detail pages, ${sections} rendered sections, action locations/results, all instructions and canonical URLs.`);

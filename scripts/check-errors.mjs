@@ -26,7 +26,7 @@ const { smartSearchProblems } = load("lib/search.ts");
 const { searchPcFix } = load("lib/unifiedSearch.ts");
 const sitemap = load("app/sitemap.ts").default;
 assert.equal(errorCodes.length, 80);
-assert.equal(problems.length, 217);
+assert.equal(problems.length, 216);
 assert.equal(errorCategories.length, 7);
 for (const field of ["slug", "code", "description", "seoTitle", "seoDescription"]) assert.equal(new Set(errorCodes.map(entry => entry[field])).size, 80, `duplicate ${field}`);
 for (const entry of errorCodes) {
@@ -63,6 +63,6 @@ for (const query of ["게임하다 검은화면 재부팅", "메모리", "인터
 const first = sitemap(), second = sitemap();
 assert.deepEqual(first, second);
 assert.equal(new Set(first.map(entry => entry.url)).size, first.length);
-assert.equal(first.length, 4 * (1 + 4 + new Set(problems.map(problem => problem.category)).size + 217 + 1 + 80));
+assert.equal(first.length, 4 * (1 + 4 + new Set(problems.map(problem => problem.category)).size + 216 + 1 + 80));
 for (const entry of errorCodes) assert.ok(first.some(item => item.url.endsWith(`/errors/${entry.slug}`)));
 console.log(`PASS: ${problems.length} problems, ${errorCodes.length} errors, ${errorCategories.length} categories, ${first.length} sitemap URLs; exact code and symptom search, unique metadata, valid links, stable dates.`);

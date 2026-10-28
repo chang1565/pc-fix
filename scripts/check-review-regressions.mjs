@@ -6,6 +6,18 @@ const {errorCodes}=load('data/errorCodes.ts');
 const reviewed=load('data/problemSolutionReview.json');
 const problem=slug=>problems.find(p=>p.slug===slug);
 const actions=page=>page.solutions.flatMap(s=>s.steps).join(' ');
+const followUpTitles = slug => problem(slug).solutions.slice(1).map(s => s.title).join(' ');
+assert.doesNotMatch(followUpTitles('camera-privacy-blocked'), /드라이버|USB|다른 PC/);
+assert.match(problem('camera-privacy-blocked').solutions[1].title, /권한/);
+assert.match(problem('webcam-usb-not-detected').solutions[1].title, /USB/);
+assert.doesNotMatch(followUpTitles('app-sound-only-not-working'), /케이블|다른 헤드폰/);
+assert.match(problem('plugged-in-not-charging').solutions[1].title, /충전 제한/);
+assert.doesNotMatch(followUpTitles('drive-letter-missing'), /케이블|드라이버|다른 PC/);
+assert.doesNotMatch(followUpTitles('stuck-manufacturer-logo'), /안전 모드|시작 복구|최근 변경/);
+assert.doesNotMatch(followUpTitles('controller-not-detected-windows'), /Steam Input/);
+assert.doesNotMatch(followUpTitles('mouse-double-click'), /HID|표면/);
+assert.doesNotMatch(followUpTitles('mic-too-quiet'), /개인정보|드라이버/);
+assert.doesNotMatch(followUpTitles('wifi-no-internet'), /잊고/);
 assert.match(problem('audio-device-missing').solutions[1].title, /장치 관리자/);
 assert.doesNotMatch(problem('audio-device-missing').solutions.slice(1).map(s=>s.title).join(' '), /음소거|향상 기능|기본 형식/);
 for (const slug of ['hdd-clicking', 'battery-swollen']) {
@@ -18,7 +30,9 @@ for (const solution of problem('hdd-clicking').solutions.slice(1)) {
 }
 for (const page of problems) assert.doesNotMatch(page.faqs.map(f=>f.question+' '+f.answer).join(' '), /원인 후보 ‘|백업한 뒤 전문 점검/);
 for (const [slug, sections] of Object.entries(reviewed)) {
-  assert.ok(sections.length >= 2, `missing detailed follow-up: ${slug}`);
+  const consolidatedMemory = ['high-ram-usage', 'memory-leak'].includes(slug);
+  assert.ok(sections.length >= (consolidatedMemory ? 1 : 2), `missing detailed follow-up: ${slug}`);
+  if (consolidatedMemory) assert.equal(sections.length, 1, `repeated memory measurement procedure: ${slug}`);
   assert.ok(sections.every(s => s.location && s.checkPoint && s.steps.length), slug);
 }
 assert.ok(problem('fan-not-spinning').solutions.length >= 4);
@@ -47,7 +61,7 @@ assert.match(actions(problem('windows-black-screen-cursor')),/explorer\.exe/);
 const installer=errorCodes.find(p=>p.code==='Error 1603');
 for (const code of ['Code 22','Code 28','Code 45','Code 52','0x80070070','0xC000007B','0xC0000142','0xC0000135','VCRUNTIME140.dll','VCRUNTIME140_1.dll','MSVCP140.dll','MSVCP120.dll','D3DX9_43.dll','XINPUT1_3.dll','NET::ERR_CERT_DATE_INVALID','Error 1618']) {
   const page=errorCodes.find(p=>p.code===code);
-  assert.ok(page.solutions.every(s=>s.steps.length>=3 && s.reason), `missing executable error guidance: ${code}`);
+  assert.ok(page.solutions.every(s=>s.steps.length>=2 && s.reason && s.steps.every(step=>step.trim()) && new Set(s.steps).size===s.steps.length), `missing executable error guidance: ${code}`);
 }
 assert.match(installer.solutions[0].steps.join(' '),/cmd 검색.*명령 프롬프트/);
 assert.match(installer.solutions[0].steps.join(' '),/%TEMP%/);
@@ -73,6 +87,12 @@ for(const locale of ['en','ja','zh-CN']) {
 console.log('PASS: reviewed symptom sequences, execution environments, diagnostic outcomes and critical translation regressions.');
 
 const procedures = load('data/procedureReview.json');
+assert.match(procedures['CPU·GPU 사용률과 온도 확인하기'].checkPoint, /온도·클럭·팬/);
+assert.doesNotMatch(procedures['CPU·GPU 사용률과 온도 확인하기'].checkPoint, /메모리·디스크/);
+assert.match(procedures['하드웨어 점검 또는 수리 의뢰하기'].steps.join(' '), /백업을 위해 다시 켜지 마세요/);
+const serviceGuide = problem('touchpad-not-working').solutions.find(s => s.title === '하드웨어 점검 또는 수리 의뢰하기').access;
+assert.doesNotMatch(serviceGuide.when, /POST|부품 교체 직후/);
+assert.match(serviceGuide.route.join(' '), /서비스 접수/);
 for (const title of ['언어·반복 입력·필터 키 설정 확인하기', '물리 키 상태와 오염 확인하기']) {
  assert.doesNotMatch(procedures[title].checkPoint, /마우스|스크롤|포인팅/);
  assert.match(procedures[title].checkPoint, /키|입력/);

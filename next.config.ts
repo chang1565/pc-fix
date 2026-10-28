@@ -1,8 +1,18 @@
 import type { NextConfig } from "next";
+import problemRedirects from "./data/problemRedirects.json";
 
 const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
+  async redirects() {
+    return ["", "/en", "/ja", "/zh-CN"].flatMap(prefix =>
+      Object.entries(problemRedirects).map(([source, destination]) => ({
+        source: `${prefix}/problems/${source}`,
+        destination: `${prefix}/problems/${destination}`,
+        permanent: true,
+      }))
+    );
+  },
   async headers() {
     return [{ source: "/:path*", headers: [
       { key: "X-Content-Type-Options", value: "nosniff" },

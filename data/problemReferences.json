@@ -304,5 +304,53 @@
       "title": "Microsoft: 소리·오디오 문제 해결",
       "url": "https://support.microsoft.com/en-gb/windows/hardware/audio/fix-missing-or-undetected-audio-output-device-in-windows"
     }
+  ],
+  "microsoft-store-not-opening": [
+    {
+      "title": "Microsoft: Microsoft Store 실행 문제",
+      "url": "https://support.microsoft.com/en-us/accounts-billing/microsoft-store-doesn-t-open"
+    }
+  ],
+  "memory-leak": [
+    {
+      "title": "Microsoft: 앱·서비스 메모리 누수 조사",
+      "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/troubleshoot-application-service-memory-leaks"
+    }
+  ],
+  "high-ping": [
+    {
+      "title": "Microsoft: 경로별 지연·손실 해석",
+      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/pathping"
+    }
+  ],
+  "packet-loss": [
+    {
+      "title": "Microsoft: 경로별 지연·손실 해석",
+      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/pathping"
+    }
+  ],
+  "game-high-ping": [
+    {
+      "title": "Microsoft: 경로별 지연·손실 해석",
+      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/pathping"
+    }
+  ],
+  "game-packet-loss": [
+    {
+      "title": "Microsoft: 경로별 지연·손실 해석",
+      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/pathping"
+    }
+  ],
+  "proxy-internet-not-working": [
+    {
+      "title": "Microsoft: Windows 프록시 설정",
+      "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/use-a-proxy-server-in-windows"
+    }
+  ],
+  "disk-smart-error": [
+    {
+      "title": "Seagate: SMART 경고 해석 (Seagate 도구 기준)",
+      "url": "https://www.seagate.com/in/en/manuals/software/seatools-bootable/error-codes/"
+    }
   ]
 }
