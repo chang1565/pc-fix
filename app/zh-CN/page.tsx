@@ -8,14 +8,16 @@ import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
 import { problems } from "@/data/locales/zh-CN";
 import { searchPcFix } from "@/lib/locales/zh-CN/unifiedSearch";
 const popularSlugs = [
-    "game-black-screen-restart",
-    "game-crash",
+    "internet-not-working",
+    "wifi-no-internet",
+    "no-sound",
+    "boot-slow",
     "computer-slow",
-    "computer-black-screen",
-    "windows-blue-screen",
-    "computer-shutdown",
-    "computer-boot-failure",
+    "disk-100-percent",
     "usb-not-recognized",
+    "bluetooth-cant-pair",
+    "printer-offline",
+    "windows-update-fail",
 ];
 export default function Home() {
     const [inputQuery, setInputQuery] = useState("");
@@ -216,9 +218,9 @@ export default function Home() {
             {/* 자주 발생하는 문제 */}
             <section>
               <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u5E38\u89C1\u7535\u8111\u95EE\u9898 "}</h2>
+                <h2 className="text-2xl font-black text-slate-950">{" \u7F29\u5C0F\u539F\u56E0\u8303\u56F4\u7684\u4EE3\u8868\u6027\u6307\u5357 "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">{" \u9996\u5148\u68C0\u67E5\u6700\u5E38\u89C1\u7684\u7535\u8111\u95EE\u9898\u3002 "}</p>
+                <p className="mt-1 text-sm text-slate-500">{" \u6211\u4EEC\u603B\u7ED3\u4E86\u8981\u6BD4\u8F83\u7684\u6761\u4EF6\u4EE5\u53CA\u6BCF\u4E2A\u7ED3\u679C\u7684\u4EE5\u4E0B\u64CD\u4F5C\u3002\u9996\u5148\u68C0\u67E5\u4E0E\u60A8\u7684\u75C7\u72B6\u76F8\u7B26\u7684\u6307\u5357\u3002 "}</p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -304,6 +306,6 @@ export default function Home() {
           </>)}
       </div>
 
-      <div className="display-ad-sides"><DisplayAd label="广告" placement="left" /><DisplayAd label="广告" placement="right" /></div><DisplayAd label="广告" /><SiteFooter />
+      <div className="display-ad-sides"><DisplayAd label="广告" placement="left"/><DisplayAd label="广告" placement="right"/></div><DisplayAd label="广告"/><SiteFooter />
     </main>);
 }

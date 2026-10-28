@@ -8,14 +8,16 @@ import SiteHeader from "@/components/locales/ja/SiteHeader";
 import { problems } from "@/data/locales/ja";
 import { searchPcFix } from "@/lib/locales/ja/unifiedSearch";
 const popularSlugs = [
-    "game-black-screen-restart",
-    "game-crash",
+    "internet-not-working",
+    "wifi-no-internet",
+    "no-sound",
+    "boot-slow",
     "computer-slow",
-    "computer-black-screen",
-    "windows-blue-screen",
-    "computer-shutdown",
-    "computer-boot-failure",
+    "disk-100-percent",
     "usb-not-recognized",
+    "bluetooth-cant-pair",
+    "printer-offline",
+    "windows-update-fail",
 ];
 export default function Home() {
     const [inputQuery, setInputQuery] = useState("");
@@ -216,9 +218,9 @@ export default function Home() {
             {/* 자주 발생하는 문제 */}
             <section>
               <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u3088\u304F\u3042\u308BPC\u306E\u30C8\u30E9\u30D6\u30EB "}</h2>
+                <h2 className="text-2xl font-black text-slate-950">{" \u539F\u56E0\u3092\u7D5E\u308A\u8FBC\u3080\u4EE3\u8868\u30AC\u30A4\u30C9 "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">{" \u591A\u304F\u767A\u751F\u3059\u308BPC\u306E\u554F\u984C\u304B\u3089\u78BA\u8A8D\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
+                <p className="mt-1 text-sm text-slate-500">{" \u6BD4\u8F03\u3059\u308B\u6761\u4EF6\u3068\u7D50\u679C\u5225\u306B\u6B21\u306E\u884C\u52D5\u3092\u307E\u3068\u3081\u307E\u3057\u305F\u3002\u75C7\u72B6\u306B\u5408\u3063\u305F\u6848\u5185\u304B\u3089\u3054\u78BA\u8A8D\u304F\u3060\u3055\u3044\u3002 "}</p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -304,6 +306,6 @@ export default function Home() {
           </>)}
       </div>
 
-      <div className="display-ad-sides"><DisplayAd label="広告" placement="left" /><DisplayAd label="広告" placement="right" /></div><DisplayAd label="広告" /><SiteFooter />
+      <div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter />
     </main>);
 }

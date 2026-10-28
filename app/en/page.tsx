@@ -8,14 +8,16 @@ import SiteHeader from "@/components/locales/en/SiteHeader";
 import { problems } from "@/data/locales/en";
 import { searchPcFix } from "@/lib/locales/en/unifiedSearch";
 const popularSlugs = [
-    "game-black-screen-restart",
-    "game-crash",
+    "internet-not-working",
+    "wifi-no-internet",
+    "no-sound",
+    "boot-slow",
     "computer-slow",
-    "computer-black-screen",
-    "windows-blue-screen",
-    "computer-shutdown",
-    "computer-boot-failure",
+    "disk-100-percent",
     "usb-not-recognized",
+    "bluetooth-cant-pair",
+    "printer-offline",
+    "windows-update-fail",
 ];
 export default function Home() {
     const [inputQuery, setInputQuery] = useState("");
@@ -216,9 +218,9 @@ export default function Home() {
             {/* 자주 발생하는 문제 */}
             <section>
               <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" Common PC problems "}</h2>
+                <h2 className="text-2xl font-black text-slate-950">{" A representative guide to narrowing down the cause "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">{" Check out the most common PC problems first. "}</p>
+                <p className="mt-1 text-sm text-slate-500">{" We have summarized the conditions to be compared and the following actions for each result. Start by checking the guidance that matches your symptoms. "}</p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -304,6 +306,6 @@ export default function Home() {
           </>)}
       </div>
 
-      <div className="display-ad-sides"><DisplayAd label="Advertisement" placement="left" /><DisplayAd label="Advertisement" placement="right" /></div><DisplayAd label="Advertisement" /><SiteFooter />
+      <div className="display-ad-sides"><DisplayAd label="Advertisement" placement="left"/><DisplayAd label="Advertisement" placement="right"/></div><DisplayAd label="Advertisement"/><SiteFooter />
     </main>);
 }

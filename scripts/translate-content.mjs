@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const korean = /[가-힣]/;
 const sourceDir = fs.existsSync(path.join(root, "app/(ko)")) ? "app/(ko)" : "app";
-export const sourceFiles = ["layout.tsx", "page.tsx", "not-found.tsx", "about/page.tsx", "contact/page.tsx", "privacy/page.tsx", "terms/page.tsx", "category/[category]/page.tsx", "problems/[slug]/page.tsx", "errors/page.tsx", "errors/[slug]/page.tsx"].map(p => `${sourceDir}/${p}`).concat(["components/SiteHeader.tsx", "components/SiteFooter.tsx", "components/ErrorBrowser.tsx", "components/ErrorCard.tsx", "components/ProcedureGuide.tsx", "lib/unifiedSearch.ts", "lib/errorSearch.ts"]);
+export const sourceFiles = ["layout.tsx", "page.tsx", "not-found.tsx", "about/page.tsx", "contact/page.tsx", "privacy/page.tsx", "terms/page.tsx", "category/[category]/page.tsx", "problems/[slug]/page.tsx", "errors/page.tsx", "errors/[slug]/page.tsx"].map(p => `${sourceDir}/${p}`).concat(["components/SiteHeader.tsx", "components/SiteFooter.tsx", "components/ErrorBrowser.tsx", "components/ErrorCard.tsx", "components/ProcedureGuide.tsx", "components/DiagnosticWorkflow.tsx", "lib/unifiedSearch.ts", "lib/errorSearch.ts"]);
 export function loadData(filename) {
   const output = ts.transpileModule(fs.readFileSync(path.join(root, filename), "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, esModuleInterop: true } }).outputText;
   const loaded = { exports: {} };
@@ -26,7 +26,7 @@ export function collectStrings() {
     else if (Array.isArray(value)) value.forEach(walk);
     else if (value && typeof value === "object") Object.values(value).forEach(walk);
   }
-  walk(loadData("data/problems.ts").problems); walk(loadData("data/errorCodes.ts").errorCodes);
+  walk(loadData("data/diagnosticWorkflows.ts").diagnosticWorkflows); walk(loadData("data/problems.ts").problems); walk(loadData("data/errorCodes.ts").errorCodes);
   for (const filename of sourceFiles) {
     const source = ts.createSourceFile(filename, fs.readFileSync(path.join(root, filename), "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
     function visit(node) {

@@ -1,4 +1,5 @@
 import DisplayAd from "@/components/DisplayAd";
+import DiagnosticWorkflow from "@/components/DiagnosticWorkflow";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -240,8 +241,10 @@ export default async function ProblemPage({
             {problem.description}
           </p>
 
-          <ProcedureOverview solutions={problem.solutions.slice(1)} />
         </section>
+
+        <DiagnosticWorkflow slug={problem.slug} />
+        <ProcedureOverview solutions={problem.solutions.slice(1)} />
 
         {/* 증상 + 원인 */}
 

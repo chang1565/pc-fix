@@ -11,14 +11,16 @@ import { problems } from "@/data/problems";
 import { searchPcFix } from "@/lib/unifiedSearch";
 
 const popularSlugs = [
-  "game-black-screen-restart",
-  "game-crash",
+  "internet-not-working",
+  "wifi-no-internet",
+  "no-sound",
+  "boot-slow",
   "computer-slow",
-  "computer-black-screen",
-  "windows-blue-screen",
-  "computer-shutdown",
-  "computer-boot-failure",
+  "disk-100-percent",
   "usb-not-recognized",
+  "bluetooth-cant-pair",
+  "printer-offline",
+  "windows-update-fail",
 ];
 
 export default function Home() {
@@ -362,11 +364,11 @@ export default function Home() {
             <section>
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">
-                  자주 발생하는 문제
+                  원인을 좁히는 대표 가이드
                 </h2>
 
                 <p className="mt-1 text-sm text-slate-500">
-                  많이 발생하는 PC 문제부터 확인해 보세요.
+                  비교할 조건과 결과별 다음 행동을 정리했습니다. 증상에 맞는 안내부터 확인하세요.
                 </p>
               </div>
 

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { problems } from "@/data/problems";
+import { diagnosticWorkflows } from "@/data/diagnosticWorkflows";
 import { errorCodes, errorsUpdatedAt } from "@/data/errorCodes";
 import { locales, localizePath, languageAlternates } from "@/lib/localization";
 
@@ -11,7 +12,7 @@ const problemsUpdatedAt = "2026-10-27T00:00:00.000Z";
 export default function sitemap(): MetadataRoute.Sitemap {
   const problemPages = problems.map((problem) => ({
     url: `${baseUrl}/problems/${problem.slug}`,
-    lastModified: problemsUpdatedAt,
+    lastModified: diagnosticWorkflows[problem.slug] ? "2026-10-28T00:00:00.000Z" : problemsUpdatedAt,
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
@@ -19,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: errorsUpdatedAt,
+      lastModified: "2026-10-28T00:00:00.000Z",
       changeFrequency: "weekly",
       priority: 1,
     },

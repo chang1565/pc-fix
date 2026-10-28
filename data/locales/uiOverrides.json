@@ -644,7 +644,8 @@
     "USB 외장은 안전하게 제거한 뒤 정상 데이터 케이블로 허브 없이 직결하고, 별도 전원 모델은 제조사 정격 어댑터를 확인하세요. SATA 케이블 교체는 종료·AC 분리 뒤 숙련된 경우에만 진행하세요.": "Safely eject the external USB drive, then connect it directly with a known-good data cable and no hub. For a separately powered model, check the manufacturer-rated adapter. An experienced person may replace a SATA cable only after shutting down the PC AND disconnecting AC power.",
     "Windows 키+R → optionalfeatures → Enter": "Windows+R → optionalfeatures → Enter",
     "정상 정격 충전기를 연결해 본체 충전 LED가 켜지는지 확인하세요. Windows가 실행되면 작업 표시줄 배터리 아이콘의 전원 연결·충전 표시도 따로 확인하세요.": "Connect a known-good charger with the correct rating and check the laptop’s charging LED. If Windows starts, separately check the plugged-in and charging status on the taskbar battery icon.",
-    "특정 충전기·포트에서만 반응하면 그 경로를 점검하세요. 충전 LED와 Windows 충전 표시의 결과가 다르면 기록하고, 배터리 팽창이 있으면 충전 시험을 멈추세요.": "If it responds only to a particular charger or port, have that connection path checked. Record any difference between the charging LED and Windows status. Stop charging tests if the battery is swollen."
+    "특정 충전기·포트에서만 반응하면 그 경로를 점검하세요. 충전 LED와 Windows 충전 표시의 결과가 다르면 기록하고, 배터리 팽창이 있으면 충전 시험을 멈추세요.": "If it responds only to a particular charger or port, have that connection path checked. Record any difference between the charging LED and Windows status. Stop charging tests if the battery is swollen.",
+    "복구 환경·업데이트 제거 전 중요한 파일과 장치 암호화 복구 키를 확보하세요. 관리형 PC 정책을 우회하지 마세요.": "Before using the recovery environment or uninstalling an update, back up important files and obtain the device encryption recovery key. Do not bypass managed PC policies."
   },
   "ja": {
     "통합 검색": "検索",
@@ -1396,7 +1397,9 @@
     "USB 외장은 안전하게 제거한 뒤 정상 데이터 케이블로 허브 없이 직결하고, 별도 전원 모델은 제조사 정격 어댑터를 확인하세요. SATA 케이블 교체는 종료·AC 분리 뒤 숙련된 경우에만 진행하세요.": "外付けUSBドライブを安全に取り外し、正常なデータケーブルでハブを使わず直接接続してください。別電源の製品はメーカー指定のアダプターを確認してください。SATAケーブル交換は、PCを終了し、さらにAC電源を外した後、経験のある方だけが行ってください。",
     "Windows 키+R → optionalfeatures → Enter": "Windows+R → optionalfeatures → Enter",
     "정상 정격 충전기를 연결해 본체 충전 LED가 켜지는지 확인하세요. Windows가 실행되면 작업 표시줄 배터리 아이콘의 전원 연결·충전 표시도 따로 확인하세요.": "正常な定格適合の充電器を接続し、本体の充電LEDが点灯するか確認してください。Windowsが起動する場合は、タスクバーのバッテリーアイコンで電源接続と充電の表示も別々に確認してください。",
-    "특정 충전기·포트에서만 반응하면 그 경로를 점검하세요. 충전 LED와 Windows 충전 표시의 결과가 다르면 기록하고, 배터리 팽창이 있으면 충전 시험을 멈추세요.": "特定の充電器やポートだけで反応する場合は、その接続経路を点検してください。充電LEDとWindowsの表示が異なる場合は記録し、バッテリーが膨張している場合は充電のテストを中止してください。"
+    "특정 충전기·포트에서만 반응하면 그 경로를 점검하세요. 충전 LED와 Windows 충전 표시의 결과가 다르면 기록하고, 배터리 팽창이 있으면 충전 시험을 멈추세요.": "特定の充電器やポートだけで反応する場合は、その接続経路を点検してください。充電LEDとWindowsの表示が異なる場合は記録し、バッテリーが膨張している場合は充電のテストを中止してください。",
+    "복구 환경·업데이트 제거 전 중요한 파일과 장치 암호화 복구 키를 확보하세요. 관리형 PC 정책을 우회하지 마세요.": "回復環境を使う前、または更新プログラムを削除する前に、重要なファイルをバックアップし、デバイス暗号化の回復キーを確保してください。管理対象PCのポリシーを回避しないでください。",
+    "공유기에서 주소를 받지 못했을 가능성이 있습니다. Wi-Fi 재연결 후 비교하고 다른 기기도 같은 상태인지 확인하세요.": "ルーターからIPアドレスを取得できていない可能性があります。Wi-Fiに再接続して比較し、ほかの端末でも同じ状態になるかどうか確認してください。"
   },
   "zh-CN": {
     "통합 검색": "搜索",
@@ -2375,6 +2378,7 @@
     "USB 외장은 안전하게 제거한 뒤 정상 데이터 케이블로 허브 없이 직결하고, 별도 전원 모델은 제조사 정격 어댑터를 확인하세요. SATA 케이블 교체는 종료·AC 분리 뒤 숙련된 경우에만 진행하세요.": "先安全弹出外置 USB 驱动器，再用正常的数据线直连，不经过集线器。单独供电的型号应核对厂商规定的适配器。更换 SATA 线必须先关机并断开交流电源，且仅限有经验的人操作。",
     "Windows 키+R → optionalfeatures → Enter": "Windows+R → optionalfeatures → Enter",
     "정상 정격 충전기를 연결해 본체 충전 LED가 켜지는지 확인하세요. Windows가 실행되면 작업 표시줄 배터리 아이콘의 전원 연결·충전 표시도 따로 확인하세요.": "连接正常且额定规格匹配的充电器，检查电脑的充电指示灯是否亮起。Windows 能启动时，还要分别查看任务栏电池图标的已接电源和充电状态。",
-    "특정 충전기·포트에서만 반응하면 그 경로를 점검하세요. 충전 LED와 Windows 충전 표시의 결과가 다르면 기록하고, 배터리 팽창이 있으면 충전 시험을 멈추세요.": "仅在某个充电器或端口上有反应时，请检查该连接路径。记录充电指示灯与 Windows 状态的差异。电池膨胀时立即停止充电测试。"
+    "특정 충전기·포트에서만 반응하면 그 경로를 점검하세요. 충전 LED와 Windows 충전 표시의 결과가 다르면 기록하고, 배터리 팽창이 있으면 충전 시험을 멈추세요.": "仅在某个充电器或端口上有反应时，请检查该连接路径。记录充电指示灯与 Windows 状态的差异。电池膨胀时立即停止充电测试。",
+    "복구 환경·업데이트 제거 전 중요한 파일과 장치 암호화 복구 키를 확보하세요. 관리형 PC 정책을 우회하지 마세요.": "使用恢复环境或卸载更新之前，请备份重要文件并准备好设备加密恢复密钥。不要绕过受管理电脑的策略。"
   }
 }

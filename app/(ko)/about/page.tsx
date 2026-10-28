@@ -15,6 +15,12 @@ export default function AboutPage() {
           </h1>
 
           <div className="mt-6 space-y-6 text-sm leading-7 text-slate-600 sm:text-base">
+            <h2 className="text-xl font-bold text-slate-950">작성·검증 기준</h2>
+            <p>PC FIX는 공식 지원 문서와 증상별 확인 절차를 바탕으로 안내를 편집합니다. 개발과 초안 작성에 AI를 활용하며, 코드 검사 통과를 실제 기기에서의 수리 성공으로 표시하지 않습니다. 모든 고장을 직접 재현한 자료는 아닙니다.</p>
+            <p>대표 가이드에는 적용 조건, 비교할 결과, 다음 행동, 중단 기준을 구분합니다. 공식 문서는 해당 절차의 근거이며 특정 PC의 고장 원인을 확정하는 증거는 아닙니다. 개정일은 본문을 바꾼 날짜이고 실물 시험일이 아닙니다.</p>
+            <p>실제 재현 자료를 게시할 때는 장치 모델·Windows 빌드·재현 조건·변경 전후 결과를 함께 공개합니다. 설명용 도식과 실제 화면은 구분합니다. 현재 대표 가이드의 비교 진단에는 실물 재현 기록이 포함되지 않았습니다.</p>
+            <p>잘못된 안내는 <a href="/contact" className="text-blue-700 underline">문의 페이지</a>로 알려주세요. 문서 주소, Windows 버전, 실패한 단계와 오류 문구를 보내면 확인에 도움이 됩니다. 암호·복구 키·개인 파일은 보내지 마세요.</p>
+            <h2 className="text-xl font-bold text-slate-950">서비스 안내</h2>
             <p>
               PC FIX는 컴퓨터 사용 중 발생하는 다양한 문제를
               누구나 쉽게 해결할 수 있도록 돕기 위해 만들어진
