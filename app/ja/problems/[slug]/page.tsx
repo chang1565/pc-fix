@@ -165,7 +165,7 @@ export default async function ProblemPage({ params, }: PageProps) {
           <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
             {problem.title}
           </h1>
-          <div className="guide-meta"><span>{"\u516C\u5F0F\u8CC7\u6599\u306B\u57FA\u3065\u304F\u78BA\u8A8D\u30AC\u30A4\u30C9"}</span><a href="#official-sources">{"\u516C\u5F0F\u53C2\u8003\u8CC7\u6599 "}{problem.sources.length}{"\u72AC\u2193"}</a></div>
+          <div className="guide-meta"><span>{"\u516C\u5F0F\u8CC7\u6599\u306B\u57FA\u3065\u304F\u78BA\u8A8D\u30AC\u30A4\u30C9"}</span><a href="#official-sources">{"\u516C\u5F0F\u53C2\u8003\u8CC7\u6599 "}{problem.sources.length}{"\u4EF6"}</a></div>
 
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
             {problem.description}
@@ -333,7 +333,7 @@ export default async function ProblemPage({ params, }: PageProps) {
               {relatedProblem.description}
             </p>
 
-            <div className="mt-4 text-sm font-bold text-blue-600">{" \u5BFE\u51E6\u65B9\u6CD5\u3092\u898B\u308B \u2192 "}</div>
+            <div className="mt-4 text-sm font-bold text-blue-600">{" \u5BFE\u51E6\u65B9\u6CD5\u3092\u898B\u308B "}</div>
           </Link>))}
       </div>
     </section>
@@ -342,7 +342,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             <h2 className="text-2xl font-black">{"\u95A2\u9023\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9"}</h2>
             <p className="mt-2 text-sm text-slate-500">{"\u753B\u9762\u306B\u4EE5\u4E0B\u306E\u30B3\u30FC\u30C9\u304C\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u5834\u5408\u306F\u3001\u30A8\u30E9\u30FC\u5225\u306E\u78BA\u8A8D\u624B\u9806\u3092\u53C2\u7167\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
-            <Link href="/ja/errors" className="mt-4 inline-block font-semibold text-blue-600">{"\u5B8C\u5168\u306A\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u898B\u308B\u2192"}</Link>
+            <Link href="/ja/errors" className="mt-4 inline-block font-semibold text-blue-600">{"\u5B8C\u5168\u306A\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u898B\u308B"}</Link>
           </section>)}
         {/* 하단 CTA */}
 
@@ -351,7 +351,7 @@ export default async function ProblemPage({ params, }: PageProps) {
 
           <p className="mt-3 text-sm leading-6 text-slate-300">{" PC FIX\u691C\u7D22\u30DC\u30C3\u30AF\u30B9\u306B\u73FE\u5728\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u75C7\u72B6\u3092\u305D\u306E\u307E\u307E\u5165\u529B\u3059\u308B\u3068\u3001\u95A2\u9023\u3059\u308B\u554F\u984C\u304C\u898B\u3064\u304B\u308A\u307E\u3059\u3002 "}</p>
 
-          <Link href="/ja" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100">{" \u4ED6\u306E\u554F\u984C\u3092\u691C\u7D22\u3059\u308B\u2192 "}</Link>
+          <Link href="/ja" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100">{" \u4ED6\u306E\u554F\u984C\u3092\u691C\u7D22\u3059\u308B "}</Link>
         </section>
       <section className="mt-16">
           <div>

@@ -101,7 +101,7 @@ export default async function CategoryPage({ params }: PageProps) {
                 </p>
 
                 <div className="mt-5 text-sm font-bold text-blue-600">
-                  해결 방법 보기 →
+                  해결 방법 보기
                 </div>
               </Link>
             ))}

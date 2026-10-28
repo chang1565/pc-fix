@@ -114,13 +114,10 @@ export default function HomeContent({ popularProblems, categories }: {
       <section className="home-hero">
         <div className="hero-grid"><div className="hero-copy">
           <div className="support-emblem" aria-hidden="true"><SupportIcon name="display"/></div>
-          <div className="eyebrow">{" PC FIX\u00B7\u7535\u8111\u6545\u969C\u6392\u9664\u6307\u5357 "}</div>
 
           <h1 className="hero-title">{" \u7535\u8111\u6545\u969C\u4E0E\u9519\u8BEF "}<br />
             <span className="hero-accent">{" \u6309\u75C7\u72B6\u67E5\u627E\u89E3\u51B3\u6307\u5357 "}</span>
           </h1>
-
-          <p className="hero-description">{" \u67E5\u627E\u7535\u6E90\u3001\u663E\u793A\u3001\u7F51\u7EDC\u95EE\u9898\u548C Windows \u9519\u8BEF\u4EE3\u7801\u3002 "}<br className="hidden sm:block"/>{" \u4ECE\u68C0\u67E5\u53EF\u80FD\u539F\u56E0\u3001\u6838\u5BF9\u8BBE\u7F6E\u5230\u786E\u8BA4\u5904\u7406\u7ED3\u679C\uFF0C\u9010\u6B65\u6392\u67E5\u3002 "}</p>
 
           {/* 검색 영역 */}
           <div className="hero-search" style={{
@@ -158,8 +155,6 @@ export default function HomeContent({ popularProblems, categories }: {
                 </button>)}
             </div>
 
-            <p className="mt-4 text-xs text-slate-400">{" \u9664\u4E86\u75C7\u72B6\u4E4B\u5916\uFF0C\u60A8\u8FD8\u53EF\u4EE5\u641C\u7D22\u9519\u8BEF\u4EE3\u7801\uFF0C\u4F8B\u5982 0xc0000005 \u548C\u4EE3\u7801 43\u3002 "}</p>
-
             {/* 빠른 검색 */}
             <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
               <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u51FA\u73B0\u9ED1\u5C4F\u5E76\u91CD\u65B0\u542F\u52A8\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
@@ -173,9 +168,9 @@ export default function HomeContent({ popularProblems, categories }: {
           </div>
         </div>
         <nav className="quick-routes" aria-label="症状快捷入口">
-          <Link href="/zh-CN/problems/desktop-no-power"><SupportIcon name="power"/><span>{"\u53F0\u5F0F\u673A\u65E0\u6CD5\u901A\u7535 \u2197"}</span></Link>
-          <Link href="/zh-CN/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"\u663E\u793A\u5668\u63D0\u793A\u65E0\u4FE1\u53F7 \u2197"}</span></Link>
-          <Link href="/zh-CN/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows \u65E0\u6CD5\u542F\u52A8 \u2197"}</span></Link>
+          <Link href="/zh-CN/problems/desktop-no-power"><SupportIcon name="power"/><span>{"\u53F0\u5F0F\u673A\u65E0\u6CD5\u901A\u7535"}</span></Link>
+          <Link href="/zh-CN/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"\u663E\u793A\u5668\u63D0\u793A\u65E0\u4FE1\u53F7"}</span></Link>
+          <Link href="/zh-CN/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows \u65E0\u6CD5\u542F\u52A8"}</span></Link>
         </nav>
         </div>
       </section>
@@ -216,7 +211,7 @@ export default function HomeContent({ popularProblems, categories }: {
                           {problem.description}
                         </p>
 
-                        <div className="mt-5 text-sm font-semibold text-blue-600">{" \u67E5\u770B\u89E3\u51B3\u65B9\u6CD5 \u2192 "}</div>
+                        <div className="mt-5 text-sm font-semibold text-blue-600">{" \u67E5\u770B\u89E3\u51B3\u65B9\u6CD5 "}</div>
                       </Link>))}
                 </div>
 
@@ -242,8 +237,6 @@ export default function HomeContent({ popularProblems, categories }: {
             <section className="featured-guides">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">{" \u5E2E\u52A9\u7F29\u5C0F\u539F\u56E0\u8303\u56F4\u7684\u6307\u5357 "}</h2>
-
-                <p className="mt-1 text-sm text-slate-500">{" \u6211\u4EEC\u603B\u7ED3\u4E86\u8981\u6BD4\u8F83\u7684\u6761\u4EF6\u4EE5\u53CA\u6BCF\u4E2A\u7ED3\u679C\u7684\u4EE5\u4E0B\u64CD\u4F5C\u3002\u9996\u5148\u68C0\u67E5\u4E0E\u60A8\u7684\u75C7\u72B6\u76F8\u7B26\u7684\u6307\u5357\u3002 "}</p>
               </div>
 
               <div className="featured-grid">
@@ -259,9 +252,6 @@ export default function HomeContent({ popularProblems, categories }: {
                       <h3 className="mt-2 font-bold leading-6 text-slate-950 group-hover:text-blue-600">
                         {problem.title}
                       </h3>
-
-                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{problem.description}</p>
-                      <span className="guide-link-label">{"\u9605\u8BFB\u5BF9\u6BD4\u6392\u67E5\u6307\u5357 "}<span aria-hidden="true">↗</span></span>
                     </Link>);
             })}
               </div>
@@ -271,8 +261,6 @@ export default function HomeContent({ popularProblems, categories }: {
             <section className="category-directory">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">{" \u6309\u7C7B\u522B\u6D4F\u89C8 "}</h2>
-
-                <p className="mt-1 text-sm text-slate-500">{" \u5982\u679C\u60A8\u77E5\u9053\u95EE\u9898\u51FA\u5728\u54EA\u91CC\uFF0C\u8BF7\u5728\u7C7B\u522B\u4E2D\u67E5\u627E\u3002 "}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -291,7 +279,6 @@ export default function HomeContent({ popularProblems, categories }: {
             </section>
 
             </div>
-            <section className="editorial-promise"><div><p className="eyebrow">{"\u8BFB\u53D6\u6570\u636E\u7684\u6807\u51C6"}</p><h2>{"\u786E\u8BA4\u5E76"}<br />{"\u533A\u5206\u54EA\u4E9B\u662F\u672A\u786E\u8BA4\u7684\u3002"}</h2></div><div><p>{"\u6211\u4EEC\u6839\u636E\u5B98\u65B9\u652F\u6301\u6587\u4EF6\u7EC4\u7EC7\u7533\u8BF7\u6761\u4EF6\u548C\u68C0\u67E5\u987A\u5E8F\u3002\u8FD9\u5E76\u4E0D\u662F\u76F4\u63A5\u91CD\u73B0\u6240\u6709\u8BBE\u5907\u6545\u969C\u7684\u7EF4\u4FEE\u8BB0\u5F55\u3002"}</p><p>{"\u68C0\u67E5\u6BCF\u4EFD\u6307\u5357\u7684\u6765\u6E90\u548C\u505C\u6B62\u6807\u51C6\u3002\u82E5\u95EE\u9898\u672A\u89E3\u51B3\uFF0C\u5219\u6839\u636E\u8BB0\u5F55\u7ED3\u679C\u51B3\u5B9A\u4E0B\u6B21\u68C0\u67E5\u3002"}</p><Link href="/zh-CN/about">{"\u9605\u8BFB\u7F16\u5199/\u9A8C\u8BC1\u6807\u51C6 \u2197"}</Link></div></section>
           </>)}
       </div>
 

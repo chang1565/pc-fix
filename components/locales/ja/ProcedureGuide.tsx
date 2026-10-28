@@ -10,8 +10,7 @@ export function ProcedureOverview({ solutions }: {
 }) {
     return <nav aria-label="回避策ショートカット" className="procedure-overview">
     <h2 className="text-lg font-bold text-slate-950">{"\u5FC5\u8981\u306A\u78BA\u8A8D\u3078\u79FB\u52D5"}</h2>
-    <p className="mt-2 text-sm leading-6 text-slate-600">{"\u81EA\u5206\u306E\u75C7\u72B6\u306B\u5BFE\u5FDC\u3059\u308B\u624B\u9806\u3060\u3051\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u89E3\u6C7A\u3057\u305F\u3089\u3001\u6B21\u306E\u624B\u9806\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002"}</p>
-    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span><span aria-hidden="true" className="ml-auto">↓</span></a></li>)}</ol>
+    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span></a></li>)}</ol>
   </nav>;
 }
 export function ProcedureAccess({ access }: {

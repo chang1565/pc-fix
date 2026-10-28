@@ -114,13 +114,10 @@ export default function HomeContent({ popularProblems, categories }: {
       <section className="home-hero">
         <div className="hero-grid"><div className="hero-copy">
           <div className="support-emblem" aria-hidden="true"><SupportIcon name="display"/></div>
-          <div className="eyebrow">{" PC FIX\u30FB\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0\u30AC\u30A4\u30C9 "}</div>
 
           <h1 className="hero-title">{" \u30D1\u30BD\u30B3\u30F3\u306E\u4E0D\u5177\u5408\u30FB\u30A8\u30E9\u30FC "}<br />
             <span className="hero-accent">{" \u75C7\u72B6\u5225\u306E\u5BFE\u51E6\u30AC\u30A4\u30C9 "}</span>
           </h1>
-
-          <p className="hero-description">{" \u96FB\u6E90\u30FB\u753B\u9762\u30FB\u30CD\u30C3\u30C8\u63A5\u7D9A\u306E\u554F\u984C\u3084Windows\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u691C\u7D22\u3067\u304D\u307E\u3059\u3002 "}<br className="hidden sm:block"/>{" \u539F\u56E0\u306E\u78BA\u8A8D\u304B\u3089\u8A2D\u5B9A\u306E\u898B\u76F4\u3057\u3001\u6539\u5584\u3057\u305F\u304B\u306E\u78BA\u8A8D\u307E\u3067\u6848\u5185\u3057\u307E\u3059\u3002 "}</p>
 
           {/* 검색 영역 */}
           <div className="hero-search" style={{
@@ -158,8 +155,6 @@ export default function HomeContent({ popularProblems, categories }: {
                 </button>)}
             </div>
 
-            <p className="mt-4 text-xs text-slate-400">{" \u75C7\u72B6\u3060\u3051\u3067\u306A\u304F\u30010xc0000005\u3001Code 43\u306A\u3069\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3082\u691C\u7D22\u3067\u304D\u307E\u3059\u3002 "}</p>
-
             {/* 빠른 검색 */}
             <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
               <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u9ED2\u3044\u753B\u9762\u304C\u51FA\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30B2\u30FC\u30E0\u4E2D\u306E\u9ED2\u3044\u753B\u9762 "}</button>
@@ -173,9 +168,9 @@ export default function HomeContent({ popularProblems, categories }: {
           </div>
         </div>
         <nav className="quick-routes" aria-label="症状別ショートカット">
-          <Link href="/ja/problems/desktop-no-power"><SupportIcon name="power"/><span>{"\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\u306E\u96FB\u6E90\u304C\u5165\u3089\u306A\u3044 \u2197"}</span></Link>
-          <Link href="/ja/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"\u30E2\u30CB\u30BF\u30FC\u306B\u4FE1\u53F7\u306A\u3057\u3068\u8868\u793A\u3055\u308C\u308B \u2197"}</span></Link>
-          <Link href="/ja/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows\u304C\u8D77\u52D5\u3057\u306A\u3044 \u2197"}</span></Link>
+          <Link href="/ja/problems/desktop-no-power"><SupportIcon name="power"/><span>{"\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\u306E\u96FB\u6E90\u304C\u5165\u3089\u306A\u3044"}</span></Link>
+          <Link href="/ja/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"\u30E2\u30CB\u30BF\u30FC\u306B\u4FE1\u53F7\u306A\u3057\u3068\u8868\u793A\u3055\u308C\u308B"}</span></Link>
+          <Link href="/ja/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows\u304C\u8D77\u52D5\u3057\u306A\u3044"}</span></Link>
         </nav>
         </div>
       </section>
@@ -216,7 +211,7 @@ export default function HomeContent({ popularProblems, categories }: {
                           {problem.description}
                         </p>
 
-                        <div className="mt-5 text-sm font-semibold text-blue-600">{" \u5BFE\u51E6\u65B9\u6CD5\u3092\u898B\u308B \u2192 "}</div>
+                        <div className="mt-5 text-sm font-semibold text-blue-600">{" \u5BFE\u51E6\u65B9\u6CD5\u3092\u898B\u308B "}</div>
                       </Link>))}
                 </div>
 
@@ -242,8 +237,6 @@ export default function HomeContent({ popularProblems, categories }: {
             <section className="featured-guides">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">{" \u539F\u56E0\u3092\u7D5E\u308A\u8FBC\u3080\u30AC\u30A4\u30C9 "}</h2>
-
-                <p className="mt-1 text-sm text-slate-500">{" \u6BD4\u8F03\u3059\u308B\u6761\u4EF6\u3068\u7D50\u679C\u5225\u306B\u6B21\u306E\u884C\u52D5\u3092\u307E\u3068\u3081\u307E\u3057\u305F\u3002\u75C7\u72B6\u306B\u5408\u3063\u305F\u6848\u5185\u304B\u3089\u3054\u78BA\u8A8D\u304F\u3060\u3055\u3044\u3002 "}</p>
               </div>
 
               <div className="featured-grid">
@@ -259,9 +252,6 @@ export default function HomeContent({ popularProblems, categories }: {
                       <h3 className="mt-2 font-bold leading-6 text-slate-950 group-hover:text-blue-600">
                         {problem.title}
                       </h3>
-
-                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{problem.description}</p>
-                      <span className="guide-link-label">{"\u6BD4\u8F03\u624B\u9806\u3092\u8AAD\u3080 "}<span aria-hidden="true">↗</span></span>
                     </Link>);
             })}
               </div>
@@ -271,8 +261,6 @@ export default function HomeContent({ popularProblems, categories }: {
             <section className="category-directory">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">{" \u30AB\u30C6\u30B4\u30EA\u304B\u3089\u63A2\u3059 "}</h2>
-
-                <p className="mt-1 text-sm text-slate-500">{" \u554F\u984C\u304C\u767A\u751F\u3057\u305F\u5206\u91CE\u304C\u308F\u304B\u3063\u3066\u3044\u308B\u5834\u5408\u306F\u3001\u30AB\u30C6\u30B4\u30EA\u3067\u898B\u3064\u3051\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -291,7 +279,6 @@ export default function HomeContent({ popularProblems, categories }: {
             </section>
 
             </div>
-            <section className="editorial-promise"><div><p className="eyebrow">{"\u8CC7\u6599\u3092\u8AAD\u3080\u57FA\u6E96"}</p><h2>{"\u78BA\u8A8D\u3057\u305F\u3082\u306E"}<br />{"\u78BA\u8A8D\u3067\u304D\u306A\u304B\u3063\u305F\u3082\u306E\u3092\u533A\u5225\u3057\u307E\u3059\u3002"}</h2></div><div><p>{"\u516C\u5F0F\u30B5\u30DD\u30FC\u30C8\u6587\u66F8\u306B\u57FA\u3065\u3044\u3066\u3001\u9069\u7528\u6761\u4EF6\u3068\u30C1\u30A7\u30C3\u30AF\u306E\u9806\u5E8F\u3092\u6574\u7406\u3057\u307E\u3059\u3002\u3059\u3079\u3066\u306E\u6A5F\u5668\u306E\u6545\u969C\u3092\u76F4\u63A5\u518D\u73FE\u3057\u305F\u4FEE\u7406\u8A18\u9332\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u3002"}</p><p>{"\u5404\u30AC\u30A4\u30C9\u306E\u30BD\u30FC\u30B9\u3068\u4E2D\u65AD\u306E\u57FA\u6E96\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u89E3\u6C7A\u3057\u306A\u3044\u5834\u5408\u306F\u3001\u8A18\u9332\u3057\u305F\u7D50\u679C\u306B\u57FA\u3065\u3044\u3066\u6B21\u306E\u30C1\u30A7\u30C3\u30AF\u3092\u6C7A\u5B9A\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}</p><Link href="/ja/about">{"\u4F5C\u6210\u30FB\u691C\u8A3C\u57FA\u6E96\u3092\u8AAD\u3080\u2197"}</Link></div></section>
           </>)}
       </div>
 

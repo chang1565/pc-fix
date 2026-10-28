@@ -114,13 +114,10 @@ export default function HomeContent({ popularProblems, categories }: {
       <section className="home-hero">
         <div className="hero-grid"><div className="hero-copy">
           <div className="support-emblem" aria-hidden="true"><SupportIcon name="display"/></div>
-          <div className="eyebrow">{" PC FIX \u00B7 Computer troubleshooting guide "}</div>
 
           <h1 className="hero-title">{" PC errors and faults. "}<br />
             <span className="hero-accent">{" Troubleshooting guides. "}</span>
           </h1>
-
-          <p className="hero-description">{" Find help with power, display, internet and Windows error codes. "}<br className="hidden sm:block"/>{" Check possible causes, review settings and verify the result. "}</p>
 
           {/* 검색 영역 */}
           <div className="hero-search" style={{
@@ -158,8 +155,6 @@ export default function HomeContent({ popularProblems, categories }: {
                 </button>)}
             </div>
 
-            <p className="mt-4 text-xs text-slate-400">{" In addition to symptoms, you can search for error codes such as 0xc0000005 and Code 43. "}</p>
-
             {/* 빠른 검색 */}
             <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
               <button type="button" onClick={() => handleExampleSearch("While playing a game, a black screen appears and reboots.")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" black screen while gaming "}</button>
@@ -173,9 +168,9 @@ export default function HomeContent({ popularProblems, categories }: {
           </div>
         </div>
         <nav className="quick-routes" aria-label="Symptom shortcuts">
-          <Link href="/en/problems/desktop-no-power"><SupportIcon name="power"/><span>{"Desktop will not power on \u2197"}</span></Link>
-          <Link href="/en/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"Monitor shows no signal \u2197"}</span></Link>
-          <Link href="/en/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows will not boot \u2197"}</span></Link>
+          <Link href="/en/problems/desktop-no-power"><SupportIcon name="power"/><span>{"Desktop will not power on"}</span></Link>
+          <Link href="/en/problems/monitor-no-signal"><SupportIcon name="display"/><span>{"Monitor shows no signal"}</span></Link>
+          <Link href="/en/problems/computer-boot-failure"><SupportIcon name="speed"/><span>{"Windows will not boot"}</span></Link>
         </nav>
         </div>
       </section>
@@ -216,7 +211,7 @@ export default function HomeContent({ popularProblems, categories }: {
                           {problem.description}
                         </p>
 
-                        <div className="mt-5 text-sm font-semibold text-blue-600">{" View solutions \u2192 "}</div>
+                        <div className="mt-5 text-sm font-semibold text-blue-600">{" View solutions "}</div>
                       </Link>))}
                 </div>
 
@@ -242,8 +237,6 @@ export default function HomeContent({ popularProblems, categories }: {
             <section className="featured-guides">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">{" Guides to narrow down the cause "}</h2>
-
-                <p className="mt-1 text-sm text-slate-500">{" We have summarized the conditions to be compared and the following actions for each result. Start by checking the guidance that matches your symptoms. "}</p>
               </div>
 
               <div className="featured-grid">
@@ -259,9 +252,6 @@ export default function HomeContent({ popularProblems, categories }: {
                       <h3 className="mt-2 font-bold leading-6 text-slate-950 group-hover:text-blue-600">
                         {problem.title}
                       </h3>
-
-                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{problem.description}</p>
-                      <span className="guide-link-label">{"Read the guide "}<span aria-hidden="true">↗</span></span>
                     </Link>);
             })}
               </div>
@@ -271,8 +261,6 @@ export default function HomeContent({ popularProblems, categories }: {
             <section className="category-directory">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">{" Browse by category "}</h2>
-
-                <p className="mt-1 text-sm text-slate-500">{" If you know where the problem is, look for it in the categories. "}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -291,7 +279,6 @@ export default function HomeContent({ popularProblems, categories }: {
             </section>
 
             </div>
-            <section className="editorial-promise"><div><p className="eyebrow">{"Standards for reading data"}</p><h2>{"confirmed and"}<br />{"Distinguish what has not been confirmed."}</h2></div><div><p>{"We organize application conditions and inspection sequences based on official support documents. This is not a repair record that directly reproduces all device failures."}</p><p>{"Check the source and discontinuation criteria for each guide. If the problem is not resolved, decide the next inspection based on the recorded results."}</p><Link href="/en/about">{"Read the writing/verification standards \u2197"}</Link></div></section>
           </>)}
       </div>
 

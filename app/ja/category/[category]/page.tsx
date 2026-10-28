@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: PageProps) {
                   {problem.description}
                 </p>
 
-                <div className="mt-5 text-sm font-bold text-blue-600">{" \u5BFE\u51E6\u65B9\u6CD5\u3092\u898B\u308B \u2192 "}</div>
+                <div className="mt-5 text-sm font-bold text-blue-600">{" \u5BFE\u51E6\u65B9\u6CD5\u3092\u898B\u308B "}</div>
               </Link>))}
           </div>
         </section>

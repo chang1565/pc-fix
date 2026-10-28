@@ -14,5 +14,5 @@ export default function ErrorsPage() {
     return <main className="min-h-screen bg-slate-50 text-slate-900"><SiteHeader />
     <div className="mx-auto max-w-6xl px-5 py-12"><h1 className="text-3xl font-black sm:text-4xl">{"\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u4E00\u89A7"}</h1>
       <p className="mt-4 max-w-3xl leading-7 text-slate-600">{"\u30AB\u30C6\u30B4\u30EA\u5225\u306E\u30A8\u30E9\u30FC\u3092\u3054\u89A7\u304F\u3060\u3055\u3044\u3002\u75C7\u72B6\u3068\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u306E\u691C\u7D22\u306F\u3001\u30E1\u30A4\u30F3\u691C\u7D22\u30DC\u30C3\u30AF\u30B9\u3067\u4E00\u5EA6\u306B\u884C\u3046\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002"}</p>
-      <Link href="/ja" className="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-bold text-white">{"\u7D71\u5408\u691C\u7D22\u3067\u691C\u7D22\u2192"}</Link><ErrorBrowser /></div><SiteFooter /></main>;
+      <Link href="/ja" className="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-bold text-white">{"\u7D71\u5408\u691C\u7D22\u3067\u691C\u7D22"}</Link><ErrorBrowser /></div><SiteFooter /></main>;
 }

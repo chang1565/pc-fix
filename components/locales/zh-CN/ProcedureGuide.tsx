@@ -10,8 +10,7 @@ export function ProcedureOverview({ solutions }: {
 }) {
     return <nav aria-label="转到解决方案" className="procedure-overview">
     <h2 className="text-lg font-bold text-slate-950">{"\u8DF3\u8F6C\u5230\u6240\u9700\u68C0\u67E5"}</h2>
-    <p className="mt-2 text-sm leading-6 text-slate-600">{"\u8BF7\u4EC5\u68C0\u67E5\u4E0E\u60A8\u7684\u75C7\u72B6\u76F8\u5BF9\u5E94\u7684\u6B65\u9AA4\u3002\u89E3\u51B3\u540E\uFF0C\u60A8\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u4E0B\u4E00\u6B65\u3002"}</p>
-    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span><span aria-hidden="true" className="ml-auto">↓</span></a></li>)}</ol>
+    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span></a></li>)}</ol>
   </nav>;
 }
 export function ProcedureAccess({ access }: {

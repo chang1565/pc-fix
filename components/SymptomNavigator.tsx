@@ -38,10 +38,10 @@ const groups = [
 
 export default function SymptomNavigator() {
   return <section id="symptom-start" className="symptom-navigator" aria-labelledby="symptom-heading">
-    <div className="section-heading"><div><p className="eyebrow">증상으로 시작하기</p><h2 id="symptom-heading">지금 어떤 상태인가요?</h2></div><p>가까운 상황을 고르면<br className="hidden sm:block" /> 확인할 순서로 이어집니다.</p></div>
+    <div className="section-heading"><div><h2 id="symptom-heading">지금 어떤 상태인가요?</h2></div></div>
     <div className="symptom-grid">{groups.map((group, index) => <details key={group.number} className="symptom-group" name="symptom-group">
-      <summary><span className="symptom-icon"><SupportIcon name={icons[index]} /></span><span><strong>{group.title}</strong><span className="symptom-hint">{group.hint}</span></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
-      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}<span aria-hidden="true">↗</span></Link></li>)}</ul>
+      <summary><span className="symptom-icon"><SupportIcon name={icons[index]} /></span><span><strong>{group.title}</strong></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
+      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}</Link></li>)}</ul>
     </details>)}</div>
     <p className="navigator-note">타는 냄새, 배터리 팽창, 저장장치 이상음이 있으면 반복 점검을 멈추고 전문 점검을 받으세요. <Link href="/problems/battery-swollen" className="underline">배터리 팽창 안내</Link> · <Link href="/problems/hdd-clicking" className="underline">저장장치 이상음 안내</Link></p>
   </section>;

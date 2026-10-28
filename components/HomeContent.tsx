@@ -118,9 +118,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
       <section className="home-hero">
         <div className="hero-grid"><div className="hero-copy">
           <div className="support-emblem" aria-hidden="true"><SupportIcon name="display" /></div>
-          <div className="eyebrow">
-            PC FIX · 컴퓨터 문제 해결 가이드
-          </div>
 
           <h1 className="hero-title">
             컴퓨터 오류·고장,
@@ -129,12 +126,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
               증상별 해결 가이드
             </span>
           </h1>
-
-          <p className="hero-description">
-            전원, 화면, 인터넷 문제와 Windows 오류 코드를 찾아보세요.
-            <br className="hidden sm:block" />
-            원인 확인부터 설정 점검, 해결 여부 확인까지 안내합니다.
-          </p>
 
           {/* 검색 영역 */}
           <div
@@ -199,10 +190,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
               )}
             </div>
 
-            <p className="mt-4 text-xs text-slate-400">
-              증상뿐 아니라 0xc0000005, Code 43 같은 오류 코드도 검색할 수 있습니다.
-            </p>
-
             {/* 빠른 검색 */}
             <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
               <button
@@ -250,9 +237,9 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
           </div>
         </div>
         <nav className="quick-routes" aria-label="증상 바로가기">
-          <Link href="/problems/desktop-no-power"><SupportIcon name="power" /><span>데스크톱 전원이 안 켜짐 ↗</span></Link>
-          <Link href="/problems/monitor-no-signal"><SupportIcon name="display" /><span>모니터에 신호 없음 ↗</span></Link>
-          <Link href="/problems/computer-boot-failure"><SupportIcon name="speed" /><span>Windows 부팅 실패 ↗</span></Link>
+          <Link href="/problems/desktop-no-power"><SupportIcon name="power" /><span>데스크톱 전원이 안 켜짐</span></Link>
+          <Link href="/problems/monitor-no-signal"><SupportIcon name="display" /><span>모니터에 신호 없음</span></Link>
+          <Link href="/problems/computer-boot-failure"><SupportIcon name="speed" /><span>Windows 부팅 실패</span></Link>
         </nav>
         </div>
       </section>
@@ -309,7 +296,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
                         </p>
 
                         <div className="mt-5 text-sm font-semibold text-blue-600">
-                          해결 방법 보기 →
+                          해결 방법 보기
                         </div>
                       </Link>
                     ))}
@@ -365,10 +352,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
                 <h2 className="text-2xl font-black text-slate-950">
                   원인을 좁히는 대표 가이드
                 </h2>
-
-                <p className="mt-1 text-sm text-slate-500">
-                  비교할 조건과 결과별 다음 행동을 정리했습니다. 증상에 맞는 안내부터 확인하세요.
-                </p>
               </div>
 
               <div className="featured-grid">
@@ -390,9 +373,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
                       <h3 className="mt-2 font-bold leading-6 text-slate-950 group-hover:text-blue-600">
                         {problem.title}
                       </h3>
-
-                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">{problem.description}</p>
-                      <span className="guide-link-label">비교 진단 읽기 <span aria-hidden="true">↗</span></span>
                     </Link>
                   );
                 })}
@@ -405,10 +385,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
                 <h2 className="text-2xl font-black text-slate-950">
                   카테고리별 문제 찾기
                 </h2>
-
-                <p className="mt-1 text-sm text-slate-500">
-                  문제가 발생한 분야를 알고 있다면 카테고리에서 찾아보세요.
-                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -435,7 +411,6 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
             </section>
 
             </div>
-            <section className="editorial-promise"><div><p className="eyebrow">자료를 읽는 기준</p><h2>확인한 것과<br />확인하지 못한 것을 구분합니다.</h2></div><div><p>공식 지원 문서를 바탕으로 적용 조건과 점검 순서를 정리합니다. 모든 기기의 고장을 직접 재현한 수리 기록은 아닙니다.</p><p>각 가이드의 출처와 중단 기준을 확인하세요. 해결되지 않으면 기록한 결과를 바탕으로 다음 점검을 결정하세요.</p><Link href="/about">작성·검증 기준 읽기 ↗</Link></div></section>
           </>
         )}
       </div>

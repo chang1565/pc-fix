@@ -14,5 +14,5 @@ export default function ErrorsPage() {
     return <main className="min-h-screen bg-slate-50 text-slate-900"><SiteHeader />
     <div className="mx-auto max-w-6xl px-5 py-12"><h1 className="text-3xl font-black sm:text-4xl">{"\u9519\u8BEF\u4EE3\u7801\u5217\u8868"}</h1>
       <p className="mt-4 max-w-3xl leading-7 text-slate-600">{"\u6309\u7C7B\u522B\u6D4F\u89C8\u9519\u8BEF\u3002\u60A8\u53EF\u4EE5\u4ECE\u4E3B\u641C\u7D22\u680F\u7ACB\u5373\u641C\u7D22\u75C7\u72B6\u548C\u9519\u8BEF\u4EE3\u7801\u3002"}</p>
-      <Link href="/zh-CN" className="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-bold text-white">{"\u4F7F\u7528\u96C6\u6210\u641C\u7D22\u67E5\u627E \u2192"}</Link><ErrorBrowser /></div><SiteFooter /></main>;
+      <Link href="/zh-CN" className="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-bold text-white">{"\u4F7F\u7528\u96C6\u6210\u641C\u7D22\u67E5\u627E"}</Link><ErrorBrowser /></div><SiteFooter /></main>;
 }

@@ -10,8 +10,7 @@ export function ProcedureOverview({ solutions }: {
 }) {
     return <nav aria-label="Go to solution" className="procedure-overview">
     <h2 className="text-lg font-bold text-slate-950">{"Jump to a check"}</h2>
-    <p className="mt-2 text-sm leading-6 text-slate-600">{"Please check only the steps that correspond to your symptoms. Once resolved, you do not need to proceed to the next step."}</p>
-    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span><span aria-hidden="true" className="ml-auto">↓</span></a></li>)}</ol>
+    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span></a></li>)}</ol>
   </nav>;
 }
 export function ProcedureAccess({ access }: {

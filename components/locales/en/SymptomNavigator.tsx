@@ -37,10 +37,10 @@ const groups = [
 ];
 export default function SymptomNavigator() {
     return <section id="symptom-start" className="symptom-navigator" aria-labelledby="symptom-heading">
-    <div className="section-heading"><div><p className="eyebrow">{"Start with a symptom"}</p><h2 id="symptom-heading">{"What are you seeing?"}</h2></div><p>{"If you choose a situation that is close to you"}<br className="hidden sm:block"/>{" The order of confirmation follows."}</p></div>
+    <div className="section-heading"><div><h2 id="symptom-heading">{"What are you seeing?"}</h2></div></div>
     <div className="symptom-grid">{groups.map((group, index) => <details key={group.number} className="symptom-group" name="symptom-group">
-      <summary><span className="symptom-icon"><SupportIcon name={icons[index]}/></span><span><strong>{group.title}</strong><span className="symptom-hint">{group.hint}</span></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
-      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}<span aria-hidden="true">↗</span></Link></li>)}</ul>
+      <summary><span className="symptom-icon"><SupportIcon name={icons[index]}/></span><span><strong>{group.title}</strong></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
+      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}</Link></li>)}</ul>
     </details>)}</div>
     <p className="navigator-note">{"If there is a burning smell, battery expansion, or abnormal storage device noise, stop repeated inspection and receive a professional inspection. "}<Link href="/en/problems/battery-swollen" className="underline">{"Battery Swelling Guide"}</Link> · <Link href="/en/problems/hdd-clicking" className="underline">{"Storage device abnormal noise information"}</Link></p>
   </section>;

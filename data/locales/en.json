@@ -10201,5 +10201,13 @@
   "모니터에 신호 없음 ↗": "Monitor shows no signal ↗",
   "본체 전원은 켜져 있지만 화면이 나오지 않음": "The computer is on but there is no display",
   "Windows 부팅 실패 ↗": "Windows will not boot ↗",
-  "전원은 켜지지만 Windows가 시작되지 않음": "Power is on but Windows does not start"
+  "전원은 켜지지만 Windows가 시작되지 않음": "Power is on but Windows does not start",
+  "해결 방법 보기": "View solutions",
+  "전체 오류 코드 보기": "See all error codes",
+  "통합 검색으로 찾기": "Find with integrated search",
+  "다른 증상·오류 검색하기": "Search other symptoms or errors",
+  "작성·검증 기준 읽기": "Read the writing/verification standards",
+  "데스크톱 전원이 안 켜짐": "Desktop will not power on",
+  "모니터에 신호 없음": "Monitor shows no signal",
+  "Windows 부팅 실패": "Windows will not boot"
 }

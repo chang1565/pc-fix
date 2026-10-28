@@ -237,7 +237,7 @@ export default async function ProblemPage({
           <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
             {problem.title}
           </h1>
-          <div className="guide-meta"><span>문서 기반 점검 안내</span><a href="#official-sources">공식 참고 자료 {problem.sources.length}개 ↓</a></div>
+          <div className="guide-meta"><span>문서 기반 점검 안내</span><a href="#official-sources">공식 참고 자료 {problem.sources.length}개</a></div>
 
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
             {problem.description}
@@ -468,7 +468,7 @@ export default async function ProblemPage({
             </p>
 
             <div className="mt-4 text-sm font-bold text-blue-600">
-              해결 방법 보기 →
+              해결 방법 보기
             </div>
           </Link>
         ))}
@@ -481,7 +481,7 @@ export default async function ProblemPage({
             <h2 className="text-2xl font-black">관련 오류 코드</h2>
             <p className="mt-2 text-sm text-slate-500">화면에 아래 코드가 표시됐다면 오류별 확인 절차를 참고하세요.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry} />)}</div>
-            <Link href="/errors" className="mt-4 inline-block font-semibold text-blue-600">전체 오류 코드 보기 →</Link>
+            <Link href="/errors" className="mt-4 inline-block font-semibold text-blue-600">전체 오류 코드 보기</Link>
           </section>
         )}
         {/* 하단 CTA */}
@@ -501,7 +501,7 @@ export default async function ProblemPage({
             href="/"
             className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100"
           >
-            다른 문제 검색하기 →
+            다른 문제 검색하기
           </Link>
         </section>
       <section className="mt-16">

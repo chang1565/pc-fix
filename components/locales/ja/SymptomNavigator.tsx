@@ -37,10 +37,10 @@ const groups = [
 ];
 export default function SymptomNavigator() {
     return <section id="symptom-start" className="symptom-navigator" aria-labelledby="symptom-heading">
-    <div className="section-heading"><div><p className="eyebrow">{"\u75C7\u72B6\u304B\u3089\u63A2\u3059"}</p><h2 id="symptom-heading">{"\u4ECA\u3001\u3069\u306E\u3088\u3046\u306A\u72B6\u614B\u3067\u3059\u304B\uFF1F"}</h2></div><p>{"\u8FD1\u3044\u72B6\u6CC1\u3092\u9078\u3076\u3068"}<br className="hidden sm:block"/>{" \u78BA\u8A8D\u3059\u308B\u9806\u756A\u306B\u3064\u306A\u304C\u308A\u307E\u3059\u3002"}</p></div>
+    <div className="section-heading"><div><h2 id="symptom-heading">{"\u4ECA\u3001\u3069\u306E\u3088\u3046\u306A\u72B6\u614B\u3067\u3059\u304B\uFF1F"}</h2></div></div>
     <div className="symptom-grid">{groups.map((group, index) => <details key={group.number} className="symptom-group" name="symptom-group">
-      <summary><span className="symptom-icon"><SupportIcon name={icons[index]}/></span><span><strong>{group.title}</strong><span className="symptom-hint">{group.hint}</span></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
-      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}<span aria-hidden="true">↗</span></Link></li>)}</ul>
+      <summary><span className="symptom-icon"><SupportIcon name={icons[index]}/></span><span><strong>{group.title}</strong></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
+      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}</Link></li>)}</ul>
     </details>)}</div>
     <p className="navigator-note">{"\u71C3\u3048\u308B\u5302\u3044\u3001\u30D0\u30C3\u30C6\u30EA\u30FC\u306E\u81A8\u5F35\u3001\u53CE\u7D0D\u88C5\u7F6E\u306E\u7570\u5E38\u97F3\u304C\u3042\u308B\u5834\u5408\u306F\u3001\u7E70\u308A\u8FD4\u3057\u70B9\u691C\u3092\u4E2D\u6B62\u3057\u3066\u5C02\u9580\u306E\u70B9\u691C\u3092\u53D7\u3051\u3066\u304F\u3060\u3055\u3044\u3002 "}<Link href="/ja/problems/battery-swollen" className="underline">{"\u30D0\u30C3\u30C6\u30EA\u30FC\u81A8\u5F35\u30AC\u30A4\u30C9"}</Link> · <Link href="/ja/problems/hdd-clicking" className="underline">{"\u8A18\u61B6\u88C5\u7F6E\u7570\u5E38\u97F3\u306E\u3054\u6848\u5185"}</Link></p>
   </section>;

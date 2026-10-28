@@ -14,5 +14,5 @@ export default function ErrorsPage() {
     return <main className="min-h-screen bg-slate-50 text-slate-900"><SiteHeader />
     <div className="mx-auto max-w-6xl px-5 py-12"><h1 className="text-3xl font-black sm:text-4xl">{"Error code directory"}</h1>
       <p className="mt-4 max-w-3xl leading-7 text-slate-600">{"Browse errors by category. You can search for symptoms and error codes at once from the main search bar."}</p>
-      <Link href="/en" className="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-bold text-white">{"Find with integrated search \u2192"}</Link><ErrorBrowser /></div><SiteFooter /></main>;
+      <Link href="/en" className="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-bold text-white">{"Find with integrated search"}</Link><ErrorBrowser /></div><SiteFooter /></main>;
 }

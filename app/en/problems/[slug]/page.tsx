@@ -165,7 +165,7 @@ export default async function ProblemPage({ params, }: PageProps) {
           <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
             {problem.title}
           </h1>
-          <div className="guide-meta"><span>{"Documentation-based guide"}</span><a href="#official-sources">{"official reference "}{problem.sources.length}{"dog \u2193"}</a></div>
+          <div className="guide-meta"><span>{"Documentation-based guide"}</span><a href="#official-sources">{"official reference "}{problem.sources.length}{" results"}</a></div>
 
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
             {problem.description}
@@ -333,7 +333,7 @@ export default async function ProblemPage({ params, }: PageProps) {
               {relatedProblem.description}
             </p>
 
-            <div className="mt-4 text-sm font-bold text-blue-600">{" View solutions \u2192 "}</div>
+            <div className="mt-4 text-sm font-bold text-blue-600">{" View solutions "}</div>
           </Link>))}
       </div>
     </section>
@@ -342,7 +342,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             <h2 className="text-2xl font-black">{"Related error code"}</h2>
             <p className="mt-2 text-sm text-slate-500">{"If the code below appears on the screen, refer to the confirmation procedure for each error."}</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
-            <Link href="/en/errors" className="mt-4 inline-block font-semibold text-blue-600">{"See all error codes \u2192"}</Link>
+            <Link href="/en/errors" className="mt-4 inline-block font-semibold text-blue-600">{"See all error codes"}</Link>
           </section>)}
         {/* 하단 CTA */}
 
@@ -351,7 +351,7 @@ export default async function ProblemPage({ params, }: PageProps) {
 
           <p className="mt-3 text-sm leading-6 text-slate-300">{" If you enter the symptoms you are currently seeing in the PC FIX search box, we will find the related problem. "}</p>
 
-          <Link href="/en" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100">{" Search for other issues \u2192 "}</Link>
+          <Link href="/en" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100">{" Search for other issues "}</Link>
         </section>
       <section className="mt-16">
           <div>

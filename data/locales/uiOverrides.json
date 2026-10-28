@@ -672,7 +672,12 @@
     "모니터에 신호 없음 ↗": "Monitor shows no signal ↗",
     "본체 전원은 켜져 있지만 화면이 나오지 않음": "The computer is on but there is no display",
     "Windows 부팅 실패 ↗": "Windows will not boot ↗",
-    "전원은 켜지지만 Windows가 시작되지 않음": "Power is on but Windows does not start"
+    "전원은 켜지지만 Windows가 시작되지 않음": "Power is on but Windows does not start",
+    "해결 방법 보기": "View solutions",
+    "다른 증상·오류 검색하기": "Search other symptoms or errors",
+    "데스크톱 전원이 안 켜짐": "Desktop will not power on",
+    "모니터에 신호 없음": "Monitor shows no signal",
+    "Windows 부팅 실패": "Windows will not boot"
   },
   "ja": {
     "통합 검색": "検索",
@@ -1453,7 +1458,12 @@
     "모니터에 신호 없음 ↗": "モニターに信号なしと表示される ↗",
     "본체 전원은 켜져 있지만 화면이 나오지 않음": "本体の電源は入るが画面が映らない",
     "Windows 부팅 실패 ↗": "Windowsが起動しない ↗",
-    "전원은 켜지지만 Windows가 시작되지 않음": "電源は入るがWindowsが起動しない"
+    "전원은 켜지지만 Windows가 시작되지 않음": "電源は入るがWindowsが起動しない",
+    "해결 방법 보기": "対処方法を見る",
+    "다른 증상·오류 검색하기": "ほかの症状・エラーを検索",
+    "데스크톱 전원이 안 켜짐": "デスクトップの電源が入らない",
+    "모니터에 신호 없음": "モニターに信号なしと表示される",
+    "Windows 부팅 실패": "Windowsが起動しない"
   },
   "zh-CN": {
     "통합 검색": "搜索",
@@ -2460,6 +2470,11 @@
     "모니터에 신호 없음 ↗": "显示器提示无信号 ↗",
     "본체 전원은 켜져 있지만 화면이 나오지 않음": "主机已通电，但屏幕没有画面",
     "Windows 부팅 실패 ↗": "Windows 无法启动 ↗",
-    "전원은 켜지지만 Windows가 시작되지 않음": "电脑已通电，但 Windows 未能启动"
+    "전원은 켜지지만 Windows가 시작되지 않음": "电脑已通电，但 Windows 未能启动",
+    "해결 방법 보기": "查看解决方法",
+    "다른 증상·오류 검색하기": "搜索其他故障或错误",
+    "데스크톱 전원이 안 켜짐": "台式机无法通电",
+    "모니터에 신호 없음": "显示器提示无信号",
+    "Windows 부팅 실패": "Windows 无法启动"
   }
 }

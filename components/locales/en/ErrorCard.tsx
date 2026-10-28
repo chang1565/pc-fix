@@ -8,6 +8,6 @@ export default function ErrorCard({ entry }: {
     <span className="text-xs font-bold text-blue-600">{"Error Code \u00B7 "}{entry.category}</span>
     <h3 className="mt-3 break-words text-lg font-bold text-slate-950 [overflow-wrap:anywhere]">{entry.title}</h3>
     <p className="mt-2 text-sm leading-6 text-slate-600">{entry.description}</p>
-    <p className="mt-5 text-sm font-semibold text-blue-600">{"View solutions \u2192"}</p>
+    <p className="mt-5 text-sm font-semibold text-blue-600">{"View solutions"}</p>
   </Link>;
 }

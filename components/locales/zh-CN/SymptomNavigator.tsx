@@ -37,10 +37,10 @@ const groups = [
 ];
 export default function SymptomNavigator() {
     return <section id="symptom-start" className="symptom-navigator" aria-labelledby="symptom-heading">
-    <div className="section-heading"><div><p className="eyebrow">{"\u4ECE\u75C7\u72B6\u5F00\u59CB"}</p><h2 id="symptom-heading">{"\u73B0\u5728\u662F\u4EC0\u4E48\u60C5\u51B5\uFF1F"}</h2></div><p>{"\u5982\u679C\u60A8\u9009\u62E9\u79BB\u60A8\u8F83\u8FD1\u7684\u60C5\u51B5"}<br className="hidden sm:block"/>{" \u786E\u8BA4\u987A\u5E8F\u5982\u4E0B\u3002"}</p></div>
+    <div className="section-heading"><div><h2 id="symptom-heading">{"\u73B0\u5728\u662F\u4EC0\u4E48\u60C5\u51B5\uFF1F"}</h2></div></div>
     <div className="symptom-grid">{groups.map((group, index) => <details key={group.number} className="symptom-group" name="symptom-group">
-      <summary><span className="symptom-icon"><SupportIcon name={icons[index]}/></span><span><strong>{group.title}</strong><span className="symptom-hint">{group.hint}</span></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
-      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}<span aria-hidden="true">↗</span></Link></li>)}</ul>
+      <summary><span className="symptom-icon"><SupportIcon name={icons[index]}/></span><span><strong>{group.title}</strong></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
+      <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}</Link></li>)}</ul>
     </details>)}</div>
     <p className="navigator-note">{"\u5982\u679C\u51FA\u73B0\u70E7\u7126\u5473\u3001\u7535\u6C60\u81A8\u80C0\u6216\u5B58\u50A8\u8BBE\u5907\u5F02\u5E38\u566A\u97F3\u7B49\u60C5\u51B5\uFF0C\u8BF7\u505C\u6B62\u91CD\u590D\u68C0\u67E5\u5E76\u63A5\u53D7\u4E13\u4E1A\u4EBA\u58EB\u68C0\u67E5\u3002 "}<Link href="/zh-CN/problems/battery-swollen" className="underline">{"\u7535\u6C60\u81A8\u80C0\u6307\u5357"}</Link> · <Link href="/zh-CN/problems/hdd-clicking" className="underline">{"\u5B58\u50A8\u8BBE\u5907\u5F02\u5E38\u566A\u97F3\u4FE1\u606F"}</Link></p>
   </section>;

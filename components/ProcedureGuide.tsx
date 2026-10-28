@@ -5,8 +5,7 @@ type Item = { order: number; title: string; access?: AccessGuide };
 export function ProcedureOverview({ solutions }: { solutions: Item[] }) {
   return <nav aria-label="해결 방법 바로가기" className="procedure-overview">
     <h2 className="text-lg font-bold text-slate-950">필요한 점검으로 바로 이동</h2>
-    <p className="mt-2 text-sm leading-6 text-slate-600">내 증상에 해당하는 단계만 확인하세요. 해결되면 다음 단계는 진행하지 않아도 됩니다.</p>
-    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span><span aria-hidden="true" className="ml-auto">↓</span></a></li>)}</ol>
+    <ol>{solutions.map((solution, index) => <li key={solution.order}><a href={`#solution-${solution.order}`}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><span>{solution.title}</span></a></li>)}</ol>
   </nav>;
 }
 
