@@ -23,7 +23,8 @@ for (const url of urls) {
   assert.ok(canonical[0].href.startsWith(base), `HTTPS canonical: ${route}`);
   assert.ok(!/<meta[^>]+(?:name="(?:robots|googlebot)"[^>]+content="[^"]*noindex|content="[^"]*noindex[^>]+name="(?:robots|googlebot)")/.test(html), `noindex: ${route}`);
   assert.ok(/<main\b[\s\S]*?<h1\b/.test(html), `initial main/h1: ${route}`);
-  const languages = [...html.matchAll(/<nav aria-label="Select language"[^>]*>([\s\S]*?)<\/nav>/g)];
+  const languageLabel = route.startsWith('/en') ? 'Language' : route.startsWith('/ja') ? '言語' : route.startsWith('/zh-CN') ? '语言' : '언어';
+  const languages = [...html.matchAll(new RegExp(`<nav aria-label="${languageLabel}"[^>]*>([\\s\\S]*?)<\\/nav>`, 'g'))];
   assert.equal(languages.length, 1, `language navigation: ${route}`);
   assert.equal([...languages[0][1].matchAll(/<a\b/g)].length, 4, `crawlable language choices: ${route}`);
   const links = [...html.matchAll(/<a\b([^>]+)>/g)].map(match => attributes(match[1]).href).filter(Boolean).filter(href => !href.startsWith("mailto:") && !href.startsWith("tel:")).map(href => new URL(href, url)).filter(link => link.origin === base && !link.search && !link.hash);
