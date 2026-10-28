@@ -2,9 +2,7 @@
 "use client";
 import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
-import SymptomNavigator from "@/components/locales/ja/SymptomNavigator";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
@@ -130,13 +128,12 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
             <button type="submit" disabled={!isSearchStateReady}>{"\u691C\u7D22"}</button>
           </form>
           <div className="support-devices">
-            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload/>
             <nav aria-label="機器から探す" className="device-links">
-              <Link href={`/ja/category/${encodeURIComponent("\u96FB\u6E90")}`}><span>{"\u96FB\u6E90"}</span></Link>
-              <Link href={`/ja/category/${encodeURIComponent("\u753B\u9762")}`}><span>{"\u753B\u9762"}</span></Link>
-              <Link href={`/ja/category/${encodeURIComponent("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8")}`}><span>{"\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8"}</span></Link>
-              <Link href={`/ja/category/${encodeURIComponent("\u30AA\u30FC\u30C7\u30A3\u30AA")}`}><span>{"\u97F3"}</span></Link>
-              <Link href={`/ja/category/${encodeURIComponent("\u30B2\u30FC\u30E0")}`}><span>{"\u30B2\u30FC\u30E0"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u96FB\u6E90")}`}><span className="device-icon"><SupportIcon name="power"/></span><span>{"\u96FB\u6E90"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u753B\u9762")}`}><span className="device-icon"><SupportIcon name="monitor"/></span><span>{"\u753B\u9762"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8")}`}><span className="device-icon"><SupportIcon name="wifi"/></span><span>{"\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u30AA\u30FC\u30C7\u30A3\u30AA")}`}><span className="device-icon"><SupportIcon name="audio"/></span><span>{"\u97F3"}</span></Link>
+              <Link href={`/ja/category/${encodeURIComponent("\u30B2\u30FC\u30E0")}`}><span className="device-icon"><SupportIcon name="game"/></span><span>{"\u30B2\u30FC\u30E0"}</span></Link>
             </nav>
           </div>
         </div>
@@ -234,7 +231,6 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
               </Link>
             </div>
             </div>
-            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">

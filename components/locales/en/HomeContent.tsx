@@ -2,9 +2,7 @@
 "use client";
 import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
-import SymptomNavigator from "@/components/locales/en/SymptomNavigator";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
@@ -130,13 +128,12 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
             <button type="submit" disabled={!isSearchStateReady}>{"search"}</button>
           </form>
           <div className="support-devices">
-            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload/>
             <nav aria-label="Find issues by device" className="device-links">
-              <Link href={`/en/category/${encodeURIComponent("Power")}`}><span>{"Power"}</span></Link>
-              <Link href={`/en/category/${encodeURIComponent("Display")}`}><span>{"Display"}</span></Link>
-              <Link href={`/en/category/${encodeURIComponent("Internet")}`}><span>{"Internet"}</span></Link>
-              <Link href={`/en/category/${encodeURIComponent("Audio")}`}><span>{"Audio"}</span></Link>
-              <Link href={`/en/category/${encodeURIComponent("Gaming")}`}><span>{"Gaming"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Power")}`}><span className="device-icon"><SupportIcon name="power"/></span><span>{"Power"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Display")}`}><span className="device-icon"><SupportIcon name="monitor"/></span><span>{"Display"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Internet")}`}><span className="device-icon"><SupportIcon name="wifi"/></span><span>{"Internet"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Audio")}`}><span className="device-icon"><SupportIcon name="audio"/></span><span>{"Audio"}</span></Link>
+              <Link href={`/en/category/${encodeURIComponent("Gaming")}`}><span className="device-icon"><SupportIcon name="game"/></span><span>{"Gaming"}</span></Link>
             </nav>
           </div>
         </div>
@@ -234,7 +231,6 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
               </Link>
             </div>
             </div>
-            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">

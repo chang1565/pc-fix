@@ -2,9 +2,7 @@
 "use client";
 import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
-import SymptomNavigator from "@/components/locales/zh-CN/SymptomNavigator";
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
@@ -130,13 +128,12 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
             <button type="submit" disabled={!isSearchStateReady}>{"\u641C\u7D22"}</button>
           </form>
           <div className="support-devices">
-            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload/>
             <nav aria-label="按设备查找问题" className="device-links">
-              <Link href={`/zh-CN/category/${encodeURIComponent("\u7535\u6E90")}`}><span>{"\u7535\u6E90"}</span></Link>
-              <Link href={`/zh-CN/category/${encodeURIComponent("\u5C4F\u5E55")}`}><span>{"\u5C4F\u5E55"}</span></Link>
-              <Link href={`/zh-CN/category/${encodeURIComponent("\u4E92\u8054\u7F51")}`}><span>{"\u4E92\u8054\u7F51"}</span></Link>
-              <Link href={`/zh-CN/category/${encodeURIComponent("\u97F3\u9891")}`}><span>{"\u58F0\u97F3"}</span></Link>
-              <Link href={`/zh-CN/category/${encodeURIComponent("\u6E38\u620F")}`}><span>{"\u6E38\u620F"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u7535\u6E90")}`}><span className="device-icon"><SupportIcon name="power"/></span><span>{"\u7535\u6E90"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u5C4F\u5E55")}`}><span className="device-icon"><SupportIcon name="monitor"/></span><span>{"\u5C4F\u5E55"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u4E92\u8054\u7F51")}`}><span className="device-icon"><SupportIcon name="wifi"/></span><span>{"\u4E92\u8054\u7F51"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u97F3\u9891")}`}><span className="device-icon"><SupportIcon name="audio"/></span><span>{"\u58F0\u97F3"}</span></Link>
+              <Link href={`/zh-CN/category/${encodeURIComponent("\u6E38\u620F")}`}><span className="device-icon"><SupportIcon name="game"/></span><span>{"\u6E38\u620F"}</span></Link>
             </nav>
           </div>
         </div>
@@ -234,7 +231,6 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
               </Link>
             </div>
             </div>
-            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">

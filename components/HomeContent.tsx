@@ -1,10 +1,8 @@
 "use client";
 import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
-import SymptomNavigator from "@/components/SymptomNavigator";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import SiteFooter from "@/components/SiteFooter";
@@ -129,13 +127,12 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
             <button type="submit" disabled={!isSearchStateReady}>검색</button>
           </form>
           <div className="support-devices">
-            <Image src="/images/support-devices.png" alt="" width={1536} height={512} sizes="(max-width: 700px) 700px, 1160px" preload />
             <nav aria-label="기기별 문제 찾기" className="device-links">
-              <Link href={`/category/${encodeURIComponent("전원")}`}><span>전원</span></Link>
-              <Link href={`/category/${encodeURIComponent("화면")}`}><span>화면</span></Link>
-              <Link href={`/category/${encodeURIComponent("인터넷")}`}><span>인터넷</span></Link>
-              <Link href={`/category/${encodeURIComponent("오디오")}`}><span>소리</span></Link>
-              <Link href={`/category/${encodeURIComponent("게임")}`}><span>게임</span></Link>
+              <Link href={`/category/${encodeURIComponent("전원")}`}><span className="device-icon"><SupportIcon name="power" /></span><span>전원</span></Link>
+              <Link href={`/category/${encodeURIComponent("화면")}`}><span className="device-icon"><SupportIcon name="monitor" /></span><span>화면</span></Link>
+              <Link href={`/category/${encodeURIComponent("인터넷")}`}><span className="device-icon"><SupportIcon name="wifi" /></span><span>인터넷</span></Link>
+              <Link href={`/category/${encodeURIComponent("오디오")}`}><span className="device-icon"><SupportIcon name="audio" /></span><span>소리</span></Link>
+              <Link href={`/category/${encodeURIComponent("게임")}`}><span className="device-icon"><SupportIcon name="game" /></span><span>게임</span></Link>
             </nav>
           </div>
         </div>
@@ -286,7 +283,6 @@ export default function HomeContent({ popularProblems, categories, commonErrors 
               </Link>
             </div>
             </div>
-            <div className="support-browse"><SymptomNavigator /></div>
             {/* 카테고리 */}
             <section className="category-directory">
               <div className="mb-6">

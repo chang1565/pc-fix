@@ -8,13 +8,17 @@ let checked = 0;
 for (const locale of ['ko','en','ja','zh-CN']) {
   const prefix = locale === 'ko' ? '' : `${locale}/`;
   const home = fs.readFileSync(`.next/server/app/${locale === 'ko' ? 'index' : locale}.html`, 'utf8');
-  const navigation = stripScripts(home).match(/<section id="symptom-start"[\s\S]*?<\/section>/)?.[0];
-  assert.ok(navigation, `symptom navigator missing: ${locale}`);
+  const visibleHome = stripScripts(home);
+  assert.ok(!visibleHome.includes('id="symptom-start"'), `removed section remains: ${locale}`);
+  assert.ok(!visibleHome.includes('support-devices.png'), `old product photo remains: ${locale}`);
+  const navigation = visibleHome.match(/<nav[^>]*class="device-links"[\s\S]*?<\/nav>/)?.[0];
+  assert.ok(navigation, `device navigation missing: ${locale}`);
   const links = [...navigation.matchAll(/href="([^"]+)"/g)].map(match => match[1]);
-  assert.equal(links.length, 21, `19 symptom routes and 2 safety routes: ${locale}`);
+  assert.equal(links.length, 5, `five device categories: ${locale}`);
+  assert.equal((navigation.match(/<svg/g) ?? []).length, 5, `five vector icons: ${locale}`);
   for (const link of links) {
-    assert.ok(link.startsWith(`/${prefix}problems/`), `wrong language: ${link}`);
-    assert.ok(fs.existsSync(`.next/server/app${link}.html`), `missing destination: ${link}`);
+    assert.ok(link.startsWith(`/${prefix}category/`), `wrong language: ${link}`);
+    assert.ok(fs.existsSync(`.next/server/app${decodeURIComponent(link)}.html`), `missing destination: ${link}`);
   }
   const scripts = [...new Set([...home.matchAll(/<script[^>]*src="([^"]+)"/g)].map(m => m[1].split('?')[0]).filter(p => p.startsWith('/_next/static/')))];
   const bytes = scripts.reduce((total, file) => total + fs.statSync(`.next/${file.slice('/_next/'.length)}`).size, 0);
@@ -30,6 +34,6 @@ for (const locale of ['ko','en','ja','zh-CN']) {
       checked++;
     }
   }
-  console.log(`PASS ${locale}: 21 localized routes; ${bytes} bytes of initial script files (uncompressed).`);
+  console.log(`PASS ${locale}: 5 localized device routes; ${bytes} bytes of initial script files (uncompressed).`);
 }
 console.log(`PASS: ${checked} detail pages retain FAQ answers, official sources, notes and optional diagrams in initial HTML.`);
