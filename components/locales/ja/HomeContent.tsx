@@ -114,11 +114,11 @@ export default function HomeContent({ popularProblems, categories }: {
         <div className="hero-grid"><div className="hero-copy">
           <div className="eyebrow">{" PC FIX\u30FB\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0\u30AC\u30A4\u30C9 "}</div>
 
-          <h1 className="hero-title">{" \u75C7\u72B6\u3092\u5207\u308A\u5206\u3051\u3001 "}<br />
-            <span className="hero-accent">{" \u6B21\u306E\u78BA\u8A8D\u3078\u3002 "}</span>
+          <h1 className="hero-title">{" \u30D1\u30BD\u30B3\u30F3\u306E\u4E0D\u5177\u5408\u30FB\u30A8\u30E9\u30FC "}<br />
+            <span className="hero-accent">{" \u75C7\u72B6\u5225\u306E\u5BFE\u51E6\u30AC\u30A4\u30C9 "}</span>
           </h1>
 
-          <p className="hero-description">{" \u75C7\u72B6\u306B\u5408\u3046\u9805\u76EE\u3092\u9078\u3093\u3067\u78BA\u8A8D\u3057\u307E\u3057\u3087\u3046\u3002 "}<br className="hidden sm:block"/>{" \u78BA\u8A8D\u3059\u308B\u8A2D\u5B9A\u304B\u3089\u3001\u4F5C\u696D\u3092\u4E2D\u6B62\u3059\u3079\u304D\u72B6\u6CC1\u307E\u3067\u6848\u5185\u3057\u307E\u3059\u3002 "}</p>
+          <p className="hero-description">{" \u96FB\u6E90\u30FB\u753B\u9762\u30FB\u30CD\u30C3\u30C8\u63A5\u7D9A\u306E\u554F\u984C\u3084Windows\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u691C\u7D22\u3067\u304D\u307E\u3059\u3002 "}<br className="hidden sm:block"/>{" \u539F\u56E0\u306E\u78BA\u8A8D\u304B\u3089\u8A2D\u5B9A\u306E\u898B\u76F4\u3057\u3001\u6539\u5584\u3057\u305F\u304B\u306E\u78BA\u8A8D\u307E\u3067\u6848\u5185\u3057\u307E\u3059\u3002 "}</p>
 
           {/* 검색 영역 */}
           <div className="hero-search" style={{
@@ -170,12 +170,12 @@ export default function HomeContent({ popularProblems, categories }: {
           </div>
         </div>
         <aside className="hero-fieldnote">
-          <div className="fieldnote-top"><span>PC FIX</span><span>CHECK → ACT → VERIFY</span></div>
-          <h2>{"\u5909\u66F4\u306F\u4E00\u3064\u305A\u3064\u3001"}<br />{"\u7D50\u679C\u3092\u78BA\u304B\u3081\u306A\u304C\u3089\u3002"}</h2>
+          <div className="fieldnote-top"><span>PC FIX</span><span>{"\u75C7\u72B6\u5225\u30B7\u30E7\u30FC\u30C8\u30AB\u30C3\u30C8"}</span></div>
+          <h2>{"\u4E3B\u306A\u75C7\u72B6\u304B\u3089\u63A2\u3059"}</h2>
           <ol className="fieldnote-steps">
-            <li><span>01</span><div><strong>{"\u75C7\u72B6\u306E\u533A\u5225"}</strong><p>{"\u3069\u3053\u307E\u3067\u6B63\u5E38\u304B\u6700\u521D\u306B\u78BA\u8A8D\u3057\u307E\u3059\u3002"}</p></div></li>
-            <li><span>02</span><div><strong>{"\u6761\u4EF6\u6BD4\u8F03"}</strong><p>{"\u4ED6\u306E\u6A5F\u5668\u30FB\u30A2\u30D7\u30EA\u30FB\u63A5\u7D9A\u3068\u6BD4\u8F03\u3057\u307E\u3059\u3002"}</p></div></li>
-            <li><span>03</span><div><strong>{"\u7D50\u679C\u306E\u78BA\u8A8D"}</strong><p>{"\u52B9\u679C\u304C\u306A\u3044\u5834\u5408\u306F\u5143\u306E\u8A2D\u5B9A\u306B\u623B\u308A\u307E\u3059\u3002"}</p></div></li>
+            <li><span>01</span><div><Link href="/ja/problems/desktop-no-power"><strong>{"\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\u306E\u96FB\u6E90\u304C\u5165\u3089\u306A\u3044 \u2197"}</strong></Link><p>{"\u30D5\u30A1\u30F3\u3082\u96FB\u6E90\u30E9\u30F3\u30D7\u3082\u53CD\u5FDC\u3057\u306A\u3044"}</p></div></li>
+            <li><span>02</span><div><Link href="/ja/problems/monitor-no-signal"><strong>{"\u30E2\u30CB\u30BF\u30FC\u306B\u4FE1\u53F7\u306A\u3057\u3068\u8868\u793A\u3055\u308C\u308B \u2197"}</strong></Link><p>{"\u672C\u4F53\u306E\u96FB\u6E90\u306F\u5165\u308B\u304C\u753B\u9762\u304C\u6620\u3089\u306A\u3044"}</p></div></li>
+            <li><span>03</span><div><Link href="/ja/problems/computer-boot-failure"><strong>{"Windows\u304C\u8D77\u52D5\u3057\u306A\u3044 \u2197"}</strong></Link><p>{"\u96FB\u6E90\u306F\u5165\u308B\u304CWindows\u304C\u8D77\u52D5\u3057\u306A\u3044"}</p></div></li>
           </ol>
           <a href={isSearching ? "#search-results" : "#symptom-start"} className="fieldnote-link">{isSearching ? "\u691C\u7D22\u7D50\u679C\u3092\u898B\u308B" : "\u75C7\u72B6\u304B\u3089\u63A2\u3059"} <span aria-hidden="true">↗</span></a>
         </aside>

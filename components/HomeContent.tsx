@@ -121,17 +121,17 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
           </div>
 
           <h1 className="hero-title">
-            문제를 나누면,
+            컴퓨터 오류·고장,
             <br />
             <span className="hero-accent">
-              다음 할 일이 보입니다.
+              증상별 해결 가이드
             </span>
           </h1>
 
           <p className="hero-description">
-            증상을 구분하고, 필요한 항목만 점검하세요.
+            전원, 화면, 인터넷 문제와 Windows 오류 코드를 찾아보세요.
             <br className="hidden sm:block" />
-            바꿔야 할 설정부터 멈춰야 할 상황까지 안내합니다.
+            원인 확인부터 설정 점검, 해결 여부 확인까지 안내합니다.
           </p>
 
           {/* 검색 영역 */}
@@ -246,12 +246,12 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
           </div>
         </div>
         <aside className="hero-fieldnote">
-          <div className="fieldnote-top"><span>PC FIX</span><span>CHECK → ACT → VERIFY</span></div>
-          <h2>한 번에 하나씩,<br />결과를 확인하며.</h2>
+          <div className="fieldnote-top"><span>PC FIX</span><span>증상 바로가기</span></div>
+          <h2>주요 증상 찾기</h2>
           <ol className="fieldnote-steps">
-            <li><span>01</span><div><strong>증상 구분</strong><p>어디까지 정상인지 먼저 확인합니다.</p></div></li>
-            <li><span>02</span><div><strong>조건 비교</strong><p>다른 기기·앱·연결과 비교합니다.</p></div></li>
-            <li><span>03</span><div><strong>결과 확인</strong><p>효과가 없으면 원래 설정으로 돌아갑니다.</p></div></li>
+            <li><span>01</span><div><Link href="/problems/desktop-no-power"><strong>데스크톱 전원이 안 켜짐 ↗</strong></Link><p>팬과 전원 표시등이 모두 꺼져 있음</p></div></li>
+            <li><span>02</span><div><Link href="/problems/monitor-no-signal"><strong>모니터에 신호 없음 ↗</strong></Link><p>본체 전원은 켜져 있지만 화면이 나오지 않음</p></div></li>
+            <li><span>03</span><div><Link href="/problems/computer-boot-failure"><strong>Windows 부팅 실패 ↗</strong></Link><p>전원은 켜지지만 Windows가 시작되지 않음</p></div></li>
           </ol>
           <a href={isSearching ? "#search-results" : "#symptom-start"} className="fieldnote-link">{isSearching ? "검색 결과 보기" : "내 증상부터 찾아보기"} <span aria-hidden="true">↗</span></a>
         </aside>

@@ -114,11 +114,11 @@ export default function HomeContent({ popularProblems, categories }: {
         <div className="hero-grid"><div className="hero-copy">
           <div className="eyebrow">{" PC FIX \u00B7 Computer troubleshooting guide "}</div>
 
-          <h1 className="hero-title">{" Find the symptom. "}<br />
-            <span className="hero-accent">{" Know what to check. "}</span>
+          <h1 className="hero-title">{" PC errors and faults. "}<br />
+            <span className="hero-accent">{" Troubleshooting guides. "}</span>
           </h1>
 
-          <p className="hero-description">{" Identify your symptoms and check what matters. "}<br className="hidden sm:block"/>{" Find the next step, the settings to check, and when to stop. "}</p>
+          <p className="hero-description">{" Find help with power, display, internet and Windows error codes. "}<br className="hidden sm:block"/>{" Check possible causes, review settings and verify the result. "}</p>
 
           {/* 검색 영역 */}
           <div className="hero-search" style={{
@@ -170,12 +170,12 @@ export default function HomeContent({ popularProblems, categories }: {
           </div>
         </div>
         <aside className="hero-fieldnote">
-          <div className="fieldnote-top"><span>PC FIX</span><span>CHECK → ACT → VERIFY</span></div>
-          <h2>{"One change at a time."}<br />{"Check the result."}</h2>
+          <div className="fieldnote-top"><span>PC FIX</span><span>{"Symptom shortcuts"}</span></div>
+          <h2>{"Find a symptom"}</h2>
           <ol className="fieldnote-steps">
-            <li><span>01</span><div><strong>{"Symptom classification"}</strong><p>{"First check to what extent it is normal."}</p></div></li>
-            <li><span>02</span><div><strong>{"Condition comparison"}</strong><p>{"Compare with other devices, apps, and connections."}</p></div></li>
-            <li><span>03</span><div><strong>{"Check results"}</strong><p>{"If it doesn't work, return to the original settings."}</p></div></li>
+            <li><span>01</span><div><Link href="/en/problems/desktop-no-power"><strong>{"Desktop will not power on \u2197"}</strong></Link><p>{"No fan activity or power lights"}</p></div></li>
+            <li><span>02</span><div><Link href="/en/problems/monitor-no-signal"><strong>{"Monitor shows no signal \u2197"}</strong></Link><p>{"The computer is on but there is no display"}</p></div></li>
+            <li><span>03</span><div><Link href="/en/problems/computer-boot-failure"><strong>{"Windows will not boot \u2197"}</strong></Link><p>{"Power is on but Windows does not start"}</p></div></li>
           </ol>
           <a href={isSearching ? "#search-results" : "#symptom-start"} className="fieldnote-link">{isSearching ? "View search results" : "Find my symptom"} <span aria-hidden="true">↗</span></a>
         </aside>

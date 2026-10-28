@@ -114,11 +114,11 @@ export default function HomeContent({ popularProblems, categories }: {
         <div className="hero-grid"><div className="hero-copy">
           <div className="eyebrow">{" PC FIX\u00B7\u7535\u8111\u6545\u969C\u6392\u9664\u6307\u5357 "}</div>
 
-          <h1 className="hero-title">{" \u5148\u5206\u6E05\u75C7\u72B6\uFF0C "}<br />
-            <span className="hero-accent">{" \u518D\u786E\u8BA4\u4E0B\u4E00\u6B65\u3002 "}</span>
+          <h1 className="hero-title">{" \u7535\u8111\u6545\u969C\u4E0E\u9519\u8BEF "}<br />
+            <span className="hero-accent">{" \u6309\u75C7\u72B6\u67E5\u627E\u89E3\u51B3\u6307\u5357 "}</span>
           </h1>
 
-          <p className="hero-description">{" \u5206\u6E05\u75C7\u72B6\uFF0C\u53EA\u68C0\u67E5\u76F8\u5173\u9879\u76EE\u3002 "}<br className="hidden sm:block"/>{" \u4ECE\u9700\u8981\u68C0\u67E5\u7684\u8BBE\u7F6E\u5230\u5E94\u5F53\u505C\u6B62\u64CD\u4F5C\u7684\u60C5\u51B5\uFF0C\u9010\u6B65\u4E3A\u4F60\u8BF4\u660E\u3002 "}</p>
+          <p className="hero-description">{" \u67E5\u627E\u7535\u6E90\u3001\u663E\u793A\u3001\u7F51\u7EDC\u95EE\u9898\u548C Windows \u9519\u8BEF\u4EE3\u7801\u3002 "}<br className="hidden sm:block"/>{" \u4ECE\u68C0\u67E5\u53EF\u80FD\u539F\u56E0\u3001\u6838\u5BF9\u8BBE\u7F6E\u5230\u786E\u8BA4\u5904\u7406\u7ED3\u679C\uFF0C\u9010\u6B65\u6392\u67E5\u3002 "}</p>
 
           {/* 검색 영역 */}
           <div className="hero-search" style={{
@@ -170,12 +170,12 @@ export default function HomeContent({ popularProblems, categories }: {
           </div>
         </div>
         <aside className="hero-fieldnote">
-          <div className="fieldnote-top"><span>PC FIX</span><span>CHECK → ACT → VERIFY</span></div>
-          <h2>{"\u6BCF\u6B21\u53EA\u6539\u4E00\u9879\uFF0C"}<br />{"\u9010\u9879\u786E\u8BA4\u7ED3\u679C\u3002"}</h2>
+          <div className="fieldnote-top"><span>PC FIX</span><span>{"\u75C7\u72B6\u5FEB\u6377\u5165\u53E3"}</span></div>
+          <h2>{"\u67E5\u627E\u4E3B\u8981\u75C7\u72B6"}</h2>
           <ol className="fieldnote-steps">
-            <li><span>01</span><div><strong>{"\u75C7\u72B6\u5206\u7C7B"}</strong><p>{"\u9996\u5148\u68C0\u67E5\u6B63\u5E38\u5230\u4EC0\u4E48\u7A0B\u5EA6\u3002"}</p></div></li>
-            <li><span>02</span><div><strong>{"\u6761\u4EF6\u6BD4\u8F83"}</strong><p>{"\u4E0E\u5176\u4ED6\u8BBE\u5907\u3001\u5E94\u7528\u7A0B\u5E8F\u548C\u8FDE\u63A5\u8FDB\u884C\u6BD4\u8F83\u3002"}</p></div></li>
-            <li><span>03</span><div><strong>{"\u68C0\u67E5\u7ED3\u679C"}</strong><p>{"\u5982\u679C\u4E0D\u8D77\u4F5C\u7528\uFF0C\u8BF7\u8FD4\u56DE\u539F\u59CB\u8BBE\u7F6E\u3002"}</p></div></li>
+            <li><span>01</span><div><Link href="/zh-CN/problems/desktop-no-power"><strong>{"\u53F0\u5F0F\u673A\u65E0\u6CD5\u901A\u7535 \u2197"}</strong></Link><p>{"\u98CE\u6247\u548C\u7535\u6E90\u6307\u793A\u706F\u5747\u65E0\u53CD\u5E94"}</p></div></li>
+            <li><span>02</span><div><Link href="/zh-CN/problems/monitor-no-signal"><strong>{"\u663E\u793A\u5668\u63D0\u793A\u65E0\u4FE1\u53F7 \u2197"}</strong></Link><p>{"\u4E3B\u673A\u5DF2\u901A\u7535\uFF0C\u4F46\u5C4F\u5E55\u6CA1\u6709\u753B\u9762"}</p></div></li>
+            <li><span>03</span><div><Link href="/zh-CN/problems/computer-boot-failure"><strong>{"Windows \u65E0\u6CD5\u542F\u52A8 \u2197"}</strong></Link><p>{"\u7535\u8111\u5DF2\u901A\u7535\uFF0C\u4F46 Windows \u672A\u80FD\u542F\u52A8"}</p></div></li>
           </ol>
           <a href={isSearching ? "#search-results" : "#symptom-start"} className="fieldnote-link">{isSearching ? "\u67E5\u770B\u641C\u7D22\u7ED3\u679C" : "\u67E5\u627E\u6211\u7684\u75C7\u72B6"} <span aria-hidden="true">↗</span></a>
         </aside>

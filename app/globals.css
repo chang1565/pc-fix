@@ -76,6 +76,8 @@ html[lang="ko"] .hero-title, html[lang="ko"] .hero-description { word-break:keep
 .fieldnote-steps li { display: flex; gap: 18px; padding: 15px 0; }
 .fieldnote-steps li > span { color: #a6d1b8; font-size: 12px; font-variant-numeric: tabular-nums; padding-top: 3px; }
 .fieldnote-steps strong { font-size: 15px; font-weight: 650; }
+.fieldnote-steps a { display:block; padding-block:4px; }
+.fieldnote-steps a:hover { text-decoration:underline; text-underline-offset:4px; }
 .fieldnote-steps p { font-size: 12px; line-height: 1.8; color: #bdd0d0; margin-top: 4px; }
 .fieldnote-link { margin-top: 23px; border-top: 1px solid #466269; padding-top: 22px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 650; color: #d5eddc; }
 .section-heading { display:flex; gap: 24px; justify-content:space-between; align-items:end; margin-bottom:28px; }
@@ -162,9 +164,10 @@ html[lang="ko"] .hero-title, html[lang="ko"] .hero-description { word-break:keep
   .hero-description br { display:block; }
   .hero-fieldnote { margin-top:32px; box-shadow:none; }
   .hero-fieldnote h2, .fieldnote-top { display:none; }
-  .fieldnote-steps { margin-top:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-  .fieldnote-steps li { padding:0; display:block; }
-  .fieldnote-steps strong { font-size:12px; }
+  .fieldnote-steps { margin-top:0; display:block; }
+  .fieldnote-steps li { padding:5px 0; display:flex; align-items:center; }
+  .fieldnote-steps strong { font-size:14px; }
+  .fieldnote-steps a { padding-block:8px; }
   .fieldnote-steps p { display:none; }
   .fieldnote-link { margin-top:16px; padding-top:14px; }
   .section-heading { align-items:start; flex-direction:column; gap:0; }
