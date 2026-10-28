@@ -1,4 +1,5 @@
 "use client";
+import SupportIcon from "@/components/SupportIcon";
 import DisplayAd from "@/components/DisplayAd";
 import SymptomNavigator from "@/components/SymptomNavigator";
 
@@ -116,6 +117,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
       {/* HERO */}
       <section className="home-hero">
         <div className="hero-grid"><div className="hero-copy">
+          <div className="support-emblem" aria-hidden="true"><SupportIcon name="display" /></div>
           <div className="eyebrow">
             PC FIX · 컴퓨터 문제 해결 가이드
           </div>
@@ -142,11 +144,13 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
             }}
           >
             <div
+              className="search-input-wrap"
               style={{
                 position: "relative",
                 width: "100%",
               }}
             >
+              <SupportIcon name="search" className="search-icon" />
               <input
                 type="text"
                 aria-label="컴퓨터 증상 또는 오류 코드 검색"
@@ -200,7 +204,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
             </p>
 
             {/* 빠른 검색 */}
-            <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
+            <div className="search-examples mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
               <button
                 type="button"
                 onClick={() =>
@@ -245,16 +249,11 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
             </div>
           </div>
         </div>
-        <aside className="hero-fieldnote">
-          <div className="fieldnote-top"><span>PC FIX</span><span>증상 바로가기</span></div>
-          <h2>주요 증상 찾기</h2>
-          <ol className="fieldnote-steps">
-            <li><span>01</span><div><Link href="/problems/desktop-no-power"><strong>데스크톱 전원이 안 켜짐 ↗</strong></Link><p>팬과 전원 표시등이 모두 꺼져 있음</p></div></li>
-            <li><span>02</span><div><Link href="/problems/monitor-no-signal"><strong>모니터에 신호 없음 ↗</strong></Link><p>본체 전원은 켜져 있지만 화면이 나오지 않음</p></div></li>
-            <li><span>03</span><div><Link href="/problems/computer-boot-failure"><strong>Windows 부팅 실패 ↗</strong></Link><p>전원은 켜지지만 Windows가 시작되지 않음</p></div></li>
-          </ol>
-          <a href={isSearching ? "#search-results" : "#symptom-start"} className="fieldnote-link">{isSearching ? "검색 결과 보기" : "내 증상부터 찾아보기"} <span aria-hidden="true">↗</span></a>
-        </aside>
+        <nav className="quick-routes" aria-label="증상 바로가기">
+          <Link href="/problems/desktop-no-power"><SupportIcon name="power" /><span>데스크톱 전원이 안 켜짐 ↗</span></Link>
+          <Link href="/problems/monitor-no-signal"><SupportIcon name="display" /><span>모니터에 신호 없음 ↗</span></Link>
+          <Link href="/problems/computer-boot-failure"><SupportIcon name="speed" /><span>Windows 부팅 실패 ↗</span></Link>
+        </nav>
         </div>
       </section>
 
@@ -280,7 +279,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
 
             {searchPending ? <p role="status" className="rounded-xl border border-slate-200 bg-white p-6">검색 자료를 불러오는 중입니다.</p> : searchState.failed ? <div role="alert" className="rounded-xl border border-amber-200 bg-amber-50 p-6"><p>검색 자료를 불러오지 못했습니다. 연결을 확인하거나 증상별 목록을 이용하세요.</p><button type="button" onClick={handleClear} className="mt-4 underline">증상별 목록 보기</button></div> : searchResults.length > 0 ? (
               <>
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="search-result-list">
                   {searchResults
                     .slice(0, expandedQuery === debouncedQuery ? undefined : 10)
                     .map((problem, index) => (
@@ -359,6 +358,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
         ) : (
           <>
             <SymptomNavigator />
+            <div className="knowledge-layout">
             {/* 대표 가이드 */}
             <section className="featured-guides">
               <div className="mb-6">
@@ -400,7 +400,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
             </section>
 
             {/* 카테고리 */}
-            <section className="mt-14">
+            <section className="category-directory">
               <div className="mb-6">
                 <h2 className="text-2xl font-black text-slate-950">
                   카테고리별 문제 찾기
@@ -426,7 +426,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
                       </div>
 
                       <div className="mt-1 text-xs text-slate-400">
-                        문제 {count}개
+                        {count}
                       </div>
                     </Link>
                   );
@@ -434,6 +434,7 @@ export default function HomeContent({ popularProblems, categories }: { popularPr
               </div>
             </section>
 
+            </div>
             <section className="editorial-promise"><div><p className="eyebrow">자료를 읽는 기준</p><h2>확인한 것과<br />확인하지 못한 것을 구분합니다.</h2></div><div><p>공식 지원 문서를 바탕으로 적용 조건과 점검 순서를 정리합니다. 모든 기기의 고장을 직접 재현한 수리 기록은 아닙니다.</p><p>각 가이드의 출처와 중단 기준을 확인하세요. 해결되지 않으면 기록한 결과를 바탕으로 다음 점검을 결정하세요.</p><Link href="/about">작성·검증 기준 읽기 ↗</Link></div></section>
           </>
         )}

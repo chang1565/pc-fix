@@ -1,3 +1,4 @@
+import SupportIcon from "@/components/SupportIcon";
 import Link from "next/link";
 import LanguageSelector from "@/components/LanguageSelector";
 
@@ -6,8 +7,8 @@ export default function SiteHeader() {
     <header className="site-header">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 font-black text-white">
-            P
+          <div className="brand-mark">
+            <SupportIcon name="display" />
           </div>
 
           <div>

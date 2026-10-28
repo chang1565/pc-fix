@@ -1,5 +1,7 @@
+import SupportIcon from "@/components/SupportIcon";
 import Link from 'next/link';
 
+const icons = ["power", "wifi", "display", "speed", "audio", "usb"] as const;
 const groups = [
   { number: '01', title: '전원·부팅', hint: '아예 켜지지 않거나 Windows에 들어갈 수 없어요.', routes: [
     ['/problems/desktop-no-power', '데스크톱의 팬과 전원 표시등도 꺼져 있어요'],
@@ -37,8 +39,8 @@ const groups = [
 export default function SymptomNavigator() {
   return <section id="symptom-start" className="symptom-navigator" aria-labelledby="symptom-heading">
     <div className="section-heading"><div><p className="eyebrow">증상으로 시작하기</p><h2 id="symptom-heading">지금 어떤 상태인가요?</h2></div><p>가까운 상황을 고르면<br className="hidden sm:block" /> 확인할 순서로 이어집니다.</p></div>
-    <div className="symptom-grid">{groups.map(group => <details key={group.number} className="symptom-group" name="symptom-group">
-      <summary><span className="symptom-number" aria-hidden="true">{group.number}</span><span><strong>{group.title}</strong><span className="symptom-hint">{group.hint}</span></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
+    <div className="symptom-grid">{groups.map((group, index) => <details key={group.number} className="symptom-group" name="symptom-group">
+      <summary><span className="symptom-icon"><SupportIcon name={icons[index]} /></span><span><strong>{group.title}</strong><span className="symptom-hint">{group.hint}</span></span><span className="symptom-toggle" aria-hidden="true">+</span></summary>
       <ul>{group.routes.map(([href, title]) => <li key={href}><Link href={href}>{title}<span aria-hidden="true">↗</span></Link></li>)}</ul>
     </details>)}</div>
     <p className="navigator-note">타는 냄새, 배터리 팽창, 저장장치 이상음이 있으면 반복 점검을 멈추고 전문 점검을 받으세요. <Link href="/problems/battery-swollen" className="underline">배터리 팽창 안내</Link> · <Link href="/problems/hdd-clicking" className="underline">저장장치 이상음 안내</Link></p>
