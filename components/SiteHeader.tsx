@@ -6,7 +6,7 @@ export default function SiteHeader() {
     <header className="site-header">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
         <Link href="/" className="support-brand">
-          <span className="support-wordmark">PC FIX</span>
+          <span className="support-wordmark">PC <span className="support-wordmark-accent">FIX</span></span>
           <span className="support-tagline">컴퓨터 문제 해결 가이드</span>
         </Link>
 

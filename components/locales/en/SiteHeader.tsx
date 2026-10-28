@@ -5,7 +5,7 @@ export default function SiteHeader() {
     return (<header className="site-header">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
         <Link href="/en" className="support-brand">
-          <span className="support-wordmark">PC FIX</span>
+          <span className="support-wordmark">PC <span className="support-wordmark-accent">FIX</span></span>
           <span className="support-tagline">{"Computer Troubleshooting Guide"}</span>
         </Link>
 

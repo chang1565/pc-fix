@@ -5,7 +5,7 @@ export default function SiteHeader() {
     return (<header className="site-header">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
         <Link href="/ja" className="support-brand">
-          <span className="support-wordmark">PC FIX</span>
+          <span className="support-wordmark">PC <span className="support-wordmark-accent">FIX</span></span>
           <span className="support-tagline">{"\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u306E\u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0\u30AC\u30A4\u30C9"}</span>
         </Link>
 
