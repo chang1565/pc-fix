@@ -87,6 +87,11 @@ for(const locale of ['en','ja','zh-CN']) {
 console.log('PASS: reviewed symptom sequences, execution environments, diagnostic outcomes and critical translation regressions.');
 
 const procedures = load('data/procedureReview.json');
+const rtcAccess = problem('windows-time-wrong').solutions.find(s => s.title === 'RTC/CMOS 배터리 또는 메인보드 점검하기').access;
+assert.match(rtcAccess.when, /BIOS\/UEFI 날짜·시간/);
+assert.doesNotMatch(rtcAccess.when, /POST|부품 교체/);
+assert.match(procedures['시간대와 자동 시간 설정 확인하기'].checkPoint, /시간 동기화 서비스·조직 정책/);
+assert.match(procedures['시간대와 자동 시간 설정 확인하기'].checkPoint, /오차만으로 배터리 고장이라고 판단하지 마세요/);
 assert.match(procedures['CPU·GPU 사용률과 온도 확인하기'].checkPoint, /온도·클럭·팬/);
 assert.doesNotMatch(procedures['CPU·GPU 사용률과 온도 확인하기'].checkPoint, /메모리·디스크/);
 assert.match(procedures['하드웨어 점검 또는 수리 의뢰하기'].steps.join(' '), /백업을 위해 다시 켜지 마세요/);

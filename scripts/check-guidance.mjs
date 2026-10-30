@@ -38,7 +38,7 @@ for (const page of [...problems, ...errorCodes]) {
   for (const source of page.sources) {
     const url = new URL(source.url);
     assert.equal(url.protocol, "https:");
-    assert.ok(/^(support\.microsoft\.com|learn\.microsoft\.com|www\.microsoft\.com|support\.google\.com|www\.dell\.com|dl\.dell\.com|www\.seagate\.com)$/.test(url.hostname), source.url);
+    assert.ok(/^(support\.microsoft\.com|learn\.microsoft\.com|www\.microsoft\.com|support\.google\.com|www\.dell\.com|dl\.dell\.com|www\.seagate\.com|www\.asus\.com)$/.test(url.hostname), source.url);
   }
 }
 for (const problem of problems) {

@@ -123,7 +123,7 @@
   "인터넷 연결과 Windows 시간 동기화 확인하기": "time",
   "BIOS/UEFI의 날짜와 시간 비교하기": "bios",
   "Windows 업데이트와 칩셋·BIOS 업데이트 확인하기": "firmware",
-  "RTC/CMOS 배터리 또는 메인보드 점검하기": "hardware",
+  "RTC/CMOS 배터리 또는 메인보드 점검하기": "rtc",
   "Windows 에디션과 라이선스 상태 확인하기": "activation",
   "정품 인증 오류 코드와 구매 에디션 대조하기": "activation",
   "초기화 실패 위치와 복구 진입 여부 확인하기": "recovery",

@@ -1,4 +1,16 @@
 {
+  "windows-time-wrong": [
+    {
+      "title": "Microsoft: Windows 날짜·시간·시간대 설정",
+      "url": "https://support.microsoft.com/en-us/windows/experience/personalization/set-time-date-and-time-zone-settings-in-windows"
+    }
+  ],
+  "cpu-new-install-no-boot": [
+    {
+      "title": "ASUS: 새 CPU 호환성·BIOS 지원·부팅 점검 (ASUS 보드 기준)",
+      "url": "https://www.asus.com/support/faq/1045511/"
+    }
+  ],
   "no-power-desktop": [
     {
       "title": "Dell: 전원·POST·부팅·영상 출력 구분 (Dell 장치 기준)",
