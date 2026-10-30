@@ -1,5 +1,6 @@
 import problemDiagnostics from "./problemDiagnostics.json";
 import procedureReview from "./procedureReview.json";
+import procedureReviewDates from "./procedureReviewDates.json";
 import problemReferences from "./problemReferences.json";
 import problemSolutionReview from "./problemSolutionReview.json";
 import procedureAccess from "./procedureAccess.json";
@@ -7228,7 +7229,10 @@ const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
 
   return {
     slug: seed.slug,
-    updatedAt: "2026-10-28",
+    updatedAt: solutions.reduce((latest, solution) => {
+      const reviewed = procedureReviewDates[solution.title as keyof typeof procedureReviewDates];
+      return reviewed && reviewed > latest ? reviewed : latest;
+    }, "2026-10-28"),
     title: seed.title,
     category: seed.category,
     description,
