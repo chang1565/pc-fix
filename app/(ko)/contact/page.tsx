@@ -1,5 +1,5 @@
-import { languageAlternates } from "@/lib/localization";
-export const metadata = { alternates: languageAlternates("/contact") };
+import { staticPageMetadata } from "@/lib/staticPageMetadata";
+export const metadata = staticPageMetadata("/contact");
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import ContactEmail from "@/components/ContactEmail";

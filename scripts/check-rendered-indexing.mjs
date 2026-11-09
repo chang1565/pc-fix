@@ -12,11 +12,16 @@ const urls = entries.map(entry => entry.match(/<loc>(.*?)<\/loc>/)[1]);
 const routes = new Set(urls.map(normalize));
 assert.equal(routes.size, urls.length, "Duplicate sitemap URL");
 const links = new Map();
+const titles = new Map();
 for (const [index, url] of urls.entries()) {
   const pathname = new URL(url).pathname;
   const file = path.join(built, `${pathname === "/" ? "index" : decodeURIComponent(pathname.slice(1))}.html`);
   const html = fs.readFileSync(file, "utf8").replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, "");
   assert.match(html, /<h1\b/i, `Missing heading: ${url}`);
+  const title = html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.trim();
+  assert(title, `Missing title: ${url}`);
+  assert(!titles.has(title), `Duplicate title: ${url} and ${titles.get(title)}`);
+  titles.set(title, url);
   assert(!/<meta[^>]+name="robots"[^>]+content="[^"]*noindex/i.test(html), `Blocked: ${url}`);
   const canonical = html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i)?.[1];
   assert.equal(canonical && normalize(canonical), normalize(url), `Canonical: ${url}`);
