@@ -7,6 +7,9 @@ const baseUrl =
   (process.env.NEXT_PUBLIC_SITE_URL || "https://pcfixbase.com").replace(/\/$/, "");
 
 const problemsUpdatedAt = "2026-10-06T00:00:00.000Z";
+// The live content was restored on this date. Keep this fixed across builds;
+// the historical source dates alone do not describe the latest live change.
+const contentRestoredAt = "2026-11-09T00:00:00.000Z";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const problemPages = problems.map((problem) => ({
@@ -36,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return locales.map(locale => ({
       ...page,
       url: `${baseUrl}${localizePath(pathname, locale)}`,
-      ...(locale !== "ko" ? { lastModified: errorsUpdatedAt } : {}),
+      ...(page.lastModified ? { lastModified: contentRestoredAt } : {}),
       alternates: { languages },
     }));
   });
