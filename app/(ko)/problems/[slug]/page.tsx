@@ -1,6 +1,4 @@
 import DisplayAd from "@/components/DisplayAd";
-import DiagnosticNotes from "@/components/DiagnosticNotes";
-import DiagnosticWorkflow from "@/components/DiagnosticWorkflow";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,7 +7,6 @@ import FaqItem from "@/components/FaqItem";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import ErrorCard from "@/components/ErrorCard";
-import { ProcedureAccess, ProcedureOverview, ProcedureVisual } from "@/components/ProcedureGuide";
 import { errorCodes } from "@/data/errorCodes";
 import { languageAlternates } from "@/lib/localization";
 
@@ -164,7 +161,7 @@ export default async function ProblemPage({
   };
 
   return (
-    <main className="guide-page relative min-h-screen text-slate-900">
+    <main className="relative min-h-screen bg-slate-50 text-slate-900">
       {/* JSON-LD */}
 
       <script
@@ -237,117 +234,24 @@ export default async function ProblemPage({
           <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
             {problem.title}
           </h1>
-          <div className="guide-meta"><span>문서 기반 점검 안내</span><a href="#official-sources">공식 참고 자료 {problem.sources.length}개</a></div>
 
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
             {problem.description}
           </p>
 
-        </section>
+          <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50 p-4">
+            <p className="text-sm leading-6 text-blue-900">
+              <strong>
+                해결 순서
+              </strong>
 
-        {problem.warning && (
-          <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <h2 className="text-lg font-black text-amber-900">
-              주의사항
-            </h2>
+              <br />
 
-            <p className="mt-2 text-sm leading-7 text-amber-800">
-              {problem.warning}
+              가장 간단하고 비용이 적게 드는
+              방법부터 정리되어 있습니다.
+              위쪽 해결 방법부터 하나씩
+              확인하세요.
             </p>
-          </section>
-        )}
-
-        <DiagnosticWorkflow slug={problem.slug} />
-        <ProcedureOverview solutions={problem.solutions.slice(1)} />
-
-        {/* 해결 방법 */}
-
-        <section className="mt-10">
-          <div>
-            <h2 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
-              해결 방법
-            </h2>
-
-            <p className="mt-2 text-sm text-slate-500">
-              위에서부터 차례대로
-              확인하세요. 문제가 해결되었다면
-              다음 단계는 진행할 필요가 없습니다.
-            </p>
-          </div>
-
-          <aside id="solution-1" className="mt-6 rounded-xl border border-blue-200 bg-blue-50 p-5">
-            <h3 className="font-bold text-blue-950">{problem.solutions[0].title}</h3>
-            <ul className="mt-3 list-disc space-y-3 pl-5 text-sm leading-7 text-blue-900">
-              {problem.solutions[0].steps.map(item => <li key={item}>{item}</li>)}
-            </ul>
-            <p className="mt-3 text-sm leading-7 text-blue-900">{problem.solutions[0].checkPoint}</p>
-          </aside>
-          <div className="mt-6 space-y-6">
-            {problem.solutions.slice(1).map(
-              (solution, solutionIndex) => (
-                <article
-                  key={solution.order}
-                  id={`solution-${solution.order}`}
-                  className="scroll-mt-24 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
-                >
-                  <div className="border-b border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="flex gap-4">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-black text-white">
-                          {solutionIndex + 1}
-                        </div>
-
-                        <div>
-                          <h3 className="text-lg font-bold text-slate-950 sm:text-xl">
-                            {solution.title}
-                          </h3>
-                          {solution.reason && <p className="mt-2 text-sm leading-6 text-slate-600">{solution.reason}</p>}
-                        </div>
-                      </div>
-
-
-                    </div>
-                  </div>
-
-                  <div className="px-5 py-6 sm:px-6">
-                    <ProcedureAccess access={solution.access} />
-                    {solution.location && <div className="mb-5 rounded-xl bg-blue-50 p-4 text-sm leading-7 text-blue-900"><strong>확인할 곳: </strong>{solution.location}</div>}
-                    <ol className="space-y-4">
-                      {solution.steps.map(
-                        (step, index) => (
-                          <li
-                            key={index}
-                            className="flex gap-3 text-sm leading-7 text-slate-700"
-                          >
-                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-slate-100 text-xs font-bold text-slate-600">
-                              {index + 1}
-                            </span>
-
-                            <span>
-                              {step}
-                            </span>
-                          </li>
-                        )
-                      )}
-                    </ol>
-
-                    {solutionIndex === 0 && <ProcedureVisual access={solution.access} />}
-
-                    {solution.checkPoint && (
-                      <div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
-                        <p className="text-sm font-bold text-green-800">
-                          결과 판단과 다음 행동
-                        </p>
-
-                        <p className="mt-1 text-sm leading-6 text-green-700">
-                          {solution.checkPoint}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </article>
-              )
-            )}
           </div>
         </section>
 
@@ -401,39 +305,117 @@ export default async function ProblemPage({
           </section>
         </div>
 
-      <section className="mt-10">
+        {/* 해결 방법 */}
+
+        <section className="mt-10">
           <div>
-            <h2 className="text-2xl font-black text-slate-950">
-              자주 묻는 질문
+            <h2 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">
+              해결 방법
             </h2>
+
+            <p className="mt-2 text-sm text-slate-500">
+              위에서부터 차례대로
+              확인하세요. 문제가 해결되었다면
+              다음 단계는 진행할 필요가 없습니다.
+            </p>
           </div>
 
-          <div className="mt-6 space-y-4">
-            {faq.map(
-              (item, index) => (
-                <FaqItem
-                  key={index}
-                  question={item.question}
-                  answer={item.answer}
-                />
+          <div className="mt-6 space-y-6">
+            {problem.solutions.map(
+              (solution) => (
+                <article
+                  key={solution.order}
+                  id={`solution-${solution.order}`}
+                  className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+                >
+                  <div className="border-b border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex gap-4">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-black text-white">
+                          {solution.order}
+                        </div>
+
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-950 sm:text-xl">
+                            {solution.title}
+                          </h3>
+
+                          <p className="mt-2 text-sm leading-6 text-slate-600">
+                            {solution.reason}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex shrink-0 flex-wrap gap-2 text-xs font-semibold">
+                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">
+                          난이도{" "}
+                          {solution.difficulty}
+                        </span>
+
+                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">
+                          시간{" "}
+                          {solution.time}
+                        </span>
+
+                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">
+                          비용{" "}
+                          {solution.cost}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="px-5 py-6 sm:px-6">
+                    <ol className="space-y-4">
+                      {solution.steps.map(
+                        (step, index) => (
+                          <li
+                            key={index}
+                            className="flex gap-3 text-sm leading-7 text-slate-700"
+                          >
+                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-slate-100 text-xs font-bold text-slate-600">
+                              {index + 1}
+                            </span>
+
+                            <span>
+                              {step}
+                            </span>
+                          </li>
+                        )
+                      )}
+                    </ol>
+
+                    {solution.checkPoint && (
+                      <div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
+                        <p className="text-sm font-bold text-green-800">
+                          확인 포인트
+                        </p>
+
+                        <p className="mt-1 text-sm leading-6 text-green-700">
+                          {solution.checkPoint}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </article>
               )
             )}
           </div>
         </section>
 
-        <section id="official-sources" className="mt-8 rounded-2xl border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-black text-slate-950">공식 참고 문서와 적용 범위</h2>
-          <ul className="mt-3 space-y-2">{problem.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">{source.title}</a></li>)}</ul>
-          <p className="mt-4 text-sm leading-7 text-slate-600">Windows 버전·장치 모델에 따라 메뉴와 지원 기능이 다릅니다. 제조사 문서의 적용 모델을 확인하세요. 아래 자료는 관련 절차의 참고 문서이며 모든 증상을 동일한 원인으로 확정하는 근거는 아닙니다.</p>
-          <p className="mt-3 text-xs text-slate-500">내용 검토일: {problem.updatedAt} · 모든 기기에서 직접 재현한 수리 기록은 아닙니다.</p>
-          <Link href="/contact" className="mt-3 inline-block text-sm text-blue-600 underline">설명 오류·다른 결과 제보하기</Link>
-        </section>
-
-        <DiagnosticNotes key={problem.slug} title={problem.title} />
-
         {/* 주의사항 */}
 
+        {problem.warning && (
+          <section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
+            <h2 className="text-lg font-black text-amber-900">
+              주의사항
+            </h2>
 
+            <p className="mt-2 text-sm leading-7 text-amber-800">
+              {problem.warning}
+            </p>
+          </section>
+        )}
 
         
 
@@ -488,7 +470,7 @@ export default async function ProblemPage({
             </p>
 
             <div className="mt-4 text-sm font-bold text-blue-600">
-              해결 방법 보기
+              해결 방법 보기 →
             </div>
           </Link>
         ))}
@@ -501,7 +483,7 @@ export default async function ProblemPage({
             <h2 className="text-2xl font-black">관련 오류 코드</h2>
             <p className="mt-2 text-sm text-slate-500">화면에 아래 코드가 표시됐다면 오류별 확인 절차를 참고하세요.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry} />)}</div>
-            <Link href="/errors" className="mt-4 inline-block font-semibold text-blue-600">전체 오류 코드 보기</Link>
+            <Link href="/errors" className="mt-4 inline-block font-semibold text-blue-600">전체 오류 코드 보기 →</Link>
           </section>
         )}
         {/* 하단 CTA */}
@@ -521,10 +503,33 @@ export default async function ProblemPage({
             href="/"
             className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100"
           >
-            다른 문제 검색하기
+            다른 문제 검색하기 →
           </Link>
         </section>
+      <section className="mt-16">
+          <div>
+            <h2 className="text-2xl font-black text-slate-950">
+              자주 묻는 질문
+            </h2>
 
+            <p className="mt-2 text-sm text-slate-500">
+              이 문제와 관련해 자주 확인하는
+              내용을 정리했습니다.
+            </p>
+          </div>
+
+          <div className="mt-6 space-y-4">
+            {faq.map(
+              (item, index) => (
+                <FaqItem
+                  key={index}
+                  question={item.question}
+                  answer={item.answer}
+                />
+              )
+            )}
+          </div>
+        </section>
       </div>
 
       <div className="display-ad-sides"><DisplayAd label="광고" placement="left" /><DisplayAd label="광고" placement="right" /></div><DisplayAd label="광고" /><SiteFooter />

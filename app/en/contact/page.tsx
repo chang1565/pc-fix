@@ -3,7 +3,6 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/en/contact") };
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
-import ContactEmail from "@/components/ContactEmail";
 export default function ContactPage() {
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
@@ -14,13 +13,14 @@ export default function ContactPage() {
 
           <p className="mt-6 leading-7 text-slate-600">{" This is a page for PC FIX content errors, correction requests, partnerships, and other inquiries. "}</p>
 
-          <p className="mt-4 text-sm leading-7 text-slate-600">{"In your correction request, please include the page address, error code, Windows version, action attempted, and result. Please hide the name, email, product key, and recovery key in the screen data. We don't ask for remote access or passwords."}</p>
           <div className="mt-8 rounded-xl bg-slate-50 p-5">
             <h2 className="font-bold text-slate-950">{" How to contact us "}</h2>
 
             <p className="mt-2 text-sm leading-6 text-slate-500">{" Please send any inquiries to the email address below. "}</p>
 
-            <div className="mt-3"><ContactEmail link/></div>
+            <a href="mailto:contact@pcfixbase.com" className="mt-3 inline-block font-semibold text-blue-600 hover:underline">
+              contact@pcfixbase.com
+            </a>
           </div>
         </div>
       </article>

@@ -5,11 +5,11 @@ import { collectStrings } from "./translate-content.mjs";
 const { problems, errorCodes } = { ...load("data/problems.ts"), ...load("data/errorCodes.ts") };
 const { localizePath, languageAlternates } = load("lib/localization.ts");
 const strings = collectStrings();
-const commands = /\bmsinfo32\b|\bexplorer\.exe\b|\bCtrl\+Shift\+Esc\b|\bCtrl\+Shift\+N\b|powercfg \/(?:batteryreport|lastwake|waketimers|a)|chrome:\/\/extensions|MemoryDiagnostics-Results|WLAN-AutoConfig|SideBySide|joy\.cpl|eventvwr\.msc|msconfig|\bresmon\b|\b(?:x86|x64|amd64|ARM64)\b|DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:all|flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
+const commands = /DISM \/Online \/Cleanup-Image \/RestoreHealth|sfc \/scannow|chkdsk C: \/scan|chkdsk \/r|ipconfig \/(?:flushdns|release|renew)|netsh (?:winsock reset|int ip reset)|\b0x[0-9a-f]+\b|\b[A-Z][A-Z0-9]+(?:_[A-Z0-9]+)+\b|\b[A-Za-z0-9_]+\.(?:dll|sys|msc)\b/gi;
 for (const locale of ["en", "ja", "zh-CN"]) {
   const localized = load(`data/locales/${locale}.ts`);
   const dictionary = load(`data/locales/${locale}.json`);
-  assert.equal(localized.problems.length, 216);
+  assert.equal(localized.problems.length, 217);
   assert.equal(localized.errorCodes.length, 80);
   for (const value of strings) {
     assert.ok(dictionary[value], `missing ${locale}: ${value}`);
@@ -52,7 +52,7 @@ for (const locale of ["en", "ja", "zh-CN"]) {
     assert.ok(!/[가-힣]/.test(entry.description), `${locale}: untranslated error`);
   }
   for (const field of ["seoTitle", "seoDescription"]) {
-    assert.equal(new Set(localized.problems.map(entry => entry[field])).size, 216, `${locale}: duplicate problem ${field}`);
+    assert.equal(new Set(localized.problems.map(entry => entry[field])).size, 217, `${locale}: duplicate problem ${field}`);
     assert.equal(new Set(localized.errorCodes.map(entry => entry[field])).size, 80, `${locale}: duplicate error ${field}`);
   }
   const search = load(`lib/locales/${locale}/unifiedSearch.ts`).searchPcFix;
@@ -67,5 +67,5 @@ for (const locale of ["en", "ja", "zh-CN"]) {
   assert.equal(Object.keys(languageAlternates(`/${locale}/errors/memory-management`).languages).length, 5);
   const layout = fs.readFileSync(new URL(`../app/${locale}/layout.tsx`, import.meta.url), "utf8");
   assert.ok(layout.includes(`lang="${locale}"`));
-  console.log(`PASS ${locale}: 216 problems, 80 errors, ${strings.length} translated strings, preserved codes/commands/slugs, localized search and language links.`);
+  console.log(`PASS ${locale}: 217 problems, 80 errors, ${strings.length} translated strings, preserved codes/commands/slugs, localized search and language links.`);
 }

@@ -12,25 +12,13 @@ export default function AboutPage() {
           <h1 className="text-3xl font-black text-slate-950">{" About PC FIX "}</h1>
 
           <div className="mt-6 space-y-6 text-sm leading-7 text-slate-600 sm:text-base">
-            <h2 className="text-xl font-bold text-slate-950">{"Creation/Verification Standards"}</h2>
-            <p>{"PC FIX compiles guidance based on official support documentation and symptom-specific verification procedures. We use AI for development and drafting, and passing code inspection does not equate to a successful repair on a real device. This data does not directly reproduce all failures."}</p>
-            <p>{"The guide identifies application conditions, results to be compared, next actions, and stopping criteria. Common inspection is performed only when necessary after narrowing down the cause to the symptom branch. Official documentation is the basis of the procedure and is not evidence that determines the cause of a specific PC failure. The revision date is the date the text was changed, not the actual test date."}</p>
-            <p>{"When posting actual reproduction data, we also disclose the device model, Windows build, reproduction conditions, and results before and after changes. A distinction is made between explanatory diagrams and actual screens. The comparative diagnosis of the current representative guide does not include records of physical reproduction."}</p>
-            <p>{"Wrong guidance "}<a href="/en/contact" className="text-blue-700 underline">{"contact page"}</a>{"Please let us know. Please send us the document address, Windows version, failed step and error text to help us verify. Please do not send passwords, recovery keys, or personal files."}</p>
-            <h2 className="text-xl font-bold text-slate-950">{"Service information"}</h2>
             <p>{" PC FIX is a troubleshooting guide created to help anyone easily solve various problems that occur while using a computer. "}</p>
 
             <p>{" When you try to search for a computer problem, you often come across technical terms or complicated explanations. PC FIX is structured to find problems based on the symptoms users actually experience. "}</p>
 
             <p>{" Where possible, solutions are organized starting with the easiest and least expensive method and progressing to more advanced steps. "}</p>
 
-            <p>{" Because every computer environment may be different, the methods provided do not guarantee the same results in all situations. Back up your important data when it is safe to do so and your files are readable. If there is smoke, battery expansion, or abnormal sounds from the storage device, stop using the product and consult a professional for inspection or data recovery. "}</p>
-            <section>
-              <h2 className="text-lg font-bold text-slate-950">{"Language and application environment"}</h2>
-              <p className="mt-2">{"Menu names and supported features may vary depending on Windows version, device, and organization policy. For procedures that differ from the actual screen, please check the device manufacturer's instructions first."}</p>
-              <p className="mt-2">{"We use automatic translation for guidance in English, Japanese, and Chinese and check technical terms and safety phrases. If the meaning of the original text is unclear or different from the actual screen, stop working and check the official document."}</p>
-              <a href="/en/contact" className="mt-2 inline-block text-blue-600 underline">{"Send content error/correction request"}</a>
-            </section>
+            <p>{" Because every computer environment may be different, the methods provided do not guarantee the same results in all situations. If you have important data, we recommend backing it up first and getting a professional inspection if you suspect a physical failure. "}</p>
           </div>
         </div>
       </article>

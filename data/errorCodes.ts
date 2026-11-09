@@ -1,22 +1,15 @@
-import errorDiagnostics from "./errorDiagnostics.json";
-import errorProcedureReview from "./errorProcedureReview.json";
-import procedureAccess from "./procedureAccess.json";
-import accessProfiles from "./accessProfiles.json";
-import type { AccessGuide } from "./problems";
-
 export type ErrorCodeEntry = {
   slug: string; code: string; category: string; title: string;
   description: string; commonSituations: string; causes: string[]; firstCheck: string;
   aliases: string[]; updatedAt: string;
-  beforeSteps: string; unresolved: string;
-  solutions: { order: number; title: string; reason: string; difficulty: "쉬움" | "보통" | "어려움"; time: string; steps: string[]; location?: string; checkPoint?: string; access?: AccessGuide }[];
+  solutions: { order: number; title: string; reason: string; difficulty: "쉬움" | "보통" | "어려움"; time: string; steps: string[]; checkPoint?: string }[];
   faqs: { question: string; answer: string }[];
   relatedProblemSlugs: string[]; seoTitle: string; seoDescription: string;
   sources: { title: string; url: string }[];
 };
 
 // 날짜는 내용을 검토·수정했을 때만 갱신합니다.
-export const errorsUpdatedAt = "2026-10-27T00:00:00.000Z";
+export const errorsUpdatedAt = "2026-10-07T00:00:00.000Z";
 type Seed = [code: string, name: string, meaning: string, situation: string, causes: string, first: string, action: string, verification: string, question: string, answer: string];
 const groups: { category: string; related: string[]; source: string; entries: Seed[] }[] = [
   { category: "블루스크린", related: ["windows-blue-screen", "computer-boot-failure"], source: "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-code-reference2", entries: [
@@ -92,7 +85,7 @@ const groups: { category: string; related: string[]; source: string; entries: Se
     ["ERR_SSL_PROTOCOL_ERROR", "TLS 통신 규약 오류", "서버와 안전한 연결을 협상하는 과정에 실패했습니다.", "HTTPS 사이트 접속 직후 보안 연결 오류가 나타납니다.", "서버 TLS 구성|네트워크 TLS 검사|잘못된 HTTPS 포트", "사이트 주소·포트와 다른 네트워크에서의 접속을 확인하세요.", "브라우저를 업데이트하고 HTTPS를 제공하는 정확한 주소로 접속하세요.|회사 네트워크에서만 실패하면 보안 TLS 검사 설정을 관리자에게 문의하세요.", "보안 연결이 경고 없이 성립하는지 확인하세요.", "HTTP로 바꾸면 안전한가요?", "로그인·결제 정보는 안전한 HTTPS 연결이 필요합니다. 보안 오류의 원인을 해결해야 합니다."],
     ["NET::ERR_CERT_DATE_INVALID", "인증서 날짜 오류", "인증서의 유효 기간 또는 PC 시간이 맞지 않습니다.", "인증서 만료 경고가 표시되며 안전한 접속이 차단됩니다.", "PC 날짜 오류|서버 인증서 만료|네트워크 인증서 문제", "PC 날짜·시간·시간대가 정확한지 확인하세요.", "Windows 시간 자동 설정과 시간 동기화를 확인하세요.|시간이 정상이고 다른 장치도 실패하면 운영자에게 인증서 만료를 알리세요.", "날짜 수정 후 인증서 경고가 사라지는지 확인하세요.", "경고를 무시하고 로그인해도 되나요?", "로그인 정보를 입력하기 전에 정상 인증서를 확인하세요. 사이트 측 만료는 운영자가 갱신해야 합니다."],
     ["NET::ERR_CERT_AUTHORITY_INVALID", "인증서 발급자 신뢰 불가", "브라우저가 인증서의 발급 체인을 신뢰하지 못합니다.", "사설 인증서 사이트나 TLS 검사 네트워크에서 나타납니다.", "누락된 인증서 체인|사설 인증기관|네트워크 보안 인증서", "공개 사이트인지 회사 내부 사이트인지 구분하세요.", "공개 사이트는 다른 네트워크로 비교하고 브라우저·OS를 업데이트하세요.|내부 사이트는 관리자에게 공식 루트 인증서 배포와 인증서 체인을 확인해 달라고 요청하세요.", "신뢰할 수 있는 정상 인증서 체인으로 접속되는지 확인하세요.", "웹에서 받은 루트 인증서를 설치해도 되나요?", "신뢰되지 않는 루트 설치는 위험합니다. 조직의 공식 배포 절차로만 설치하세요."],
-    ["ERR_CACHE_MISS", "페이지 데이터 재전송 필요", "브라우저가 이전 요청에 필요한 캐시 데이터를 사용할 수 없습니다.", "양식 제출 뒤 뒤로가기 또는 새로고침할 때 표시됩니다.", "양식 재전송 필요|캐시 데이터 누락|확장 기능 영향", "오류가 난 사이트에서 양식을 제출한 직후인지, 단순 페이지 열기에서도 발생하는지 구분하세요. 이 안내는 방문한 외부 사이트의 양식 오류에 관한 것입니다.", "새 탭에서 해당 사이트의 시작 주소를 열고 같은 페이지까지 다시 이동하세요. 결제·주문·예약을 이미 제출했다면 내역을 먼저 확인하고 재전송하지 마세요.|Ctrl+Shift+N으로 시크릿 창을 열어 비교하세요. 시크릿 모드에서 허용한 확장 기능도 끈 상태로 확인하고, 여기서만 정상이라면 일반 창의 확장 기능을 하나씩 끄며 원인을 찾으세요.", "처음 주소부터 이동했을 때 페이지가 열리는지, 확장 기능을 끄면 같은 오류가 사라지는지 비교하세요. 처리된 거래는 다시 제출하지 마세요.", "재전송 버튼을 바로 눌러도 되나요?", "결제·주문이 중복될 수 있습니다. 처리 내역을 먼저 확인하세요."],
+    ["ERR_CACHE_MISS", "페이지 데이터 재전송 필요", "브라우저가 이전 요청에 필요한 캐시 데이터를 사용할 수 없습니다.", "양식 제출 뒤 뒤로가기 또는 새로고침할 때 표시됩니다.", "양식 재전송 필요|캐시 데이터 누락|확장 기능 영향", "결제·주문 양식을 이미 제출했는지 확인하세요.", "결제·주문이라면 완료 내역을 확인하고 중복 제출을 피하세요.|일반 페이지는 처음 주소부터 다시 열고 확장 기능 없는 시크릿 창으로 비교하세요.", "기존 거래 완료 여부를 확인한 뒤 필요한 요청만 다시 수행하세요.", "재전송 버튼을 바로 눌러도 되나요?", "결제·주문이 중복될 수 있습니다. 처리 내역을 먼저 확인하세요."],
   ]},
   { category: "프로그램 실행", related: ["game-crash", "computer-slow"], source: "https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170", entries: [
     ["0xC0000005", "액세스 위반", "프로그램이 접근할 수 없는 메모리를 읽거나 쓰거나 실행하려 했습니다.", "프로그램 실행 또는 특정 작업에서 앱이 종료됩니다.", "앱 결함|플러그인 충돌|메모리 불안정", "한 앱에서만 발생하는지 여러 앱이 종료되는지 확인하세요.", "문제 앱을 업데이트하고 플러그인·모드를 제외한 기본 상태로 비교하세요.|여러 앱에서 발생하면 메모리 오버클럭을 해제하고 Windows 메모리 진단을 실행하세요.", "같은 작업에서 재현되는지와 이벤트의 오류 모듈을 확인하세요.", "백신을 끄면 해결되나요?", "액세스 위반은 권한 거부와 다릅니다. 앱 결함과 메모리 상태를 먼저 구분하세요."],
@@ -173,29 +166,17 @@ const searchMetadata: Record<string, Pick<ErrorCodeEntry, "seoTitle" | "seoDescr
 };
 
 export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entries.map(seed => {
-  const [code, name, description, commonSituations, causes, firstCheck, action, verification, question, answer] = seed;
+  const [code, name, description, commonSituations, causes, firstCheck, action, checkPoint, question, answer] = seed;
   const title = `${code} ${name}`;
-  const diagnostics = errorDiagnostics[code as keyof typeof errorDiagnostics];
-  if (!diagnostics) throw new Error(`Missing error diagnostics: ${code}`);
-  const actions = action.split("|");
-  const reviewed = errorProcedureReview[code as keyof typeof errorProcedureReview];
-  if (!reviewed) throw new Error(`Missing error procedure review: ${code}`);
-  const checkPoint = "secondResult" in reviewed && typeof reviewed.secondResult === "string" ? reviewed.secondResult : verification;
   return {
     slug: slugFor(group.category, code), code, category: group.category, title,
     description, commonSituations, causes: causes.split("|"), firstCheck,
     aliases: [code, code.replace(/_/g, " "), name, ...(group.category === "장치 관리자" ? [`장치 관리자 ${code}`, `코드 ${code.split(" ")[1]}`] : [])],
     updatedAt: errorsUpdatedAt,
-    beforeSteps: diagnostics[0], unresolved: diagnostics[1],
     solutions: [
-      { location: reviewed.firstLocation, order: 1, title: reviewed.firstTitle, reason: "firstReason" in reviewed ? reviewed.firstReason : "", difficulty: "보통" as const, time: "5~15분", steps: "firstSteps" in reviewed ? reviewed.firstSteps : [actions[0]], checkPoint: reviewed.firstResult },
-      { location: reviewed.secondLocation, order: 2, title: reviewed.secondTitle, reason: "secondReason" in reviewed ? reviewed.secondReason : "", difficulty: "보통" as const, time: "10~30분", steps: "secondSteps" in reviewed ? reviewed.secondSteps : actions.slice(1), checkPoint },
-    ].map(solution => {
-      const id = procedureAccess[solution.title as keyof typeof procedureAccess];
-      const access = accessProfiles[id as keyof typeof accessProfiles];
-      if (!access) throw new Error(`Missing access review: ${code}: ${solution.title}`);
-      return { ...solution, access };
-    }),
+      { order: 1, title: "발생 조건 확인", reason: commonSituations, difficulty: "쉬움" as const, time: "5분", steps: [firstCheck], checkPoint: "오류 코드와 발생 시점, 최근 변경 내용을 함께 기록하세요." },
+      { order: 2, title: `${name} 해결 절차`, reason: description, difficulty: "보통" as const, time: "10~30분", steps: action.split("|"), checkPoint },
+    ],
     faqs: [{ question, answer }, { question: `${code} 조치 후 무엇을 확인하나요?`, answer: checkPoint }],
     relatedProblemSlugs: group.related,
     seoTitle: searchMetadata[code]?.seoTitle ?? `${title} 원인과 해결 방법 | PC FIX`,

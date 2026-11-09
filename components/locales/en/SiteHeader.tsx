@@ -2,18 +2,26 @@
 import Link from "next/link";
 import LanguageSelector from "@/components/LanguageSelector";
 export default function SiteHeader() {
-    return (<header className="site-header">
+    return (<header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
-        <Link href="/en" className="support-brand">
-          <span className="support-wordmark">PC <span className="support-wordmark-accent">FIX</span></span>
-          <span className="support-tagline">{"Computer Troubleshooting Guide"}</span>
+        <Link href="/en" className="flex items-center gap-2">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 font-black text-white">
+            P
+          </div>
+
+          <div>
+            <div className="text-lg font-black tracking-tight text-slate-950">
+              PC FIX
+            </div>
+
+            <div className="hidden text-[11px] text-slate-400 sm:block">{" Computer Troubleshooting Guide "}</div>
+          </div>
         </Link>
 
         <nav className="flex items-center gap-1 text-sm font-medium text-slate-600">
           <Link href="/en" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950">{" Search "}</Link>
 
           <Link href="/en/about" className="hidden rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950 sm:block">{" About PC FIX "}</Link>
-          <Link href="/en/errors" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950">{"Error codes"}</Link>
           <LanguageSelector />
         </nav>
       </div>

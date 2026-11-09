@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "../globals.css";
-import "../support-library.css";
 import { languageAlternates } from "@/lib/localization";
 
 export const metadata: Metadata = {
@@ -44,7 +43,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="ko" data-scroll-behavior="smooth">
+    <html lang="ko">
       <head>
         <script
           async

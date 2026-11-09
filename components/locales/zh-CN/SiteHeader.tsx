@@ -2,18 +2,26 @@
 import Link from "next/link";
 import LanguageSelector from "@/components/LanguageSelector";
 export default function SiteHeader() {
-    return (<header className="site-header">
+    return (<header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
-        <Link href="/zh-CN" className="support-brand">
-          <span className="support-wordmark">PC <span className="support-wordmark-accent">FIX</span></span>
-          <span className="support-tagline">{"\u8BA1\u7B97\u673A\u6545\u969C\u6392\u9664\u6307\u5357"}</span>
+        <Link href="/zh-CN" className="flex items-center gap-2">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 font-black text-white">
+            P
+          </div>
+
+          <div>
+            <div className="text-lg font-black tracking-tight text-slate-950">
+              PC FIX
+            </div>
+
+            <div className="hidden text-[11px] text-slate-400 sm:block">{" \u8BA1\u7B97\u673A\u6545\u969C\u6392\u9664\u6307\u5357 "}</div>
+          </div>
         </Link>
 
         <nav className="flex items-center gap-1 text-sm font-medium text-slate-600">
           <Link href="/zh-CN" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950">{" \u641C\u7D22 "}</Link>
 
           <Link href="/zh-CN/about" className="hidden rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950 sm:block">{" \u5173\u4E8EPC FIX "}</Link>
-          <Link href="/zh-CN/errors" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950">{"\u9519\u8BEF\u4EE3\u7801"}</Link>
           <LanguageSelector />
         </nav>
       </div>

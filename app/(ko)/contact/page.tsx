@@ -2,7 +2,6 @@ import { languageAlternates } from "@/lib/localization";
 export const metadata = { alternates: languageAlternates("/contact") };
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
-import ContactEmail from "@/components/ContactEmail";
 
 export default function ContactPage() {
   return (
@@ -20,7 +19,6 @@ export default function ContactPage() {
             페이지입니다.
           </p>
 
-          <p className="mt-4 text-sm leading-7 text-slate-600">수정 요청에는 페이지 주소, 오류 코드, Windows 버전, 시도한 조치와 결과를 적어주세요. 화면 자료의 이름·이메일·제품 키·복구 키는 가려주세요. 원격 접속이나 비밀번호를 요청하지 않습니다.</p>
           <div className="mt-8 rounded-xl bg-slate-50 p-5">
             <h2 className="font-bold text-slate-950">
               문의 방법
@@ -30,7 +28,12 @@ export default function ContactPage() {
               문의 사항은 아래 이메일 주소로 보내주세요.
             </p>
 
-            <div className="mt-3"><ContactEmail link /></div>
+            <a
+              href="mailto:contact@pcfixbase.com"
+              className="mt-3 inline-block font-semibold text-blue-600 hover:underline"
+            >
+              contact@pcfixbase.com
+            </a>
           </div>
         </div>
       </article>

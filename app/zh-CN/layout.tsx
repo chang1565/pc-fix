@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "../globals.css";
-import "../support-library.css";
 import { languageAlternates } from "@/lib/localization";
 export const metadata: Metadata = {
     metadataBase: new URL("https://pcfixbase.com"),
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, }: Readonly<{
     children: ReactNode;
 }>) {
-    return (<html lang="zh-CN" data-scroll-behavior="smooth">
+    return (<html lang="zh-CN">
       <head>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5914836791785057" crossOrigin="anonymous"/>
       </head>
