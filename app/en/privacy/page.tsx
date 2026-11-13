@@ -13,30 +13,59 @@ export default function PrivacyPage() {
 
           <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 1. Personal information processing "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 1. Information we collect directly "}</h2>
 
-              <p className="mt-2">{" PC FIX does not currently provide a membership registration function and does not directly collect personal information such as user name or phone number. "}</p>
+              <p className="mt-2">{" PC FIX has no sign-up, login or comment features and does not ask for personal information such as your name, phone number or email address. "}</p>
+
+              <p className="mt-2">{" Symptoms and error codes you type into the search box are used in your browser to find results and remain in the address bar as the ?q= value. They are not stored separately on the PC FIX server, but if you open that address again it may appear in the access records below like any other requested address. "}</p>
+
+              <p className="mt-2">{" If you send an inquiry by email, we receive your email address and message in order to reply and do not use them for any other purpose. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 2. Cookies and external services "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 2. Access records "}</h2>
 
-              <p className="mt-2">{" Cookies or external services may be used to improve future services, analyze visit statistics, and serve advertisements. "}</p>
+              <p className="mt-2">{" To deliver pages and block attacks, the PC FIX server and Cloudflare, our delivery and security service, may process access records such as IP address, browser type, requested address and time of access. "}</p>
+
+              <p className="mt-2">{" PC FIX does not use a separate visitor analytics tool. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 3. Advertising "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 3. Language cookie "}</h2>
 
-              <p className="mt-2">{" PC FIX may in the future use external advertising services, such as Google AdSense, and these services may use cookies for ad serving and measurement. "}</p>
+              <p className="mt-2">{" If you choose a language in the language menu, only the selected language (ko, en, ja, zh-CN) is stored in the pcfix-language cookie for up to one year so the same language is shown on your next visit. "}</p>
+
+              <p className="mt-2">{" You can delete this cookie in your browser settings at any time; the default language is then shown. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 4. Policy change "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 4. Google AdSense advertising "}</h2>
 
-              <p className="mt-2">{" The contents of this privacy policy may change as service functions change. "}</p>
+              <p className="mt-2">{" PC FIX shows Google AdSense ads. Third-party vendors, including Google, may use cookies to serve ads based on your prior visits to this site or other sites and to measure ad performance. "}</p>
+
+              <p className="mt-2">{" Google's use of advertising cookies enables it to serve ads based on your visits to PC FIX and other websites. You can learn how Google uses this information at"}{" "}
+                <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">{" How Google uses information from sites or apps that use our services "}</a>{" . "}</p>
+
+              <p className="mt-2">{" You can turn off personalized ads in"}{" "}
+                <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">{" Google My Ad Center "}</a>{" , and opt out of third-party vendors' personalized advertising cookies at"}{" "}
+                <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">
+                  aboutads.info
+                </a>{" . Even if you turn off personalized ads, non-personalized ads may still be shown. "}</p>
             </section>
 
-            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{" Effective date: October 6, 2026 "}</p>
+            <section>
+              <h2 className="text-lg font-bold text-slate-950">{" 5. Contact "}</h2>
+
+              <p className="mt-2">{" For questions about how personal information is handled, please email the address on the contact page. "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-lg font-bold text-slate-950">{" 6. Changes to this policy "}</h2>
+
+              <p className="mt-2">{" If the services or features we use change, we will update this policy and the effective date below. "}</p>
+            </section>
+
+            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{" Effective date: November 14, 2026 (previous policy effective October 6, 2026) "}</p>
           </div>
         </div>
       </article>

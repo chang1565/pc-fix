@@ -32,9 +32,11 @@ input {
 button {
   cursor: pointer;
 }
-.display-ad-sides { display: grid; gap: 24px; max-width: 1024px; margin: 32px auto; padding: 0 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* 좌우 세로 광고는 넓은 화면의 고정 위치에서만 쓴다. 좁은 화면에서 본문 아래로 600px씩 쌓이지 않도록 숨기며, 숨긴 슬롯은 광고를 요청하지 않는다. */
+.display-ad-sides { display: none; }
 .display-ad-side { width: 100%; min-width: 0; }
-@media (max-width: 639px) { .display-ad-sides { grid-template-columns: 1fr; } }
+/* 채워지지 않은 광고 자리는 접는다. */
+aside:has(> ins.adsbygoogle[data-ad-status="unfilled"]) { display: none; }
 @media (min-width: 1200px) and (min-height: 720px) {
   main:has(.display-ad-sides) { padding-inline: 184px; }
   .display-ad-sides { display: contents; }

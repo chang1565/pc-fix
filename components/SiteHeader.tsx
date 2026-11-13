@@ -1,8 +1,10 @@
 import Link from "next/link";
 import LanguageSelector from "@/components/LanguageSelector";
+import LanguageSuggestion from "@/components/LanguageSuggestion";
 
 export default function SiteHeader() {
   return (
+    <>
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
         <Link href="/" className="flex items-center gap-2">
@@ -39,5 +41,7 @@ export default function SiteHeader() {
         </nav>
       </div>
     </header>
+    <LanguageSuggestion />
+    </>
   );
 }

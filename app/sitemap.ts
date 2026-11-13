@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { problems } from "@/data/problems";
 import { errorCodes, errorsUpdatedAt } from "@/data/errorCodes";
 import { locales, localizePath, languageAlternates } from "@/lib/localization";
+import { categoryGuide, guideReviewedAt } from "@/lib/koGuide";
 
 const baseUrl =
   (process.env.NEXT_PUBLIC_SITE_URL || "https://pcfixbase.com").replace(/\/$/, "");
@@ -10,8 +11,23 @@ const problemsUpdatedAt = "2026-10-06T00:00:00.000Z";
 // The live content was restored on this date. Keep this fixed across builds;
 // the historical source dates alone do not describe the latest live change.
 const contentRestoredAt = "2026-11-09T00:00:00.000Z";
+// 한국어 카테고리 안내를 추가한 날짜. 외국어 카테고리 페이지는 바뀌지 않았다.
+const koCategoryGuidesAt = "2026-11-14T00:00:00.000Z";
+const day = (date: string) => `${date}T00:00:00.000Z`;
+
+// 한국어 주소에만 적용하는 수정일(직접 작성 안내가 들어간 페이지).
+const koModified = new Map<string, string>();
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  for (const problem of problems) {
+    const reviewed = guideReviewedAt("problems", problem.slug);
+    if (reviewed) koModified.set(`/problems/${problem.slug}`, day(reviewed));
+    if (categoryGuide(problem.category)) koModified.set(`/category/${encodeURIComponent(problem.category)}`, koCategoryGuidesAt);
+  }
+  for (const entry of errorCodes) {
+    const reviewed = guideReviewedAt("errors", entry.slug);
+    if (reviewed) koModified.set(`/errors/${entry.slug}`, day(reviewed));
+  }
   const problemPages = problems.map((problem) => ({
     url: `${baseUrl}/problems/${problem.slug}`,
     lastModified: problemsUpdatedAt,
@@ -39,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return locales.map(locale => ({
       ...page,
       url: `${baseUrl}${localizePath(pathname, locale)}`,
-      ...(page.lastModified ? { lastModified: contentRestoredAt } : {}),
+      ...(page.lastModified ? { lastModified: locale === "ko" && koModified.has(pathname) ? koModified.get(pathname) : contentRestoredAt } : {}),
       alternates: { languages },
     }));
   });

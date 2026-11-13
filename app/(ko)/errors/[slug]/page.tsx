@@ -8,6 +8,7 @@ import FaqItem from "@/components/FaqItem";
 import { errorCodes, findErrorBySlug } from "@/data/errorCodes";
 import { findProblemBySlug } from "@/data/problems";
 import { languageAlternates } from "@/lib/localization";
+import { applyErrorGuide } from "@/lib/koGuide";
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -21,8 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 const panel = "mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8";
 export default async function ErrorPage({ params }: Props) {
-  const entry = findErrorBySlug((await params).slug);
-  if (!entry) notFound();
+  const found = findErrorBySlug((await params).slug);
+  if (!found) notFound();
+  const { entry, extras } = applyErrorGuide(found);
   const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://pcfixbase.com").replace(/\/$/, "");
   const pageUrl = `${baseUrl}/errors/${entry.slug}`;
   const schemas = [
@@ -41,7 +43,7 @@ export default async function ErrorPage({ params }: Props) {
       <section className={panel}><span className="text-sm font-bold text-blue-600">{entry.category}</span><h1 className="mt-3 break-words text-3xl font-black sm:text-4xl">{entry.title}</h1>
         <h2 className="mt-6 text-lg font-bold">오류 의미</h2><p className="mt-2 leading-7 text-slate-600">{entry.description}</p>
         <h2 className="mt-6 text-lg font-bold">자주 발생하는 상황</h2><p className="mt-2 leading-7 text-slate-600">{entry.commonSituations}</p>
-        <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">가장 먼저 확인할 것</h2><p className="mt-2 leading-7 text-blue-900">{entry.firstCheck}</p></div></section>
+        <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">가장 먼저 확인할 것</h2>{extras ? <ul className="mt-2 list-disc space-y-1 pl-5 leading-7 text-blue-900">{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul> : <p className="mt-2 leading-7 text-blue-900">{entry.firstCheck}</p>}</div></section>
       <section className={panel}><h2 className="text-xl font-black">주요 원인</h2><ul className="mt-4 list-disc space-y-2 pl-5 text-slate-600">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
       <section className="mt-10"><h2 className="text-2xl font-black">단계별 해결 방법</h2><p className="mt-2 text-sm text-slate-500">위에서부터 확인하고 해결되면 다음 단계는 진행하지 않아도 됩니다.</p>
         {entry.solutions.map(solution => <article key={solution.order} className={panel}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3><p className="mt-2 leading-7 text-slate-600">{solution.reason}</p>

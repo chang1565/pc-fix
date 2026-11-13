@@ -38,7 +38,10 @@ for (const [index, url] of urls.entries()) {
   links.set(normalize(url), pageLinks);
   const date = entries[index].match(/<lastmod>(.*?)<\/lastmod>/)?.[1];
   const policy = /\/(about|contact|privacy|terms)$/.test(pathname);
-  assert.equal(date, policy ? undefined : "2026-11-09T00:00:00.000Z", `Restoration date: ${url}`);
+  // 한국어 직접 작성 안내가 들어간 페이지만 그 검토일을 쓴다(화면의 검토일·카테고리 안내로 확인).
+  const korean = !/^\/(en|ja|zh-CN)(\/|$)/.test(pathname);
+  const reviewed = korean && (/내용 검토일: (?:<!-- -->)?2026-11-14/.test(html) || html.includes("상황별로 먼저 볼 글"));
+  assert.equal(date, policy ? undefined : reviewed ? "2026-11-14T00:00:00.000Z" : "2026-11-09T00:00:00.000Z", `Sitemap date: ${url}`);
   assert(!html.includes("/cdn-cgi/l/email-protection"), `Email rewrite link: ${url}`);
 }
 const reached = new Set(["/"]);

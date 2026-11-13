@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { localizePath } from "./lib/localization";
-import { languageCookie, visitorLocale } from "./lib/visitorLocale";
+import { localizePath, locales, type Locale } from "./lib/localization";
+import { languageCookie } from "./lib/visitorLocale";
 
 export function proxy(request: NextRequest) {
   if (request.headers.get("cf-visitor")?.match(/"scheme"\s*:\s*"http"/)) {
@@ -9,13 +9,13 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
   if (request.nextUrl.pathname !== "/") return NextResponse.next();
-  const country = request.headers.get("cf-ipcountry");
+  // 기본 주소는 접속 국가와 관계없이 한국어 홈(x-default)을 보여준다.
+  // 언어 메뉴에서 직접 고른 언어가 있을 때만 그 언어 홈으로 보낸다. 해외 방문자에게는 LanguageSuggestion이 언어 안내만 띄운다.
   const preference = request.cookies.get(languageCookie)?.value;
-  // Keep local development in Korean unless a country or preference is supplied.
-  const locale = visitorLocale(country ?? (process.env.NODE_ENV === "development" ? "KR" : null), preference);
-  const response = locale === "ko" ? NextResponse.next() : NextResponse.redirect(new URL(localizePath("/", locale) + request.nextUrl.search, request.url), 307);
+  const chosen = locales.includes(preference as Locale) ? (preference as Locale) : "ko";
+  const response = chosen === "ko" ? NextResponse.next() : NextResponse.redirect(new URL(localizePath("/", chosen) + request.nextUrl.search, request.url), 307);
   response.headers.set("Cache-Control", "private, no-store");
-  response.headers.set("Vary", "Cookie, CF-IPCountry");
+  response.headers.set("Vary", "Cookie");
   return response;
 }
 

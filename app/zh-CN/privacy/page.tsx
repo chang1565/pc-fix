@@ -13,30 +13,59 @@ export default function PrivacyPage() {
 
           <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 1. \u4E2A\u4EBA\u4FE1\u606F\u5904\u7406 "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 1. \u6211\u4EEC\u76F4\u63A5\u6536\u96C6\u7684\u4FE1\u606F "}</h2>
 
-              <p className="mt-2">{" PC FIX\u76EE\u524D\u4E0D\u63D0\u4F9B\u4F1A\u5458\u6CE8\u518C\u529F\u80FD\uFF0C\u4E5F\u4E0D\u76F4\u63A5\u6536\u96C6\u7528\u6237\u540D\u6216\u7535\u8BDD\u53F7\u7801\u7B49\u4E2A\u4EBA\u4FE1\u606F\u3002 "}</p>
+              <p className="mt-2">{" PC FIX \u6CA1\u6709\u6CE8\u518C\u3001\u767B\u5F55\u6216\u8BC4\u8BBA\u529F\u80FD\uFF0C\u4E0D\u4F1A\u8981\u6C42\u60A8\u8F93\u5165\u59D3\u540D\u3001\u7535\u8BDD\u53F7\u7801\u3001\u7535\u5B50\u90AE\u4EF6\u5730\u5740\u7B49\u4E2A\u4EBA\u4FE1\u606F\u3002 "}</p>
+
+              <p className="mt-2">{" \u60A8\u5728\u641C\u7D22\u6846\u4E2D\u8F93\u5165\u7684\u75C7\u72B6\u548C\u9519\u8BEF\u4EE3\u7801\u4EC5\u5728\u6D4F\u89C8\u5668\u4E2D\u7528\u4E8E\u67E5\u627E\u7ED3\u679C\uFF0C\u5E76\u4EE5 ?q= \u503C\u7684\u5F62\u5F0F\u4FDD\u7559\u5728\u5730\u5740\u680F\u4E2D\u3002PC FIX \u670D\u52A1\u5668\u4E0D\u4F1A\u53E6\u884C\u4FDD\u5B58\u8FD9\u4E9B\u5185\u5BB9\uFF0C\u4F46\u5982\u679C\u60A8\u518D\u6B21\u8BBF\u95EE\u8BE5\u5730\u5740\uFF0C\u5B83\u53EF\u80FD\u4F1A\u50CF\u5176\u4ED6\u8BF7\u6C42\u5730\u5740\u4E00\u6837\u5305\u542B\u5728\u4E0B\u65B9\u7684\u8BBF\u95EE\u8BB0\u5F55\u4E2D\u3002 "}</p>
+
+              <p className="mt-2">{" \u5982\u679C\u60A8\u901A\u8FC7\u7535\u5B50\u90AE\u4EF6\u54A8\u8BE2\uFF0C\u6211\u4EEC\u4F1A\u4E3A\u56DE\u590D\u800C\u6536\u5230\u60A8\u7684\u7535\u5B50\u90AE\u4EF6\u5730\u5740\u548C\u54A8\u8BE2\u5185\u5BB9\uFF0C\u4E0D\u4F1A\u5C06\u5176\u7528\u4E8E\u56DE\u590D\u53CA\u76F8\u5173\u5904\u7406\u4EE5\u5916\u7684\u76EE\u7684\u3002 "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 2. Cookie \u548C\u5916\u90E8\u670D\u52A1 "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 2. \u8BBF\u95EE\u8BB0\u5F55 "}</h2>
 
-              <p className="mt-2">{" Cookie \u6216\u5916\u90E8\u670D\u52A1\u53EF\u7528\u4E8E\u6539\u8FDB\u672A\u6765\u7684\u670D\u52A1\u3001\u5206\u6790\u8BBF\u95EE\u7EDF\u8BA1\u6570\u636E\u4EE5\u53CA\u6295\u653E\u5E7F\u544A\u3002 "}</p>
+              <p className="mt-2">{" \u4E3A\u4F20\u9001\u9875\u9762\u548C\u963B\u6B62\u653B\u51FB\uFF0CPC FIX \u670D\u52A1\u5668\u4EE5\u53CA\u4F20\u8F93\u4E0E\u5B89\u5168\u670D\u52A1 Cloudflare \u53EF\u80FD\u4F1A\u5904\u7406 IP \u5730\u5740\u3001\u6D4F\u89C8\u5668\u7C7B\u578B\u3001\u8BF7\u6C42\u5730\u5740\u3001\u8BBF\u95EE\u65F6\u95F4\u7B49\u8BBF\u95EE\u8BB0\u5F55\u3002 "}</p>
+
+              <p className="mt-2">{" PC FIX \u4E0D\u4F7F\u7528\u5355\u72EC\u7684\u8BBF\u95EE\u7EDF\u8BA1\u5206\u6790\u5DE5\u5177\u3002 "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 3. \u5E7F\u544A "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 3. \u8BED\u8A00\u9009\u62E9 Cookie "}</h2>
 
-              <p className="mt-2">{" PC FIX \u5C06\u6765\u53EF\u80FD\u4F1A\u4F7F\u7528\u5916\u90E8\u5E7F\u544A\u670D\u52A1\uFF0C\u4F8B\u5982 Google AdSense\uFF0C\u5E76\u4E14\u8FD9\u4E9B\u670D\u52A1\u53EF\u80FD\u4F1A\u4F7F\u7528 cookie \u8FDB\u884C\u5E7F\u544A\u670D\u52A1\u548C\u8861\u91CF\u3002 "}</p>
+              <p className="mt-2">{" \u5982\u679C\u60A8\u5728\u8BED\u8A00\u83DC\u5355\u4E2D\u9009\u62E9\u4E86\u8BED\u8A00\uFF0C\u4E3A\u5728\u4E0B\u6B21\u8BBF\u95EE\u65F6\u663E\u793A\u76F8\u540C\u8BED\u8A00\uFF0C\u6211\u4EEC\u4F1A\u5728 pcfix-language Cookie \u4E2D\u4EC5\u4FDD\u5B58\u6240\u9009\u8BED\u8A00(ko\u3001en\u3001ja\u3001zh-CN)\uFF0C\u6700\u957F\u4FDD\u5B58 1 \u5E74\u3002 "}</p>
+
+              <p className="mt-2">{" \u60A8\u53EF\u4EE5\u968F\u65F6\u5728\u6D4F\u89C8\u5668\u8BBE\u7F6E\u4E2D\u5220\u9664\u6B64 Cookie\uFF0C\u5220\u9664\u540E\u5C06\u4EE5\u9ED8\u8BA4\u8BED\u8A00\u663E\u793A\u3002 "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 4.\u653F\u7B56\u53D8\u5316 "}</h2>
+              <h2 className="text-lg font-bold text-slate-950">{" 4. Google AdSense \u5E7F\u544A "}</h2>
 
-              <p className="mt-2">{" \u672C\u9690\u79C1\u653F\u7B56\u7684\u5185\u5BB9\u53EF\u80FD\u4F1A\u968F\u7740\u670D\u52A1\u529F\u80FD\u7684\u53D8\u5316\u800C\u53D8\u5316\u3002 "}</p>
+              <p className="mt-2">{" PC FIX \u5C55\u793A Google AdSense \u5E7F\u544A\u3002\u5305\u62EC Google \u5728\u5185\u7684\u7B2C\u4E09\u65B9\u5E7F\u544A\u4F9B\u5E94\u5546\u53EF\u80FD\u4F1A\u4F7F\u7528 Cookie\uFF0C\u6839\u636E\u60A8\u4EE5\u5F80\u8BBF\u95EE\u672C\u7F51\u7AD9\u6216\u5176\u4ED6\u7F51\u7AD9\u7684\u8BB0\u5F55\u6295\u653E\u5E7F\u544A\u5E76\u8861\u91CF\u5E7F\u544A\u6548\u679C\u3002 "}</p>
+
+              <p className="mt-2">{" Google \u901A\u8FC7\u4F7F\u7528\u5E7F\u544A Cookie\uFF0C\u53EF\u4EE5\u6839\u636E\u60A8\u8BBF\u95EE PC FIX \u548C\u5176\u4ED6\u7F51\u7AD9\u7684\u8BB0\u5F55\u5411\u60A8\u6295\u653E\u5E7F\u544A\u3002\u6709\u5173 Google \u5982\u4F55\u4F7F\u7528\u8FD9\u4E9B\u4FE1\u606F\uFF0C\u8BF7\u53C2\u9605"}{" "}
+                <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">{" Google \u5982\u4F55\u4F7F\u7528\u6765\u81EA\u4F7F\u7528\u5176\u670D\u52A1\u7684\u7F51\u7AD9\u6216\u5E94\u7528\u7684\u4FE1\u606F "}</a>{" \u3002 "}</p>
+
+              <p className="mt-2">{" \u60A8\u53EF\u4EE5\u5728"}{" "}
+                <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">{" Google \u6211\u7684\u5E7F\u544A\u4E2D\u5FC3 "}</a>{" \u5173\u95ED\u4E2A\u6027\u5316\u5E7F\u544A\uFF0C\u4E5F\u53EF\u4EE5\u5728"}{" "}
+                <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">
+                  aboutads.info
+                </a>{" \u62D2\u7EDD\u7B2C\u4E09\u65B9\u4F9B\u5E94\u5546\u7684\u4E2A\u6027\u5316\u5E7F\u544A Cookie\u3002\u5173\u95ED\u4E2A\u6027\u5316\u5E7F\u544A\u540E\uFF0C\u4ECD\u53EF\u80FD\u663E\u793A\u975E\u4E2A\u6027\u5316\u5E7F\u544A\u3002 "}</p>
             </section>
 
-            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{" \u751F\u6548\u65E5\u671F\uFF1A2026 \u5E74 10 \u6708 6 \u65E5 "}</p>
+            <section>
+              <h2 className="text-lg font-bold text-slate-950">{" 5. \u8054\u7CFB\u6211\u4EEC "}</h2>
+
+              <p className="mt-2">{" \u6709\u5173\u4E2A\u4EBA\u4FE1\u606F\u5904\u7406\u7684\u95EE\u9898\uFF0C\u8BF7\u53D1\u9001\u90AE\u4EF6\u81F3\u8054\u7CFB\u9875\u9762\u4E0A\u7684\u5730\u5740\u3002 "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-lg font-bold text-slate-950">{" 6. \u653F\u7B56\u53D8\u66F4 "}</h2>
+
+              <p className="mt-2">{" \u5982\u679C\u6211\u4EEC\u4F7F\u7528\u7684\u670D\u52A1\u6216\u529F\u80FD\u53D1\u751F\u53D8\u5316\uFF0C\u6211\u4EEC\u5C06\u4FEE\u6539\u672C\u653F\u7B56\u5E76\u66F4\u65B0\u4E0B\u65B9\u7684\u751F\u6548\u65E5\u671F\u3002 "}</p>
+            </section>
+
+            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{" \u751F\u6548\u65E5\u671F\uFF1A2026\u5E7411\u670814\u65E5(\u6B64\u524D\u653F\u7B56\u751F\u6548\u65E5\u671F\uFF1A2026\u5E7410\u67086\u65E5) "}</p>
           </div>
         </div>
       </article>

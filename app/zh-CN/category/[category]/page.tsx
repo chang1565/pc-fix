@@ -6,6 +6,7 @@ import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
 import { problems } from "@/data/locales/zh-CN";
 import { languageAlternates } from "@/lib/localization";
+import { categoryGuide } from "@/lib/noKoGuide";
 type PageProps = {
     params: Promise<{
         category: string;
@@ -33,6 +34,8 @@ export default async function CategoryPage({ params }: PageProps) {
     if (categoryProblems.length === 0) {
         notFound();
     }
+    const guide = categoryGuide(decodedCategory);
+    const titleBySlug = new Map(problems.map((problem) => [problem.slug, problem.title]));
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
 
@@ -54,7 +57,25 @@ export default async function CategoryPage({ params }: PageProps) {
 
           <p className="mt-3 text-slate-500">
             {decodedCategory}{"\u6211\u4EEC\u6536\u96C6\u4E86\u76F8\u5173\u95EE\u9898\u548C\u89E3\u51B3\u65B9\u6848\u3002 "}</p>
+
+          {guide && (<p className="mt-4 leading-7 text-slate-700">
+              {guide.intro}
+            </p>)}
         </section>
+
+        {guide && guide.paths.length > 0 && (<section className="mt-8 rounded-2xl border border-slate-200 bg-white p-7">
+            <h2 className="text-xl font-black text-slate-950">{" \u6309\u60C5\u51B5\u5148\u770B\u7684\u6587\u7AE0 "}</h2>
+
+            <ul className="mt-5 space-y-3">
+              {guide.paths.map((path) => (<li key={path.slug} className="text-sm leading-6 text-slate-700">
+                  <span>{path.when}</span>
+                  <span className="mx-2 text-slate-400">→</span>
+                  <Link href={`/zh-CN/problems/${path.slug}`} className="font-semibold text-blue-600 hover:underline">
+                    {titleBySlug.get(path.slug) ?? path.slug}
+                  </Link>
+                </li>))}
+            </ul>
+          </section>)}
 
         <section className="mt-8">
           <div className="mb-5 flex items-center justify-between">

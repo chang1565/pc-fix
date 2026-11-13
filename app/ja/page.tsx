@@ -304,6 +304,6 @@ export default function Home() {
           </>)}
       </div>
 
-      <div className="display-ad-sides"><DisplayAd label="広告" placement="left" /><DisplayAd label="広告" placement="right" /></div><DisplayAd label="広告" /><SiteFooter />
+      <div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter />
     </main>);
 }

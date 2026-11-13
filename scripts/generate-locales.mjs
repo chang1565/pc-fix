@@ -39,6 +39,8 @@ for (const locale of languages) {
       }
       if (value === "@/data/problems" || value === "@/data/errorCodes") return `@/data/locales/${locale}`;
       if (["@/components/SiteHeader", "@/components/SiteFooter", "@/components/ErrorBrowser", "@/components/ErrorCard"].includes(value)) return value.replace("@/components/", `@/components/locales/${locale}/`);
+      // 한국어 전용 직접 작성 안내는 외국어 페이지에 적용하지 않는다.
+      if (value === "@/lib/koGuide") return "@/lib/noKoGuide";
       if (["@/lib/unifiedSearch", "@/lib/errorSearch"].includes(value)) return value.replace("@/lib/", `@/lib/locales/${locale}/`);
       if (value === "ko") return locale;
       if (value === "/") return `/${locale}`;

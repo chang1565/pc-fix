@@ -9,6 +9,7 @@ import SiteHeader from "@/components/SiteHeader";
 import ErrorCard from "@/components/ErrorCard";
 import { errorCodes } from "@/data/errorCodes";
 import { languageAlternates } from "@/lib/localization";
+import { applyProblemGuide } from "@/lib/koGuide";
 
 import {
   findProblemBySlug,
@@ -70,11 +71,13 @@ export default async function ProblemPage({
 }: PageProps) {
   const { slug } = await params;
 
-  const problem = findProblemBySlug(slug);
+  const found = findProblemBySlug(slug);
 
-  if (!problem) {
+  if (!found) {
     notFound();
   }
+
+  const { problem, extras } = applyProblemGuide(found);
 
   const relatedProblems = problem.relatedSlugs
     .map(findProblemBySlug)
@@ -130,6 +133,7 @@ export default async function ProblemPage({
       problem.seoDescription,
 
     about: problem.category,
+    ...(extras ? { dateModified: extras.reviewedAt } : {}),
 
     author: {
       "@type": "Organization",
@@ -254,6 +258,23 @@ export default async function ProblemPage({
             </p>
           </div>
         </section>
+
+        {extras && extras.quickCheck.length > 0 && (
+          <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">
+              먼저 구분할 것
+            </h2>
+
+            <ul className="mt-5 space-y-3">
+              {extras.quickCheck.map((item, index) => (
+                <li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
+                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-slate-400" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {/* 증상 + 원인 */}
 
@@ -422,6 +443,28 @@ export default async function ProblemPage({
         
 
         
+{extras && (
+  <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    {extras.sources.length > 0 && (
+      <>
+        <h2 className="font-bold text-slate-950">참고한 공식 문서</h2>
+        <ul className="mt-3 space-y-2">
+          {extras.sources.map((source) => (
+            <li key={source.url}>
+              <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">
+                {source.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
+    <p className="mt-4 text-xs text-slate-500">
+      내용 검토일: {extras.reviewedAt}. 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.
+    </p>
+  </section>
+)}
+
 {/* 관련 문제 */}
 
 {relatedProblems.length > 0 && (

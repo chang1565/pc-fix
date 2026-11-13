@@ -6,6 +6,7 @@ import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 import { problems } from "@/data/locales/en";
 import { languageAlternates } from "@/lib/localization";
+import { categoryGuide } from "@/lib/noKoGuide";
 type PageProps = {
     params: Promise<{
         category: string;
@@ -33,6 +34,8 @@ export default async function CategoryPage({ params }: PageProps) {
     if (categoryProblems.length === 0) {
         notFound();
     }
+    const guide = categoryGuide(decodedCategory);
+    const titleBySlug = new Map(problems.map((problem) => [problem.slug, problem.title]));
     return (<main className="min-h-screen bg-slate-50">
       <SiteHeader />
 
@@ -54,7 +57,25 @@ export default async function CategoryPage({ params }: PageProps) {
 
           <p className="mt-3 text-slate-500">
             {decodedCategory}{"We have collected problems and solutions related to . "}</p>
+
+          {guide && (<p className="mt-4 leading-7 text-slate-700">
+              {guide.intro}
+            </p>)}
         </section>
+
+        {guide && guide.paths.length > 0 && (<section className="mt-8 rounded-2xl border border-slate-200 bg-white p-7">
+            <h2 className="text-xl font-black text-slate-950">{" Where to start by situation "}</h2>
+
+            <ul className="mt-5 space-y-3">
+              {guide.paths.map((path) => (<li key={path.slug} className="text-sm leading-6 text-slate-700">
+                  <span>{path.when}</span>
+                  <span className="mx-2 text-slate-400">→</span>
+                  <Link href={`/en/problems/${path.slug}`} className="font-semibold text-blue-600 hover:underline">
+                    {titleBySlug.get(path.slug) ?? path.slug}
+                  </Link>
+                </li>))}
+            </ul>
+          </section>)}
 
         <section className="mt-8">
           <div className="mb-5 flex items-center justify-between">
