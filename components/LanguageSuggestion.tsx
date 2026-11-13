@@ -34,7 +34,8 @@ export default function LanguageSuggestion() {
 
   if (!suggested) return null;
   const message = messages[suggested];
-  return <div role="region" aria-label="Language" lang={suggested} translate="no" className="border-b border-blue-100 bg-blue-50">
+  // 본문을 밀어내지 않도록(레이아웃 이동 방지) 화면 하단에 겹쳐 띄운다.
+  return <div role="region" aria-label="Language" lang={suggested} translate="no" className="fixed inset-x-0 bottom-0 z-50 border-t border-blue-200 bg-blue-50 shadow-lg">
     <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-5 py-2.5 text-sm text-blue-900">
       <p className="min-w-0 flex-1">{message.text}</p>
       <a href={localizePath(pathname, suggested) + window.location.search + window.location.hash} hrefLang={suggested} onClick={() => setLanguageCookie(suggested)} className="font-bold text-blue-700 underline">{message.action}</a>
