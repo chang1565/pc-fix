@@ -24,7 +24,7 @@ export async function generateMetadata({ params, }: PageProps): Promise<Metadata
     return {
         title: `${decodedCategory} Troubleshooting | PC FIX`,
         alternates: languageAlternates(`/en/category/${encodeURIComponent(decodedCategory)}`),
-        description: `${decodedCategory}Find out the causes and solutions for computer problems related to .`,
+        description: `${decodedCategory} problems on your PC: check the causes and solutions.`,
     };
 }
 export default async function CategoryPage({ params }: PageProps) {
@@ -56,7 +56,7 @@ export default async function CategoryPage({ params }: PageProps) {
           </h1>
 
           <p className="mt-3 text-slate-500">
-            {decodedCategory}{"We have collected problems and solutions related to . "}</p>
+            {decodedCategory}{" problems and their solutions are collected here. "}</p>
 
           {guide && (<p className="mt-4 leading-7 text-slate-700">
               {guide.intro}

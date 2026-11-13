@@ -1,3 +1,4 @@
+import { problems } from "./problems";
 export type ErrorCodeEntry = {
   slug: string; code: string; category: string; title: string;
   description: string; commonSituations: string; causes: string[]; firstCheck: string;
@@ -165,6 +166,197 @@ const searchMetadata: Record<string, Pick<ErrorCodeEntry, "seoTitle" | "seoDescr
   },
 };
 
+// 오류 설명과 가장 많이 겹치는 증상 글을 관련 글로 고른다. 오류 분류에 맞는 증상 분류 안에서만 찾고,
+// 여러 글에 흔한 낱말(설치·실패 등)은 가중치를 낮춘다. 겹침이 약하면 분류 기본값을 쓴다.
+const relatedCategories: Record<string, string[]> = {
+  "블루스크린": ["Windows", "그래픽", "메모리", "저장장치", "부팅"],
+  "Windows": ["Windows", "부팅", "저장장치"],
+  "Windows Update": ["Windows"],
+  "장치 관리자": ["주변기기", "그래픽", "오디오", "Bluetooth", "인터넷", "카메라", "프린터", "저장장치"],
+  "그래픽/게임": ["게임", "그래픽"],
+  "네트워크/브라우저": ["인터넷"],
+  "프로그램 실행": ["Windows", "게임"],
+};
+function bigrams(text: string) {
+  const clean = text.toLowerCase().replace(/[^0-9a-z가-힣]+/g, " ");
+  const grams = new Set<string>();
+  for (const word of clean.split(" ").filter(Boolean)) {
+    if (/^[0-9a-z]+$/.test(word)) { if (word.length >= 3) grams.add(word); continue; }
+    for (let index = 0; index < word.length - 1; index++) grams.add(word.slice(index, index + 2));
+  }
+  return grams;
+}
+const problemGrams = problems.map(problem => ({ slug: problem.slug, category: problem.category, grams: bigrams([problem.title, ...problem.keywords, ...problem.symptoms, ...problem.causes].join(" ")) }));
+const documentFrequency = new Map<string, number>();
+for (const problem of problemGrams) for (const gram of problem.grams) documentFrequency.set(gram, (documentFrequency.get(gram) ?? 0) + 1);
+const weight = (gram: string) => Math.log(problemGrams.length / (documentFrequency.get(gram) ?? 1));
+function relatedProblemsFor(category: string, text: string, fallback: string[]) {
+  const grams = bigrams(text);
+  const allowed = relatedCategories[category] ?? [];
+  const ranked = problemGrams
+    .filter(problem => allowed.includes(problem.category))
+    .map(problem => ({ slug: problem.slug, score: [...problem.grams].filter(gram => grams.has(gram)).reduce((total, gram) => total + weight(gram), 0) }))
+    .sort((a, b) => b.score - a.score);
+  const picked = ranked.filter(item => item.score >= 12).slice(0, 2).map(item => item.slug);
+  return [...new Set([...picked, ...fallback])].slice(0, 2);
+}
+
+// 자동 매칭이 어긋난 오류는 직접 지정한다.
+const relatedOverrides: Record<string, string[]> = {
+  "SYSTEM_SERVICE_EXCEPTION": [
+    "bsod-system-service-exception",
+    "windows-blue-screen"
+  ],
+  "PAGE_FAULT_IN_NONPAGED_AREA": [
+    "bsod-page-fault",
+    "memory-errors-random-crash"
+  ],
+  "KERNEL_SECURITY_CHECK_FAILURE": [
+    "windows-blue-screen",
+    "memory-errors-random-crash"
+  ],
+  "UNEXPECTED_STORE_EXCEPTION": [
+    "windows-blue-screen",
+    "disk-smart-error"
+  ],
+  "DPC_WATCHDOG_VIOLATION": [
+    "bsod-dpc-watchdog",
+    "nvme-disappears-under-load"
+  ],
+  "IRQL_NOT_LESS_OR_EQUAL": [
+    "bsod-irql-not-less-or-equal",
+    "memory-errors-random-crash"
+  ],
+  "DRIVER_POWER_STATE_FAILURE": [
+    "bsod-driver-power-state",
+    "sleep-wake-problem"
+  ],
+  "0x80070005": [
+    "app-install-uninstall-fail",
+    "windows-update-fail"
+  ],
+  "0x80070570": [
+    "corrupted-files",
+    "disk-smart-error"
+  ],
+  "0x8007000D": [
+    "windows-update-fail",
+    "system-file-corruption"
+  ],
+  "0x800F0922": [
+    "windows-update-fail",
+    "c-drive-full"
+  ],
+  "0x80070422": [
+    "windows-update-fail",
+    "windows-update-stuck"
+  ],
+  "0x80073712": [
+    "windows-update-fail",
+    "system-file-corruption"
+  ],
+  "0x80070020": [
+    "windows-update-fail",
+    "windows-update-stuck"
+  ],
+  "0x80072EE2": [
+    "windows-update-fail",
+    "internet-not-working"
+  ],
+  "0x80072EFE": [
+    "windows-update-fail",
+    "internet-not-working"
+  ],
+  "0x8024402C": [
+    "windows-update-fail",
+    "proxy-internet-not-working"
+  ],
+  "0x80240034": [
+    "windows-update-fail",
+    "windows-update-stuck"
+  ],
+  "0x8024200D": [
+    "windows-update-fail",
+    "windows-update-stuck"
+  ],
+  "0x80070643": [
+    "windows-update-fail",
+    "app-install-uninstall-fail"
+  ],
+  "0xC1900101": [
+    "windows-update-rollback-loop",
+    "windows-update-fail"
+  ],
+  "Code 19": [
+    "usb-not-recognized",
+    "audio-device-missing"
+  ],
+  "Code 31": [
+    "usb-not-recognized",
+    "audio-device-missing"
+  ],
+  "Code 43": [
+    "usb-device-code43",
+    "gpu-not-detected"
+  ],
+  "Code 45": [
+    "usb-not-recognized",
+    "usb-disconnect-reconnect"
+  ],
+  "DXGI_ERROR_DEVICE_RESET": [
+    "game-crash",
+    "gpu-driver-crash-timeout"
+  ],
+  "DXGI_ERROR_DEVICE_REMOVED": [
+    "game-black-screen-restart",
+    "gpu-driver-crash-timeout"
+  ],
+  "DXGI_ERROR_UNSUPPORTED": [
+    "game-launch-fail",
+    "game-dx12-crash"
+  ],
+  "NET::ERR_CERT_DATE_INVALID": [
+    "windows-time-wrong",
+    "specific-websites-not-opening"
+  ],
+  "NET::ERR_CERT_AUTHORITY_INVALID": [
+    "specific-websites-not-opening",
+    "proxy-internet-not-working"
+  ],
+  "ERR_INTERNET_DISCONNECTED": [
+    "internet-not-working",
+    "wifi-no-internet"
+  ],
+  "0xC0000005": [
+    "app-not-opening",
+    "memory-errors-random-crash"
+  ],
+  "0xC0000142": [
+    "app-not-opening",
+    "game-launch-fail"
+  ],
+  "0xC0000022": [
+    "app-not-opening",
+    "app-install-uninstall-fail"
+  ],
+  "VCRUNTIME140_1.dll": [
+    "dll-missing-error",
+    "app-not-opening"
+  ],
+  "Error 1603": [
+    "app-install-uninstall-fail",
+    "windows-update-fail"
+  ],
+  "Error 1618": [
+    "app-install-uninstall-fail",
+    "windows-update-stuck"
+  ],
+  "Error 1722": [
+    "app-install-uninstall-fail",
+    "dll-missing-error"
+  ]
+};
+
 export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entries.map(seed => {
   const [code, name, description, commonSituations, causes, firstCheck, action, checkPoint, question, answer] = seed;
   const title = `${code} ${name}`;
@@ -173,12 +365,14 @@ export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entrie
     description, commonSituations, causes: causes.split("|"), firstCheck,
     aliases: [code, code.replace(/_/g, " "), name, ...(group.category === "장치 관리자" ? [`장치 관리자 ${code}`, `코드 ${code.split(" ")[1]}`] : [])],
     updatedAt: errorsUpdatedAt,
+    // 위쪽 '자주 발생하는 상황'·'오류 의미'를 되풀이하던 단계 이유 문단과, 확인 포인트를 반복하던 FAQ는 없앴다.
+    // '가장 먼저 확인할 것'은 화면 위쪽 상자 대신 1단계로만 보여준다.
     solutions: [
-      { order: 1, title: "발생 조건 확인", reason: commonSituations, difficulty: "쉬움" as const, time: "5분", steps: [firstCheck], checkPoint: "오류 코드와 발생 시점, 최근 변경 내용을 함께 기록하세요." },
-      { order: 2, title: `${name} 해결 절차`, reason: description, difficulty: "보통" as const, time: "10~30분", steps: action.split("|"), checkPoint },
+      { order: 1, title: "발생 조건 확인", reason: "", difficulty: "쉬움" as const, time: "5분", steps: [firstCheck], checkPoint: "오류 코드와 발생 시점, 최근 변경 내용을 함께 기록하세요." },
+      { order: 2, title: `${name} 해결 절차`, reason: "", difficulty: "보통" as const, time: "10~30분", steps: action.split("|"), checkPoint },
     ],
-    faqs: [{ question, answer }, { question: `${code} 조치 후 무엇을 확인하나요?`, answer: checkPoint }],
-    relatedProblemSlugs: group.related,
+    faqs: [{ question, answer }],
+    relatedProblemSlugs: relatedOverrides[code] ?? relatedProblemsFor(group.category, `${code} ${name} ${description} ${commonSituations} ${causes} ${action}`, group.related),
     seoTitle: searchMetadata[code]?.seoTitle ?? `${title} 원인과 해결 방법 | PC FIX`,
     seoDescription: searchMetadata[code]?.seoDescription ?? `${description} ${commonSituations} ${firstCheck}`,
     sources: [{ title: group.category === "네트워크/브라우저" ? "Google Chrome 공식 도움말" : "Microsoft 공식 문서", url: referenceFor(code, group.source) }],

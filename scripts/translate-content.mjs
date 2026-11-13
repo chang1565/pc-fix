@@ -8,10 +8,18 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const korean = /[가-힣]/;
 const sourceDir = fs.existsSync(path.join(root, "app/(ko)")) ? "app/(ko)" : "app";
 export const sourceFiles = ["layout.tsx", "page.tsx", "not-found.tsx", "about/page.tsx", "contact/page.tsx", "privacy/page.tsx", "terms/page.tsx", "category/[category]/page.tsx", "problems/[slug]/page.tsx", "errors/page.tsx", "errors/[slug]/page.tsx"].map(p => `${sourceDir}/${p}`).concat(["components/SiteHeader.tsx", "components/SiteFooter.tsx", "components/ErrorBrowser.tsx", "components/ErrorCard.tsx", "lib/unifiedSearch.ts", "lib/errorSearch.ts"]);
+// 데이터 파일 사이의 상대 경로·@/ 가져오기(예: errorCodes.ts → problems.ts)를 지원한다.
+const loadedFiles = new Map();
 export function loadData(filename) {
-  const output = ts.transpileModule(fs.readFileSync(path.join(root, filename), "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText;
+  const absolute = path.resolve(root, filename);
+  if (loadedFiles.has(absolute)) return loadedFiles.get(absolute).exports;
+  const output = ts.transpileModule(fs.readFileSync(absolute, "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020, esModuleInterop: true } }).outputText;
   const loaded = { exports: {} };
-  new Function("module", "exports", output)(loaded, loaded.exports);
+  loadedFiles.set(absolute, loaded);
+  const localRequire = name => name.startsWith("@/") ? loadData(name.slice(2) + (name.endsWith(".json") ? "" : ".ts"))
+    : name.startsWith(".") ? loadData(path.relative(root, path.resolve(path.dirname(absolute), name + (name.endsWith(".json") ? "" : ".ts"))))
+    : (() => { throw new Error(`Unsupported import in ${filename}: ${name}`); })();
+  new Function("require", "module", "exports", output)(localRequire, loaded, loaded.exports);
   return loaded.exports;
 }
 export function collectStrings() {

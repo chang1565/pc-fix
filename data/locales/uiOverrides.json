@@ -233,7 +233,12 @@
     "상황별로 먼저 볼 글": "Where to start by situation",
     "먼저 구분할 것": "Check this first",
     "참고한 공식 문서": "Official references",
-    ". 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.": ". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault."
+    ". 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.": ". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault.",
+    "Ctrl + Alt + Delete는 되는데 바탕화면만 멈춘다면 특정 앱·Explorer·그래픽 드라이버 문제 가능성이 상대적으로 높습니다.": "If Ctrl + Alt + Delete still works but the desktop is frozen, a specific app, Explorer or the graphics driver is relatively more likely to be the cause.",
+    "동기화 직후에는 정상인데 재부팅할 때마다 다시 틀어진다면 Windows 설정보다 RTC/CMOS 쪽 가능성을 확인합니다.": "If the time is correct right after syncing but goes wrong again after every restart, check the RTC/CMOS side rather than Windows settings.",
+    "하판이나 터치패드가 들뜬 경우에도 배터리 팽창 가능성을 먼저 의심합니다.": "If the bottom cover or touchpad is lifting, suspect a swollen battery first.",
+    "관련 문제와 해결 방법을 모았습니다.": "problems and their solutions are collected here.",
+    " 관련 컴퓨터 문제의 원인과 해결 방법을 확인하세요.": " problems on your PC: check the causes and solutions."
   },
   "ja": {
     "통합 검색": "検索",
@@ -531,7 +536,12 @@
     "상황별로 먼저 볼 글": "状況別に最初に読む記事",
     "먼저 구분할 것": "最初に切り分けること",
     "참고한 공식 문서": "参考にした公式ドキュメント",
-    ". 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.": "。このガイドは原因の候補と確認の順序をまとめたもので、故障の原因を確定する診断ではありません。"
+    ". 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.": "。このガイドは原因の候補と確認の順序をまとめたもので、故障の原因を確定する診断ではありません。",
+    "Ctrl + Alt + Delete는 되는데 바탕화면만 멈춘다면 특정 앱·Explorer·그래픽 드라이버 문제 가능성이 상대적으로 높습니다.": "Ctrl + Alt + Deleteは使えるのにデスクトップだけが止まる場合は、特定のアプリ・Explorer・グラフィックドライバーの問題である可能性が比較的高くなります。",
+    "동기화 직후에는 정상인데 재부팅할 때마다 다시 틀어진다면 Windows 설정보다 RTC/CMOS 쪽 가능성을 확인합니다.": "同期直後は正しいのに再起動のたびにずれる場合は、Windowsの設定よりもRTC/CMOS側の可能性を確認します。",
+    "하판이나 터치패드가 들뜬 경우에도 배터리 팽창 가능성을 먼저 의심합니다.": "底面カバーやタッチパッドが浮いている場合も、まずバッテリーの膨張を疑います。",
+    "관련 문제와 해결 방법을 모았습니다.": "に関連する問題と解決方法をまとめました。",
+    " 관련 컴퓨터 문제의 원인과 해결 방법을 확인하세요.": "に関連するPCの問題の原因と解決方法を確認してください。"
   },
   "zh-CN": {
     "통합 검색": "搜索",
@@ -1025,6 +1035,11 @@
     "상황별로 먼저 볼 글": "按情况先看的文章",
     "먼저 구분할 것": "先区分的情况",
     "참고한 공식 문서": "参考的官方文档",
-    ". 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.": "。本指南整理了可能的原因和检查顺序，并不是确定故障原因的诊断。"
+    ". 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.": "。本指南整理了可能的原因和检查顺序，并不是确定故障原因的诊断。",
+    "Ctrl + Alt + Delete는 되는데 바탕화면만 멈춘다면 특정 앱·Explorer·그래픽 드라이버 문제 가능성이 상대적으로 높습니다.": "如果 Ctrl + Alt + Delete 仍可使用但桌面冻结，则特定应用、资源管理器或显卡驱动程序出现问题的可能性相对较高。",
+    "동기화 직후에는 정상인데 재부팅할 때마다 다시 틀어진다면 Windows 설정보다 RTC/CMOS 쪽 가능성을 확인합니다.": "如果同步后时间正确，但每次重启后又出错，请优先检查 RTC/CMOS，而不是 Windows 设置。",
+    "하판이나 터치패드가 들뜬 경우에도 배터리 팽창 가능성을 먼저 의심합니다.": "如果底壳或触控板翘起，也应首先怀疑电池膨胀。",
+    "관련 문제와 해결 방법을 모았습니다.": "相关问题及解决方法汇总在此。",
+    " 관련 컴퓨터 문제의 원인과 해결 방법을 확인하세요.": "相关的电脑问题：查看原因和解决方法。"
   }
 }

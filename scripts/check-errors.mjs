@@ -31,7 +31,8 @@ assert.equal(errorCategories.length, 7);
 for (const field of ["slug", "code", "description", "seoTitle", "seoDescription"]) assert.equal(new Set(errorCodes.map(entry => entry[field])).size, 80, `duplicate ${field}`);
 for (const entry of errorCodes) {
   assert.match(entry.slug, /^[a-z0-9-]+$/);
-  assert.ok(entry.solutions.length >= 2 && entry.faqs.length >= 2);
+  // FAQ 2번째(확인 포인트 반복)는 2026-11-14에 없앴다. 해결 단계 2개와 FAQ 1개 이상을 요구한다.
+  assert.ok(entry.solutions.length >= 2 && entry.faqs.length >= 1);
   for (const slug of entry.relatedProblemSlugs) assert.ok(problems.some(problem => problem.slug === slug), `broken link: ${slug}`);
 }
 for (const [query, slug] of [

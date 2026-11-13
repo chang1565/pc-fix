@@ -43,10 +43,10 @@ export default async function ErrorPage({ params }: Props) {
       <section className={panel}><span className="text-sm font-bold text-blue-600">{entry.category}</span><h1 className="mt-3 break-words text-3xl font-black sm:text-4xl">{entry.title}</h1>
         <h2 className="mt-6 text-lg font-bold">오류 의미</h2><p className="mt-2 leading-7 text-slate-600">{entry.description}</p>
         <h2 className="mt-6 text-lg font-bold">자주 발생하는 상황</h2><p className="mt-2 leading-7 text-slate-600">{entry.commonSituations}</p>
-        <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">가장 먼저 확인할 것</h2>{extras ? <ul className="mt-2 list-disc space-y-1 pl-5 leading-7 text-blue-900">{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul> : <p className="mt-2 leading-7 text-blue-900">{entry.firstCheck}</p>}</div></section>
+        {extras && <div className="mt-6 rounded-xl bg-blue-50 p-5"><h2 className="font-bold text-blue-900">가장 먼저 확인할 것</h2><ul className="mt-2 list-disc space-y-1 pl-5 leading-7 text-blue-900">{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}</section>
       <section className={panel}><h2 className="text-xl font-black">주요 원인</h2><ul className="mt-4 list-disc space-y-2 pl-5 text-slate-600">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
       <section className="mt-10"><h2 className="text-2xl font-black">단계별 해결 방법</h2><p className="mt-2 text-sm text-slate-500">위에서부터 확인하고 해결되면 다음 단계는 진행하지 않아도 됩니다.</p>
-        {entry.solutions.map(solution => <article key={solution.order} className={panel}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3><p className="mt-2 leading-7 text-slate-600">{solution.reason}</p>
+        {entry.solutions.map(solution => <article key={solution.order} className={panel}><h3 className="text-xl font-bold">{solution.order}. {solution.title}</h3>{solution.reason && <p className="mt-2 leading-7 text-slate-600">{solution.reason}</p>}
           <p className="mt-3 text-xs font-semibold text-blue-600">난이도 {solution.difficulty} · 예상 시간 {solution.time}</p><ol className="mt-5 list-decimal space-y-3 pl-5 leading-7 text-slate-700">{solution.steps.map(step => <li key={step}>{step}</li>)}</ol>
           <p className="mt-5 rounded-xl bg-green-50 p-4 leading-7 text-green-800"><strong>확인 포인트: </strong>{solution.checkPoint}</p></article>)}</section>
       

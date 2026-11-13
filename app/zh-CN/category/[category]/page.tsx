@@ -24,7 +24,7 @@ export async function generateMetadata({ params, }: PageProps): Promise<Metadata
     return {
         title: `${decodedCategory} \u6545\u969C\u6392\u9664 |PC FIX`,
         alternates: languageAlternates(`/zh-CN/category/${encodeURIComponent(decodedCategory)}`),
-        description: `${decodedCategory}\u627E\u51FA\u4E0E \u76F8\u5173\u7684\u8BA1\u7B97\u673A\u95EE\u9898\u7684\u539F\u56E0\u548C\u89E3\u51B3\u65B9\u6848\u3002`,
+        description: `${decodedCategory} \u76F8\u5173\u7684\u7535\u8111\u95EE\u9898\uFF1A\u67E5\u770B\u539F\u56E0\u548C\u89E3\u51B3\u65B9\u6CD5\u3002`,
     };
 }
 export default async function CategoryPage({ params }: PageProps) {
@@ -56,7 +56,7 @@ export default async function CategoryPage({ params }: PageProps) {
           </h1>
 
           <p className="mt-3 text-slate-500">
-            {decodedCategory}{"\u6211\u4EEC\u6536\u96C6\u4E86\u76F8\u5173\u95EE\u9898\u548C\u89E3\u51B3\u65B9\u6848\u3002 "}</p>
+            {decodedCategory}{" \u76F8\u5173\u95EE\u9898\u53CA\u89E3\u51B3\u65B9\u6CD5\u6C47\u603B\u5728\u6B64\u3002 "}</p>
 
           {guide && (<p className="mt-4 leading-7 text-slate-700">
               {guide.intro}

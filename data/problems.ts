@@ -7111,6 +7111,21 @@ const presetFocus: Record<string, string> = {
   "general": "증상이 발생하는 조건과 최근 변경 사항을 기록한 뒤 소프트웨어와 하드웨어 원인을 나눠 확인하세요.",
 };
 
+// 앞 단어의 받침에 맞춰 조사를 고른다. 예: josa("저장 공간 부족", "과/와") → "저장 공간 부족과"
+// 받침이 있는 숫자: 0(영) 1(일) 3(삼) 6(육) 7(칠) 8(팔)
+const digitBatchim = "013678";
+export function josa(word: string, pair: "은/는" | "이/가" | "을/를" | "과/와") {
+  const [withBatchim, withoutBatchim] = pair.split("/");
+  const core = word.replace(/[\s’”"')\]]+$/u, "");
+  const last = core.slice(-1);
+  const code = last.charCodeAt(0);
+  let hasBatchim = false;
+  if (code >= 0xac00 && code <= 0xd7a3) hasBatchim = (code - 0xac00) % 28 !== 0;
+  else if (/[0-9]/.test(last)) hasBatchim = digitBatchim.includes(last);
+  else if (/[a-z]/i.test(last)) hasBatchim = /[lmn]$/i.test(core);
+  return word + (hasBatchim ? withBatchim : withoutBatchim);
+}
+
 function stableVariant(seed: ProblemSeed, count: number) {
   const hash = [...seed.slug].reduce(
     (total, char) => total + char.charCodeAt(0),
@@ -7131,11 +7146,11 @@ function buildDescription(seed: ProblemSeed) {
 
   const variants = [
     `“${symptom}” 증상이 보이는 경우 원인 후보로는 ${causes} 등이 있습니다. ${focus}`,
-    `${seed.category} 문제 중 “${symptom}” 증상은 ${causes}와 관련될 수 있습니다. ${focus}`,
+    `${seed.category} 문제 중 “${symptom}” 증상은 ${josa(causes, "과/와")} 관련될 수 있습니다. ${focus}`,
     `이 가이드는 “${symptom}” 상황에서 ${causes} 항목을 안전한 순서로 구분하도록 구성했습니다. ${focus}`,
-    `“${symptom}”이 반복된다면 여러 설정을 한꺼번에 바꾸기보다 ${causes}부터 범위를 좁히는 편이 좋습니다. ${focus}`,
+    `${josa(`“${symptom}”`, "이/가")} 반복된다면 여러 설정을 한꺼번에 바꾸기보다 ${causes}부터 범위를 좁히는 편이 좋습니다. ${focus}`,
     `현재 증상이 “${symptom}”에 가깝다면 ${causes} 여부를 먼저 살펴보세요. ${focus}`,
-    `${seed.title} 해결에서는 원인을 한 번에 하나씩 배제하는 과정이 중요합니다. “${symptom}” 증상을 기준으로 ${causes}를 확인한 뒤 다음 단계를 진행하세요. ${focus}`,
+    `${seed.title} 해결에서는 원인을 한 번에 하나씩 배제하는 과정이 중요합니다. “${symptom}” 증상을 기준으로 ${josa(causes, "을/를")} 확인한 뒤 다음 단계를 진행하세요. ${focus}`,
   ];
 
   return variants[stableVariant(seed, variants.length)];
@@ -7157,46 +7172,22 @@ function personalizeSolutions(
     return solutions;
   }
 
-  const symptom = seed.symptoms[0];
-  const cause = seed.extraCauses[0];
-  const first = solutions[0];
-  const personalizedCheck = `이 단계 후 “${symptom}” 증상이 줄거나 사라지는지 확인하세요. 변화가 없다면 ${cause} 가능성도 다음 단계에서 함께 확인합니다.`;
-
-  return solutions.map((solution, index) =>
-    index === 0
-      ? {
-          ...solution,
-          checkPoint: solution.checkPoint
-            ? `${solution.checkPoint} ${personalizedCheck}`
-            : personalizedCheck,
-        }
-      : solution
-  );
+  // 모든 페이지 첫 단계에 같은 틀의 확인 문장을 덧붙이던 처리를 없앴다(템플릿 반복 축소).
+  void seed;
+  return solutions;
 }
 
 function buildFaqs(
   seed: ProblemSeed,
-  solutions: SolutionStep[],
   warning?: string
 ): ProblemFaq[] {
-  const firstSolution = solutions[0];
-  const secondSolution = solutions[1] ?? firstSolution;
+  // 해결 단계를 그대로 되풀이하던 고정 질문 2개는 없애고, 언제 점검이 필요한지만 남긴다.
   const firstSymptom = seed.symptoms[0];
-  const firstCause = seed.extraCauses[0];
-
   const safetyAnswer = warning
     ? warning
     : `위 해결 단계를 순서대로 진행해도 ${firstSymptom} 증상이 반복되거나, 타는 냄새·이상음·과열·부품 인식 실패처럼 하드웨어 이상 신호가 함께 나타나면 중요한 데이터를 백업한 뒤 전문 점검을 권장합니다.`;
 
   return [
-    {
-      question: `${firstSymptom} 증상이 보이면 가장 먼저 무엇을 확인해야 하나요?`,
-      answer: `먼저 ‘${firstSolution.title}’ 단계부터 진행하세요. ${firstSolution.reason} 한 번에 여러 설정을 바꾸지 말고 각 단계 뒤에 증상이 달라지는지 확인하는 것이 좋습니다.`,
-    },
-    {
-      question: `원인 후보 ‘${firstCause}’는 어떻게 확인하나요?`,
-      answer: `첫 단계에서 변화가 없다면 ‘${secondSolution.title}’까지 순서대로 비교해 보세요. 특정 조치 직후 증상이 사라지거나 재현 조건이 바뀌면 원인 범위를 좁히는 중요한 단서가 됩니다.`,
-    },
     {
       question: `${seed.title}: 언제 전문 점검이 필요한가요?`,
       answer: safetyAnswer,
@@ -7271,7 +7262,7 @@ const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
     keywords,
     causes: seed.extraCauses,
     solutions,
-    faqs: buildFaqs(seed, solutions, warning),
+    faqs: buildFaqs(seed, warning),
     warning,
     seoTitle: seed.seoTitle ?? `${seed.title} 해결 방법 | PC FIX`,
     seoDescription: seed.seoDescription ?? buildSeoDescription(seed),

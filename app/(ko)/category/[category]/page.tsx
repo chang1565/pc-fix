@@ -32,7 +32,7 @@ export async function generateMetadata({
   return {
     title: `${decodedCategory} 문제 해결 | PC FIX`,
     alternates: languageAlternates(`/category/${encodeURIComponent(decodedCategory)}`),
-    description: `${decodedCategory}와 관련된 컴퓨터 문제의 원인과 해결 방법을 확인하세요.`,
+    description: `${decodedCategory} 관련 컴퓨터 문제의 원인과 해결 방법을 확인하세요.`,
   };
 }
 
@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: PageProps) {
           </h1>
 
           <p className="mt-3 text-slate-500">
-            {decodedCategory}와 관련된 문제와 해결 방법을 모았습니다.
+            {decodedCategory} 관련 문제와 해결 방법을 모았습니다.
           </p>
 
           {guide && (
