@@ -8,7 +8,8 @@ import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import FaqItem from "@/components/FaqItem";
 import StepList from "@/components/StepList";
-import { totalTime } from "@/lib/stepPlan";
+import GuidedSteps from "@/components/GuidedSteps";
+import { advancedStart, totalTime } from "@/lib/stepPlan";
 import { errorCodes, findErrorBySlug } from "@/data/locales/zh-CN";
 import { findProblemBySlug } from "@/data/locales/zh-CN";
 import { languageAlternates } from "@/lib/localization";
@@ -44,30 +45,58 @@ export default async function ErrorPage({ params }: Props) {
         { "@context": "https://schema.org", "@type": "TechArticle", headline: entry.title, description: entry.seoDescription, url: pageUrl, inLanguage: "zh-CN", dateModified: entry.updatedAt, about: entry.code, author: { "@type": "Organization", name: "PC FIX" }, publisher: { "@type": "Organization", name: "PC FIX" } },
         { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: entry.faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
     ];
-    return <main className="relative min-h-screen bg-surface text-ink">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "\\u003c") }}/>
-    <SiteHeader /><div className="mx-auto max-w-5xl px-5 py-8 sm:py-10">
-      <nav aria-label="当前位置" className="mb-5 flex flex-wrap gap-2 text-sm text-muted"><Link href="/zh-CN" className="hover:text-action hover:underline">PC FIX</Link><span aria-hidden="true">›</span><Link href="/zh-CN/errors" className="hover:text-action hover:underline">{"\u9519\u8BEF\u4EE3\u7801"}</Link></nav>
-      <article className="max-w-3xl">
-        <p className="text-sm text-muted">{entry.category}</p>
-        <h1 className="mt-1 break-words text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">{entry.title}</h1>
-        <div className="mt-8 grid gap-8 sm:grid-cols-2">
-          <section><h2 className="border-b border-ink pb-2 text-base font-extrabold">{"\u9519\u8BEF\u542B\u4E49"}</h2><p className="mt-3 leading-7">{entry.description}</p></section>
-          <section><h2 className="border-b border-ink pb-2 text-base font-extrabold">{"\u7ECF\u5E38\u53D1\u751F\u7684\u60C5\u51B5"}</h2><p className="mt-3 leading-7">{entry.commonSituations}</p></section>
+    const levels = entry.solutions.map(solution => translate(solution.difficulty) === "\u7B80\u5355" ? "e" as const : translate(solution.difficulty) === "\u8FDB\u9636" ? "h" as const : "m" as const);
+    const name = entry.title.startsWith(entry.code) ? entry.title.slice(entry.code.length).trim() : "";
+    const related = entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item));
+    return <main className="doc relative min-h-screen text-ink">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "<") }}/>
+    <SiteHeader />
+    <article className="doc-wrap">
+      <div className="doc-intro">
+        <nav aria-label="当前位置" className="doc-crumb"><Link href="/zh-CN">PC FIX</Link><span aria-hidden="true">/</span><Link href="/zh-CN/errors">{"\u9519\u8BEF\u4EE3\u7801"}</Link><span aria-hidden="true">/</span><span>{entry.category}</span></nav>
+        {name ? <h1 className="doc-code-title"><code>{entry.code}</code> <span>{name}</span></h1> : <h1 className="break-words">{entry.title}</h1>}
+        <p className="doc-lead">{entry.description}</p>
+      </div>
+      <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
+        <h2 id="fit-title">{"\u8BF7\u5148\u786E\u8BA4\u672C\u6587\u662F\u5426\u7B26\u5408\u60A8\u7684\u60C5\u51B5"}</h2>
+        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"\u9996\u5148\u8981\u68C0\u67E5"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
+        <div className="doc-fit-grid">
+          <div><p className="doc-sub">{"\u7ECF\u5E38\u53D1\u751F\u7684\u60C5\u51B5"}</p><p className="doc-text">{entry.commonSituations}</p></div>
+          <div><p className="doc-sub">{"\u4E3B\u8981\u539F\u56E0"}</p><ul>{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></div>
         </div>
-        <nav className="step-plan" aria-labelledby="step-plan-title"><h2 id="step-plan-title">{"\u68C0\u67E5\u987A\u5E8F"}</h2><p className="step-plan-note">{"\u5982\u679C\u4EE5\u4E0A\u68C0\u67E5\u5747\u5DF2\u89E3\u51B3\uFF0C\u5219\u65E0\u9700\u7EE7\u7EED\u4E0B\u4E00\u6B65\u3002"}</p>
-          <ol>{entry.solutions.map(solution => <li key={solution.order}><a href={`#solution-${solution.order}`}><span className="step-plan-n">{solution.order}</span><span className="step-plan-t">{solution.title}</span><span className="step-plan-m">{solution.time}</span></a></li>)}</ol>
-          <p className="step-plan-foot">{"\u5168\u90E8\u5B8C\u6210\u7EA6\u9700 "}{totalTime(entry.solutions, "zh-CN")}</p></nav>
-        {extras && <section className="mt-10 rounded-xl bg-paper p-5 sm:p-6"><h2 className="text-lg font-extrabold">{"\u9996\u5148\u8981\u68C0\u67E5"}</h2><ul className="mt-3 list-disc space-y-2 pl-5 leading-7">{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></section>}
-        <section className="mt-8"><h2 className="border-b border-ink pb-2 text-base font-extrabold">{"\u4E3B\u8981\u539F\u56E0"}</h2><ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
-        <section className="mt-14"><h2 className="text-2xl font-extrabold tracking-tight">{"\u5206\u6B65\u89E3\u51B3\u65B9\u6848"}</h2>
-          <ol className="step-list mt-4">{entry.solutions.map(solution => <li key={solution.order} id={`solution-${solution.order}`}><span className="step-list-n" aria-hidden="true">{solution.order}</span><div className="min-w-0"><h3 className="text-xl font-bold leading-snug sm:text-[1.375rem]">{solution.title}</h3>
-            <p className="step-list-meta"><span>{"\u96BE\u5EA6 "}{translate(solution.difficulty)}</span><span>{solution.time}</span></p>{solution.reason && <p className="mt-3 leading-7 text-muted">{solution.reason}</p>}
-            <StepList steps={solution.steps} locale="zh-CN"/>
-            {solution.checkPoint && <div className="step-check"><p className="text-sm font-bold text-check">{"\u786E\u8BA4\u70B9"}</p><p className="mt-0.5 leading-7">{solution.checkPoint}</p></div>}</div></li>)}</ol></section>
-        <section className="mt-10 border-t border-line pt-6"><h2 className="font-bold">{"\u5B98\u65B9\u53C2\u8003\u6587\u6863"}</h2><ul className="mt-3 space-y-2">{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-action underline">{source.title}</a></li>)}</ul><p className="mt-4 text-xs text-muted">{"\u5185\u5BB9\u5BA1\u6838\u65E5\u671F\uFF1A "}{entry.updatedAt.slice(0, 10)}</p></section>
-        <section className="mt-12"><h2 className="border-b border-ink pb-2 text-xl font-extrabold">{"\u5E38\u89C1\u95EE\u9898\u89E3\u7B54"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
-      </article>
-      <section className="mt-12 max-w-3xl"><h2 className="border-b border-ink pb-2 text-xl font-extrabold">{"\u76F8\u5173 PC FIX \u95EE\u9898"}</h2><ul className="mt-1">{entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item)).map(problem => problem && <li key={problem.slug} className="border-b border-line"><Link href={`/zh-CN/problems/${problem.slug}`} className="group flex items-baseline gap-3 py-3.5"><span className="w-16 shrink-0 text-xs text-muted">{problem.category}</span><span className="font-semibold group-hover:text-action group-hover:underline">{problem.title}</span></Link></li>)}</ul></section>
-      </div><div className="display-ad-sides"><DisplayAd label="广告" placement="left"/><DisplayAd label="广告" placement="right"/></div><DisplayAd label="广告"/><SiteFooter /></main>;
+      </section>
+      <GuidedSteps totalTime={totalTime(entry.solutions, "zh-CN")} advancedFrom={advancedStart(levels)} afterId="after-steps" steps={entry.solutions.map((solution, index) => ({
+            order: solution.order, title: solution.title, difficulty: translate(solution.difficulty), level: levels[index], time: solution.time,
+            body: <>{solution.reason && <p className="guided-why">{solution.reason}</p>}<StepList steps={solution.steps} locale="zh-CN"/>{solution.checkPoint && <div className="step-check"><p className="step-check-title">{"\u786E\u8BA4\u70B9"}</p><p>{solution.checkPoint}</p></div>}</>,
+        }))} labels={{
+            title: "\u5206\u6B65\u89E3\u51B3\u65B9\u6848",
+            summary: "\u5171{count}\u6B65\uFF0C\u5168\u90E8\u5B8C\u6210\u7EA6\u9700{time}\u3002\u6309\u4ECE\u6613\u5230\u96BE\u7684\u987A\u5E8F\u6392\u5217\uFF0C\u95EE\u9898\u89E3\u51B3\u540E\u5373\u53EF\u505C\u6B62\u3002",
+            expandAll: "\u5168\u90E8\u5C55\u5F00",
+            collapseAll: "\u5168\u90E8\u6536\u8D77",
+            ask: "\u8FD9\u4E00\u6B65\u89E3\u51B3\u95EE\u9898\u4E86\u5417\uFF1F",
+            yes: "\u662F\u7684\uFF0C\u5DF2\u89E3\u51B3",
+            no: "\u6CA1\u6709\uFF0C\u4E0B\u4E00\u6B65",
+            noLast: "\u6CA1\u6709\uFF0C\u8FD8\u662F\u4E0D\u884C",
+            solvedAt: "\u5728\u7B2C{n}\u6B65\u89E3\u51B3",
+            triedAt: "\u5DF2\u68C0\u67E5\u7B2C{n}\u6B65\uFF0C\u672A\u89E3\u51B3",
+            undo: "\u64A4\u9500",
+            rail: "\u68C0\u67E5\u987A\u5E8F",
+            notStarted: "\u5C1A\u672A\u5F00\u59CB",
+            progressTried: "\u5DF2\u68C0\u67E5\u5230\u7B2C{n}\u6B65",
+            progressSolved: "\u5728\u7B2C{n}\u6B65\u89E3\u51B3",
+            band: "\u7B2C{n}/{total}\u6B65",
+            bandLink: "\u6B65\u9AA4\u5217\u8868",
+            gateTitle: "\u4EE5\u4E0B\u4E3A\u8FDB\u9636\u6B65\u9AA4",
+            gateText: "\u4EE5\u4E0B\u64CD\u4F5C\u96BE\u4EE5\u64A4\u9500\uFF0C\u6216\u9700\u8981\u76F4\u63A5\u5904\u7406\u786C\u4EF6\u548C\u7CFB\u7EDF\u8BBE\u7F6E\u3002\u5982\u679C\u6CA1\u6709\u628A\u63E1\uFF0C\u53EF\u4EE5\u5E26\u7740\u76EE\u524D\u7684\u68C0\u67E5\u7ED3\u679C\u9001\u4FEE\u3002",
+            advanced: "\u8FDB\u9636",
+            doneTitle: "\u5F88\u9AD8\u5174\u95EE\u9898\u5DF2\u89E3\u51B3",
+            doneText: "\u5982\u679C\u540C\u6837\u7684\u95EE\u9898\u518D\u6B21\u51FA\u73B0\uFF0C\u8BF7\u4ECE\u672C\u9875\u7B2C{n}\u6B65\u5F00\u59CB\u68C0\u67E5\u3002",
+        }}/>
+      <div id="after-steps" className="doc-after">
+        <section className="doc-sheet"><h2>{"\u5E38\u89C1\u95EE\u9898\u89E3\u7B54"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
+        {related.length > 0 && <section className="doc-sheet"><h2>{"\u76F8\u5173 PC FIX \u95EE\u9898"}</h2><ul className="doc-links">{related.map(problem => problem && <li key={problem.slug}><Link href={`/zh-CN/problems/${problem.slug}`}><span>{problem.category}</span>{problem.title}</Link></li>)}</ul></section>}
+        <section className="doc-sources"><h2>{"\u5B98\u65B9\u53C2\u8003\u6587\u6863"}</h2><ul>{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul><p>{"\u5185\u5BB9\u5BA1\u6838\u65E5\u671F\uFF1A "}{entry.updatedAt.slice(0, 10)}</p></section>
+      </div>
+    </article>
+    <div className="display-ad-sides"><DisplayAd label="广告" placement="left"/><DisplayAd label="广告" placement="right"/></div><DisplayAd label="广告"/><SiteFooter /></main>;
 }

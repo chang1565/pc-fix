@@ -18,6 +18,27 @@ const popularSlugs = [
     "computer-boot-failure",
     "usb-not-recognized",
 ];
+// 분야 타일 아이콘(40×40 선 그림). 분야 이름은 번역 파일이 함께 바꾼다.
+const categoryIcons: Record<string, string> = {
+    "Power": "M20 7v11 M12.5 11.5a11 11 0 1 0 15 0",
+    "Boot": "M8 8h24v18H8z M14 32h12 M20 26v6 M16 15l4 4-4 4",
+    Windows: "M7 7h12v12H7z M21 7h12v12H21z M7 21h12v12H7z M21 21h12v12H21z",
+    "Display": "M5 7h30v19H5z M20 26v6 M14 32h12",
+    "Graphics": "M6 12h28v16H6z M12 28v5 M28 28v5 M14 20a4 4 0 1 0 8 0a4 4 0 1 0-8 0",
+    "Gaming": "M11 13h18a6 6 0 0 1 6 6v3a5 5 0 0 1-9 3l-2-2h-8l-2 2a5 5 0 0 1-9-3v-3a6 6 0 0 1 6-6z M12 17v5 M9.5 19.5h5",
+    "Performance": "M6 30a14 14 0 1 1 28 0 M20 30l6-9",
+    "Storage": "M7 9h26v22H7z M14 20a6 6 0 1 0 12 0a6 6 0 1 0-12 0",
+    "Memory": "M5 13h30v12H5z M10 25v4 M16 25v4 M22 25v4 M28 25v4 M10 17h4v4h-4z M18 17h4v4h-4z M26 17h4v4h-4z",
+    CPU: "M11 11h18v18H11z M16 16h8v8h-8z M15 6v5 M20 6v5 M25 6v5 M15 29v5 M20 29v5 M25 29v5 M6 15h5 M6 20h5 M6 25h5 M29 15h5 M29 20h5 M29 25h5",
+    "Internet": "M6 16a20 20 0 0 1 28 0 M11 21a13 13 0 0 1 18 0 M16 26a6 6 0 0 1 8 0 M20 31v.5",
+    Bluetooth: "M13 13l14 14-7 6V7l7 6-14 14",
+    "Peripherals": "M13 5h14v14H13z M10 19h20v8a6 6 0 0 1-6 6h-8a6 6 0 0 1-6-6z",
+    "Audio": "M8 16h6l8-6v20l-8-6H8z M27 15a7 7 0 0 1 0 10 M30 11a12 12 0 0 1 0 18",
+    "Camera": "M6 13h20v14H6z M26 18l8-4v12l-8-4",
+    "Printer": "M12 6h16v9H12z M6 15h28v12H6z M12 23h16v10H12z",
+    "Laptop": "M9 9h22v15H9z M5 28h30l-2 3H7z",
+    "Overheating": "M17 8a3 3 0 0 1 6 0v14a6 6 0 1 1-6 0z M20 16v9",
+};
 const popularErrorSlugs = [
     "critical-process-died",
     "irql-not-less-or-equal",
@@ -105,169 +126,170 @@ export default function Home() {
         setDebouncedQuery("");
         updateSearchUrl("");
     }
-    return (<main className="relative min-h-screen bg-surface text-ink">
-      <SiteHeader showSearch={false}/>
+    return (<main className="home-page relative min-h-screen text-ink">
+      <SiteHeader showSearch={false} tone="dark"/>
 
       {/* 첫 화면: 지금 보이는 증상이나 오류 문구를 바로 입력하는 검색 */}
-      <section className="mx-auto max-w-5xl px-5 pb-10 pt-12 sm:pb-14 sm:pt-16">
-        <h1 className="max-w-3xl text-[2rem] font-extrabold leading-[1.25] tracking-[-0.03em] sm:text-5xl">{" Something wrong with your PC? "}<br />{" Find out what to check first. "}</h1>
+      <section className="home-hero">
+        <div className="home-hero-in">
+          <h1>{" Something wrong with your PC? "}<br />{" Find out what to check first. "}</h1>
 
-        <p className="mt-4 max-w-2xl leading-7 text-muted sm:text-lg">{" Enter the symptoms you are experiencing or the error code shown on your screen. "}</p>
+          <p className="home-hero-lead">{" Enter the symptoms you are experiencing or the error code shown on your screen. "}</p>
 
-        <div className="relative mt-7 max-w-2xl">
-          <input type="search" aria-label="Search PC symptoms or error codes" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="Try: black screen while gaming, 0xc0000005, Code 43" className="home-search"/>
+          <form role="search" className="home-searchbox" onSubmit={(event) => {
+            event.preventDefault();
+            handleExampleSearch(inputQuery.trim());
+        }}>
+            <input type="search" aria-label="Search PC symptoms or error codes" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="Try: black screen while gaming, 0xc0000005, Code 43" className="home-search"/>
 
-          {inputQuery && (<button type="button" onClick={handleClear} aria-label="Clear search term" className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-md text-muted hover:bg-line hover:text-ink">
-              ✕
-            </button>)}
-        </div>
+            {inputQuery && (<button type="button" onClick={handleClear} aria-label="Clear search term" className="home-clear">
+                ✕
+              </button>)}
 
-        <div className="home-examples">
-          <button type="button" onClick={() => handleExampleSearch("While playing a game, a black screen appears and reboots.")}>{" black screen while gaming "}</button>
-          <button type="button" onClick={() => handleExampleSearch("The game keeps crashing")}>{" Game crashing "}</button>
-          <button type="button" onClick={() => handleExampleSearch("My computer is so slow")}>{" computer slows down "}</button>
-          <button type="button" onClick={() => handleExampleSearch("The internet suddenly doesn't work")}>{" No internet "}</button>
+            <button type="submit" className="home-submit">{"Search"}</button>
+          </form>
+
+          <div className="home-examples">
+            <p>{"Popular searches"}</p>
+            <div>
+              <button type="button" onClick={() => handleExampleSearch("While playing a game, a black screen appears and reboots.")}>{" black screen while gaming "}</button>
+              <button type="button" onClick={() => handleExampleSearch("The game keeps crashing")}>{" Game crashing "}</button>
+              <button type="button" onClick={() => handleExampleSearch("My computer is so slow")}>{" computer slows down "}</button>
+              <button type="button" onClick={() => handleExampleSearch("The internet suddenly doesn't work")}>{" No internet "}</button>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-5 pb-14">
-        {isSearching ? (<section>
-            <div className="flex items-baseline justify-between gap-4 border-b-2 border-ink pb-3">
-              <h2 className="text-xl font-extrabold">{" Search results "}</h2>
+      <div className="home-body">
+        {isSearching ? (<section className="home-sheet">
+            <div className="home-results-head">
+              <h2>{" Search results "}</h2>
 
-              <span className="text-sm text-muted">
+              <span>
                 {searchResults.length}{" results "}</span>
             </div>
 
-            <p className="mt-3 text-sm text-muted">
+            <p className="home-results-note">
               &quot;{debouncedQuery}{"\"Problems and errors related to: "}</p>
 
             {searchResults.length > 0 ? (<>
-                <ol className="mt-2">
+                <ol className="home-results">
                   {searchResults
                     .slice(0, expandedQuery === debouncedQuery ? undefined : 10)
-                    .map((problem, index) => (<li key={problem.href} className="border-b border-line">
-                        <Link href={problem.href} className="group block py-4">
-                          <span className="text-xs text-muted">
+                    .map((problem, index) => (<li key={problem.href}>
+                        <Link href={problem.href}>
+                          <span className="home-results-cat">
                             {problem.category}
                           </span>
 
-                          {index === 0 && (<span className="ml-2 text-xs font-bold text-action">{" Best match "}</span>)}
+                          {index === 0 && (<span className="home-results-best">{" Best match "}</span>)}
 
-                          <h3 className="mt-1 text-lg font-bold group-hover:text-action group-hover:underline">
+                          <h3>
                             {problem.title}
                           </h3>
 
-                          <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted">
+                          <p>
                             {problem.description}
                           </p>
                         </Link>
                       </li>))}
                 </ol>
 
-                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="mt-6 rounded-md border border-line bg-surface px-4 py-2.5 text-sm font-bold text-action hover:border-action">{"View more search results ("}{searchResults.length - 10}{" more)"}</button>)}
-              </>) : (<div className="mt-6 rounded-md border border-line bg-surface p-6">
-                <h3 className="font-bold">{" I couldn't find any related issues. "}</h3>
+                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="home-more-btn">{"View more search results ("}{searchResults.length - 10}{" more)"}</button>)}
+              </>) : (<div className="home-empty">
+                <h3>{" I couldn't find any related issues. "}</h3>
 
-                <p className="mt-2 text-sm leading-6 text-muted">{" Please enter your symptoms in more detail. "}<br />{" Example: \u201CThe screen turns off during the game, but the PC stays on.\u201D "}</p>
+                <p>{" Please enter your symptoms in more detail. "}<br />{" Example: \u201CThe screen turns off during the game, but the PC stays on.\u201D "}</p>
 
-                <button type="button" onClick={handleClear} className="mt-4 rounded-md bg-action px-4 py-2.5 text-sm font-bold text-white hover:bg-action-strong">{" Search again "}</button>
+                <button type="button" onClick={handleClear}>{" Search again "}</button>
               </div>)}
-          </section>) : (<>
-            <div className="grid gap-12 md:grid-cols-[1.25fr_1fr] md:gap-14">
-              <section>
-                <h2 className="home-h2">{" Common PC problems "}</h2>
+          </section>) : (<div className="home-grid">
+            <section className="home-sheet home-popular">
+              <h2>{" Common PC problems "}</h2>
 
-                <ul>
-                  {popularProblems.map((problem) => {
+              <ol className="home-list">
+                {popularProblems.map((problem, index) => {
                 if (!problem) {
                     return null;
                 }
-                return (<li key={problem.slug} className="border-b border-line">
-                        <Link href={`/en/problems/${problem.slug}`} className="group flex items-baseline gap-3 py-3">
-                          <span className="w-14 shrink-0 text-xs text-muted">
-                            {problem.category}
-                          </span>
-
-                          <span className="font-semibold leading-6 group-hover:text-action group-hover:underline">
-                            {problem.title}
-                          </span>
-                        </Link>
-                      </li>);
-            })}
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="home-h2">{" Common error codes "}</h2>
-
-                <ul>
-                  {popularErrors.map((entry) => (<li key={entry.slug} className="border-b border-line">
-                      <Link href={`/en/errors/${entry.slug}`} className="group flex items-baseline justify-between gap-3 py-3">
-                        <span className="home-code group-hover:text-action group-hover:underline">
-                          {entry.code}
-                        </span>
-
-                        <span className="shrink-0 text-xs text-muted">
-                          {entry.category}
-                        </span>
+                return (<li key={problem.slug}>
+                      <Link href={`/en/problems/${problem.slug}`}>
+                        <span className="home-rank">{index + 1}</span>
+                        <span>{problem.title}</span>
                       </Link>
-                    </li>))}
-                </ul>
+                    </li>);
+            })}
+              </ol>
+            </section>
 
-                <Link href="/en/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{" View all error codes "}</Link>
-              </section>
-            </div>
+            <section className="home-sheet home-codes">
+              <h2>{" Common error codes "}</h2>
 
-            <section className="mt-14">
-              <h2 className="home-h2">{" Browse by category "}</h2>
+              <ul className="home-list">
+                {popularErrors.map((entry) => (<li key={entry.slug}>
+                    <Link href={`/en/errors/${entry.slug}`} className="home-code-row">
+                      <span className="home-code">
+                        {entry.code}
+                      </span>
 
-              <ul className="grid grid-cols-2 gap-x-8 sm:grid-cols-3 lg:grid-cols-4">
+                      <span className="home-code-cat">
+                        {entry.category}
+                      </span>
+                    </Link>
+                  </li>))}
+              </ul>
+
+              <Link href="/en/errors" className="home-more">{" View all error codes "}</Link>
+            </section>
+
+            <section className="home-areas">
+              <h2>{" Browse by category "}</h2>
+
+              <ul>
                 {categories.map((category) => {
                 const count = problems.filter((problem) => problem.category === category).length;
-                return (<li key={category} className="border-b border-line">
-                      <Link href={`/en/category/${encodeURIComponent(category)}`} className="group flex items-baseline justify-between gap-2 py-3">
-                        <span className="font-semibold group-hover:text-action group-hover:underline">
-                          {category}
-                        </span>
-
-                        <span className="text-sm tabular-nums text-muted">
-                          {count}
-                        </span>
+                return (<li key={category}>
+                      <Link href={`/en/category/${encodeURIComponent(category)}`}>
+                        <svg viewBox="0 0 40 40" aria-hidden="true">
+                          <path d={categoryIcons[category] ?? "M8 8h24v24H8z"}/>
+                        </svg>
+                        <b>{category}</b>
+                        <span>{count}</span>
                       </Link>
                     </li>);
             })}
               </ul>
             </section>
 
-            <section className="mt-14">
-              <h2 className="home-h2">{" You can use PC FIX like this: "}</h2>
+            <section className="home-how-sec">
+              <h2>{" You can use PC FIX like this: "}</h2>
 
               <ol className="home-how">
                 <li>
                   <span aria-hidden="true">1</span>
                   <div>
-                    <h3 className="font-bold">{" Search for symptoms as is "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" Instead of jargon, use what you actually see. "}</p>
+                    <h3>{" Search for symptoms as is "}</h3>
+                    <p>{" Instead of jargon, use what you actually see. "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">2</span>
                   <div>
-                    <h3 className="font-bold">{" Check it out the easy way "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" We will guide you step by step, starting with solutions that are less costly and less risky. "}</p>
+                    <h3>{" Check it out the easy way "}</h3>
+                    <p>{" We will guide you step by step, starting with solutions that are less costly and less risky. "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">3</span>
                   <div>
-                    <h3 className="font-bold">{" Proceed only until resolved "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" If the problem is resolved, there is no need to proceed to more difficult steps. "}</p>
+                    <h3>{" Proceed only until resolved "}</h3>
+                    <p>{" If the problem is resolved, there is no need to proceed to more difficult steps. "}</p>
                   </div>
                 </li>
               </ol>
             </section>
-          </>)}
+          </div>)}
       </div>
 
       <div className="display-ad-sides"><DisplayAd label="Advertisement" placement="left"/><DisplayAd label="Advertisement" placement="right"/></div><DisplayAd label="Advertisement"/><SiteFooter />

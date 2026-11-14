@@ -6,7 +6,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import FaqItem from "@/components/FaqItem";
 import StepList from "@/components/StepList";
-import { totalTime } from "@/lib/stepPlan";
+import GuidedSteps from "@/components/GuidedSteps";
+import { advancedStart, totalTime } from "@/lib/stepPlan";
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
 import ErrorCard from "@/components/locales/ja/ErrorCard";
@@ -118,188 +119,150 @@ export default async function ProblemPage({ params, }: PageProps) {
             },
         })),
     };
-    return (<main className="relative min-h-screen bg-surface text-ink">
+    const levels = problem.solutions.map((solution) => translate(solution.difficulty) === "\u7C21\u5358" ? "e" as const : translate(solution.difficulty) === "\u4E0A\u7D1A" ? "h" as const : "m" as const);
+    return (<main className="doc relative min-h-screen text-ink">
       {/* JSON-LD */}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "<"),
         }}/>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(articleJsonLd).replace(/</g, "<"),
         }}/>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(faqJsonLd).replace(/</g, "<"),
         }}/>
 
       <SiteHeader />
 
-      <div className="mx-auto max-w-5xl px-5 py-8 sm:py-10">
-        <nav className="mb-5 flex flex-wrap items-center gap-2 text-sm text-muted">
-          <Link href="/ja" className="hover:text-action hover:underline">
-            PC FIX
-          </Link>
-
-          <span aria-hidden="true">›</span>
-
-          <Link href={`/ja/category/${encodeURIComponent(problem.category)}`} className="hover:text-action hover:underline">
-            {problem.category}
-          </Link>
-        </nav>
-
-        <article className="max-w-3xl">
-          <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
-            {problem.title}
-          </h1>
-
-          <p className="mt-4 text-lg leading-8 text-muted">
-            {problem.description}
-          </p>
-
-          <nav className="step-plan" aria-labelledby="step-plan-title">
-            <h2 id="step-plan-title">{"\u78BA\u8A8D\u3059\u308B\u9806\u756A"}</h2>
-            <p className="step-plan-note">{" \u4E0A\u304B\u3089\u9806\u756A\u306B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u554F\u984C\u304C\u89E3\u6C7A\u3057\u305F\u3089\u3001\u6B21\u306E\u30B9\u30C6\u30C3\u30D7\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
-            <ol>
-              {problem.solutions.map((solution) => (<li key={solution.order}>
-                  <a href={`#solution-${solution.order}`}>
-                    <span className="step-plan-n">{solution.order}</span>
-                    <span className="step-plan-t">{solution.title}</span>
-                    <span className="step-plan-m">{solution.time}</span>
-                  </a>
-                </li>))}
-            </ol>
-            <p className="step-plan-foot">{" \u3059\u3079\u3066\u884C\u3046\u3068"}{" "}
-              {totalTime(problem.solutions, "ja")}
-              {problem.solutions.every((solution) => solution.cost === "\u7121\u6599") && (<>
-                  <span aria-hidden="true"> · </span>{" \u8CBB\u7528\u306A\u3057 "}</>)}
-            </p>
+      <article className="doc-wrap">
+        <div className="doc-intro">
+          <nav aria-label="現在位置" className="doc-crumb">
+            <Link href="/ja">PC FIX</Link>
+            <span aria-hidden="true">/</span>
+            <Link href={`/ja/category/${encodeURIComponent(problem.category)}`}>{problem.category}</Link>
           </nav>
 
-          {extras && extras.quickCheck.length > 0 && (<section className="mt-10 rounded-xl bg-paper p-5 sm:p-6">
-              <h2 className="text-lg font-extrabold">{" \u6700\u521D\u306B\u5207\u308A\u5206\u3051\u308B\u3053\u3068 "}</h2>
+          <h1>{problem.title}</h1>
 
-              <ul className="mt-3 list-disc space-y-2 pl-5 leading-7">
+          <p className="doc-lead">{problem.description}</p>
+        </div>
+
+        <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
+          <h2 id="fit-title">{"\u307E\u305A\u3001\u3053\u306E\u8A18\u4E8B\u304C\u3042\u306A\u305F\u306E\u75C7\u72B6\u306B\u5408\u3063\u3066\u3044\u308B\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044"}</h2>
+
+          {extras && extras.quickCheck.length > 0 && (<div className="doc-quick">
+              <p className="doc-sub">{"\u6700\u521D\u306B\u5207\u308A\u5206\u3051\u308B\u3053\u3068"}</p>
+              <ul>
                 {extras.quickCheck.map((item, index) => (<li key={index}>{item}</li>))}
               </ul>
-            </section>)}
+            </div>)}
 
-          <div className="mt-8 grid gap-8 sm:grid-cols-2">
-            <section>
-              <h2 className="border-b border-ink pb-2 text-base font-extrabold">{" \u3053\u306E\u3088\u3046\u306A\u75C7\u72B6\u306F\u3042\u308A\u307E\u3059\u304B\uFF1F "}</h2>
-
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
+          <div className="doc-fit-grid">
+            <div>
+              <p className="doc-sub">{"\u3053\u306E\u3088\u3046\u306A\u75C7\u72B6\u306F\u3042\u308A\u307E\u3059\u304B\uFF1F"}</p>
+              <ul>
                 {problem.symptoms.map((symptom, index) => (<li key={index}>{symptom}</li>))}
               </ul>
-            </section>
+            </div>
 
-            <section>
-              <h2 className="border-b border-ink pb-2 text-base font-extrabold">{" \u4E3B\u306A\u539F\u56E0 "}</h2>
-
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
+            <div>
+              <p className="doc-sub">{"\u4E3B\u306A\u539F\u56E0"}</p>
+              <ul>
                 {problem.causes.map((cause, index) => (<li key={index}>{cause}</li>))}
               </ul>
-            </section>
+            </div>
           </div>
+        </section>
 
-          <section className="mt-14">
-            <h2 className="text-2xl font-extrabold tracking-tight">{" \u89E3\u6C7A\u7B56 "}</h2>
+        <GuidedSteps totalTime={totalTime(problem.solutions, "ja")} advancedFrom={advancedStart(levels)} afterId="after-steps" steps={problem.solutions.map((solution, index) => ({
+            order: solution.order,
+            title: solution.title,
+            difficulty: translate(solution.difficulty),
+            level: levels[index],
+            time: solution.time,
+            cost: solution.cost !== "\u7121\u6599" ? solution.cost : undefined,
+            body: (<>
+                <p className="guided-why">{solution.reason}</p>
+                <StepList steps={solution.steps} locale="ja"/>
+                {solution.checkPoint && (<div className="step-check">
+                    <p className="step-check-title">{"\u78BA\u8A8D\u30DD\u30A4\u30F3\u30C8"}</p>
+                    <p>{solution.checkPoint}</p>
+                  </div>)}
+              </>),
+        }))} labels={{
+            title: "\u89E3\u6C7A\u7B56",
+            summary: "\u5168{count}\u30B9\u30C6\u30C3\u30D7\u3001\u3059\u3079\u3066\u884C\u3046\u3068{time}\u3002\u7C21\u5358\u306A\u78BA\u8A8D\u304B\u3089\u9806\u306B\u4E26\u3079\u3066\u3044\u308B\u306E\u3067\u3001\u89E3\u6C7A\u3057\u305F\u3089\u305D\u306E\u30B9\u30C6\u30C3\u30D7\u3067\u7D42\u4E86\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+            expandAll: "\u3059\u3079\u3066\u958B\u304F",
+            collapseAll: "\u3059\u3079\u3066\u9589\u3058\u308B",
+            ask: "\u3053\u306E\u30B9\u30C6\u30C3\u30D7\u3067\u89E3\u6C7A\u3057\u307E\u3057\u305F\u304B\uFF1F",
+            yes: "\u306F\u3044\u3001\u89E3\u6C7A\u3057\u307E\u3057\u305F",
+            no: "\u3044\u3044\u3048\u3001\u6B21\u306E\u30B9\u30C6\u30C3\u30D7\u3078",
+            noLast: "\u3044\u3044\u3048\u3001\u307E\u3060\u76F4\u308A\u307E\u305B\u3093",
+            solvedAt: "\u30B9\u30C6\u30C3\u30D7{n}\u3067\u89E3\u6C7A",
+            triedAt: "\u30B9\u30C6\u30C3\u30D7{n}\u3092\u78BA\u8A8D\u3001\u672A\u89E3\u6C7A",
+            undo: "\u53D6\u308A\u6D88\u3059",
+            rail: "\u78BA\u8A8D\u3059\u308B\u9806\u756A",
+            notStarted: "\u307E\u3060\u59CB\u3081\u3066\u3044\u307E\u305B\u3093",
+            progressTried: "\u30B9\u30C6\u30C3\u30D7{n}\u307E\u3067\u78BA\u8A8D\u6E08\u307F",
+            progressSolved: "\u30B9\u30C6\u30C3\u30D7{n}\u3067\u89E3\u6C7A",
+            band: "\u30B9\u30C6\u30C3\u30D7{n}/{total}",
+            bandLink: "\u30B9\u30C6\u30C3\u30D7\u4E00\u89A7",
+            gateTitle: "\u3053\u3053\u304B\u3089\u4E0A\u7D1A\u8005\u5411\u3051\u306E\u30B9\u30C6\u30C3\u30D7",
+            gateText: "\u5143\u306B\u623B\u3057\u306B\u304F\u3044\u4F5C\u696D\u3084\u3001\u90E8\u54C1\u30FB\u8A2D\u5B9A\u3092\u76F4\u63A5\u6271\u3046\u4F5C\u696D\u3067\u3059\u3002\u81EA\u4FE1\u304C\u306A\u3044\u5834\u5408\u306F\u3001\u3053\u3053\u307E\u3067\u306E\u78BA\u8A8D\u7D50\u679C\u3092\u6301\u3063\u3066\u70B9\u691C\u3092\u4F9D\u983C\u3057\u3066\u3082\u69CB\u3044\u307E\u305B\u3093\u3002",
+            advanced: "\u4E0A\u7D1A",
+            doneTitle: "\u89E3\u6C7A\u3057\u3066\u3088\u304B\u3063\u305F\u3067\u3059",
+            doneText: "\u540C\u3058\u75C7\u72B6\u304C\u518D\u767A\u3057\u305F\u3089\u3001\u3053\u306E\u30DA\u30FC\u30B8\u306E\u30B9\u30C6\u30C3\u30D7{n}\u304B\u3089\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+        }}/>
 
-            <ol className="step-list mt-4">
-              {problem.solutions.map((solution) => (<li key={solution.order} id={`solution-${solution.order}`}>
-                    <span className="step-list-n" aria-hidden="true">
-                      {solution.order}
-                    </span>
-
-                    <div className="min-w-0">
-                      <h3 className="text-xl font-bold leading-snug sm:text-[1.375rem]">
-                        {solution.title}
-                      </h3>
-
-                      <p className="step-list-meta">
-                        <span>{" \u96E3\u6613\u5EA6"}{" "}
-                          {translate(solution.difficulty)}
-                        </span>
-                        <span>{solution.time}</span>
-                        {solution.cost !== "\u7121\u6599" && <span>{solution.cost}</span>}
-                      </p>
-
-                      <p className="mt-3 leading-7 text-muted">
-                        {solution.reason}
-                      </p>
-
-                      <StepList steps={solution.steps} locale="ja"/>
-
-                      {solution.checkPoint && (<div className="step-check">
-                          <p className="text-sm font-bold text-check">{" \u78BA\u8A8D\u30DD\u30A4\u30F3\u30C8 "}</p>
-
-                          <p className="mt-0.5 leading-7">
-                            {solution.checkPoint}
-                          </p>
-                        </div>)}
-                    </div>
-                  </li>))}
-            </ol>
-          </section>
-
-          {problem.warning && (<section className="mt-10 border-l-4 border-caution bg-caution-soft px-5 py-4">
-              <h2 className="font-extrabold text-caution">{" \u6CE8\u610F\u4E8B\u9805 "}</h2>
-
-              <p className="mt-1 leading-7">
-                {problem.warning}
-              </p>
+        <div id="after-steps" className="doc-after">
+          {problem.warning && (<section className="doc-caution">
+              <h2>{"\u6CE8\u610F\u4E8B\u9805"}</h2>
+              <p>{problem.warning}</p>
             </section>)}
 
-          {extras && (<section className="mt-10 border-t border-line pt-6">
-              {extras.sources.length > 0 && (<>
-                  <h2 className="font-bold">{"\u53C2\u8003\u306B\u3057\u305F\u516C\u5F0F\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8"}</h2>
-                  <ul className="mt-3 space-y-2">
-                    {extras.sources.map((source) => (<li key={source.url}>
-                        <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-action underline">
-                          {source.title}
-                        </a>
-                      </li>))}
-                  </ul>
-                </>)}
-              <p className="mt-4 text-xs text-muted">{" \u5185\u5BB9\u30EC\u30D3\u30E5\u30FC\u65E5\uFF1A "}{extras.reviewedAt}{"\u3002\u3053\u306E\u30AC\u30A4\u30C9\u306F\u539F\u56E0\u306E\u5019\u88DC\u3068\u78BA\u8A8D\u306E\u9806\u5E8F\u3092\u307E\u3068\u3081\u305F\u3082\u306E\u3067\u3001\u6545\u969C\u306E\u539F\u56E0\u3092\u78BA\u5B9A\u3059\u308B\u8A3A\u65AD\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
-            </section>)}
-
-          <section className="mt-12">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{" \u3088\u304F\u3042\u308B\u8CEA\u554F "}</h2>
-
+          <section className="doc-sheet">
+            <h2>{"\u3088\u304F\u3042\u308B\u8CEA\u554F"}</h2>
             <div>
               {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
             </div>
           </section>
-        </article>
 
-        {relatedProblems.length > 0 && (<section className="mt-12 max-w-3xl">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{" \u95A2\u9023\u554F\u984C "}</h2>
-
-            <p className="mt-3 text-sm text-muted">{" \u75C7\u72B6\u304C\u6B63\u78BA\u306B\u4E00\u81F4\u3057\u306A\u3044\u5834\u5408\u306F\u3001\u4EE5\u4E0B\u306E\u554F\u984C\u3082\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
-
-            <ul className="mt-1">
-              {relatedProblems.map((relatedProblem) => (<li key={relatedProblem.slug} className="border-b border-line">
-                  <Link href={`/ja/problems/${relatedProblem.slug}`} className="group flex items-baseline gap-3 py-3.5">
-                    <span className="w-16 shrink-0 text-xs text-muted">
-                      {relatedProblem.category}
-                    </span>
-
-                    <span className="font-semibold group-hover:text-action group-hover:underline">
+          {relatedProblems.length > 0 && (<section className="doc-sheet">
+              <h2>{"\u95A2\u9023\u554F\u984C"}</h2>
+              <p className="doc-note-top">{"\u75C7\u72B6\u304C\u6B63\u78BA\u306B\u4E00\u81F4\u3057\u306A\u3044\u5834\u5408\u306F\u3001\u4EE5\u4E0B\u306E\u554F\u984C\u3082\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}</p>
+              <ul className="doc-links">
+                {relatedProblems.map((relatedProblem) => (<li key={relatedProblem.slug}>
+                    <Link href={`/ja/problems/${relatedProblem.slug}`}>
+                      <span>{relatedProblem.category}</span>
                       {relatedProblem.title}
-                    </span>
-                  </Link>
-                </li>))}
-            </ul>
-          </section>)}
+                    </Link>
+                  </li>))}
+              </ul>
+            </section>)}
 
-        {relatedErrors.length > 0 && (<section className="mt-12 max-w-3xl">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{"\u95A2\u9023\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9"}</h2>
-            <p className="mt-3 text-sm text-muted">{"\u753B\u9762\u306B\u4EE5\u4E0B\u306E\u30B3\u30FC\u30C9\u304C\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u5834\u5408\u306F\u3001\u30A8\u30E9\u30FC\u5225\u306E\u78BA\u8A8D\u624B\u9806\u3092\u53C2\u7167\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}</p>
-            <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
-            <Link href="/ja/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{"\u3059\u3079\u3066\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u898B\u308B"}</Link>
-          </section>)}
-      </div>
+          {relatedErrors.length > 0 && (<section className="doc-sheet">
+              <h2>{"\u95A2\u9023\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9"}</h2>
+              <p className="doc-note-top">{"\u753B\u9762\u306B\u4EE5\u4E0B\u306E\u30B3\u30FC\u30C9\u304C\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u5834\u5408\u306F\u3001\u30A8\u30E9\u30FC\u5225\u306E\u78BA\u8A8D\u624B\u9806\u3092\u53C2\u7167\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}</p>
+              <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
+              <Link href="/ja/errors" className="doc-more">{"\u3059\u3079\u3066\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u898B\u308B"}</Link>
+            </section>)}
+
+          {extras && (<section className="doc-sources">
+              {extras.sources.length > 0 && (<>
+                  <h2>{"\u53C2\u8003\u306B\u3057\u305F\u516C\u5F0F\u30C9\u30AD\u30E5\u30E1\u30F3\u30C8"}</h2>
+                  <ul>
+                    {extras.sources.map((source) => (<li key={source.url}>
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a>
+                      </li>))}
+                  </ul>
+                </>)}
+              <p>{" \u5185\u5BB9\u30EC\u30D3\u30E5\u30FC\u65E5\uFF1A "}{extras.reviewedAt}{"\u3002\u3053\u306E\u30AC\u30A4\u30C9\u306F\u539F\u56E0\u306E\u5019\u88DC\u3068\u78BA\u8A8D\u306E\u9806\u5E8F\u3092\u307E\u3068\u3081\u305F\u3082\u306E\u3067\u3001\u6545\u969C\u306E\u539F\u56E0\u3092\u78BA\u5B9A\u3059\u308B\u8A3A\u65AD\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
+            </section>)}
+        </div>
+      </article>
 
       <div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter />
     </main>);

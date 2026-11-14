@@ -18,6 +18,27 @@ const popularSlugs = [
     "computer-boot-failure",
     "usb-not-recognized",
 ];
+// 분야 타일 아이콘(40×40 선 그림). 분야 이름은 번역 파일이 함께 바꾼다.
+const categoryIcons: Record<string, string> = {
+    "\u7535\u6E90": "M20 7v11 M12.5 11.5a11 11 0 1 0 15 0",
+    "\u542F\u52A8": "M8 8h24v18H8z M14 32h12 M20 26v6 M16 15l4 4-4 4",
+    Windows: "M7 7h12v12H7z M21 7h12v12H21z M7 21h12v12H7z M21 21h12v12H21z",
+    "\u5C4F\u5E55": "M5 7h30v19H5z M20 26v6 M14 32h12",
+    "\u663E\u5361": "M6 12h28v16H6z M12 28v5 M28 28v5 M14 20a4 4 0 1 0 8 0a4 4 0 1 0-8 0",
+    "\u6E38\u620F": "M11 13h18a6 6 0 0 1 6 6v3a5 5 0 0 1-9 3l-2-2h-8l-2 2a5 5 0 0 1-9-3v-3a6 6 0 0 1 6-6z M12 17v5 M9.5 19.5h5",
+    "\u6027\u80FD": "M6 30a14 14 0 1 1 28 0 M20 30l6-9",
+    "\u5B58\u50A8\u8BBE\u5907": "M7 9h26v22H7z M14 20a6 6 0 1 0 12 0a6 6 0 1 0-12 0",
+    "\u5185\u5B58": "M5 13h30v12H5z M10 25v4 M16 25v4 M22 25v4 M28 25v4 M10 17h4v4h-4z M18 17h4v4h-4z M26 17h4v4h-4z",
+    CPU: "M11 11h18v18H11z M16 16h8v8h-8z M15 6v5 M20 6v5 M25 6v5 M15 29v5 M20 29v5 M25 29v5 M6 15h5 M6 20h5 M6 25h5 M29 15h5 M29 20h5 M29 25h5",
+    "\u4E92\u8054\u7F51": "M6 16a20 20 0 0 1 28 0 M11 21a13 13 0 0 1 18 0 M16 26a6 6 0 0 1 8 0 M20 31v.5",
+    Bluetooth: "M13 13l14 14-7 6V7l7 6-14 14",
+    "\u5916\u8BBE": "M13 5h14v14H13z M10 19h20v8a6 6 0 0 1-6 6h-8a6 6 0 0 1-6-6z",
+    "\u97F3\u9891": "M8 16h6l8-6v20l-8-6H8z M27 15a7 7 0 0 1 0 10 M30 11a12 12 0 0 1 0 18",
+    "\u6444\u50CF\u5934": "M6 13h20v14H6z M26 18l8-4v12l-8-4",
+    "\u6253\u5370\u673A": "M12 6h16v9H12z M6 15h28v12H6z M12 23h16v10H12z",
+    "\u7B14\u8BB0\u672C\u7535\u8111": "M9 9h22v15H9z M5 28h30l-2 3H7z",
+    "\u8FC7\u70ED": "M17 8a3 3 0 0 1 6 0v14a6 6 0 1 1-6 0z M20 16v9",
+};
 const popularErrorSlugs = [
     "critical-process-died",
     "irql-not-less-or-equal",
@@ -105,169 +126,170 @@ export default function Home() {
         setDebouncedQuery("");
         updateSearchUrl("");
     }
-    return (<main className="relative min-h-screen bg-surface text-ink">
-      <SiteHeader showSearch={false}/>
+    return (<main className="home-page relative min-h-screen text-ink">
+      <SiteHeader showSearch={false} tone="dark"/>
 
       {/* 첫 화면: 지금 보이는 증상이나 오류 문구를 바로 입력하는 검색 */}
-      <section className="mx-auto max-w-5xl px-5 pb-10 pt-12 sm:pb-14 sm:pt-16">
-        <h1 className="max-w-3xl text-[2rem] font-extrabold leading-[1.25] tracking-[-0.03em] sm:text-5xl">{" \u7535\u8111\u51FA\u73B0\u95EE\u9898\u65F6\uFF0C "}<br />{" \u5E94\u8BE5\u5148\u68C0\u67E5\u4EC0\u4E48\uFF1F "}</h1>
+      <section className="home-hero">
+        <div className="home-hero-in">
+          <h1>{" \u7535\u8111\u51FA\u73B0\u95EE\u9898\u65F6\uFF0C "}<br />{" \u5E94\u8BE5\u5148\u68C0\u67E5\u4EC0\u4E48\uFF1F "}</h1>
 
-        <p className="mt-4 max-w-2xl leading-7 text-muted sm:text-lg">{" \u76F4\u63A5\u8F93\u5165\u60A8\u9047\u5230\u7684\u6545\u969C\u73B0\u8C61\u6216\u5C4F\u5E55\u4E0A\u663E\u793A\u7684\u9519\u8BEF\u4EE3\u7801\u3002 "}</p>
+          <p className="home-hero-lead">{" \u76F4\u63A5\u8F93\u5165\u60A8\u9047\u5230\u7684\u6545\u969C\u73B0\u8C61\u6216\u5C4F\u5E55\u4E0A\u663E\u793A\u7684\u9519\u8BEF\u4EE3\u7801\u3002 "}</p>
 
-        <div className="relative mt-7 max-w-2xl">
-          <input type="search" aria-label="搜索电脑故障现象或错误代码" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例如：游戏中黑屏、0xc0000005、Code 43" className="home-search"/>
+          <form role="search" className="home-searchbox" onSubmit={(event) => {
+            event.preventDefault();
+            handleExampleSearch(inputQuery.trim());
+        }}>
+            <input type="search" aria-label="搜索电脑故障现象或错误代码" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例如：游戏中黑屏、0xc0000005、Code 43" className="home-search"/>
 
-          {inputQuery && (<button type="button" onClick={handleClear} aria-label="清除搜索词" className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-md text-muted hover:bg-line hover:text-ink">
-              ✕
-            </button>)}
-        </div>
+            {inputQuery && (<button type="button" onClick={handleClear} aria-label="清除搜索词" className="home-clear">
+                ✕
+              </button>)}
 
-        <div className="home-examples">
-          <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u51FA\u73B0\u9ED1\u5C4F\u5E76\u91CD\u65B0\u542F\u52A8\u3002")}>{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
-          <button type="button" onClick={() => handleExampleSearch("\u6E38\u620F\u603B\u662F\u5D29\u6E83")}>{" \u6E38\u620F\u5D29\u6E83 "}</button>
-          <button type="button" onClick={() => handleExampleSearch("\u6211\u7684\u7535\u8111\u592A\u6162\u4E86")}>{" \u7535\u8111\u901F\u5EA6\u53D8\u6162 "}</button>
-          <button type="button" onClick={() => handleExampleSearch("\u7F51\u7EDC\u7A81\u7136\u4E0D\u80FD\u7528\u4E86")}>{" \u6CA1\u6709\u4E92\u8054\u7F51 "}</button>
+            <button type="submit" className="home-submit">{"\u641C\u7D22"}</button>
+          </form>
+
+          <div className="home-examples">
+            <p>{"\u70ED\u95E8\u641C\u7D22"}</p>
+            <div>
+              <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u51FA\u73B0\u9ED1\u5C4F\u5E76\u91CD\u65B0\u542F\u52A8\u3002")}>{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u6E38\u620F\u603B\u662F\u5D29\u6E83")}>{" \u6E38\u620F\u5D29\u6E83 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u6211\u7684\u7535\u8111\u592A\u6162\u4E86")}>{" \u7535\u8111\u901F\u5EA6\u53D8\u6162 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u7F51\u7EDC\u7A81\u7136\u4E0D\u80FD\u7528\u4E86")}>{" \u6CA1\u6709\u4E92\u8054\u7F51 "}</button>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-5 pb-14">
-        {isSearching ? (<section>
-            <div className="flex items-baseline justify-between gap-4 border-b-2 border-ink pb-3">
-              <h2 className="text-xl font-extrabold">{" \u641C\u7D22\u7ED3\u679C "}</h2>
+      <div className="home-body">
+        {isSearching ? (<section className="home-sheet">
+            <div className="home-results-head">
+              <h2>{" \u641C\u7D22\u7ED3\u679C "}</h2>
 
-              <span className="text-sm text-muted">
+              <span>
                 {searchResults.length}{"\u6761 "}</span>
             </div>
 
-            <p className="mt-3 text-sm text-muted">
+            <p className="home-results-note">
               &quot;{debouncedQuery}{"\u201C\u4E0E\u4EE5\u4E0B\u76F8\u5173\u7684\u95EE\u9898\u548C\u9519\u8BEF\uFF1A "}</p>
 
             {searchResults.length > 0 ? (<>
-                <ol className="mt-2">
+                <ol className="home-results">
                   {searchResults
                     .slice(0, expandedQuery === debouncedQuery ? undefined : 10)
-                    .map((problem, index) => (<li key={problem.href} className="border-b border-line">
-                        <Link href={problem.href} className="group block py-4">
-                          <span className="text-xs text-muted">
+                    .map((problem, index) => (<li key={problem.href}>
+                        <Link href={problem.href}>
+                          <span className="home-results-cat">
                             {problem.category}
                           </span>
 
-                          {index === 0 && (<span className="ml-2 text-xs font-bold text-action">{" \u6700\u76F8\u5173 "}</span>)}
+                          {index === 0 && (<span className="home-results-best">{" \u6700\u76F8\u5173 "}</span>)}
 
-                          <h3 className="mt-1 text-lg font-bold group-hover:text-action group-hover:underline">
+                          <h3>
                             {problem.title}
                           </h3>
 
-                          <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted">
+                          <p>
                             {problem.description}
                           </p>
                         </Link>
                       </li>))}
                 </ol>
 
-                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="mt-6 rounded-md border border-line bg-surface px-4 py-2.5 text-sm font-bold text-action hover:border-action">{"\u67E5\u770B\u66F4\u591A\u641C\u7D22\u7ED3\u679C\uFF08"}{searchResults.length - 10}{"\u6761)"}</button>)}
-              </>) : (<div className="mt-6 rounded-md border border-line bg-surface p-6">
-                <h3 className="font-bold">{" \u6211\u627E\u4E0D\u5230\u4EFB\u4F55\u76F8\u5173\u95EE\u9898\u3002 "}</h3>
+                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="home-more-btn">{"\u67E5\u770B\u66F4\u591A\u641C\u7D22\u7ED3\u679C\uFF08"}{searchResults.length - 10}{"\u6761)"}</button>)}
+              </>) : (<div className="home-empty">
+                <h3>{" \u6211\u627E\u4E0D\u5230\u4EFB\u4F55\u76F8\u5173\u95EE\u9898\u3002 "}</h3>
 
-                <p className="mt-2 text-sm leading-6 text-muted">{" \u8BF7\u66F4\u8BE6\u7EC6\u5730\u8F93\u5165\u60A8\u7684\u75C7\u72B6\u3002 "}<br />{" \u793A\u4F8B\uFF1A\u201C\u6E38\u620F\u671F\u95F4\u5C4F\u5E55\u5173\u95ED\uFF0C\u4F46\u4E3B\u673A\u4FDD\u6301\u6253\u5F00\u72B6\u6001\u3002\u201D "}</p>
+                <p>{" \u8BF7\u66F4\u8BE6\u7EC6\u5730\u8F93\u5165\u60A8\u7684\u75C7\u72B6\u3002 "}<br />{" \u793A\u4F8B\uFF1A\u201C\u6E38\u620F\u671F\u95F4\u5C4F\u5E55\u5173\u95ED\uFF0C\u4F46\u4E3B\u673A\u4FDD\u6301\u6253\u5F00\u72B6\u6001\u3002\u201D "}</p>
 
-                <button type="button" onClick={handleClear} className="mt-4 rounded-md bg-action px-4 py-2.5 text-sm font-bold text-white hover:bg-action-strong">{" \u518D\u6B21\u641C\u7D22 "}</button>
+                <button type="button" onClick={handleClear}>{" \u518D\u6B21\u641C\u7D22 "}</button>
               </div>)}
-          </section>) : (<>
-            <div className="grid gap-12 md:grid-cols-[1.25fr_1fr] md:gap-14">
-              <section>
-                <h2 className="home-h2">{" \u5E38\u89C1\u7535\u8111\u95EE\u9898 "}</h2>
+          </section>) : (<div className="home-grid">
+            <section className="home-sheet home-popular">
+              <h2>{" \u5E38\u89C1\u7535\u8111\u95EE\u9898 "}</h2>
 
-                <ul>
-                  {popularProblems.map((problem) => {
+              <ol className="home-list">
+                {popularProblems.map((problem, index) => {
                 if (!problem) {
                     return null;
                 }
-                return (<li key={problem.slug} className="border-b border-line">
-                        <Link href={`/zh-CN/problems/${problem.slug}`} className="group flex items-baseline gap-3 py-3">
-                          <span className="w-14 shrink-0 text-xs text-muted">
-                            {problem.category}
-                          </span>
-
-                          <span className="font-semibold leading-6 group-hover:text-action group-hover:underline">
-                            {problem.title}
-                          </span>
-                        </Link>
-                      </li>);
-            })}
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="home-h2">{" \u5E38\u89C1\u9519\u8BEF\u4EE3\u7801 "}</h2>
-
-                <ul>
-                  {popularErrors.map((entry) => (<li key={entry.slug} className="border-b border-line">
-                      <Link href={`/zh-CN/errors/${entry.slug}`} className="group flex items-baseline justify-between gap-3 py-3">
-                        <span className="home-code group-hover:text-action group-hover:underline">
-                          {entry.code}
-                        </span>
-
-                        <span className="shrink-0 text-xs text-muted">
-                          {entry.category}
-                        </span>
+                return (<li key={problem.slug}>
+                      <Link href={`/zh-CN/problems/${problem.slug}`}>
+                        <span className="home-rank">{index + 1}</span>
+                        <span>{problem.title}</span>
                       </Link>
-                    </li>))}
-                </ul>
+                    </li>);
+            })}
+              </ol>
+            </section>
 
-                <Link href="/zh-CN/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{" \u67E5\u770B\u5168\u90E8\u9519\u8BEF\u4EE3\u7801 "}</Link>
-              </section>
-            </div>
+            <section className="home-sheet home-codes">
+              <h2>{" \u5E38\u89C1\u9519\u8BEF\u4EE3\u7801 "}</h2>
 
-            <section className="mt-14">
-              <h2 className="home-h2">{" \u6309\u7C7B\u522B\u6D4F\u89C8 "}</h2>
+              <ul className="home-list">
+                {popularErrors.map((entry) => (<li key={entry.slug}>
+                    <Link href={`/zh-CN/errors/${entry.slug}`} className="home-code-row">
+                      <span className="home-code">
+                        {entry.code}
+                      </span>
 
-              <ul className="grid grid-cols-2 gap-x-8 sm:grid-cols-3 lg:grid-cols-4">
+                      <span className="home-code-cat">
+                        {entry.category}
+                      </span>
+                    </Link>
+                  </li>))}
+              </ul>
+
+              <Link href="/zh-CN/errors" className="home-more">{" \u67E5\u770B\u5168\u90E8\u9519\u8BEF\u4EE3\u7801 "}</Link>
+            </section>
+
+            <section className="home-areas">
+              <h2>{" \u6309\u7C7B\u522B\u6D4F\u89C8 "}</h2>
+
+              <ul>
                 {categories.map((category) => {
                 const count = problems.filter((problem) => problem.category === category).length;
-                return (<li key={category} className="border-b border-line">
-                      <Link href={`/zh-CN/category/${encodeURIComponent(category)}`} className="group flex items-baseline justify-between gap-2 py-3">
-                        <span className="font-semibold group-hover:text-action group-hover:underline">
-                          {category}
-                        </span>
-
-                        <span className="text-sm tabular-nums text-muted">
-                          {count}
-                        </span>
+                return (<li key={category}>
+                      <Link href={`/zh-CN/category/${encodeURIComponent(category)}`}>
+                        <svg viewBox="0 0 40 40" aria-hidden="true">
+                          <path d={categoryIcons[category] ?? "M8 8h24v24H8z"}/>
+                        </svg>
+                        <b>{category}</b>
+                        <span>{count}</span>
                       </Link>
                     </li>);
             })}
               </ul>
             </section>
 
-            <section className="mt-14">
-              <h2 className="home-h2">{" \u60A8\u53EF\u4EE5\u50CF\u8FD9\u6837\u4F7F\u7528 PC FIX\uFF1A "}</h2>
+            <section className="home-how-sec">
+              <h2>{" \u60A8\u53EF\u4EE5\u50CF\u8FD9\u6837\u4F7F\u7528 PC FIX\uFF1A "}</h2>
 
               <ol className="home-how">
                 <li>
                   <span aria-hidden="true">1</span>
                   <div>
-                    <h3 className="font-bold">{" \u6309\u539F\u6837\u641C\u7D22\u75C7\u72B6 "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" \u4E0D\u8981\u4F7F\u7528\u884C\u8BDD\uFF0C\u800C\u662F\u4F7F\u7528\u60A8\u5B9E\u9645\u770B\u5230\u7684\u5185\u5BB9\u3002 "}</p>
+                    <h3>{" \u6309\u539F\u6837\u641C\u7D22\u75C7\u72B6 "}</h3>
+                    <p>{" \u4E0D\u8981\u4F7F\u7528\u884C\u8BDD\uFF0C\u800C\u662F\u4F7F\u7528\u60A8\u5B9E\u9645\u770B\u5230\u7684\u5185\u5BB9\u3002 "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">2</span>
                   <div>
-                    <h3 className="font-bold">{" \u7528\u7B80\u5355\u7684\u65B9\u6CD5\u68C0\u67E5\u4E00\u4E0B "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" \u6211\u4EEC\u5C06\u9010\u6B65\u6307\u5BFC\u60A8\uFF0C\u4ECE\u6210\u672C\u8F83\u4F4E\u3001\u98CE\u9669\u8F83\u5C0F\u7684\u89E3\u51B3\u65B9\u6848\u5F00\u59CB\u3002 "}</p>
+                    <h3>{" \u7528\u7B80\u5355\u7684\u65B9\u6CD5\u68C0\u67E5\u4E00\u4E0B "}</h3>
+                    <p>{" \u6211\u4EEC\u5C06\u9010\u6B65\u6307\u5BFC\u60A8\uFF0C\u4ECE\u6210\u672C\u8F83\u4F4E\u3001\u98CE\u9669\u8F83\u5C0F\u7684\u89E3\u51B3\u65B9\u6848\u5F00\u59CB\u3002 "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">3</span>
                   <div>
-                    <h3 className="font-bold">{" \u4EC5\u7EE7\u7EED\u76F4\u81F3\u89E3\u51B3 "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" \u5982\u679C\u95EE\u9898\u5F97\u5230\u89E3\u51B3\uFF0C\u5219\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u66F4\u56F0\u96BE\u7684\u6B65\u9AA4\u3002 "}</p>
+                    <h3>{" \u4EC5\u7EE7\u7EED\u76F4\u81F3\u89E3\u51B3 "}</h3>
+                    <p>{" \u5982\u679C\u95EE\u9898\u5F97\u5230\u89E3\u51B3\uFF0C\u5219\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u66F4\u56F0\u96BE\u7684\u6B65\u9AA4\u3002 "}</p>
                   </div>
                 </li>
               </ol>
             </section>
-          </>)}
+          </div>)}
       </div>
 
       <div className="display-ad-sides"><DisplayAd label="广告" placement="left"/><DisplayAd label="广告" placement="right"/></div><DisplayAd label="广告"/><SiteFooter />

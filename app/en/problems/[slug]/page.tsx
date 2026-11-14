@@ -6,7 +6,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import FaqItem from "@/components/FaqItem";
 import StepList from "@/components/StepList";
-import { totalTime } from "@/lib/stepPlan";
+import GuidedSteps from "@/components/GuidedSteps";
+import { advancedStart, totalTime } from "@/lib/stepPlan";
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 import ErrorCard from "@/components/locales/en/ErrorCard";
@@ -118,188 +119,150 @@ export default async function ProblemPage({ params, }: PageProps) {
             },
         })),
     };
-    return (<main className="relative min-h-screen bg-surface text-ink">
+    const levels = problem.solutions.map((solution) => translate(solution.difficulty) === "Easy" ? "e" as const : translate(solution.difficulty) === "Advanced" ? "h" as const : "m" as const);
+    return (<main className="doc relative min-h-screen text-ink">
       {/* JSON-LD */}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "<"),
         }}/>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(articleJsonLd).replace(/</g, "<"),
         }}/>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(faqJsonLd).replace(/</g, "<"),
         }}/>
 
       <SiteHeader />
 
-      <div className="mx-auto max-w-5xl px-5 py-8 sm:py-10">
-        <nav className="mb-5 flex flex-wrap items-center gap-2 text-sm text-muted">
-          <Link href="/en" className="hover:text-action hover:underline">
-            PC FIX
-          </Link>
-
-          <span aria-hidden="true">›</span>
-
-          <Link href={`/en/category/${encodeURIComponent(problem.category)}`} className="hover:text-action hover:underline">
-            {problem.category}
-          </Link>
-        </nav>
-
-        <article className="max-w-3xl">
-          <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
-            {problem.title}
-          </h1>
-
-          <p className="mt-4 text-lg leading-8 text-muted">
-            {problem.description}
-          </p>
-
-          <nav className="step-plan" aria-labelledby="step-plan-title">
-            <h2 id="step-plan-title">{"Check in this order"}</h2>
-            <p className="step-plan-note">{" Please check them in order from the top. If the issue is resolved, you do not need to proceed to the next step. "}</p>
-            <ol>
-              {problem.solutions.map((solution) => (<li key={solution.order}>
-                  <a href={`#solution-${solution.order}`}>
-                    <span className="step-plan-n">{solution.order}</span>
-                    <span className="step-plan-t">{solution.title}</span>
-                    <span className="step-plan-m">{solution.time}</span>
-                  </a>
-                </li>))}
-            </ol>
-            <p className="step-plan-foot">{" All steps:"}{" "}
-              {totalTime(problem.solutions, "en")}
-              {problem.solutions.every((solution) => solution.cost === "Free") && (<>
-                  <span aria-hidden="true"> · </span>{" No cost "}</>)}
-            </p>
+      <article className="doc-wrap">
+        <div className="doc-intro">
+          <nav aria-label="Current location" className="doc-crumb">
+            <Link href="/en">PC FIX</Link>
+            <span aria-hidden="true">/</span>
+            <Link href={`/en/category/${encodeURIComponent(problem.category)}`}>{problem.category}</Link>
           </nav>
 
-          {extras && extras.quickCheck.length > 0 && (<section className="mt-10 rounded-xl bg-paper p-5 sm:p-6">
-              <h2 className="text-lg font-extrabold">{" Check this first "}</h2>
+          <h1>{problem.title}</h1>
 
-              <ul className="mt-3 list-disc space-y-2 pl-5 leading-7">
+          <p className="doc-lead">{problem.description}</p>
+        </div>
+
+        <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
+          <h2 id="fit-title">{"First, check that this guide matches your problem"}</h2>
+
+          {extras && extras.quickCheck.length > 0 && (<div className="doc-quick">
+              <p className="doc-sub">{"Check this first"}</p>
+              <ul>
                 {extras.quickCheck.map((item, index) => (<li key={index}>{item}</li>))}
               </ul>
-            </section>)}
+            </div>)}
 
-          <div className="mt-8 grid gap-8 sm:grid-cols-2">
-            <section>
-              <h2 className="border-b border-ink pb-2 text-base font-extrabold">{" Do you have these symptoms? "}</h2>
-
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
+          <div className="doc-fit-grid">
+            <div>
+              <p className="doc-sub">{"Do you have these symptoms?"}</p>
+              <ul>
                 {problem.symptoms.map((symptom, index) => (<li key={index}>{symptom}</li>))}
               </ul>
-            </section>
+            </div>
 
-            <section>
-              <h2 className="border-b border-ink pb-2 text-base font-extrabold">{" main causes "}</h2>
-
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
+            <div>
+              <p className="doc-sub">{"main causes"}</p>
+              <ul>
                 {problem.causes.map((cause, index) => (<li key={index}>{cause}</li>))}
               </ul>
-            </section>
+            </div>
           </div>
+        </section>
 
-          <section className="mt-14">
-            <h2 className="text-2xl font-extrabold tracking-tight">{" How to solve "}</h2>
+        <GuidedSteps totalTime={totalTime(problem.solutions, "en")} advancedFrom={advancedStart(levels)} afterId="after-steps" steps={problem.solutions.map((solution, index) => ({
+            order: solution.order,
+            title: solution.title,
+            difficulty: translate(solution.difficulty),
+            level: levels[index],
+            time: solution.time,
+            cost: solution.cost !== "Free" ? solution.cost : undefined,
+            body: (<>
+                <p className="guided-why">{solution.reason}</p>
+                <StepList steps={solution.steps} locale="en"/>
+                {solution.checkPoint && (<div className="step-check">
+                    <p className="step-check-title">{"confirmation point"}</p>
+                    <p>{solution.checkPoint}</p>
+                  </div>)}
+              </>),
+        }))} labels={{
+            title: "How to solve",
+            summary: "{count} steps, {time} in total. The easiest checks come first, so stop as soon as the problem is fixed.",
+            expandAll: "Expand all",
+            collapseAll: "Collapse all",
+            ask: "Did this step fix it?",
+            yes: "Yes, it's fixed",
+            no: "No, next step",
+            noLast: "No, still not working",
+            solvedAt: "Fixed at step {n}",
+            triedAt: "Step {n} checked, not fixed",
+            undo: "Undo",
+            rail: "Check in this order",
+            notStarted: "Not started yet",
+            progressTried: "Checked up to step {n}",
+            progressSolved: "Fixed at step {n}",
+            band: "Step {n}/{total}",
+            bandLink: "All steps",
+            gateTitle: "Advanced steps from here",
+            gateText: "These steps are hard to undo or involve working with hardware or system settings directly. If you are not confident, you can take your results so far to a repair service instead.",
+            advanced: "Advanced",
+            doneTitle: "Glad it's fixed",
+            doneText: "If the same problem comes back, start again from step {n} on this page.",
+        }}/>
 
-            <ol className="step-list mt-4">
-              {problem.solutions.map((solution) => (<li key={solution.order} id={`solution-${solution.order}`}>
-                    <span className="step-list-n" aria-hidden="true">
-                      {solution.order}
-                    </span>
-
-                    <div className="min-w-0">
-                      <h3 className="text-xl font-bold leading-snug sm:text-[1.375rem]">
-                        {solution.title}
-                      </h3>
-
-                      <p className="step-list-meta">
-                        <span>{" Difficulty"}{" "}
-                          {translate(solution.difficulty)}
-                        </span>
-                        <span>{solution.time}</span>
-                        {solution.cost !== "Free" && <span>{solution.cost}</span>}
-                      </p>
-
-                      <p className="mt-3 leading-7 text-muted">
-                        {solution.reason}
-                      </p>
-
-                      <StepList steps={solution.steps} locale="en"/>
-
-                      {solution.checkPoint && (<div className="step-check">
-                          <p className="text-sm font-bold text-check">{" confirmation point "}</p>
-
-                          <p className="mt-0.5 leading-7">
-                            {solution.checkPoint}
-                          </p>
-                        </div>)}
-                    </div>
-                  </li>))}
-            </ol>
-          </section>
-
-          {problem.warning && (<section className="mt-10 border-l-4 border-caution bg-caution-soft px-5 py-4">
-              <h2 className="font-extrabold text-caution">{" Precautions "}</h2>
-
-              <p className="mt-1 leading-7">
-                {problem.warning}
-              </p>
+        <div id="after-steps" className="doc-after">
+          {problem.warning && (<section className="doc-caution">
+              <h2>{"Precautions"}</h2>
+              <p>{problem.warning}</p>
             </section>)}
 
-          {extras && (<section className="mt-10 border-t border-line pt-6">
-              {extras.sources.length > 0 && (<>
-                  <h2 className="font-bold">{"Official references"}</h2>
-                  <ul className="mt-3 space-y-2">
-                    {extras.sources.map((source) => (<li key={source.url}>
-                        <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-action underline">
-                          {source.title}
-                        </a>
-                      </li>))}
-                  </ul>
-                </>)}
-              <p className="mt-4 text-xs text-muted">{" Content review date: "}{extras.reviewedAt}{". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault. "}</p>
-            </section>)}
-
-          <section className="mt-12">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{" Frequently Asked Questions "}</h2>
-
+          <section className="doc-sheet">
+            <h2>{"Frequently Asked Questions"}</h2>
             <div>
               {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
             </div>
           </section>
-        </article>
 
-        {relatedProblems.length > 0 && (<section className="mt-12 max-w-3xl">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{" Related issues "}</h2>
-
-            <p className="mt-3 text-sm text-muted">{" If the symptoms do not match exactly, please check the issue below. "}</p>
-
-            <ul className="mt-1">
-              {relatedProblems.map((relatedProblem) => (<li key={relatedProblem.slug} className="border-b border-line">
-                  <Link href={`/en/problems/${relatedProblem.slug}`} className="group flex items-baseline gap-3 py-3.5">
-                    <span className="w-16 shrink-0 text-xs text-muted">
-                      {relatedProblem.category}
-                    </span>
-
-                    <span className="font-semibold group-hover:text-action group-hover:underline">
+          {relatedProblems.length > 0 && (<section className="doc-sheet">
+              <h2>{"Related issues"}</h2>
+              <p className="doc-note-top">{"If the symptoms do not match exactly, please check the issue below."}</p>
+              <ul className="doc-links">
+                {relatedProblems.map((relatedProblem) => (<li key={relatedProblem.slug}>
+                    <Link href={`/en/problems/${relatedProblem.slug}`}>
+                      <span>{relatedProblem.category}</span>
                       {relatedProblem.title}
-                    </span>
-                  </Link>
-                </li>))}
-            </ul>
-          </section>)}
+                    </Link>
+                  </li>))}
+              </ul>
+            </section>)}
 
-        {relatedErrors.length > 0 && (<section className="mt-12 max-w-3xl">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{"Related error code"}</h2>
-            <p className="mt-3 text-sm text-muted">{"If the code below appears on the screen, refer to the confirmation procedure for each error."}</p>
-            <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
-            <Link href="/en/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{"View all error codes"}</Link>
-          </section>)}
-      </div>
+          {relatedErrors.length > 0 && (<section className="doc-sheet">
+              <h2>{"Related error code"}</h2>
+              <p className="doc-note-top">{"If the code below appears on the screen, refer to the confirmation procedure for each error."}</p>
+              <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
+              <Link href="/en/errors" className="doc-more">{"View all error codes"}</Link>
+            </section>)}
+
+          {extras && (<section className="doc-sources">
+              {extras.sources.length > 0 && (<>
+                  <h2>{"Official references"}</h2>
+                  <ul>
+                    {extras.sources.map((source) => (<li key={source.url}>
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a>
+                      </li>))}
+                  </ul>
+                </>)}
+              <p>{" Content review date: "}{extras.reviewedAt}{". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault. "}</p>
+            </section>)}
+        </div>
+      </article>
 
       <div className="display-ad-sides"><DisplayAd label="Advertisement" placement="left"/><DisplayAd label="Advertisement" placement="right"/></div><DisplayAd label="Advertisement"/><SiteFooter />
     </main>);

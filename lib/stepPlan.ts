@@ -43,3 +43,11 @@ export function totalTime(solutions: { time: string }[], locale: string): string
   const u = UNITS[locale] ?? UNITS.en;
   return lo === hi ? format(lo, locale) : `${format(lo, locale)}${u.dash}${format(hi, locale)}`;
 }
+
+// 끝에 몰린 "어려움" 단계 묶음의 첫 번호. 그 앞에 "여기부터 고급 단계" 경계를 둔다.
+// 첫 단계부터 어렵거나 중간에만 어려운 단계가 있으면 경계를 두지 않는다(난이도 표시만 남긴다).
+export function advancedStart(levels: string[]): number | null {
+  let start = levels.length;
+  while (start > 0 && levels[start - 1] === "h") start -= 1;
+  return start > 0 && start < levels.length ? start + 1 : null;
+}

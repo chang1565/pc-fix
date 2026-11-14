@@ -47,7 +47,7 @@ export default function DisplayAd({ label = "광고", placement = "bottom" }: { 
 
   return (
     <aside aria-label={label} data-ad-placement={placement} className={container}>
-      <p className="mb-3 text-center text-xs text-muted">{label}</p>
+      <p className="display-ad-label">{label}</p>
       <ins
         ref={element}
         className="adsbygoogle"

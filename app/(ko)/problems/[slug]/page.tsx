@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 
 import FaqItem from "@/components/FaqItem";
 import StepList from "@/components/StepList";
-import { totalTime } from "@/lib/stepPlan";
+import GuidedSteps from "@/components/GuidedSteps";
+import { advancedStart, totalTime } from "@/lib/stepPlan";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import ErrorCard from "@/components/ErrorCard";
@@ -166,8 +167,12 @@ export default async function ProblemPage({
     })),
   };
 
+  const levels = problem.solutions.map((solution) =>
+    solution.difficulty === "쉬움" ? "e" as const : solution.difficulty === "어려움" ? "h" as const : "m" as const
+  );
+
   return (
-    <main className="relative min-h-screen bg-surface text-ink">
+    <main className="doc relative min-h-screen text-ink">
       {/* JSON-LD */}
 
       <script
@@ -175,7 +180,7 @@ export default async function ProblemPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd
-          ).replace(/</g, "\\u003c"),
+          ).replace(/</g, "\u003c"),
         }}
       />
 
@@ -184,7 +189,7 @@ export default async function ProblemPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             articleJsonLd
-          ).replace(/</g, "\\u003c"),
+          ).replace(/</g, "\u003c"),
         }}
       />
 
@@ -193,263 +198,174 @@ export default async function ProblemPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             faqJsonLd
-          ).replace(/</g, "\\u003c"),
+          ).replace(/</g, "\u003c"),
         }}
       />
 
       <SiteHeader />
 
-      <div className="mx-auto max-w-5xl px-5 py-8 sm:py-10">
-        <nav className="mb-5 flex flex-wrap items-center gap-2 text-sm text-muted">
-          <Link
-            href="/"
-            className="hover:text-action hover:underline"
-          >
-            PC FIX
-          </Link>
-
-          <span aria-hidden="true">›</span>
-
-          <Link
-            href={`/category/${encodeURIComponent(
-              problem.category
-            )}`}
-            className="hover:text-action hover:underline"
-          >
-            {problem.category}
-          </Link>
-        </nav>
-
-        <article className="max-w-3xl">
-          <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
-            {problem.title}
-          </h1>
-
-          <p className="mt-4 text-lg leading-8 text-muted">
-            {problem.description}
-          </p>
-
-          <nav className="step-plan" aria-labelledby="step-plan-title">
-            <h2 id="step-plan-title">점검 순서</h2>
-            <p className="step-plan-note">
-              위에서부터 차례대로
-              확인하세요. 문제가 해결되었다면
-              다음 단계는 진행할 필요가 없습니다.
-            </p>
-            <ol>
-              {problem.solutions.map((solution) => (
-                <li key={solution.order}>
-                  <a href={`#solution-${solution.order}`}>
-                    <span className="step-plan-n">{solution.order}</span>
-                    <span className="step-plan-t">{solution.title}</span>
-                    <span className="step-plan-m">{solution.time}</span>
-                  </a>
-                </li>
-              ))}
-            </ol>
-            <p className="step-plan-foot">
-              모두 하면{" "}
-              {totalTime(problem.solutions, "ko")}
-              {problem.solutions.every((solution) => solution.cost === "0원") && (
-                <>
-                  <span aria-hidden="true"> · </span>
-                  비용 없음
-                </>
-              )}
-            </p>
+      <article className="doc-wrap">
+        <div className="doc-intro">
+          <nav aria-label="현재 위치" className="doc-crumb">
+            <Link href="/">PC FIX</Link>
+            <span aria-hidden="true">/</span>
+            <Link href={`/category/${encodeURIComponent(problem.category)}`}>{problem.category}</Link>
           </nav>
 
-          {extras && extras.quickCheck.length > 0 && (
-            <section className="mt-10 rounded-xl bg-paper p-5 sm:p-6">
-              <h2 className="text-lg font-extrabold">
-                먼저 구분할 것
-              </h2>
+          <h1>{problem.title}</h1>
 
-              <ul className="mt-3 list-disc space-y-2 pl-5 leading-7">
+          <p className="doc-lead">{problem.description}</p>
+        </div>
+
+        <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
+          <h2 id="fit-title">이 글이 맞는지 먼저 확인하세요</h2>
+
+          {extras && extras.quickCheck.length > 0 && (
+            <div className="doc-quick">
+              <p className="doc-sub">먼저 구분할 것</p>
+              <ul>
                 {extras.quickCheck.map((item, index) => (
                   <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="doc-fit-grid">
+            <div>
+              <p className="doc-sub">이런 증상이 있나요?</p>
+              <ul>
+                {problem.symptoms.map((symptom, index) => (
+                  <li key={index}>{symptom}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="doc-sub">주요 원인</p>
+              <ul>
+                {problem.causes.map((cause, index) => (
+                  <li key={index}>{cause}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <GuidedSteps
+          totalTime={totalTime(problem.solutions, "ko")}
+          advancedFrom={advancedStart(levels)}
+          afterId="after-steps"
+          steps={problem.solutions.map((solution, index) => ({
+            order: solution.order,
+            title: solution.title,
+            difficulty: solution.difficulty,
+            level: levels[index],
+            time: solution.time,
+            cost: solution.cost !== "0원" ? solution.cost : undefined,
+            body: (
+              <>
+                <p className="guided-why">{solution.reason}</p>
+                <StepList steps={solution.steps} locale="ko" />
+                {solution.checkPoint && (
+                  <div className="step-check">
+                    <p className="step-check-title">확인 포인트</p>
+                    <p>{solution.checkPoint}</p>
+                  </div>
+                )}
+              </>
+            ),
+          }))}
+          labels={{
+            title: "해결 방법",
+            summary: "{count}단계, 모두 하면 {time}. 쉬운 확인부터 적었으니 해결되면 그 단계에서 멈추세요.",
+            expandAll: "모두 펼치기",
+            collapseAll: "모두 접기",
+            ask: "이 단계로 해결됐나요?",
+            yes: "네, 해결됐어요",
+            no: "아니요, 다음 단계",
+            noLast: "아니요, 그래도 안 돼요",
+            solvedAt: "{n}단계에서 해결됨",
+            triedAt: "{n}단계 확인함, 해결 안 됨",
+            undo: "취소",
+            rail: "점검 순서",
+            notStarted: "아직 시작 전",
+            progressTried: "{n}단계까지 확인함",
+            progressSolved: "{n}단계에서 해결",
+            band: "{n}/{total}단계",
+            bandLink: "단계 목록",
+            gateTitle: "여기부터 고급 단계",
+            gateText: "되돌리기 어렵거나 부품·설정을 직접 다루는 작업입니다. 자신이 없으면 여기까지 확인한 결과를 가지고 점검을 맡겨도 됩니다.",
+            advanced: "고급",
+            doneTitle: "해결됐다니 다행입니다",
+            doneText: "같은 증상이 다시 생기면 이 페이지의 {n}단계부터 확인하세요.",
+          }}
+        />
+
+        <div id="after-steps" className="doc-after">
+          {problem.warning && (
+            <section className="doc-caution">
+              <h2>주의사항</h2>
+              <p>{problem.warning}</p>
+            </section>
+          )}
+
+          <section className="doc-sheet">
+            <h2>자주 묻는 질문</h2>
+            <div>
+              {faq.map((item, index) => (
+                <FaqItem key={index} question={item.question} answer={item.answer} />
+              ))}
+            </div>
+          </section>
+
+          {relatedProblems.length > 0 && (
+            <section className="doc-sheet">
+              <h2>관련 문제</h2>
+              <p className="doc-note-top">증상이 정확히 일치하지 않는다면 아래 문제도 확인해 보세요.</p>
+              <ul className="doc-links">
+                {relatedProblems.map((relatedProblem) => (
+                  <li key={relatedProblem.slug}>
+                    <Link href={`/problems/${relatedProblem.slug}`}>
+                      <span>{relatedProblem.category}</span>
+                      {relatedProblem.title}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </section>
           )}
 
-          <div className="mt-8 grid gap-8 sm:grid-cols-2">
-            <section>
-              <h2 className="border-b border-ink pb-2 text-base font-extrabold">
-                이런 증상이 있나요?
-              </h2>
-
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
-                {problem.symptoms.map(
-                  (symptom, index) => (
-                    <li key={index}>{symptom}</li>
-                  )
-                )}
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="border-b border-ink pb-2 text-base font-extrabold">
-                주요 원인
-              </h2>
-
-              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
-                {problem.causes.map(
-                  (cause, index) => (
-                    <li key={index}>{cause}</li>
-                  )
-                )}
-              </ul>
-            </section>
-          </div>
-
-          <section className="mt-14">
-            <h2 className="text-2xl font-extrabold tracking-tight">
-              해결 방법
-            </h2>
-
-            <ol className="step-list mt-4">
-              {problem.solutions.map(
-                (solution) => (
-                  <li
-                    key={solution.order}
-                    id={`solution-${solution.order}`}
-                  >
-                    <span className="step-list-n" aria-hidden="true">
-                      {solution.order}
-                    </span>
-
-                    <div className="min-w-0">
-                      <h3 className="text-xl font-bold leading-snug sm:text-[1.375rem]">
-                        {solution.title}
-                      </h3>
-
-                      <p className="step-list-meta">
-                        <span>
-                          난이도{" "}
-                          {solution.difficulty}
-                        </span>
-                        <span>{solution.time}</span>
-                        {solution.cost !== "0원" && <span>{solution.cost}</span>}
-                      </p>
-
-                      <p className="mt-3 leading-7 text-muted">
-                        {solution.reason}
-                      </p>
-
-                      <StepList steps={solution.steps} locale="ko" />
-
-                      {solution.checkPoint && (
-                        <div className="step-check">
-                          <p className="text-sm font-bold text-check">
-                            확인 포인트
-                          </p>
-
-                          <p className="mt-0.5 leading-7">
-                            {solution.checkPoint}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </li>
-                )
-              )}
-            </ol>
-          </section>
-
-          {problem.warning && (
-            <section className="mt-10 border-l-4 border-caution bg-caution-soft px-5 py-4">
-              <h2 className="font-extrabold text-caution">
-                주의사항
-              </h2>
-
-              <p className="mt-1 leading-7">
-                {problem.warning}
-              </p>
+          {relatedErrors.length > 0 && (
+            <section className="doc-sheet">
+              <h2>관련 오류 코드</h2>
+              <p className="doc-note-top">화면에 아래 코드가 표시됐다면 오류별 확인 절차를 참고하세요.</p>
+              <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry} />)}</div>
+              <Link href="/errors" className="doc-more">전체 오류 코드 보기</Link>
             </section>
           )}
 
           {extras && (
-            <section className="mt-10 border-t border-line pt-6">
+            <section className="doc-sources">
               {extras.sources.length > 0 && (
                 <>
-                  <h2 className="font-bold">참고한 공식 문서</h2>
-                  <ul className="mt-3 space-y-2">
+                  <h2>참고한 공식 문서</h2>
+                  <ul>
                     {extras.sources.map((source) => (
                       <li key={source.url}>
-                        <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-action underline">
-                          {source.title}
-                        </a>
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a>
                       </li>
                     ))}
                   </ul>
                 </>
               )}
-              <p className="mt-4 text-xs text-muted">
+              <p>
                 내용 검토일: {extras.reviewedAt}. 이 안내는 원인 후보와 확인 순서를 정리한 것이며 고장 원인을 확정하는 진단이 아닙니다.
               </p>
             </section>
           )}
-
-          <section className="mt-12">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">
-              자주 묻는 질문
-            </h2>
-
-            <div>
-              {faq.map(
-                (item, index) => (
-                  <FaqItem
-                    key={index}
-                    question={item.question}
-                    answer={item.answer}
-                  />
-                )
-              )}
-            </div>
-          </section>
-        </article>
-
-        {relatedProblems.length > 0 && (
-          <section className="mt-12 max-w-3xl">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">
-              관련 문제
-            </h2>
-
-            <p className="mt-3 text-sm text-muted">
-              증상이 정확히 일치하지 않는다면 아래 문제도 확인해 보세요.
-            </p>
-
-            <ul className="mt-1">
-              {relatedProblems.map((relatedProblem) => (
-                <li key={relatedProblem.slug} className="border-b border-line">
-                  <Link
-                    href={`/problems/${relatedProblem.slug}`}
-                    className="group flex items-baseline gap-3 py-3.5"
-                  >
-                    <span className="w-16 shrink-0 text-xs text-muted">
-                      {relatedProblem.category}
-                    </span>
-
-                    <span className="font-semibold group-hover:text-action group-hover:underline">
-                      {relatedProblem.title}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {relatedErrors.length > 0 && (
-          <section className="mt-12 max-w-3xl">
-            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">관련 오류 코드</h2>
-            <p className="mt-3 text-sm text-muted">화면에 아래 코드가 표시됐다면 오류별 확인 절차를 참고하세요.</p>
-            <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry} />)}</div>
-            <Link href="/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">전체 오류 코드 보기</Link>
-          </section>
-        )}
-      </div>
+        </div>
+      </article>
 
       <div className="display-ad-sides"><DisplayAd label="광고" placement="left" /><DisplayAd label="광고" placement="right" /></div><DisplayAd label="광고" /><SiteFooter />
     </main>

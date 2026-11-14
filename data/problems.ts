@@ -7155,7 +7155,8 @@ function buildDescription(seed: ProblemSeed) {
     `이 가이드는 “${symptom}” 상황에서 ${causes} 항목을 안전한 순서로 구분하도록 구성했습니다. ${focus}`,
     `${josa(`“${symptom}”`, "이/가")} 반복된다면 여러 설정을 한꺼번에 바꾸기보다 ${causes}부터 범위를 좁히는 편이 좋습니다. ${focus}`,
     `현재 증상이 “${symptom}”에 가깝다면 ${causes} 여부를 먼저 살펴보세요. ${focus}`,
-    `${seed.title} 해결에서는 원인을 한 번에 하나씩 배제하는 과정이 중요합니다. “${symptom}” 증상을 기준으로 ${josa(causes, "을/를")} 확인한 뒤 다음 단계를 진행하세요. ${focus}`,
+    // 예전 문구는 제목·증상·"확인한 뒤 진행하세요"를 세 번 되풀이해 한 문장으로 줄였다.
+    `${josa(`“${symptom}”`, "이/가")} 보이면 ${causes} 쪽을 의심해 볼 수 있습니다. ${focus}`,
   ];
 
   return variants[stableVariant(seed, variants.length)];

@@ -8,7 +8,8 @@ import SiteHeader from "@/components/locales/ja/SiteHeader";
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import FaqItem from "@/components/FaqItem";
 import StepList from "@/components/StepList";
-import { totalTime } from "@/lib/stepPlan";
+import GuidedSteps from "@/components/GuidedSteps";
+import { advancedStart, totalTime } from "@/lib/stepPlan";
 import { errorCodes, findErrorBySlug } from "@/data/locales/ja";
 import { findProblemBySlug } from "@/data/locales/ja";
 import { languageAlternates } from "@/lib/localization";
@@ -44,30 +45,58 @@ export default async function ErrorPage({ params }: Props) {
         { "@context": "https://schema.org", "@type": "TechArticle", headline: entry.title, description: entry.seoDescription, url: pageUrl, inLanguage: "ja", dateModified: entry.updatedAt, about: entry.code, author: { "@type": "Organization", name: "PC FIX" }, publisher: { "@type": "Organization", name: "PC FIX" } },
         { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: entry.faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
     ];
-    return <main className="relative min-h-screen bg-surface text-ink">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "\\u003c") }}/>
-    <SiteHeader /><div className="mx-auto max-w-5xl px-5 py-8 sm:py-10">
-      <nav aria-label="現在位置" className="mb-5 flex flex-wrap gap-2 text-sm text-muted"><Link href="/ja" className="hover:text-action hover:underline">PC FIX</Link><span aria-hidden="true">›</span><Link href="/ja/errors" className="hover:text-action hover:underline">{"\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9"}</Link></nav>
-      <article className="max-w-3xl">
-        <p className="text-sm text-muted">{entry.category}</p>
-        <h1 className="mt-1 break-words text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">{entry.title}</h1>
-        <div className="mt-8 grid gap-8 sm:grid-cols-2">
-          <section><h2 className="border-b border-ink pb-2 text-base font-extrabold">{"\u30A8\u30E9\u30FC\u306E\u610F\u5473"}</h2><p className="mt-3 leading-7">{entry.description}</p></section>
-          <section><h2 className="border-b border-ink pb-2 text-base font-extrabold">{"\u983B\u7E41\u306B\u767A\u751F\u3059\u308B\u72B6\u6CC1"}</h2><p className="mt-3 leading-7">{entry.commonSituations}</p></section>
+    const levels = entry.solutions.map(solution => translate(solution.difficulty) === "\u7C21\u5358" ? "e" as const : translate(solution.difficulty) === "\u4E0A\u7D1A" ? "h" as const : "m" as const);
+    const name = entry.title.startsWith(entry.code) ? entry.title.slice(entry.code.length).trim() : "";
+    const related = entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item));
+    return <main className="doc relative min-h-screen text-ink">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "<") }}/>
+    <SiteHeader />
+    <article className="doc-wrap">
+      <div className="doc-intro">
+        <nav aria-label="現在位置" className="doc-crumb"><Link href="/ja">PC FIX</Link><span aria-hidden="true">/</span><Link href="/ja/errors">{"\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9"}</Link><span aria-hidden="true">/</span><span>{entry.category}</span></nav>
+        {name ? <h1 className="doc-code-title"><code>{entry.code}</code> <span>{name}</span></h1> : <h1 className="break-words">{entry.title}</h1>}
+        <p className="doc-lead">{entry.description}</p>
+      </div>
+      <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
+        <h2 id="fit-title">{"\u307E\u305A\u3001\u3053\u306E\u8A18\u4E8B\u304C\u3042\u306A\u305F\u306E\u75C7\u72B6\u306B\u5408\u3063\u3066\u3044\u308B\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044"}</h2>
+        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"\u6700\u521D\u306B\u78BA\u8A8D\u3059\u308B"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
+        <div className="doc-fit-grid">
+          <div><p className="doc-sub">{"\u983B\u7E41\u306B\u767A\u751F\u3059\u308B\u72B6\u6CC1"}</p><p className="doc-text">{entry.commonSituations}</p></div>
+          <div><p className="doc-sub">{"\u4E3B\u306A\u539F\u56E0"}</p><ul>{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></div>
         </div>
-        <nav className="step-plan" aria-labelledby="step-plan-title"><h2 id="step-plan-title">{"\u78BA\u8A8D\u3059\u308B\u9806\u756A"}</h2><p className="step-plan-note">{"\u4E0A\u8A18\u304B\u3089\u78BA\u8A8D\u3057\u3066\u89E3\u6C7A\u3057\u305F\u3089\u3001\u6B21\u306E\u30B9\u30C6\u30C3\u30D7\u3092\u9032\u3081\u308B\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002"}</p>
-          <ol>{entry.solutions.map(solution => <li key={solution.order}><a href={`#solution-${solution.order}`}><span className="step-plan-n">{solution.order}</span><span className="step-plan-t">{solution.title}</span><span className="step-plan-m">{solution.time}</span></a></li>)}</ol>
-          <p className="step-plan-foot">{"\u3059\u3079\u3066\u884C\u3046\u3068 "}{totalTime(entry.solutions, "ja")}</p></nav>
-        {extras && <section className="mt-10 rounded-xl bg-paper p-5 sm:p-6"><h2 className="text-lg font-extrabold">{"\u6700\u521D\u306B\u78BA\u8A8D\u3059\u308B"}</h2><ul className="mt-3 list-disc space-y-2 pl-5 leading-7">{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></section>}
-        <section className="mt-8"><h2 className="border-b border-ink pb-2 text-base font-extrabold">{"\u4E3B\u306A\u539F\u56E0"}</h2><ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7">{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></section>
-        <section className="mt-14"><h2 className="text-2xl font-extrabold tracking-tight">{"\u6BB5\u968E\u7684\u306A\u89E3\u6C7A\u7B56"}</h2>
-          <ol className="step-list mt-4">{entry.solutions.map(solution => <li key={solution.order} id={`solution-${solution.order}`}><span className="step-list-n" aria-hidden="true">{solution.order}</span><div className="min-w-0"><h3 className="text-xl font-bold leading-snug sm:text-[1.375rem]">{solution.title}</h3>
-            <p className="step-list-meta"><span>{"\u96E3\u6613\u5EA6 "}{translate(solution.difficulty)}</span><span>{solution.time}</span></p>{solution.reason && <p className="mt-3 leading-7 text-muted">{solution.reason}</p>}
-            <StepList steps={solution.steps} locale="ja"/>
-            {solution.checkPoint && <div className="step-check"><p className="text-sm font-bold text-check">{"\u78BA\u8A8D\u30DD\u30A4\u30F3\u30C8"}</p><p className="mt-0.5 leading-7">{solution.checkPoint}</p></div>}</div></li>)}</ol></section>
-        <section className="mt-10 border-t border-line pt-6"><h2 className="font-bold">{"\u516C\u5F0F\u53C2\u8003\u8CC7\u6599"}</h2><ul className="mt-3 space-y-2">{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-action underline">{source.title}</a></li>)}</ul><p className="mt-4 text-xs text-muted">{"\u5185\u5BB9\u30EC\u30D3\u30E5\u30FC\u65E5\uFF1A "}{entry.updatedAt.slice(0, 10)}</p></section>
-        <section className="mt-12"><h2 className="border-b border-ink pb-2 text-xl font-extrabold">{"\u3088\u304F\u3042\u308B\u8CEA\u554F"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
-      </article>
-      <section className="mt-12 max-w-3xl"><h2 className="border-b border-ink pb-2 text-xl font-extrabold">{"\u95A2\u9023PC FIX\u306E\u554F\u984C"}</h2><ul className="mt-1">{entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item)).map(problem => problem && <li key={problem.slug} className="border-b border-line"><Link href={`/ja/problems/${problem.slug}`} className="group flex items-baseline gap-3 py-3.5"><span className="w-16 shrink-0 text-xs text-muted">{problem.category}</span><span className="font-semibold group-hover:text-action group-hover:underline">{problem.title}</span></Link></li>)}</ul></section>
-      </div><div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter /></main>;
+      </section>
+      <GuidedSteps totalTime={totalTime(entry.solutions, "ja")} advancedFrom={advancedStart(levels)} afterId="after-steps" steps={entry.solutions.map((solution, index) => ({
+            order: solution.order, title: solution.title, difficulty: translate(solution.difficulty), level: levels[index], time: solution.time,
+            body: <>{solution.reason && <p className="guided-why">{solution.reason}</p>}<StepList steps={solution.steps} locale="ja"/>{solution.checkPoint && <div className="step-check"><p className="step-check-title">{"\u78BA\u8A8D\u30DD\u30A4\u30F3\u30C8"}</p><p>{solution.checkPoint}</p></div>}</>,
+        }))} labels={{
+            title: "\u6BB5\u968E\u7684\u306A\u89E3\u6C7A\u7B56",
+            summary: "\u5168{count}\u30B9\u30C6\u30C3\u30D7\u3001\u3059\u3079\u3066\u884C\u3046\u3068{time}\u3002\u7C21\u5358\u306A\u78BA\u8A8D\u304B\u3089\u9806\u306B\u4E26\u3079\u3066\u3044\u308B\u306E\u3067\u3001\u89E3\u6C7A\u3057\u305F\u3089\u305D\u306E\u30B9\u30C6\u30C3\u30D7\u3067\u7D42\u4E86\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+            expandAll: "\u3059\u3079\u3066\u958B\u304F",
+            collapseAll: "\u3059\u3079\u3066\u9589\u3058\u308B",
+            ask: "\u3053\u306E\u30B9\u30C6\u30C3\u30D7\u3067\u89E3\u6C7A\u3057\u307E\u3057\u305F\u304B\uFF1F",
+            yes: "\u306F\u3044\u3001\u89E3\u6C7A\u3057\u307E\u3057\u305F",
+            no: "\u3044\u3044\u3048\u3001\u6B21\u306E\u30B9\u30C6\u30C3\u30D7\u3078",
+            noLast: "\u3044\u3044\u3048\u3001\u307E\u3060\u76F4\u308A\u307E\u305B\u3093",
+            solvedAt: "\u30B9\u30C6\u30C3\u30D7{n}\u3067\u89E3\u6C7A",
+            triedAt: "\u30B9\u30C6\u30C3\u30D7{n}\u3092\u78BA\u8A8D\u3001\u672A\u89E3\u6C7A",
+            undo: "\u53D6\u308A\u6D88\u3059",
+            rail: "\u78BA\u8A8D\u3059\u308B\u9806\u756A",
+            notStarted: "\u307E\u3060\u59CB\u3081\u3066\u3044\u307E\u305B\u3093",
+            progressTried: "\u30B9\u30C6\u30C3\u30D7{n}\u307E\u3067\u78BA\u8A8D\u6E08\u307F",
+            progressSolved: "\u30B9\u30C6\u30C3\u30D7{n}\u3067\u89E3\u6C7A",
+            band: "\u30B9\u30C6\u30C3\u30D7{n}/{total}",
+            bandLink: "\u30B9\u30C6\u30C3\u30D7\u4E00\u89A7",
+            gateTitle: "\u3053\u3053\u304B\u3089\u4E0A\u7D1A\u8005\u5411\u3051\u306E\u30B9\u30C6\u30C3\u30D7",
+            gateText: "\u5143\u306B\u623B\u3057\u306B\u304F\u3044\u4F5C\u696D\u3084\u3001\u90E8\u54C1\u30FB\u8A2D\u5B9A\u3092\u76F4\u63A5\u6271\u3046\u4F5C\u696D\u3067\u3059\u3002\u81EA\u4FE1\u304C\u306A\u3044\u5834\u5408\u306F\u3001\u3053\u3053\u307E\u3067\u306E\u78BA\u8A8D\u7D50\u679C\u3092\u6301\u3063\u3066\u70B9\u691C\u3092\u4F9D\u983C\u3057\u3066\u3082\u69CB\u3044\u307E\u305B\u3093\u3002",
+            advanced: "\u4E0A\u7D1A",
+            doneTitle: "\u89E3\u6C7A\u3057\u3066\u3088\u304B\u3063\u305F\u3067\u3059",
+            doneText: "\u540C\u3058\u75C7\u72B6\u304C\u518D\u767A\u3057\u305F\u3089\u3001\u3053\u306E\u30DA\u30FC\u30B8\u306E\u30B9\u30C6\u30C3\u30D7{n}\u304B\u3089\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+        }}/>
+      <div id="after-steps" className="doc-after">
+        <section className="doc-sheet"><h2>{"\u3088\u304F\u3042\u308B\u8CEA\u554F"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
+        {related.length > 0 && <section className="doc-sheet"><h2>{"\u95A2\u9023PC FIX\u306E\u554F\u984C"}</h2><ul className="doc-links">{related.map(problem => problem && <li key={problem.slug}><Link href={`/ja/problems/${problem.slug}`}><span>{problem.category}</span>{problem.title}</Link></li>)}</ul></section>}
+        <section className="doc-sources"><h2>{"\u516C\u5F0F\u53C2\u8003\u8CC7\u6599"}</h2><ul>{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul><p>{"\u5185\u5BB9\u30EC\u30D3\u30E5\u30FC\u65E5\uFF1A "}{entry.updatedAt.slice(0, 10)}</p></section>
+      </div>
+    </article>
+    <div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter /></main>;
 }

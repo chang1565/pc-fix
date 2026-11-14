@@ -18,6 +18,27 @@ const popularSlugs = [
     "computer-boot-failure",
     "usb-not-recognized",
 ];
+// 분야 타일 아이콘(40×40 선 그림). 분야 이름은 번역 파일이 함께 바꾼다.
+const categoryIcons: Record<string, string> = {
+    "\u96FB\u6E90": "M20 7v11 M12.5 11.5a11 11 0 1 0 15 0",
+    "\u8D77\u52D5": "M8 8h24v18H8z M14 32h12 M20 26v6 M16 15l4 4-4 4",
+    Windows: "M7 7h12v12H7z M21 7h12v12H21z M7 21h12v12H7z M21 21h12v12H21z",
+    "\u753B\u9762": "M5 7h30v19H5z M20 26v6 M14 32h12",
+    "\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF": "M6 12h28v16H6z M12 28v5 M28 28v5 M14 20a4 4 0 1 0 8 0a4 4 0 1 0-8 0",
+    "\u30B2\u30FC\u30E0": "M11 13h18a6 6 0 0 1 6 6v3a5 5 0 0 1-9 3l-2-2h-8l-2 2a5 5 0 0 1-9-3v-3a6 6 0 0 1 6-6z M12 17v5 M9.5 19.5h5",
+    "\u30D1\u30D5\u30A9\u30FC\u30DE\u30F3\u30B9": "M6 30a14 14 0 1 1 28 0 M20 30l6-9",
+    "\u30B9\u30C8\u30EC\u30FC\u30B8": "M7 9h26v22H7z M14 20a6 6 0 1 0 12 0a6 6 0 1 0-12 0",
+    "\u30E1\u30E2\u30EA": "M5 13h30v12H5z M10 25v4 M16 25v4 M22 25v4 M28 25v4 M10 17h4v4h-4z M18 17h4v4h-4z M26 17h4v4h-4z",
+    CPU: "M11 11h18v18H11z M16 16h8v8h-8z M15 6v5 M20 6v5 M25 6v5 M15 29v5 M20 29v5 M25 29v5 M6 15h5 M6 20h5 M6 25h5 M29 15h5 M29 20h5 M29 25h5",
+    "\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8": "M6 16a20 20 0 0 1 28 0 M11 21a13 13 0 0 1 18 0 M16 26a6 6 0 0 1 8 0 M20 31v.5",
+    Bluetooth: "M13 13l14 14-7 6V7l7 6-14 14",
+    "\u5468\u8FBA\u6A5F\u5668": "M13 5h14v14H13z M10 19h20v8a6 6 0 0 1-6 6h-8a6 6 0 0 1-6-6z",
+    "\u30AA\u30FC\u30C7\u30A3\u30AA": "M8 16h6l8-6v20l-8-6H8z M27 15a7 7 0 0 1 0 10 M30 11a12 12 0 0 1 0 18",
+    "\u30AB\u30E1\u30E9": "M6 13h20v14H6z M26 18l8-4v12l-8-4",
+    "\u30D7\u30EA\u30F3\u30BF\u30FC": "M12 6h16v9H12z M6 15h28v12H6z M12 23h16v10H12z",
+    "\u30CE\u30FC\u30C8\u30D1\u30BD\u30B3\u30F3": "M9 9h22v15H9z M5 28h30l-2 3H7z",
+    "\u767A\u71B1": "M17 8a3 3 0 0 1 6 0v14a6 6 0 1 1-6 0z M20 16v9",
+};
 const popularErrorSlugs = [
     "critical-process-died",
     "irql-not-less-or-equal",
@@ -105,169 +126,170 @@ export default function Home() {
         setDebouncedQuery("");
         updateSearchUrl("");
     }
-    return (<main className="relative min-h-screen bg-surface text-ink">
-      <SiteHeader showSearch={false}/>
+    return (<main className="home-page relative min-h-screen text-ink">
+      <SiteHeader showSearch={false} tone="dark"/>
 
       {/* 첫 화면: 지금 보이는 증상이나 오류 문구를 바로 입력하는 검색 */}
-      <section className="mx-auto max-w-5xl px-5 pb-10 pt-12 sm:pb-14 sm:pt-16">
-        <h1 className="max-w-3xl text-[2rem] font-extrabold leading-[1.25] tracking-[-0.03em] sm:text-5xl">{" \u30D1\u30BD\u30B3\u30F3\u306E\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u304D\u3001 "}<br />{" \u307E\u305A\u4F55\u3092\u78BA\u8A8D\u3059\u308C\u3070\u3088\u3044\u3067\u3057\u3087\u3046\u304B\uFF1F "}</h1>
+      <section className="home-hero">
+        <div className="home-hero-in">
+          <h1>{" \u30D1\u30BD\u30B3\u30F3\u306E\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u304D\u3001 "}<br />{" \u307E\u305A\u4F55\u3092\u78BA\u8A8D\u3059\u308C\u3070\u3088\u3044\u3067\u3057\u3087\u3046\u304B\uFF1F "}</h1>
 
-        <p className="mt-4 max-w-2xl leading-7 text-muted sm:text-lg">{" \u73FE\u5728\u306E\u75C7\u72B6\u3084\u753B\u9762\u306B\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u3001\u305D\u306E\u307E\u307E\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
+          <p className="home-hero-lead">{" \u73FE\u5728\u306E\u75C7\u72B6\u3084\u753B\u9762\u306B\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u3001\u305D\u306E\u307E\u307E\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
 
-        <div className="relative mt-7 max-w-2xl">
-          <input type="search" aria-label="PCの症状またはエラーコードを検索" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例：ゲーム中の黒い画面、0xc0000005、Code 43" className="home-search"/>
+          <form role="search" className="home-searchbox" onSubmit={(event) => {
+            event.preventDefault();
+            handleExampleSearch(inputQuery.trim());
+        }}>
+            <input type="search" aria-label="PCの症状またはエラーコードを検索" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例：ゲーム中の黒い画面、0xc0000005、Code 43" className="home-search"/>
 
-          {inputQuery && (<button type="button" onClick={handleClear} aria-label="クエリをクリア" className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-md text-muted hover:bg-line hover:text-ink">
-              ✕
-            </button>)}
-        </div>
+            {inputQuery && (<button type="button" onClick={handleClear} aria-label="クエリをクリア" className="home-clear">
+                ✕
+              </button>)}
 
-        <div className="home-examples">
-          <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u9ED2\u3044\u753B\u9762\u304C\u51FA\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u4E2D\u306E\u9ED2\u3044\u753B\u9762 "}</button>
-          <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u306F\u5F3E\u304D\u7D9A\u3051\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u3092\u30AF\u30E9\u30C3\u30B7\u30E5\u3059\u308B "}</button>
-          <button type="button" onClick={() => handleExampleSearch("\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3059\u304E\u307E\u3057\u305F\u3002")}>{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3044 "}</button>
-          <button type="button" onClick={() => handleExampleSearch("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306F\u7A81\u7136\u3067\u304D\u307E\u305B\u3093\u3002")}>{" \u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306A\u3057 "}</button>
+            <button type="submit" className="home-submit">{"\u691C\u7D22"}</button>
+          </form>
+
+          <div className="home-examples">
+            <p>{"\u3088\u304F\u691C\u7D22\u3055\u308C\u308B\u30AD\u30FC\u30EF\u30FC\u30C9"}</p>
+            <div>
+              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u9ED2\u3044\u753B\u9762\u304C\u51FA\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u4E2D\u306E\u9ED2\u3044\u753B\u9762 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u306F\u5F3E\u304D\u7D9A\u3051\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u3092\u30AF\u30E9\u30C3\u30B7\u30E5\u3059\u308B "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3059\u304E\u307E\u3057\u305F\u3002")}>{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3044 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306F\u7A81\u7136\u3067\u304D\u307E\u305B\u3093\u3002")}>{" \u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306A\u3057 "}</button>
+            </div>
+          </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-5 pb-14">
-        {isSearching ? (<section>
-            <div className="flex items-baseline justify-between gap-4 border-b-2 border-ink pb-3">
-              <h2 className="text-xl font-extrabold">{" \u691C\u7D22\u7D50\u679C "}</h2>
+      <div className="home-body">
+        {isSearching ? (<section className="home-sheet">
+            <div className="home-results-head">
+              <h2>{" \u691C\u7D22\u7D50\u679C "}</h2>
 
-              <span className="text-sm text-muted">
+              <span>
                 {searchResults.length}{"\u4EF6 "}</span>
             </div>
 
-            <p className="mt-3 text-sm text-muted">
+            <p className="home-results-note">
               &quot;{debouncedQuery}{"\u300C\u306B\u95A2\u9023\u3059\u308B\u554F\u984C\u3068\u30A8\u30E9\u30FC\u3067\u3059\u3002 "}</p>
 
             {searchResults.length > 0 ? (<>
-                <ol className="mt-2">
+                <ol className="home-results">
                   {searchResults
                     .slice(0, expandedQuery === debouncedQuery ? undefined : 10)
-                    .map((problem, index) => (<li key={problem.href} className="border-b border-line">
-                        <Link href={problem.href} className="group block py-4">
-                          <span className="text-xs text-muted">
+                    .map((problem, index) => (<li key={problem.href}>
+                        <Link href={problem.href}>
+                          <span className="home-results-cat">
                             {problem.category}
                           </span>
 
-                          {index === 0 && (<span className="ml-2 text-xs font-bold text-action">{" \u6700\u3082\u95A2\u9023\u6027\u304C\u9AD8\u3044 "}</span>)}
+                          {index === 0 && (<span className="home-results-best">{" \u6700\u3082\u95A2\u9023\u6027\u304C\u9AD8\u3044 "}</span>)}
 
-                          <h3 className="mt-1 text-lg font-bold group-hover:text-action group-hover:underline">
+                          <h3>
                             {problem.title}
                           </h3>
 
-                          <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted">
+                          <p>
                             {problem.description}
                           </p>
                         </Link>
                       </li>))}
                 </ol>
 
-                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="mt-6 rounded-md border border-line bg-surface px-4 py-2.5 text-sm font-bold text-action hover:border-action">{"\u691C\u7D22\u7D50\u679C\u3092\u3082\u3063\u3068\u898B\u308B\uFF08"}{searchResults.length - 10}{"\u4EF6)"}</button>)}
-              </>) : (<div className="mt-6 rounded-md border border-line bg-surface p-6">
-                <h3 className="font-bold">{" \u95A2\u9023\u3059\u308B\u554F\u984C\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002 "}</h3>
+                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="home-more-btn">{"\u691C\u7D22\u7D50\u679C\u3092\u3082\u3063\u3068\u898B\u308B\uFF08"}{searchResults.length - 10}{"\u4EF6)"}</button>)}
+              </>) : (<div className="home-empty">
+                <h3>{" \u95A2\u9023\u3059\u308B\u554F\u984C\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002 "}</h3>
 
-                <p className="mt-2 text-sm leading-6 text-muted">{" \u75C7\u72B6\u3092\u3082\u3046\u5C11\u3057\u8A73\u3057\u304F\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}<br />{" \u4F8B\uFF1A\u300C\u30B2\u30FC\u30E0\u4E2D\u306B\u753B\u9762\u304C\u6D88\u3048\u3001\u672C\u4F53\u306F\u70B9\u706F\u3057\u7D9A\u3051\u3066\u3044\u307E\u3059\u300D "}</p>
+                <p>{" \u75C7\u72B6\u3092\u3082\u3046\u5C11\u3057\u8A73\u3057\u304F\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}<br />{" \u4F8B\uFF1A\u300C\u30B2\u30FC\u30E0\u4E2D\u306B\u753B\u9762\u304C\u6D88\u3048\u3001\u672C\u4F53\u306F\u70B9\u706F\u3057\u7D9A\u3051\u3066\u3044\u307E\u3059\u300D "}</p>
 
-                <button type="button" onClick={handleClear} className="mt-4 rounded-md bg-action px-4 py-2.5 text-sm font-bold text-white hover:bg-action-strong">{" \u3082\u3046\u4E00\u5EA6\u691C\u7D22\u3059\u308B "}</button>
+                <button type="button" onClick={handleClear}>{" \u3082\u3046\u4E00\u5EA6\u691C\u7D22\u3059\u308B "}</button>
               </div>)}
-          </section>) : (<>
-            <div className="grid gap-12 md:grid-cols-[1.25fr_1fr] md:gap-14">
-              <section>
-                <h2 className="home-h2">{" \u3088\u304F\u3042\u308BPC\u306E\u30C8\u30E9\u30D6\u30EB "}</h2>
+          </section>) : (<div className="home-grid">
+            <section className="home-sheet home-popular">
+              <h2>{" \u3088\u304F\u3042\u308BPC\u306E\u30C8\u30E9\u30D6\u30EB "}</h2>
 
-                <ul>
-                  {popularProblems.map((problem) => {
+              <ol className="home-list">
+                {popularProblems.map((problem, index) => {
                 if (!problem) {
                     return null;
                 }
-                return (<li key={problem.slug} className="border-b border-line">
-                        <Link href={`/ja/problems/${problem.slug}`} className="group flex items-baseline gap-3 py-3">
-                          <span className="w-14 shrink-0 text-xs text-muted">
-                            {problem.category}
-                          </span>
-
-                          <span className="font-semibold leading-6 group-hover:text-action group-hover:underline">
-                            {problem.title}
-                          </span>
-                        </Link>
-                      </li>);
-            })}
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="home-h2">{" \u3088\u304F\u691C\u7D22\u3055\u308C\u308B\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9 "}</h2>
-
-                <ul>
-                  {popularErrors.map((entry) => (<li key={entry.slug} className="border-b border-line">
-                      <Link href={`/ja/errors/${entry.slug}`} className="group flex items-baseline justify-between gap-3 py-3">
-                        <span className="home-code group-hover:text-action group-hover:underline">
-                          {entry.code}
-                        </span>
-
-                        <span className="shrink-0 text-xs text-muted">
-                          {entry.category}
-                        </span>
+                return (<li key={problem.slug}>
+                      <Link href={`/ja/problems/${problem.slug}`}>
+                        <span className="home-rank">{index + 1}</span>
+                        <span>{problem.title}</span>
                       </Link>
-                    </li>))}
-                </ul>
+                    </li>);
+            })}
+              </ol>
+            </section>
 
-                <Link href="/ja/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{" \u3059\u3079\u3066\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u898B\u308B "}</Link>
-              </section>
-            </div>
+            <section className="home-sheet home-codes">
+              <h2>{" \u3088\u304F\u691C\u7D22\u3055\u308C\u308B\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9 "}</h2>
 
-            <section className="mt-14">
-              <h2 className="home-h2">{" \u30AB\u30C6\u30B4\u30EA\u304B\u3089\u63A2\u3059 "}</h2>
+              <ul className="home-list">
+                {popularErrors.map((entry) => (<li key={entry.slug}>
+                    <Link href={`/ja/errors/${entry.slug}`} className="home-code-row">
+                      <span className="home-code">
+                        {entry.code}
+                      </span>
 
-              <ul className="grid grid-cols-2 gap-x-8 sm:grid-cols-3 lg:grid-cols-4">
+                      <span className="home-code-cat">
+                        {entry.category}
+                      </span>
+                    </Link>
+                  </li>))}
+              </ul>
+
+              <Link href="/ja/errors" className="home-more">{" \u3059\u3079\u3066\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u898B\u308B "}</Link>
+            </section>
+
+            <section className="home-areas">
+              <h2>{" \u30AB\u30C6\u30B4\u30EA\u304B\u3089\u63A2\u3059 "}</h2>
+
+              <ul>
                 {categories.map((category) => {
                 const count = problems.filter((problem) => problem.category === category).length;
-                return (<li key={category} className="border-b border-line">
-                      <Link href={`/ja/category/${encodeURIComponent(category)}`} className="group flex items-baseline justify-between gap-2 py-3">
-                        <span className="font-semibold group-hover:text-action group-hover:underline">
-                          {category}
-                        </span>
-
-                        <span className="text-sm tabular-nums text-muted">
-                          {count}
-                        </span>
+                return (<li key={category}>
+                      <Link href={`/ja/category/${encodeURIComponent(category)}`}>
+                        <svg viewBox="0 0 40 40" aria-hidden="true">
+                          <path d={categoryIcons[category] ?? "M8 8h24v24H8z"}/>
+                        </svg>
+                        <b>{category}</b>
+                        <span>{count}</span>
                       </Link>
                     </li>);
             })}
               </ul>
             </section>
 
-            <section className="mt-14">
-              <h2 className="home-h2">{" PC FIX\u306F\u3053\u308C\u3092\u4F7F\u3046\u3060\u3051\u3067\u3059 "}</h2>
+            <section className="home-how-sec">
+              <h2>{" PC FIX\u306F\u3053\u308C\u3092\u4F7F\u3046\u3060\u3051\u3067\u3059 "}</h2>
 
               <ol className="home-how">
                 <li>
                   <span aria-hidden="true">1</span>
                   <div>
-                    <h3 className="font-bold">{" \u75C7\u72B6\u3092\u305D\u306E\u307E\u307E\u691C\u7D22 "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" \u5C02\u9580\u7528\u8A9E\u306E\u4EE3\u308F\u308A\u306B\u5B9F\u969B\u306B\u898B\u3048\u308B\u73FE\u8C61\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
+                    <h3>{" \u75C7\u72B6\u3092\u305D\u306E\u307E\u307E\u691C\u7D22 "}</h3>
+                    <p>{" \u5C02\u9580\u7528\u8A9E\u306E\u4EE3\u308F\u308A\u306B\u5B9F\u969B\u306B\u898B\u3048\u308B\u73FE\u8C61\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">2</span>
                   <div>
-                    <h3 className="font-bold">{" \u7C21\u5358\u306A\u65B9\u6CD5\u304B\u3089\u78BA\u8A8D "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" \u30B3\u30B9\u30C8\u3068\u30EA\u30B9\u30AF\u306E\u5C11\u306A\u3044\u89E3\u6C7A\u7B56\u304B\u3089\u9806\u756A\u306B\u6848\u5185\u3057\u307E\u3059\u3002 "}</p>
+                    <h3>{" \u7C21\u5358\u306A\u65B9\u6CD5\u304B\u3089\u78BA\u8A8D "}</h3>
+                    <p>{" \u30B3\u30B9\u30C8\u3068\u30EA\u30B9\u30AF\u306E\u5C11\u306A\u3044\u89E3\u6C7A\u7B56\u304B\u3089\u9806\u756A\u306B\u6848\u5185\u3057\u307E\u3059\u3002 "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">3</span>
                   <div>
-                    <h3 className="font-bold">{" \u89E3\u6C7A\u3055\u308C\u308B\u307E\u3067\u306E\u307F\u9032\u3080 "}</h3>
-                    <p className="mt-1 text-sm leading-6 text-muted">{" \u554F\u984C\u304C\u89E3\u6C7A\u3057\u305F\u3089\u3001\u3088\u308A\u96E3\u3057\u3044\u30B9\u30C6\u30C3\u30D7\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
+                    <h3>{" \u89E3\u6C7A\u3055\u308C\u308B\u307E\u3067\u306E\u307F\u9032\u3080 "}</h3>
+                    <p>{" \u554F\u984C\u304C\u89E3\u6C7A\u3057\u305F\u3089\u3001\u3088\u308A\u96E3\u3057\u3044\u30B9\u30C6\u30C3\u30D7\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
                   </div>
                 </li>
               </ol>
             </section>
-          </>)}
+          </div>)}
       </div>
 
       <div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter />

@@ -224,13 +224,13 @@ export default function StepList({ steps, locale }: StepListProps) {
   const guides = locale === "ko" ? SHARED_GUIDES.filter((g) => steps.some((s) => s.includes(g.keyword))) : [];
   return (
     <>
-      <ul className="mt-3 list-disc space-y-2 pl-5 leading-7">
+      <ol className="step-do">
         {steps.map((step, index) => (
           <li key={index}>
             <StepText text={step} locale={locale} />
           </li>
         ))}
-      </ul>
+      </ol>
       {commands.map((command) => (
         <CopyCommand key={command} command={command} locale={locale} />
       ))}
