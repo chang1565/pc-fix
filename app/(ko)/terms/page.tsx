@@ -59,8 +59,48 @@ export default function TermsPage() {
               </p>
             </section>
 
+            <section>
+              <h2 className="text-xl font-bold text-ink">
+                5. 광고와 외부 링크
+              </h2>
+
+              <p className="mt-2">
+                PC FIX에는 Google AdSense 광고가 표시됩니다. 광고와 외부 사이트 링크의 내용은 해당 광고주와 사이트가 책임지며, PC FIX가 보증하지 않습니다.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">
+                6. 책임의 한계
+              </h2>
+
+              <p className="mt-2">
+                안내는 고장 원인을 확정하는 진단이 아니라 원인 후보와 확인 순서를 정리한 것입니다. 안내를 따라 한 작업으로 생긴 데이터 손실이나 장비 손상에 대해 PC FIX는 고의나 중대한 과실이 없는 한 책임을 지지 않습니다.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">
+                7. 저작권
+              </h2>
+
+              <p className="mt-2">
+                사이트의 글과 구성은 PC FIX에 저작권이 있습니다. 출처를 밝힌 짧은 인용은 자유롭게 할 수 있지만, 전체를 복제해 다른 곳에 게시하려면 문의 페이지의 이메일로 먼저 허락을 받아 주세요.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">
+                8. 약관 변경
+              </h2>
+
+              <p className="mt-2">
+                약관을 바꾸면 이 페이지에 바뀐 내용을 싣고 아래 시행일을 갱신합니다.
+              </p>
+            </section>
+
             <p className="border-t border-line pt-6 text-xs text-muted">
-              시행일: 2026년 10월 6일
+              시행일: 2026년 11월 14일 (이전 약관 시행일: 2026년 10월 6일)
             </p>
           </div>
         </div>

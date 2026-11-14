@@ -9,6 +9,8 @@ import { steps7 } from "./batch7";
 import { steps8 } from "./batch8";
 import { steps9 } from "./batch9";
 import { steps10 } from "./batch10";
+import { steps11 } from "./batch11";
+import { steps12 } from "./batch12";
 
 export type { StepInput } from "./types";
-export const problemSteps: Record<string, StepInput[]> = { ...steps1, ...steps2, ...steps3, ...steps4, ...steps5, ...steps6, ...steps7, ...steps8, ...steps9, ...steps10 };
+export const problemSteps: Record<string, StepInput[]> = { ...steps1, ...steps2, ...steps3, ...steps4, ...steps5, ...steps6, ...steps7, ...steps8, ...steps9, ...steps10, ...steps11, ...steps12 };

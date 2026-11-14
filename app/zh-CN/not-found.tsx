@@ -11,7 +11,7 @@ export default function NotFound() {
 
         <p className="mt-3 text-muted">{" \u5730\u5740\u5DF2\u66F4\u6539\u6216\u9875\u9762\u4E0D\u5B58\u5728\u3002 "}</p>
 
-        <Link href="/zh-CN" className="mt-7 inline-flex rounded-md bg-action px-6 py-3 text-sm font-bold text-white hover:bg-action-strong">{" \u524D\u5F80 PC FIX \u4E3B\u9875 "}</Link>
+        <Link href="/zh-CN" className="mt-7 inline-flex rounded-md bg-action px-6 py-3 text-sm font-bold text-white hover:bg-action-strong">{" \u8FD4\u56DE PC FIX \u9996\u9875 "}</Link>
       </div>
     </main>);
 }

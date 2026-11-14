@@ -3,6 +3,7 @@ import { staticPageMetadata } from "@/lib/staticPageMetadata";
 export const metadata = staticPageMetadata("/en/privacy");
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 export default function PrivacyPage() {
     return (<main className="min-h-screen bg-surface">
       <SiteHeader />
@@ -54,13 +55,27 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 5. Contact "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 5. Storage period and destruction "}</h2>
 
-              <p className="mt-2">{" For questions about how personal information is handled, please email the address on the contact page. "}</p>
+              <p className="mt-2">{" Inquiry emails are kept for one year from the date of receipt and then deleted to confirm responses and follow-up inquiries. If a user requests deletion, it will be deleted without delay. "}</p>
+
+              <p className="mt-2">{" PC FIX does not separately collect or store the access records that Cloudflare leaves for security and failure response purposes, and the retention period follows Cloudflare's policy. "}</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 6. Changes to this policy "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 6. User rights "}</h2>
+
+              <p className="mt-2">{" Users may request to view, correct, delete, or suspend processing of their inquiry emails and contents held by PC FIX. If you make a request via email on the inquiry page, we will notify you of the processing result within 10 days. "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 7. Contact the person in charge of personal information protection "}</h2>
+
+              <p className="mt-2">{" The person in charge of personal information protection is the PC FIX operator, and inquiries and requests regarding personal information processing are "}<ContactEmail />{"Please send it to . "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 8. Change in policy "}</h2>
 
               <p className="mt-2">{" If the services or features we use change, we will update this policy and the effective date below. "}</p>
             </section>

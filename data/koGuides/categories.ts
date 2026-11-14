@@ -6,7 +6,7 @@ export type CategoryGuide = {
 
 export const koCategoryGuides: Record<string, CategoryGuide> = {
   전원: {
-    intro: "전원 문제는 전원 버튼을 눌렀을 때 팬·LED가 전혀 반응하지 않는지, 켜졌다가 꺼지는지, 쓰는 중에 꺼지는지에 따라 확인할 곳이 다릅니다. 반응이 아예 없으면 콘센트·케이블·파워서플라이 쪽을, 켜진 뒤 꺼지면 온도·전원 공급·부품 장착 상태를 먼저 봅니다.",
+    intro: "전원 문제는 전원 버튼을 눌렀을 때 팬·LED가 전혀 반응하지 않는지, 켜졌다가 꺼지는지, 쓰는 중에 꺼지는지에 따라 확인할 곳이 다릅니다. 반응이 아예 없으면 콘센트·케이블·파워서플라이 쪽을, 켜진 뒤 꺼지면 온도·전원 공급·부품 장착 상태를 먼저 봅니다. 절전 모드에서 깨어나지 않거나 혼자 깨어나는 문제, 최대 절전 메뉴가 사라진 문제는 Windows 전원 옵션과 장치의 절전 해제 설정을 확인합니다.",
     paths: [
       { when: "버튼을 눌러도 팬·LED가 전혀 반응하지 않는다", slug: "desktop-no-power" },
       { when: "몇 초 켜졌다가 바로 꺼진다", slug: "pc-turns-on-then-off" },
@@ -78,7 +78,7 @@ export const koCategoryGuides: Record<string, CategoryGuide> = {
     ],
   },
   메모리: {
-    intro: "메모리 문제는 RAM을 추가·교체한 직후인지, XMP·EXPO 같은 메모리 프로필을 켠 뒤인지가 가장 큰 단서입니다. 최근 바꾼 것이 있다면 먼저 원래 상태로 되돌려 증상이 사라지는지 비교합니다.",
+    intro: "메모리 문제는 RAM을 추가·교체한 직후인지, XMP·EXPO 같은 메모리 프로필을 켠 뒤인지가 가장 큰 단서입니다. 최근 바꾼 것이 있다면 먼저 원래 상태로 되돌려 증상이 사라지는지 비교합니다. 바꾼 것이 없는데 프로그램이 무작위로 튕기면 Windows 메모리 진단으로 RAM 상태를 확인합니다.",
     paths: [
       { when: "RAM을 추가·교체한 뒤 부팅되지 않는다", slug: "bios-after-ram-upgrade-no-boot" },
       { when: "XMP·EXPO를 켜면 재부팅·블루스크린이 생긴다", slug: "xmp-expo-unstable" },
@@ -144,11 +144,13 @@ export const koCategoryGuides: Record<string, CategoryGuide> = {
     ],
   },
   노트북: {
-    intro: "노트북 전원 문제는 충전기 표시등과 Windows 배터리 아이콘의 '전원 연결됨' 표시를 함께 확인합니다. 배터리가 부풀어 오른 것이 보이면 다른 확인보다 사용 중지가 먼저입니다.",
+    intro: "노트북 문제는 충전·배터리, 배터리 사용 중 성능, 덮개를 닫을 때의 절전 동작으로 나뉩니다. 충전이 안 되면 충전기 표시등과 Windows 배터리 아이콘의 '전원 연결됨' 표시를 함께 보고, 배터리로 쓸 때만 느리거나 덮개를 닫아도 절전되지 않으면 전원 모드와 덮개 닫기 동작 설정을 확인합니다. 배터리가 부풀어 오른 것이 보이면 다른 확인보다 사용 중지가 먼저입니다.",
     paths: [
       { when: "충전기를 연결해도 충전 표시가 되지 않는다", slug: "laptop-not-charging" },
       { when: "전원 연결됨으로 나오는데 충전되지 않는다", slug: "plugged-in-not-charging" },
       { when: "배터리가 부풀어 오른 것 같다", slug: "battery-swollen" },
+      { when: "배터리로 쓸 때만 눈에 띄게 느려진다", slug: "laptop-slow-on-battery" },
+      { when: "덮개를 닫아도 절전 모드로 들어가지 않는다", slug: "lid-close-not-sleep" },
     ],
   },
   발열: {

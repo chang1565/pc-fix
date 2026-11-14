@@ -11,7 +11,7 @@ export default function NotFound() {
 
         <p className="mt-3 text-muted">{" The address has changed or the page does not exist. "}</p>
 
-        <Link href="/en" className="mt-7 inline-flex rounded-md bg-action px-6 py-3 text-sm font-bold text-white hover:bg-action-strong">{" To PC FIX Home "}</Link>
+        <Link href="/en" className="mt-7 inline-flex rounded-md bg-action px-6 py-3 text-sm font-bold text-white hover:bg-action-strong">{" Back to PC FIX home "}</Link>
       </div>
     </main>);
 }

@@ -30,7 +30,7 @@ export async function generateMetadata({ params, }: PageProps): Promise<Metadata
     const problem = findProblemBySlug(slug);
     if (!problem) {
         return {
-            title: "\u554F\u984C\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002 PC FIX",
+            title: "\u554F\u984C\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093 | PC FIX",
             robots: {
                 index: false,
                 follow: false,
@@ -259,7 +259,7 @@ export default async function ProblemPage({ params, }: PageProps) {
                       </li>))}
                   </ul>
                 </>)}
-              <p>{" \u5185\u5BB9\u30EC\u30D3\u30E5\u30FC\u65E5\uFF1A "}{extras.reviewedAt}{"\u3002\u3053\u306E\u30AC\u30A4\u30C9\u306F\u539F\u56E0\u306E\u5019\u88DC\u3068\u78BA\u8A8D\u306E\u9806\u5E8F\u3092\u307E\u3068\u3081\u305F\u3082\u306E\u3067\u3001\u6545\u969C\u306E\u539F\u56E0\u3092\u78BA\u5B9A\u3059\u308B\u8A3A\u65AD\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
+              <p>{" \u5185\u5BB9\u306E\u78BA\u8A8D\u65E5\uFF1A "}{extras.reviewedAt}{"\u3002\u3053\u306E\u30AC\u30A4\u30C9\u306F\u539F\u56E0\u306E\u5019\u88DC\u3068\u78BA\u8A8D\u306E\u9806\u5E8F\u3092\u307E\u3068\u3081\u305F\u3082\u306E\u3067\u3001\u6545\u969C\u306E\u539F\u56E0\u3092\u78BA\u5B9A\u3059\u308B\u8A3A\u65AD\u3067\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
             </section>)}
         </div>
       </article>

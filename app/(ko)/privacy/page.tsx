@@ -2,6 +2,7 @@ import { staticPageMetadata } from "@/lib/staticPageMetadata";
 export const metadata = staticPageMetadata("/privacy");
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 
 export default function PrivacyPage() {
   return (
@@ -108,17 +109,41 @@ export default function PrivacyPage() {
 
             <section>
               <h2 className="text-xl font-bold text-ink">
-                5. 문의
+                5. 보관 기간과 파기
               </h2>
 
               <p className="mt-2">
-                개인정보 처리에 관한 문의는 문의 페이지의 이메일로 보내 주세요.
+                문의 이메일은 답변과 후속 문의 확인을 위해 받은 날부터 1년 동안 보관한 뒤 삭제합니다. 이용자가 삭제를 요청하면 그 전에라도 지체 없이 삭제합니다.
+              </p>
+
+              <p className="mt-2">
+                Cloudflare가 보안과 장애 대응을 위해 남기는 접속 기록은 PC FIX가 따로 모으거나 보관하지 않으며, 보관 기간은 Cloudflare의 정책을 따릅니다.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-bold text-ink">
-                6. 방침 변경
+                6. 이용자의 권리
+              </h2>
+
+              <p className="mt-2">
+                이용자는 PC FIX가 가진 자신의 문의 이메일과 내용에 대해 열람, 정정, 삭제, 처리 정지를 요청할 수 있습니다. 문의 페이지의 이메일로 요청하면 10일 안에 처리 결과를 알려 드립니다.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">
+                7. 개인정보 보호책임자와 문의
+              </h2>
+
+              <p className="mt-2">
+                개인정보 보호책임자는 PC FIX 운영자이며, 개인정보 처리에 관한 문의와 요청은 <ContactEmail />으로 보내 주세요.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">
+                8. 방침 변경
               </h2>
 
               <p className="mt-2">

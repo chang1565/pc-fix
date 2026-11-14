@@ -20,7 +20,7 @@ export default function SiteHeader({ showSearch = true, tone = "light" }: {
         </form>}
 
         <nav className="site-nav">
-          <Link href="/en/errors">{"error code"}</Link>
+          <Link href="/en/errors">{"Error code"}</Link>
           <LanguageSelector />
         </nav>
       </div>

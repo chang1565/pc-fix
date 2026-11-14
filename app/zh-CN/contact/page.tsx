@@ -17,7 +17,7 @@ export default function ContactPage() {
           <div className="mt-8 rounded-xl bg-paper p-5 sm:p-6">
             <h2 className="font-bold text-ink">{" \u5982\u4F55\u8054\u7CFB\u6211\u4EEC "}</h2>
 
-            <p className="mt-2 text-sm leading-6 text-muted">{" \u8BF7\u5C06\u4EFB\u4F55\u7591\u95EE\u53D1\u9001\u81F3\u4EE5\u4E0B\u7535\u5B50\u90AE\u4EF6\u5730\u5740\u3002 "}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{" \u5982\u6709\u7591\u95EE\uFF0C\u8BF7\u53D1\u9001\u90AE\u4EF6\u81F3\u4EE5\u4E0B\u5730\u5740\u3002 "}</p>
 
             <div className="mt-3"><ContactEmail /></div>
           </div>

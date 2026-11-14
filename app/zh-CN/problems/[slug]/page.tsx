@@ -162,7 +162,7 @@ export default async function ProblemPage({ params, }: PageProps) {
 
           <div className="doc-fit-grid">
             <div>
-              <p className="doc-sub">{"\u4F60\u6709\u8FD9\u4E9B\u75C7\u72B6\u5417\uFF1F"}</p>
+              <p className="doc-sub">{"\u662F\u5426\u6709\u4EE5\u4E0B\u75C7\u72B6\uFF1F"}</p>
               <ul>
                 {problem.symptoms.map((symptom, index) => (<li key={index}>{symptom}</li>))}
               </ul>
@@ -188,12 +188,12 @@ export default async function ProblemPage({ params, }: PageProps) {
                 <p className="guided-why">{solution.reason}</p>
                 <StepList steps={solution.steps} locale="zh-CN"/>
                 {solution.checkPoint && (<div className="step-check">
-                    <p className="step-check-title">{"\u786E\u8BA4\u70B9"}</p>
+                    <p className="step-check-title">{"\u68C0\u67E5\u8981\u70B9"}</p>
                     <p>{solution.checkPoint}</p>
                   </div>)}
               </>),
         }))} labels={{
-            title: "\u5982\u4F55\u89E3\u51B3",
+            title: "\u89E3\u51B3\u65B9\u6CD5",
             summary: "\u5171{count}\u6B65\uFF0C\u5168\u90E8\u5B8C\u6210\u7EA6\u9700{time}\u3002\u6309\u4ECE\u6613\u5230\u96BE\u7684\u987A\u5E8F\u6392\u5217\uFF0C\u95EE\u9898\u89E3\u51B3\u540E\u5373\u53EF\u505C\u6B62\u3002",
             expandAll: "\u5168\u90E8\u5C55\u5F00",
             collapseAll: "\u5168\u90E8\u6536\u8D77",
@@ -224,7 +224,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             </section>)}
 
           <section className="doc-sheet">
-            <h2>{"\u5E38\u89C1\u95EE\u9898\u89E3\u7B54"}</h2>
+            <h2>{"\u5E38\u89C1\u95EE\u9898"}</h2>
             <div>
               {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
             </div>

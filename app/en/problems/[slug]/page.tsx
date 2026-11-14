@@ -30,7 +30,7 @@ export async function generateMetadata({ params, }: PageProps): Promise<Metadata
     const problem = findProblemBySlug(slug);
     if (!problem) {
         return {
-            title: "No problem found | PC FIX",
+            title: "Problem not found | PC FIX",
             robots: {
                 index: false,
                 follow: false,
@@ -169,7 +169,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             </div>
 
             <div>
-              <p className="doc-sub">{"main causes"}</p>
+              <p className="doc-sub">{"Common causes"}</p>
               <ul>
                 {problem.causes.map((cause, index) => (<li key={index}>{cause}</li>))}
               </ul>
@@ -188,12 +188,12 @@ export default async function ProblemPage({ params, }: PageProps) {
                 <p className="guided-why">{solution.reason}</p>
                 <StepList steps={solution.steps} locale="en"/>
                 {solution.checkPoint && (<div className="step-check">
-                    <p className="step-check-title">{"confirmation point"}</p>
+                    <p className="step-check-title">{"What to check"}</p>
                     <p>{solution.checkPoint}</p>
                   </div>)}
               </>),
         }))} labels={{
-            title: "How to solve",
+            title: "How to fix",
             summary: "{count} steps, {time} in total. The easiest checks come first, so stop as soon as the problem is fixed.",
             expandAll: "Expand all",
             collapseAll: "Collapse all",
@@ -219,19 +219,19 @@ export default async function ProblemPage({ params, }: PageProps) {
 
         <div id="after-steps" className="doc-after">
           {problem.warning && (<section className="doc-caution">
-              <h2>{"Precautions"}</h2>
+              <h2>{"Cautions"}</h2>
               <p>{problem.warning}</p>
             </section>)}
 
           <section className="doc-sheet">
-            <h2>{"Frequently Asked Questions"}</h2>
+            <h2>{"Frequently asked questions"}</h2>
             <div>
               {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
             </div>
           </section>
 
           {relatedProblems.length > 0 && (<section className="doc-sheet">
-              <h2>{"Related issues"}</h2>
+              <h2>{"Related problems"}</h2>
               <p className="doc-note-top">{"If the symptoms do not match exactly, please check the issue below."}</p>
               <ul className="doc-links">
                 {relatedProblems.map((relatedProblem) => (<li key={relatedProblem.slug}>
@@ -244,7 +244,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             </section>)}
 
           {relatedErrors.length > 0 && (<section className="doc-sheet">
-              <h2>{"Related error code"}</h2>
+              <h2>{"Related error codes"}</h2>
               <p className="doc-note-top">{"If the code below appears on the screen, refer to the confirmation procedure for each error."}</p>
               <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
               <Link href="/en/errors" className="doc-more">{"View all error codes"}</Link>
@@ -259,7 +259,7 @@ export default async function ProblemPage({ params, }: PageProps) {
                       </li>))}
                   </ul>
                 </>)}
-              <p>{" Content review date: "}{extras.reviewedAt}{". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault. "}</p>
+              <p>{" Content reviewed: "}{extras.reviewedAt}{". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault. "}</p>
             </section>)}
         </div>
       </article>

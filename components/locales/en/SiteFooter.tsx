@@ -11,7 +11,7 @@ export default function SiteFooter() {
           </div>
 
           <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-muted sm:justify-end">
-            <Link href="/en/about" className="hover:text-ink">{" Service introduction "}</Link>
+            <Link href="/en/about" className="hover:text-ink">{" About this service "}</Link>
 
             <Link href="/en/contact" className="hover:text-ink">{" Contact us "}</Link>
 

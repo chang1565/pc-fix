@@ -80,7 +80,7 @@ const restartStep = () =>
       "시작 메뉴에서 전원 → 다시 시작을 선택합니다.",
       "재부팅 후 같은 증상이 다시 생기는지 확인합니다.",
     ],
-    "재부팅 직후 정상이라면 일시적인 소프트웨어 오류였을 가능성이 큽니다."
+    "재부팅 직후 정상이라면 일시적인 소프트웨어 오류였을 가능성이 큽니다. 같은 증상이 다시 생기면 다음 단계로 진행합니다."
   );
 
 const windowsUpdateStep = () =>
@@ -140,13 +140,13 @@ const recentChangeStep = () =>
 const serviceStep = () =>
   step(
     "하드웨어 점검 또는 수리 의뢰하기",
-    "소프트웨어 점검 후에도 동일하면 부품 자체의 불량 가능성을 확인해야 합니다.",
-    "어려움",
+    "앞 단계로 해결되지 않으면 부품 자체의 이상 가능성을 점검받아야 합니다.",
+    "보통",
     "30분 이상",
     [
-      "가능하면 제조사 하드웨어 진단을 실행합니다.",
-      "보증 기간이면 임의 분해보다 공식 서비스 점검을 우선합니다.",
-      "수리 전 중요한 파일은 백업합니다.",
+      "Windows가 켜진다면 수리를 맡기기 전에 중요한 파일을 백업합니다.",
+      "보증 기간이면 직접 분해하지 말고 제조사 서비스센터에 점검을 맡깁니다.",
+      "어느 단계까지 확인했는지와 증상이 나타나는 상황을 함께 알려 주면 점검이 빨라집니다.",
     ],
     undefined,
     "점검/수리 시 발생 가능"
@@ -159,8 +159,8 @@ const driverStep = (device: string) =>
     "보통",
     "10~30분",
     [
-      "장치 관리자에서 해당 장치를 확인합니다.",
-      `PC 또는 부품 제조사 사이트에서 현재 모델용 ${device} 드라이버를 확인합니다.`,
+      `장치 관리자에서 ${device} 장치에 노란 느낌표가 있는지 확인합니다.`,
+      `PC 또는 부품 제조사 사이트에서 현재 모델용 ${device} 드라이버를 받아 설치합니다.`,
       "업데이트 직후 문제가 시작됐다면 이전 안정 버전으로 롤백도 고려합니다.",
       "드라이버 설치 후 PC를 다시 시작합니다.",
     ]
@@ -180,7 +180,7 @@ function buildSolutions(seed: ProblemSeed): SolutionStep[] {
         "즉시 사용과 충전을 중지하기",
         "부풀어 오른 리튬 배터리는 압력과 내부 손상이 진행된 상태일 수 있어 계속 사용하면 안전 문제가 생길 수 있습니다.",
         "쉬움",
-        "즉시",
+        "1~2분",
         [
           "노트북을 종료합니다.",
           "충전기를 분리합니다.",
@@ -190,13 +190,14 @@ function buildSolutions(seed: ProblemSeed): SolutionStep[] {
         "하판이나 터치패드가 들뜬 경우에도 배터리 팽창 가능성을 먼저 의심합니다."
       ),
       step(
-        "직접 분해보다 전문 점검 받기",
-        "팽창한 배터리는 분리 과정에서도 손상될 수 있습니다.",
-        "어려움",
-        "가능한 빨리",
+        "직접 분해하지 말고 서비스센터에 교체 맡기기",
+        "팽창한 배터리는 분리하는 과정에서도 손상돼 열이나 연기가 날 수 있습니다.",
+        "쉬움",
+        "10~20분",
         [
-          "보증 또는 제조사 배터리 교체 절차를 확인합니다.",
-          "전문 서비스센터에서 배터리 교체와 내부 손상 여부를 점검받습니다.",
+          "제조사 고객센터나 홈페이지에서 보증 기간과 배터리 교체 접수 방법을 확인합니다.",
+          "서비스센터에 갈 때까지 충전기를 연결하지 않고, 서늘하고 불에 타지 않는 곳에 둡니다.",
+          "서비스센터에서 배터리 교체와 함께 하판·키보드 등 주변 부품 손상 여부를 점검받습니다.",
         ],
         undefined,
         "배터리 교체 비용 발생 가능"
@@ -1203,6 +1204,17 @@ function buildSolutions(seed: ProblemSeed): SolutionStep[] {
   if (p === "storage-detect") {
     return withOrder([
       step(
+        "기존 데이터가 있다면 초기화·포맷하지 않기",
+        "인식 문제 해결 과정에서 초기화나 포맷을 누르면 기존 데이터가 위험할 수 있습니다.",
+        "쉬움",
+        "1분",
+        [
+          "기존 데이터가 있는 디스크라면 '초기화'나 '포맷'을 바로 누르지 않습니다.",
+          "복구가 필요한 데이터가 있다면 쓰기 작업을 최소화합니다.",
+          "중요한 데이터라면 전문 복구를 검토합니다.",
+        ]
+      ),
+      step(
         "케이블·포트·슬롯을 다시 확인하기",
         "저장장치 인식 실패는 연결 문제부터 배제하는 것이 가장 빠릅니다.",
         "보통",
@@ -1236,17 +1248,6 @@ function buildSolutions(seed: ProblemSeed): SolutionStep[] {
         ]
       ),
       driverStep("스토리지/칩셋"),
-      step(
-        "기존 데이터가 있다면 초기화·포맷하지 않기",
-        "인식 문제 해결 과정에서 초기화나 포맷을 누르면 기존 데이터가 위험할 수 있습니다.",
-        "보통",
-        "즉시",
-        [
-          "기존 데이터가 있는 디스크라면 '초기화'나 '포맷'을 바로 누르지 않습니다.",
-          "복구가 필요한 데이터가 있다면 쓰기 작업을 최소화합니다.",
-          "중요한 데이터라면 전문 복구를 검토합니다.",
-        ]
-      ),
     ]);
   }
 
@@ -1890,6 +1891,16 @@ function buildSolutions(seed: ProblemSeed): SolutionStep[] {
   if (p === "sdcard") {
     return withOrder([
       step(
+        "중요 데이터가 있으면 쓰기 작업을 중지하기",
+        "카드 오류가 심한 상태에서 포맷·복구 반복은 데이터 손실을 키울 수 있습니다.",
+        "쉬움",
+        "1분",
+        [
+          "중요한 사진·파일이 있으면 되도록 읽기만 시도하고, 포맷하라는 창이 떠도 누르지 않습니다.",
+          "인식이 불안정하면 전문 복구를 고려합니다.",
+        ]
+      ),
+      step(
         "SD 카드 잠금 스위치와 접촉 상태 확인하기",
         "물리 잠금이나 접촉 불량은 인식·쓰기 문제를 만들 수 있습니다.",
         "쉬움",
@@ -1922,16 +1933,6 @@ function buildSolutions(seed: ProblemSeed): SolutionStep[] {
         ]
       ),
       driverStep("카드리더기"),
-      step(
-        "중요 데이터가 있으면 쓰기 작업을 중지하기",
-        "카드 오류가 심한 상태에서 포맷·복구 반복은 데이터 손실을 키울 수 있습니다.",
-        "보통",
-        "즉시",
-        [
-          "중요한 사진·파일이 있으면 가능한 읽기만 시도합니다.",
-          "인식이 불안정하면 전문 복구를 고려합니다.",
-        ]
-      ),
     ]);
   }
 
@@ -4252,7 +4253,7 @@ const issueSeeds: ProblemSeed[] = [
     ],
     "extraCauses": [
       "Windows Search 서비스·인덱스 문제",
-      "Shell 오류"
+      "Windows 셸(탐색기) 오류"
     ]
   },
   {
@@ -6717,7 +6718,7 @@ const issueSeeds: ProblemSeed[] = [
     ],
     "extraCauses": [
       "어댑터 출력 부족",
-      "고성능 부하가 충전 용량 초과",
+      "고성능 작업 중 소비 전력이 충전 전력보다 큼",
       "배터리·전원 정책"
     ]
   },
@@ -7066,56 +7067,6 @@ function buildWarning(seed: ProblemSeed): string | undefined {
   return undefined;
 }
 
-const presetFocus: Record<string, string> = {
-  "no-power-desktop": "외부 전원 공급부터 파워서플라이와 메인보드 순으로 확인해 불필요한 분해를 줄이는 것이 핵심입니다.",
-  "no-power-laptop": "충전기·배터리·전원 관리 회로를 쉬운 항목부터 순서대로 구분하세요.",
-  "battery": "충전기와 배터리 상태, 제조사 전원 관리 설정을 차례로 확인하면 원인을 좁히기 쉽습니다.",
-  "power-instability": "전원 공급, 온도, 튜닝 설정을 분리해서 확인해야 갑작스러운 종료·재부팅 원인을 찾기 쉽습니다.",
-  "boot": "POST 단계와 Windows 시작 단계를 구분한 뒤 외부 장치, 부팅 설정, 복구 환경 순으로 확인하세요.",
-  "boot-loop": "반복 재부팅이 시작되는 시점을 기준으로 Windows 복구와 하드웨어 진단을 나눠 진행하세요.",
-  "boot-device": "BIOS에서 시스템 드라이브가 보이는지 먼저 확인한 뒤 부팅 순서와 Windows 복구를 진행하세요.",
-  "no-video": "모니터·케이블·입력 소스부터 GPU·RAM의 POST 상태까지 출력 경로를 한 단계씩 확인하세요.",
-  "display-cable": "입력 소스, 케이블, 포트, 다른 모니터 순으로 교차 테스트하면 출력 장치와 PC 문제를 구분할 수 있습니다.",
-  "black-screen-windows": "Windows가 동작하는지 먼저 확인하고 출력 모드와 그래픽 드라이버를 순서대로 점검하세요.",
-  "display-settings": "해상도·주사율·HDR·VRR과 케이블 대역폭을 함께 확인해야 설정 문제와 하드웨어 한계를 구분할 수 있습니다.",
-  "gpu-driver": "그래픽 드라이버 버전과 설치 상태, 출력 환경, 튜닝 설정을 하나씩 비교하세요.",
-  "gpu-hardware": "드라이버 문제를 배제한 뒤 온도·전원·장착 상태와 교차 테스트로 GPU 자체 이상 여부를 판단하세요.",
-  "gpu-performance": "GPU 사용률·온도·클럭과 게임 설정을 함께 확인해 성능 제한의 원인을 찾으세요.",
-  "game-crash": "오류 메시지, 게임 파일, 그래픽 드라이버, 오버레이와 하드웨어 안정성을 순서대로 확인하세요.",
-  "game-performance": "게임 설정을 낮춘 비교 테스트와 CPU·GPU 사용률 확인으로 병목과 스로틀링을 구분하세요.",
-  "game-network": "유선 비교, 백그라운드 트래픽, 공유기 상태를 확인해 PC·회선·게임 서버 문제를 분리하세요.",
-  "bsod": "중지 코드와 발생 시점을 기록한 뒤 최근 변경, RAM·저장장치, 시스템 파일 순으로 원인을 좁히세요.",
-  "windows-update": "재부팅과 저장 공간부터 확인한 뒤 업데이트 구성 요소와 시스템 파일 복구를 진행하세요.",
-  "windows-shell": "Explorer와 시작 프로그램, 시스템 파일, 사용자 프로필을 순서대로 확인하면 Windows 셸 문제를 구분하기 쉽습니다.",
-  "windows-login": "PIN·암호 같은 로그인 수단과 네트워크, 사용자 프로필을 분리해서 확인하세요.",
-  "app": "앱 자체 복구·재설치와 Windows 시스템 문제를 구분해 불필요한 초기화를 피하세요.",
-  "system-files": "시스템 파일 복구와 저장장치 상태, 최근 시스템 변경을 함께 확인하세요.",
-  "performance": "작업 관리자에서 CPU·메모리·디스크 병목을 먼저 찾고 시작 프로그램·저장 공간·온도를 확인하세요.",
-  "ram": "XMP/EXPO 같은 메모리 설정을 기본값으로 되돌린 뒤 진단과 모듈·슬롯 교차 테스트를 진행하세요.",
-  "cpu": "프로세스 부하, 전원 모드, 온도와 클럭을 함께 확인해 소프트웨어 부하와 하드웨어 제한을 구분하세요.",
-  "storage-detect": "BIOS와 디스크 관리에서 인식 위치를 확인하고 케이블·포트·슬롯을 교차 테스트하세요.",
-  "storage-health": "중요한 데이터 백업을 우선한 뒤 SMART와 제조사 진단으로 실제 드라이브 상태를 확인하세요.",
-  "storage-performance": "디스크를 사용하는 프로세스, 여유 공간, 연결 속도와 SMART를 순서대로 확인하세요.",
-  "wifi": "무선 어댑터 상태와 저장된 프로필, 공유기·신호 품질, 드라이버를 차례로 점검하세요.",
-  "ethernet": "랜 케이블·공유기 포트와 IP 할당 상태를 먼저 확인하고 드라이버와 네트워크 초기화는 뒤에 진행하세요.",
-  "dns": "인터넷 자체가 끊긴 것인지 이름 해석만 실패한 것인지 먼저 구분한 뒤 DNS 설정을 점검하세요.",
-  "network": "다른 기기와 유선 연결로 비교해 PC, 공유기, ISP 중 어느 구간에서 문제가 생기는지 좁히세요.",
-  "bluetooth": "Bluetooth 전원 상태와 페어링 정보를 초기화한 뒤 드라이버·간섭·장치 자체 문제를 확인하세요.",
-  "usb": "장치, 케이블, USB 포트를 교차 테스트한 뒤 전원 관리와 드라이버 문제를 확인하세요.",
-  "keyboard": "다른 포트·다른 PC에서 비교해 키보드 자체 문제와 Windows 입력 설정·드라이버 문제를 구분하세요.",
-  "mouse": "센서·배터리·무선 연결과 다른 포트 테스트를 통해 마우스 하드웨어와 PC 쪽 문제를 나누세요.",
-  "touchpad": "기능키와 터치패드 설정을 먼저 확인하고 제조사 드라이버와 BIOS 인식 상태를 점검하세요.",
-  "controller": "유선·무선 연결, 게임 내 입력 방식과 드라이버를 각각 확인해 충돌 원인을 찾으세요.",
-  "sdcard": "카드·리더기·포트를 교차 테스트하고 기존 데이터가 필요하면 포맷보다 백업과 복구를 우선하세요.",
-  "audio": "출력 장치 선택과 볼륨 믹서부터 드라이버·케이블·장치 자체 문제까지 순서대로 확인하세요.",
-  "microphone": "입력 장치 선택, 앱 권한, 입력 레벨을 먼저 확인한 뒤 드라이버와 하드웨어를 점검하세요.",
-  "printer": "프린터 상태와 연결, 인쇄 대기열, 드라이버 순으로 확인하면 PC와 프린터 어느 쪽 문제인지 구분하기 쉽습니다.",
-  "camera": "카메라 권한과 사용 중인 앱, 장치 인식 상태를 확인한 뒤 드라이버와 물리 연결을 점검하세요.",
-  "thermal": "고부하를 잠시 줄이고 온도·팬·통풍 상태를 확인한 뒤 냉각계통과 전력 설정을 점검하세요.",
-  "sleep": "절전 진입과 복귀 중 어느 단계에서 실패하는지 확인하고 드라이버·전원 정책·BIOS를 순서대로 점검하세요.",
-  "general": "증상이 발생하는 조건과 최근 변경 사항을 기록한 뒤 소프트웨어와 하드웨어 원인을 나눠 확인하세요.",
-};
-
 // 앞 단어의 받침에 맞춰 조사를 고른다. 예: josa("저장 공간 부족", "과/와") → "저장 공간 부족과"
 // 받침이 있는 숫자: 0(영) 1(일) 3(삼) 6(육) 7(칠) 8(팔)
 const digitBatchim = "013678";
@@ -7144,19 +7095,20 @@ function causeSummary(seed: ProblemSeed) {
   return seed.extraCauses.slice(0, 2).join(", ");
 }
 
-function buildDescription(seed: ProblemSeed) {
+// 머리말은 원인 후보와 실제 1단계 제목만 말한다.
+// 분류별 공통 문장(presetFocus)은 페이지 단계와 맞지 않는 경우가 많아 머리말에서 뺐다(2026-11-14 검수).
+function buildDescription(seed: ProblemSeed, solutions: SolutionStep[]) {
+  if (seed.slug === "battery-swollen") {
+    return "노트북 하판이나 터치패드가 들뜨면 배터리가 부풀었을 수 있습니다. 화재 위험이 있으니 바로 사용과 충전을 멈추고 서비스센터에 교체를 맡기세요.";
+  }
   const symptom = seed.symptoms[0];
   const causes = causeSummary(seed);
-  const focus = presetFocus[seed.preset] ?? presetFocus.general;
+  const first = solutions[0]?.title;
+  const start = first ? ` 1단계 ‘${first}’부터 순서대로 확인하세요.` : "";
 
   const variants = [
-    `“${symptom}” 증상이 보이는 경우 원인 후보로는 ${causes} 등이 있습니다. ${focus}`,
-    `${seed.category} 문제 중 “${symptom}” 증상은 ${josa(causes, "과/와")} 관련될 수 있습니다. ${focus}`,
-    `이 가이드는 “${symptom}” 상황에서 ${causes} 항목을 안전한 순서로 구분하도록 구성했습니다. ${focus}`,
-    `${josa(`“${symptom}”`, "이/가")} 반복된다면 여러 설정을 한꺼번에 바꾸기보다 ${causes}부터 범위를 좁히는 편이 좋습니다. ${focus}`,
-    `현재 증상이 “${symptom}”에 가깝다면 ${causes} 여부를 먼저 살펴보세요. ${focus}`,
-    // 예전 문구는 제목·증상·"확인한 뒤 진행하세요"를 세 번 되풀이해 한 문장으로 줄였다.
-    `${josa(`“${symptom}”`, "이/가")} 보이면 ${causes} 쪽을 의심해 볼 수 있습니다. ${focus}`,
+    `“${symptom}” 증상이 있다면 ${causes} 등을 원인 후보로 볼 수 있습니다.${start}`,
+    `“${symptom}” 증상의 원인 후보는 ${causes} 등입니다.${start}`,
   ];
 
   return variants[stableVariant(seed, variants.length)];
@@ -7165,7 +7117,7 @@ function buildDescription(seed: ProblemSeed) {
 function buildSeoDescription(seed: ProblemSeed) {
   const symptom = seed.symptoms[0];
   const causes = causeSummary(seed);
-  const raw = `${seed.title}. ${symptom} 증상에서 ${causes} 등을 확인하는 순서와 안전한 해결 방법을 정리했습니다.`;
+  const raw = `${symptom} 증상이 있을 때 ${causes} 등 원인 후보를 쉬운 확인부터 점검하는 순서와 안전한 해결 방법을 정리했습니다.`;
 
   return raw.length > 155 ? `${raw.slice(0, 152)}...` : raw;
 }
@@ -7251,9 +7203,9 @@ function getRelatedScore(
 }
 
 const baseProblems: Omit<Problem, "relatedSlugs">[] = issueSeeds.map((seed) => {
-  const description = buildDescription(seed);
   const warning = buildWarning(seed);
   const solutions = personalizeSolutions(seed, buildSolutions(seed));
+  const description = buildDescription(seed, solutions);
 
   const keywords = Array.from(
     new Set([seed.title, seed.category, ...seed.keywords, ...seed.symptoms])

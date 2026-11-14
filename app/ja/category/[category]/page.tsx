@@ -22,7 +22,7 @@ export async function generateMetadata({ params, }: PageProps): Promise<Metadata
     const { category } = await params;
     const decodedCategory = decodeURIComponent(category);
     return {
-        title: `${decodedCategory} \u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0PC FIX`,
+        title: `${decodedCategory} \u306E\u30C8\u30E9\u30D6\u30EB\u89E3\u6C7A | PC FIX`,
         alternates: languageAlternates(`/ja/category/${encodeURIComponent(decodedCategory)}`),
         description: `${decodedCategory} \u306B\u95A2\u9023\u3059\u308BPC\u306E\u554F\u984C\u306E\u539F\u56E0\u3068\u89E3\u6C7A\u65B9\u6CD5\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002`,
     };

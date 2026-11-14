@@ -152,10 +152,10 @@ export default function Home() {
           <div className="home-examples">
             <p>{"\u70ED\u95E8\u641C\u7D22"}</p>
             <div>
-              <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u51FA\u73B0\u9ED1\u5C4F\u5E76\u91CD\u65B0\u542F\u52A8\u3002")}>{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F\u7136\u540E\u91CD\u542F")}>{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
               <button type="button" onClick={() => handleExampleSearch("\u6E38\u620F\u603B\u662F\u5D29\u6E83")}>{" \u6E38\u620F\u5D29\u6E83 "}</button>
-              <button type="button" onClick={() => handleExampleSearch("\u6211\u7684\u7535\u8111\u592A\u6162\u4E86")}>{" \u7535\u8111\u901F\u5EA6\u53D8\u6162 "}</button>
-              <button type="button" onClick={() => handleExampleSearch("\u7F51\u7EDC\u7A81\u7136\u4E0D\u80FD\u7528\u4E86")}>{" \u6CA1\u6709\u4E92\u8054\u7F51 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u7535\u8111\u53D8\u5F97\u592A\u6162\u4E86")}>{" \u7535\u8111\u901F\u5EA6\u53D8\u6162 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u7F51\u7EDC\u7A81\u7136\u4E0D\u80FD\u7528\u4E86")}>{" \u65E0\u6CD5\u4E0A\u7F51 "}</button>
             </div>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function Home() {
             </div>
 
             <p className="home-results-note">
-              &quot;{debouncedQuery}{"\u201C\u4E0E\u4EE5\u4E0B\u76F8\u5173\u7684\u95EE\u9898\u548C\u9519\u8BEF\uFF1A "}</p>
+              &quot;{debouncedQuery}{"\u201D\u7684\u76F8\u5173\u95EE\u9898\u548C\u9519\u8BEF\u3002 "}</p>
 
             {searchResults.length > 0 ? (<>
                 <ol className="home-results">
@@ -198,7 +198,7 @@ export default function Home() {
 
                 {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="home-more-btn">{"\u67E5\u770B\u66F4\u591A\u641C\u7D22\u7ED3\u679C\uFF08"}{searchResults.length - 10}{"\u6761)"}</button>)}
               </>) : (<div className="home-empty">
-                <h3>{" \u6211\u627E\u4E0D\u5230\u4EFB\u4F55\u76F8\u5173\u95EE\u9898\u3002 "}</h3>
+                <h3>{" \u6CA1\u6709\u627E\u5230\u76F8\u5173\u95EE\u9898\u3002 "}</h3>
 
                 <p>{" \u8BF7\u66F4\u8BE6\u7EC6\u5730\u8F93\u5165\u60A8\u7684\u75C7\u72B6\u3002 "}<br />{" \u793A\u4F8B\uFF1A\u201C\u6E38\u620F\u671F\u95F4\u5C4F\u5E55\u5173\u95ED\uFF0C\u4F46\u4E3B\u673A\u4FDD\u6301\u6253\u5F00\u72B6\u6001\u3002\u201D "}</p>
 
@@ -263,27 +263,27 @@ export default function Home() {
             </section>
 
             <section className="home-how-sec">
-              <h2>{" \u60A8\u53EF\u4EE5\u50CF\u8FD9\u6837\u4F7F\u7528 PC FIX\uFF1A "}</h2>
+              <h2>{" PC FIX \u4F7F\u7528\u65B9\u6CD5 "}</h2>
 
               <ol className="home-how">
                 <li>
                   <span aria-hidden="true">1</span>
                   <div>
-                    <h3>{" \u6309\u539F\u6837\u641C\u7D22\u75C7\u72B6 "}</h3>
+                    <h3>{" \u76F4\u63A5\u8F93\u5165\u75C7\u72B6\u641C\u7D22 "}</h3>
                     <p>{" \u4E0D\u8981\u4F7F\u7528\u884C\u8BDD\uFF0C\u800C\u662F\u4F7F\u7528\u60A8\u5B9E\u9645\u770B\u5230\u7684\u5185\u5BB9\u3002 "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">2</span>
                   <div>
-                    <h3>{" \u7528\u7B80\u5355\u7684\u65B9\u6CD5\u68C0\u67E5\u4E00\u4E0B "}</h3>
+                    <h3>{" \u5148\u505A\u7B80\u5355\u68C0\u67E5 "}</h3>
                     <p>{" \u6211\u4EEC\u5C06\u9010\u6B65\u6307\u5BFC\u60A8\uFF0C\u4ECE\u6210\u672C\u8F83\u4F4E\u3001\u98CE\u9669\u8F83\u5C0F\u7684\u89E3\u51B3\u65B9\u6848\u5F00\u59CB\u3002 "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">3</span>
                   <div>
-                    <h3>{" \u4EC5\u7EE7\u7EED\u76F4\u81F3\u89E3\u51B3 "}</h3>
+                    <h3>{" \u95EE\u9898\u89E3\u51B3\u5373\u53EF\u505C\u6B62 "}</h3>
                     <p>{" \u5982\u679C\u95EE\u9898\u5F97\u5230\u89E3\u51B3\uFF0C\u5219\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u66F4\u56F0\u96BE\u7684\u6B65\u9AA4\u3002 "}</p>
                   </div>
                 </li>

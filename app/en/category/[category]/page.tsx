@@ -76,7 +76,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
         <section className="mt-12">
           <div className="flex items-baseline justify-between border-b-2 border-ink pb-3">
-            <h2 className="text-xl font-extrabold">{" list of problems "}</h2>
+            <h2 className="text-xl font-extrabold">{" Problem list "}</h2>
 
             <span className="text-sm text-muted">
               {categoryProblems.length}{" results "}</span>

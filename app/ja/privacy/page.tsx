@@ -3,13 +3,14 @@ import { staticPageMetadata } from "@/lib/staticPageMetadata";
 export const metadata = staticPageMetadata("/ja/privacy");
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 export default function PrivacyPage() {
     return (<main className="min-h-screen bg-surface">
       <SiteHeader />
 
       <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" \u500B\u4EBA\u60C5\u5831\u51E6\u7406\u65B9\u91DD "}</h1>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" \u30D7\u30E9\u30A4\u30D0\u30B7\u30FC\u30DD\u30EA\u30B7\u30FC "}</h1>
 
           <div className="mt-8 space-y-9 leading-8 text-[#3d444c]">
             <section>
@@ -54,13 +55,27 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 5. \u304A\u554F\u3044\u5408\u308F\u305B "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 5. \u4FDD\u7BA1\u671F\u9593\u3068\u7834\u68C4 "}</h2>
 
-              <p className="mt-2">{" \u500B\u4EBA\u60C5\u5831\u306E\u53D6\u308A\u6271\u3044\u306B\u95A2\u3059\u308B\u304A\u554F\u3044\u5408\u308F\u305B\u306F\u3001\u304A\u554F\u3044\u5408\u308F\u305B\u30DA\u30FC\u30B8\u306E\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u307E\u3067\u304A\u9001\u308A\u304F\u3060\u3055\u3044\u3002 "}</p>
+              <p className="mt-2">{" \u304A\u554F\u3044\u5408\u308F\u305BE\u30E1\u30FC\u30EB\u306F\u3001\u8FD4\u4FE1\u3068\u305D\u306E\u5F8C\u306E\u304A\u554F\u3044\u5408\u308F\u305B\u78BA\u8A8D\u306E\u305F\u3081\u306B\u53D7\u3051\u53D6\u3063\u305F\u65E5\u304B\u30891\u5E74\u9593\u4FDD\u7BA1\u3057\u3066\u304B\u3089\u524A\u9664\u3057\u307E\u3059\u3002\u5229\u7528\u8005\u304C\u524A\u9664\u3092\u8981\u6C42\u3059\u308B\u3068\u3001\u305D\u306E\u524D\u3067\u3082\u9045\u6EDE\u306A\u304F\u524A\u9664\u3057\u307E\u3059\u3002 "}</p>
+
+              <p className="mt-2">{" Cloudflare\u304C\u30BB\u30AD\u30E5\u30EA\u30C6\u30A3\u3068\u969C\u5BB3\u5BFE\u5FDC\u306E\u305F\u3081\u306B\u6B8B\u3059\u63A5\u7D9A\u5C65\u6B74\u306F\u3001PC FIX\u306B\u3088\u3063\u3066\u5225\u3005\u306B\u53CE\u96C6\u307E\u305F\u306F\u30A2\u30FC\u30AB\u30A4\u30D6\u3055\u308C\u305A\u3001\u30A2\u30FC\u30AB\u30A4\u30D6\u671F\u9593\u306FCloudflare\u306E\u30DD\u30EA\u30B7\u30FC\u306B\u5F93\u3044\u307E\u3059\u3002 "}</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 6. \u65B9\u91DD\u306E\u5909\u66F4 "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 6. \u5229\u7528\u8005\u306E\u6A29\u5229 "}</h2>
+
+              <p className="mt-2">{" \u30E6\u30FC\u30B6\u30FC\u306F\u3001PC FIX\u304C\u6301\u3063\u3066\u3044\u308B\u81EA\u5206\u306E\u554F\u3044\u5408\u308F\u305B\u30E1\u30FC\u30EB\u3084\u5185\u5BB9\u306B\u5BFE\u3057\u3066\u95B2\u89A7\u3001\u8A02\u6B63\u3001\u524A\u9664\u3001\u51E6\u7406\u505C\u6B62\u3092\u8981\u6C42\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u307E\u3059\u3002\u304A\u554F\u3044\u5408\u308F\u305B\u30DA\u30FC\u30B8\u306E\u30E1\u30FC\u30EB\u3067\u304A\u554F\u3044\u5408\u308F\u305B\u3044\u305F\u3060\u304F\u3068\u300110\u65E5\u4EE5\u5185\u306B\u51E6\u7406\u7D50\u679C\u3092\u304A\u77E5\u3089\u305B\u3057\u307E\u3059\u3002 "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 7. \u500B\u4EBA\u60C5\u5831\u4FDD\u8B77\u8CAC\u4EFB\u8005\u3068\u304A\u554F\u3044\u5408\u308F\u305B "}</h2>
+
+              <p className="mt-2">{" \u500B\u4EBA\u60C5\u5831\u4FDD\u8B77\u8CAC\u4EFB\u8005\u306FPC FIX\u904B\u55B6\u8005\u3067\u3042\u308A\u3001\u500B\u4EBA\u60C5\u5831\u51E6\u7406\u306B\u95A2\u3059\u308B\u304A\u554F\u3044\u5408\u308F\u305B\u3068\u8981\u8ACB\u306F "}<ContactEmail />{"\u306B\u9001\u3063\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 8. \u65B9\u91DD\u306E\u5909\u66F4 "}</h2>
 
               <p className="mt-2">{" \u5229\u7528\u3059\u308B\u30B5\u30FC\u30D3\u30B9\u3084\u6A5F\u80FD\u304C\u5909\u308F\u3063\u305F\u5834\u5408\u306F\u3001\u3053\u306E\u65B9\u91DD\u3092\u6539\u8A02\u3057\u3001\u4E0B\u8A18\u306E\u65BD\u884C\u65E5\u3092\u66F4\u65B0\u3057\u307E\u3059\u3002 "}</p>
             </section>

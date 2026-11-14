@@ -11,7 +11,7 @@ export const steps5: Record<string, StepInput[]> = {
         "1618은 다른 설치가 진행 중이라는 뜻입니다. 작업 관리자에서 msiexec.exe나 다른 설치 프로그램이 실행 중인지 보고, 끝날 때까지 기다리거나 PC를 다시 시작합니다.",
         "설정 → Windows 업데이트에 다시 시작 필요 표시가 있으면 먼저 재시작해 대기 중인 설치를 마무리합니다.",
       ],
-      checkPoint: "재시작 후 설치·제거가 되면 겹친 설치가 원인이었습니다. 1603처럼 다른 번호가 나오거나 그대로 실패하면 다음 단계에서 권한과 Installer 서비스를 확인합니다.",
+      checkPoint: "재시작 후 설치·제거가 되면 설치가 겹쳤을 가능성이 큽니다. 1603처럼 다른 번호가 나오거나 그대로 실패하면 다음 단계에서 권한과 Installer 서비스를 확인합니다.",
     },
     {
       title: "관리자 권한으로 실행하고 Windows Installer 서비스 상태 확인하기",
@@ -142,7 +142,7 @@ export const steps5: Record<string, StepInput[]> = {
         "몇 시간 뒤 관리자 명령 프롬프트에서 slmgr /ato를 실행해 인증을 다시 시도합니다.",
         "정품 키인데 계속 실패하면 Microsoft 지원에 오류 코드와 키 구매 경로를 알리고 문의합니다. 공식 판매처가 아닌 곳에서 산 저가 키는 차단됐을 수 있습니다.",
       ],
-      checkPoint: "재시도로 인증되면 일시적인 서버 문제였습니다. 지원 문의에서 키가 무효로 확인되면 공식 판매처에서 라이선스를 다시 구매해야 할 수 있습니다.",
+      checkPoint: "재시도로 인증되면 서버나 연결 쪽의 일시적인 문제였을 가능성이 큽니다. 지원 문의에서 키가 무효로 확인되면 공식 판매처에서 라이선스를 다시 구매해야 할 수 있습니다.",
     },
   ],
   "boot-black-screen-blinking-cursor": [
@@ -154,7 +154,7 @@ export const steps5: Record<string, StepInput[]> = {
         "전원을 끄고 USB 메모리, 외장 하드, SD 카드, 연결된 휴대폰을 모두 뺍니다.",
         "키보드·마우스만 연결한 상태로 다시 켭니다.",
       ],
-      checkPoint: "Windows가 시작되면 뺀 장치 중 하나가 먼저 부팅되고 있었습니다. 다음 단계에서 부팅 순서를 고정합니다. 그래도 커서만 보이면 다음 단계로 갑니다.",
+      checkPoint: "Windows가 시작되면 뺀 장치 중 하나로 먼저 부팅을 시도했을 가능성이 큽니다. 다음 단계에서 부팅 순서를 고정합니다. 그래도 커서만 보이면 다음 단계로 갑니다.",
     },
     {
       title: "BIOS에서 OS 디스크를 부팅 1순위로 두기",
@@ -188,7 +188,8 @@ export const steps5: Record<string, StepInput[]> = {
         "설치 USB의 복구 화면에서 문제 해결 → 고급 옵션 → 시작 복구를 먼저 실행합니다.",
         "효과가 없으면 명령 프롬프트를 열고 dir C:\\Windows로 Windows가 있는 드라이브 문자를 확인합니다. 복구 환경에서는 C가 아닐 수 있습니다.",
         "MBR 디스크는 bootrec /fixmbr, bootrec /fixboot, bootrec /rebuildbcd를 차례로 실행합니다.",
-        "GPT 디스크는 bootrec /fixboot가 거부될 수 있으므로 bcdboot C:\\Windows /f UEFI를 실행합니다(C는 앞에서 확인한 문자로 바꿉니다).",
+        "GPT 디스크는 bootrec /fixboot가 거부될 수 있으므로 bcdboot를 씁니다. diskpart → list vol에서 FAT32로 된 100~300MB 크기의 파티션(EFI)을 찾아 select vol 번호, assign letter=S를 실행하고 exit로 나옵니다. clean·delete는 실행하지 않습니다.",
+        "이어서 bcdboot C:\\Windows /s S: /f UEFI를 실행합니다(C는 앞에서 확인한 Windows 드라이브 문자로 바꿉니다).",
       ],
       checkPoint: "복구 후 Windows가 시작되면 해결입니다. 명령이 디스크를 찾지 못하거나 계속 실패하면 디스크 손상일 수 있으니 재설치 전에 다른 PC나 외장 케이스로 데이터를 먼저 백업합니다.",
     },
@@ -232,9 +233,10 @@ export const steps5: Record<string, StepInput[]> = {
       reason: "디스크는 보이는데 부팅 항목이 사라졌다면 EFI 파티션의 부팅 파일이 지워졌거나 손상됐을 수 있습니다. bcdboot는 Windows 폴더를 기준으로 이 파일을 다시 씁니다.",
       difficulty: "어려움", time: "20~40분", cost: "0원",
       steps: [
-        "다른 PC에서 Microsoft 미디어 생성 도구로 만든 설치 USB로 부팅해 컴퓨터 복구 → 문제 해결 → 고급 옵션 → 명령 프롬프트를 엽니다.",
+        "다른 PC에서 Microsoft 미디어 생성 도구로 설치 USB를 만듭니다. 그 USB를 이 PC에 꽂고 USB로 부팅해 컴퓨터 복구 → 문제 해결 → 고급 옵션 → 명령 프롬프트를 엽니다.",
         "diskpart → list vol에서 FAT32로 된 100~300MB 크기의 파티션(EFI)을 찾아 select vol 번호, assign letter=S를 실행하고 exit로 나옵니다. clean·delete는 실행하지 않습니다.",
-        "dir C:\\Windows로 Windows 드라이브를 확인한 뒤 bcdboot C:\\Windows /s S: /f UEFI를 실행합니다.",
+        "dir C:\\Windows로 Windows 드라이브를 확인합니다. 복구 환경에서는 C가 아닐 수 있으니 없으면 dir D:\\Windows처럼 다른 문자도 확인합니다.",
+        "찾은 문자로 bcdboot C:\\Windows /s S: /f UEFI를 실행합니다(C는 확인한 문자로 바꿉니다).",
         "다시 시작해 BIOS 부팅 목록에 Windows Boot Manager가 생겼는지 확인하고 1순위로 둡니다.",
       ],
       checkPoint: "부팅되면 해결입니다. 'Boot files successfully created'가 나오지 않거나 Windows 폴더가 보이지 않으면 디스크 손상일 수 있으니, 데이터 백업 후 점검이나 재설치를 고려합니다.",
@@ -281,7 +283,8 @@ export const steps5: Record<string, StepInput[]> = {
       steps: [
         "설치 USB로 부팅해 컴퓨터 복구 → 문제 해결 → 고급 옵션 → 시작 복구를 먼저 실행합니다.",
         "해결되지 않으면 명령 프롬프트에서 Windows 폴더가 있는 드라이브 문자를 dir로 확인합니다.",
-        "MBR 디스크는 bootrec /fixmbr와 bootrec /rebuildbcd, GPT 디스크는 bcdboot C:\\Windows /f UEFI를 실행합니다(C는 확인한 문자로 바꿉니다).",
+        "MBR 디스크는 bootrec /fixmbr와 bootrec /rebuildbcd를 실행합니다.",
+        "GPT 디스크는 diskpart → list vol에서 FAT32로 된 100~300MB 크기의 EFI 파티션에 select vol 번호, assign letter=S로 문자를 붙이고 exit로 나온 뒤, bcdboot C:\\Windows /s S: /f UEFI를 실행합니다(C는 확인한 문자로 바꿉니다). clean·delete는 실행하지 않습니다.",
       ],
       checkPoint: "복구 후 시작되면 해결입니다. Windows 폴더가 보이지 않거나 디스크 읽기 오류가 나면 저장장치 손상일 수 있으니 포맷이나 재설치 전에 데이터부터 백업합니다.",
     },
@@ -296,7 +299,7 @@ export const steps5: Record<string, StepInput[]> = {
         "팬이 돌고 메인보드 DRAM LED가 켜졌다 꺼졌다 하면 트레이닝 중일 수 있으니 전원 버튼을 누르지 않습니다.",
         "모니터 케이블이 그래픽카드(있는 경우)에 꽂혀 있는지도 확인합니다.",
       ],
-      checkPoint: "기다린 뒤 화면이 나오면 정상 과정이었습니다. 10분 넘게 DRAM LED가 계속 켜져 있거나 재부팅만 반복하면 LED·비프음을 확인합니다.",
+      checkPoint: "기다린 뒤 화면이 나오면 정상적인 트레이닝 과정이었을 가능성이 큽니다. 10분 넘게 DRAM LED가 계속 켜져 있거나 재부팅만 반복하면 LED·비프음을 확인합니다.",
     },
     {
       title: "메인보드 디버그 LED와 비프음으로 멈춘 단계 확인하기",
@@ -352,7 +355,7 @@ export const steps5: Record<string, StepInput[]> = {
         "브라우저가 위에 있으면 Chrome·Edge에서 Shift + Esc로 브라우저 작업 관리자를 열어 메모리를 많이 쓰는 탭과 확장 프로그램을 확인합니다.",
         "쓰지 않는 탭과 프로그램을 닫고 사용률이 얼마나 내려가는지 봅니다.",
       ],
-      checkPoint: "닫은 뒤 충분히 내려가면 동시에 여는 프로그램 수가 원인이었습니다. 아무것도 안 열었는데 높으면 시작 프로그램을, 시간이 갈수록 한 프로세스만 계속 늘면 메모리 누수를 의심합니다.",
+      checkPoint: "닫은 뒤 충분히 내려가면 한꺼번에 여는 프로그램이 많았을 가능성이 큽니다. 아무것도 안 열었는데 높으면 시작 프로그램을, 시간이 갈수록 한 프로세스만 계속 늘면 메모리 누수를 의심합니다.",
     },
     {
       title: "사용 중·대기 중·커밋 메모리를 구분해 실제 부족한지 판단하기",
@@ -378,7 +381,7 @@ export const steps5: Record<string, StepInput[]> = {
     },
     {
       title: "사용 패턴에 비해 RAM이 부족하면 증설 검토하기",
-      reason: "최근 브라우저와 게임은 메모리를 많이 써서 8GB에서는 평범한 작업에도 부족해질 수 있습니다. 설정을 줄여도 계속 부족하면 용량 자체가 원인입니다.",
+      reason: "최근 브라우저와 게임은 메모리를 많이 써서 8GB에서는 평범한 작업에도 부족해질 수 있습니다. 시작 프로그램을 줄여도 평소 작업에서 계속 부족하면 용량이 사용 패턴에 비해 작을 가능성이 큽니다.",
       difficulty: "보통", time: "15~40분", cost: "부품 교체 시 발생 가능",
       steps: [
         "작업 관리자 → 성능 → 메모리에서 전체 용량, 사용된 슬롯, 폼 팩터(DIMM·SODIMM), 속도를 확인합니다.",
@@ -506,7 +509,7 @@ export const steps5: Record<string, StepInput[]> = {
     },
     {
       title: "DISM과 sfc로 손상된 시스템 파일 복구하기",
-      reason: "설정 앱이 쓰는 시스템 구성 요소가 손상되면 앱 재설정만으로는 열리지 않습니다. 원인 목록의 시스템 파일 손상을 확인하는 단계입니다.",
+      reason: "설정 앱이 쓰는 시스템 구성 요소가 손상되면 앱 재설정만으로는 열리지 않습니다. DISM으로 구성 요소 저장소를 먼저 고친 뒤 sfc로 시스템 파일을 검사합니다.",
       difficulty: "쉬움", time: "20~40분", cost: "0원",
       steps: [
         "관리자 터미널에서 DISM /Online /Cleanup-Image /RestoreHealth를 실행하고 100%가 될 때까지 기다립니다.",
@@ -517,7 +520,7 @@ export const steps5: Record<string, StepInput[]> = {
     },
     {
       title: "새 사용자 계정에서 설정 앱 실행 비교하기",
-      reason: "새 계정에서는 열리면 기존 사용자 프로필 쪽 문제이고, 새 계정에서도 안 열리면 Windows 전체 문제입니다. 설정 앱을 쓸 수 없으니 계정은 다른 방법으로 만듭니다.",
+      reason: "새 계정에서는 열리면 기존 사용자 프로필 쪽일 가능성이 크고, 새 계정에서도 안 열리면 Windows 전체 쪽을 먼저 의심합니다. 설정 앱을 쓸 수 없으니 계정은 다른 방법으로 만듭니다.",
       difficulty: "보통", time: "10~20분", cost: "0원",
       steps: [
         "Win + R에 netplwiz를 입력하고 추가 → Microsoft 계정 없이 로그인 → 로컬 계정으로 테스트 계정을 만듭니다.",
@@ -547,7 +550,7 @@ export const steps5: Record<string, StepInput[]> = {
         "투명한 커넥터 안에 8가닥이 모두 끝까지 들어가 있는지, 걸쇠가 부러지지 않았는지 확인합니다.",
         "짧은 정상 케이블로 PC와 공유기를 직접 연결하고, 벽 단자를 거친다면 벽 단자를 빼고 비교합니다.",
       ],
-      checkPoint: "케이블을 바꿔 1.0Gbps로 잡히면 기존 케이블이나 벽 배선이 원인입니다. 벽 배선이 2페어로 돼 있으면 재배선이 필요할 수 있습니다. 그대로면 포트를 확인합니다.",
+      checkPoint: "케이블을 바꿔 1.0Gbps로 잡히면 기존 케이블이나 벽 배선 쪽일 가능성이 큽니다. 벽 배선이 2페어로 돼 있으면 재배선이 필요할 수 있습니다. 그대로면 포트를 확인합니다.",
     },
     {
       title: "공유기·스위치 포트가 기가비트를 지원하는지 확인하기",
@@ -558,7 +561,7 @@ export const steps5: Record<string, StepInput[]> = {
         "PC와 공유기 사이에 허브나 스위치가 있으면 빼고 공유기에 직접 연결해 봅니다.",
         "공유기의 다른 LAN 포트로 옮기고, 포트 옆 LED 색으로 속도를 표시하는 모델이면 설명서와 비교합니다.",
       ],
-      checkPoint: "직접 연결이나 다른 포트에서 1.0Gbps로 잡히면 중간 장비나 그 포트가 원인입니다. 모든 장비가 기가비트인데도 100Mbps면 어댑터 설정을 확인합니다.",
+      checkPoint: "직접 연결이나 다른 포트에서 1.0Gbps로 잡히면 중간 장비나 그 포트 쪽일 가능성이 큽니다. 모든 장비가 기가비트인데도 100Mbps면 어댑터 설정을 확인합니다.",
     },
     {
       title: "어댑터의 속도 및 이중 설정과 절전 이더넷 끄기",
@@ -583,7 +586,17 @@ export const steps5: Record<string, StepInput[]> = {
         "케이스 옆면이 투명하거나 열 수 있으면 메인보드의 대기 LED가 켜져 있는지 확인합니다.",
         "노트북은 충전기 LED가 켜지는지 보고, 충전기를 뺀 채 전원 버튼을 15~30초 눌렀다가 충전기를 다시 연결해 켜 봅니다.",
       ],
-      checkPoint: "LED가 켜져 있는데 버튼에 반응이 없으면 데스크톱은 다음 단계로 버튼 배선을 확인합니다. 노트북이 그래도 무반응이면 제조사 서비스 점검을 받습니다. LED도 꺼져 있으면 5단계로 갑니다.",
+      checkPoint: "LED가 켜져 있는데 버튼에 반응이 없으면 데스크톱은 다음 단계에서 리셋 버튼으로 켜지는지 봅니다. 노트북이 그래도 무반응이면 제조사 서비스 점검을 받습니다. LED도 꺼져 있으면 5단계로 갑니다.",
+    },
+    {
+      title: "리셋 버튼 케이블과 바뀌어 꽂혔는지 확인하기",
+      reason: "POWER SW와 RESET SW 커넥터는 모양이 같아 바꿔 꽂기 쉽습니다. 바뀌면 전원 버튼은 무반응이고 리셋 버튼으로 켜집니다.",
+      difficulty: "쉬움", time: "2~5분", cost: "0원",
+      steps: [
+        "케이스에 리셋 버튼이 있으면 PC가 꺼진 상태에서 눌러 봅니다.",
+        "리셋 버튼으로 켜지면 전원을 끄고 POWER SW와 RESET SW 커넥터를 서로 바꿔 꽂습니다.",
+      ],
+      checkPoint: "바꿔 꽂은 뒤 전원 버튼으로 켜지면 해결입니다. 리셋 버튼이 없거나 리셋 버튼으로도 안 켜지면 다음 단계에서 PWR_SW 핀 위치를 확인합니다.",
     },
     {
       title: "메인보드 PWR_SW 핀 연결 위치 다시 확인하기",
@@ -594,17 +607,7 @@ export const steps5: Record<string, StepInput[]> = {
         "메인보드 설명서나 기판 인쇄에서 PWR_SW(제조사에 따라 PWRBTN, PW_SW) 위치를 확인하고, 케이스의 POWER SW 커넥터가 그 두 핀에 꽂혀 있는지 봅니다.",
         "전원 스위치는 극성이 없으니 방향은 상관없고, 핀 위치만 정확하면 됩니다.",
       ],
-      checkPoint: "바로 꽂은 뒤 켜지면 해결입니다. 위치가 맞는데도 무반응이면 리셋 케이블과 바뀌지 않았는지 확인합니다.",
-    },
-    {
-      title: "리셋 버튼 케이블과 바뀌어 꽂혔는지 확인하기",
-      reason: "POWER SW와 RESET SW 커넥터는 모양이 같아 바꿔 꽂기 쉽습니다. 바뀌면 전원 버튼은 무반응이고 리셋 버튼으로 켜집니다.",
-      difficulty: "쉬움", time: "2~5분", cost: "0원",
-      steps: [
-        "케이스에 리셋 버튼이 있으면 PC가 꺼진 상태에서 눌러 봅니다.",
-        "리셋 버튼으로 켜지면 전원을 끄고 POWER SW와 RESET SW 커넥터를 서로 바꿔 꽂습니다.",
-      ],
-      checkPoint: "바꿔 꽂은 뒤 전원 버튼으로 켜지면 해결입니다. 리셋 버튼으로도 안 켜지면 다음 단계에서 버튼 자체를 확인합니다.",
+      checkPoint: "바로 꽂은 뒤 켜지면 해결입니다. 위치가 맞는데도 무반응이면 다음 단계에서 버튼 자체를 확인합니다.",
     },
     {
       title: "PWR_SW 두 핀을 잠깐 쇼트해 케이스 스위치 고장 확인하기",

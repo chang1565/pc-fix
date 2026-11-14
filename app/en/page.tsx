@@ -152,10 +152,10 @@ export default function Home() {
           <div className="home-examples">
             <p>{"Popular searches"}</p>
             <div>
-              <button type="button" onClick={() => handleExampleSearch("While playing a game, a black screen appears and reboots.")}>{" black screen while gaming "}</button>
+              <button type="button" onClick={() => handleExampleSearch("Black screen and reboot while gaming")}>{" Black screen while gaming "}</button>
               <button type="button" onClick={() => handleExampleSearch("The game keeps crashing")}>{" Game crashing "}</button>
-              <button type="button" onClick={() => handleExampleSearch("My computer is so slow")}>{" computer slows down "}</button>
-              <button type="button" onClick={() => handleExampleSearch("The internet suddenly doesn't work")}>{" No internet "}</button>
+              <button type="button" onClick={() => handleExampleSearch("My computer has become really slow")}>{" Computer slows down "}</button>
+              <button type="button" onClick={() => handleExampleSearch("Internet suddenly stopped working")}>{" No internet "}</button>
             </div>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function Home() {
             </div>
 
             <p className="home-results-note">
-              &quot;{debouncedQuery}{"\"Problems and errors related to: "}</p>
+              &quot;{debouncedQuery}{"\": related problems and errors "}</p>
 
             {searchResults.length > 0 ? (<>
                 <ol className="home-results">
@@ -198,9 +198,9 @@ export default function Home() {
 
                 {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="home-more-btn">{"View more search results ("}{searchResults.length - 10}{" more)"}</button>)}
               </>) : (<div className="home-empty">
-                <h3>{" I couldn't find any related issues. "}</h3>
+                <h3>{" No related problems found. "}</h3>
 
-                <p>{" Please enter your symptoms in more detail. "}<br />{" Example: \u201CThe screen turns off during the game, but the PC stays on.\u201D "}</p>
+                <p>{" Try describing the symptom in more detail. "}<br />{" Example: \u201CThe screen turns off during the game, but the PC stays on.\u201D "}</p>
 
                 <button type="button" onClick={handleClear}>{" Search again "}</button>
               </div>)}
@@ -263,27 +263,27 @@ export default function Home() {
             </section>
 
             <section className="home-how-sec">
-              <h2>{" You can use PC FIX like this: "}</h2>
+              <h2>{" How to use PC FIX "}</h2>
 
               <ol className="home-how">
                 <li>
                   <span aria-hidden="true">1</span>
                   <div>
-                    <h3>{" Search for symptoms as is "}</h3>
+                    <h3>{" Search the symptom as you'd describe it "}</h3>
                     <p>{" Instead of jargon, use what you actually see. "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">2</span>
                   <div>
-                    <h3>{" Check it out the easy way "}</h3>
+                    <h3>{" Start with the easy checks "}</h3>
                     <p>{" We will guide you step by step, starting with solutions that are less costly and less risky. "}</p>
                   </div>
                 </li>
                 <li>
                   <span aria-hidden="true">3</span>
                   <div>
-                    <h3>{" Proceed only until resolved "}</h3>
+                    <h3>{" Stop once it's fixed "}</h3>
                     <p>{" If the problem is resolved, there is no need to proceed to more difficult steps. "}</p>
                   </div>
                 </li>

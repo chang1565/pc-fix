@@ -13,30 +13,54 @@ export default function TermsPage() {
 
           <div className="mt-8 space-y-9 leading-8 text-[#3d444c]">
             <section>
-              <h2 className="text-xl font-bold text-ink">{" \u4E00\u3001\u670D\u52A1\u5B97\u65E8 "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 1. \u670D\u52A1\u76EE\u7684 "}</h2>
 
               <p className="mt-2">{" PC FIX \u65E8\u5728\u63D0\u4F9B\u4E00\u822C\u4FE1\u606F\u6765\u5E2E\u52A9\u60A8\u89E3\u51B3\u8BA1\u7B97\u673A\u548C\u76F8\u5173\u8BBE\u5907\u7684\u95EE\u9898\u3002 "}</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 2. \u4FE1\u606F\u7684\u4F7F\u7528 "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 2. \u4FE1\u606F\u4F7F\u7528 "}</h2>
 
               <p className="mt-2">{" \u7F51\u7AD9\u4E0A\u63D0\u4F9B\u7684\u4FE1\u606F\u4EC5\u4F9B\u53C2\u8003\uFF0C\u7ED3\u679C\u53EF\u80FD\u4F1A\u56E0\u7528\u6237\u7684\u8BA1\u7B97\u673A\u73AF\u5883\u800C\u5F02\u3002 "}</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 3. \u4FDD\u62A4\u60A8\u7684\u6570\u636E\u548C\u8BBE\u5907 "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 3. \u6570\u636E\u548C\u8BBE\u5907\u4FDD\u62A4 "}</h2>
 
               <p className="mt-2">{" \u6211\u4EEC\u5EFA\u8BAE\u5728\u66F4\u6539\u7CFB\u7EDF\u8BBE\u7F6E\u3001\u4F7F\u7528\u5B58\u50A8\u8BBE\u5907\u6216\u5220\u9664\u7EC4\u4EF6\u4E4B\u524D\u5907\u4EFD\u91CD\u8981\u6570\u636E\u3002 "}</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 4\u3001\u4E13\u4E1A\u68C0\u9A8C "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 4. \u4E13\u4E1A\u68C0\u4FEE "}</h2>
 
               <p className="mt-2">{" \u6211\u4EEC\u5EFA\u8BAE\u4EFB\u4F55\u53EF\u80FD\u4E0E\u5B89\u5168\u76F8\u5173\u7684\u95EE\u9898\uFF08\u4F8B\u5982\u7535\u6E90\u3001\u7535\u6C60\u6216\u635F\u574F\u7684\u90E8\u4EF6\uFF09\u7531\u4E13\u4E1A\u4EBA\u5458\u68C0\u67E5\uFF0C\u800C\u4E0D\u662F\u60A8\u81EA\u5DF1\u8FDB\u884C\u5DE5\u4F5C\u3002 "}</p>
             </section>
 
-            <p className="border-t border-line pt-6 text-xs text-muted">{" \u751F\u6548\u65E5\u671F\uFF1A2026 \u5E74 10 \u6708 6 \u65E5 "}</p>
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 5. \u5E7F\u544A\u548C\u5916\u90E8\u94FE\u63A5 "}</h2>
+
+              <p className="mt-2">{" PC FIX \u663E\u793A Google AdSense \u5E7F\u544A\u3002\u5E7F\u544A\u5185\u5BB9\u548C\u5916\u90E8\u7F51\u7AD9\u94FE\u63A5\u7531\u76F8\u5173\u5E7F\u544A\u5546\u548C\u7F51\u7AD9\u8D1F\u8D23\uFF0CPC FIX \u4E0D\u63D0\u4F9B\u4FDD\u8BC1\u3002 "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 6. \u8D23\u4EFB\u9650\u5236 "}</h2>
+
+              <p className="mt-2">{" \u8BE5\u6307\u5357\u4E0D\u662F\u786E\u8BA4\u6545\u969C\u539F\u56E0\u7684\u8BCA\u65AD\uFF0C\u800C\u662F\u5BF9\u5019\u9009\u539F\u56E0\u548C\u786E\u8BA4\u7A0B\u5E8F\u7684\u603B\u7ED3\u3002 PC FIX \u5BF9\u56E0\u9075\u5FAA\u8BF4\u660E\u800C\u5BFC\u81F4\u7684\u4EFB\u4F55\u6570\u636E\u4E22\u5931\u6216\u8BBE\u5907\u635F\u574F\u4E0D\u627F\u62C5\u4EFB\u4F55\u8D23\u4EFB\uFF0C\u9664\u975E\u5B58\u5728\u6545\u610F\u6216\u91CD\u5927\u8FC7\u5931\u3002 "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 7. \u7248\u6743 "}</h2>
+
+              <p className="mt-2">{" \u672C\u7F51\u7AD9\u7684\u6587\u672C\u548C\u7EC4\u6210\u7248\u6743\u5F52 PC FIX \u6240\u6709\u3002\u60A8\u53EF\u4EE5\u81EA\u7531\u5730\u8FDB\u884C\u7B80\u77ED\u7684\u5F15\u7528\u5E76\u6807\u660E\u51FA\u5904\uFF0C\u4F46\u5982\u679C\u60A8\u60F3\u590D\u5236\u6574\u7BC7\u6587\u7AE0\u5E76\u5C06\u5176\u53D1\u5E03\u5230\u5176\u4ED6\u5730\u65B9\uFF0C\u8BF7\u9996\u5148\u901A\u8FC7\u8054\u7CFB\u9875\u9762\u4E0A\u7684\u7535\u5B50\u90AE\u4EF6\u83B7\u5F97\u8BB8\u53EF\u3002 "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 8. \u6761\u6B3E\u548C\u6761\u4EF6\u7684\u53D8\u66F4 "}</h2>
+
+              <p className="mt-2">{" \u5982\u679C\u6211\u4EEC\u66F4\u6539\u6761\u6B3E\u548C\u6761\u4EF6\uFF0C\u66F4\u6539\u5C06\u53D1\u5E03\u5728\u6B64\u9875\u9762\u4E0A\uFF0C\u5E76\u66F4\u65B0\u4E0B\u9762\u7684\u751F\u6548\u65E5\u671F\u3002 "}</p>
+            </section>
+
+            <p className="border-t border-line pt-6 text-xs text-muted">{" \u751F\u6548\u65E5\u671F\uFF1A2026\u5E7411\u670814\u65E5\uFF08\u5148\u524D\u6761\u6B3E\u751F\u6548\u65E5\u671F\uFF1A2026\u5E7410\u67086\u65E5\uFF09 "}</p>
           </div>
         </div>
       </article>

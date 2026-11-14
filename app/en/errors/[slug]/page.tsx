@@ -24,7 +24,7 @@ export function generateStaticParams() { return errorCodes.map(entry => ({ slug:
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const entry = findErrorBySlug((await params).slug);
     if (!entry)
-        return { title: "error not found", robots: { index: false } };
+        return { title: "Error not found", robots: { index: false } };
     return { title: entry.seoTitle, description: entry.seoDescription,
         alternates: languageAlternates(`/en/errors/${entry.slug}`),
         openGraph: { title: entry.seoTitle, description: entry.seoDescription, type: "article", url: `/en/errors/${entry.slug}`, siteName: "PC FIX" } };
@@ -39,7 +39,7 @@ export default async function ErrorPage({ params }: Props) {
     const schemas = [
         { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
                 { "@type": "ListItem", position: 1, name: "PC FIX", item: baseUrl },
-                { "@type": "ListItem", position: 2, name: "error code", item: `${baseUrl}/en/errors` },
+                { "@type": "ListItem", position: 2, name: "Error code", item: `${baseUrl}/en/errors` },
                 { "@type": "ListItem", position: 3, name: entry.title, item: pageUrl },
             ] },
         { "@context": "https://schema.org", "@type": "TechArticle", headline: entry.title, description: entry.seoDescription, url: pageUrl, inLanguage: "en", dateModified: entry.updatedAt, about: entry.code, author: { "@type": "Organization", name: "PC FIX" }, publisher: { "@type": "Organization", name: "PC FIX" } },
@@ -53,23 +53,23 @@ export default async function ErrorPage({ params }: Props) {
     <SiteHeader />
     <article className="doc-wrap">
       <div className="doc-intro">
-        <nav aria-label="Current location" className="doc-crumb"><Link href="/en">PC FIX</Link><span aria-hidden="true">/</span><Link href="/en/errors">{"error code"}</Link><span aria-hidden="true">/</span><span>{entry.category}</span></nav>
+        <nav aria-label="Current location" className="doc-crumb"><Link href="/en">PC FIX</Link><span aria-hidden="true">/</span><Link href="/en/errors">{"Error code"}</Link><span aria-hidden="true">/</span><span>{entry.category}</span></nav>
         {name ? <h1 className="doc-code-title"><code>{entry.code}</code> <span>{name}</span></h1> : <h1 className="break-words">{entry.title}</h1>}
         <p className="doc-lead">{entry.description}</p>
       </div>
       <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
         <h2 id="fit-title">{"First, check that this guide matches your problem"}</h2>
-        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"First thing to check"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
+        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"Check this first"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
         <div className="doc-fit-grid">
-          <div><p className="doc-sub">{"Frequently Occurring Situations"}</p><p className="doc-text">{entry.commonSituations}</p></div>
-          <div><p className="doc-sub">{"main causes"}</p><ul>{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></div>
+          <div><p className="doc-sub">{"When it happens"}</p><p className="doc-text">{entry.commonSituations}</p></div>
+          <div><p className="doc-sub">{"Common causes"}</p><ul>{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></div>
         </div>
       </section>
       <GuidedSteps totalTime={totalTime(entry.solutions, "en")} advancedFrom={advancedStart(levels)} afterId="after-steps" steps={entry.solutions.map((solution, index) => ({
             order: solution.order, title: solution.title, difficulty: translate(solution.difficulty), level: levels[index], time: solution.time,
-            body: <>{solution.reason && <p className="guided-why">{solution.reason}</p>}<StepList steps={solution.steps} locale="en"/>{solution.checkPoint && <div className="step-check"><p className="step-check-title">{"confirmation point"}</p><p>{solution.checkPoint}</p></div>}</>,
+            body: <>{solution.reason && <p className="guided-why">{solution.reason}</p>}<StepList steps={solution.steps} locale="en"/>{solution.checkPoint && <div className="step-check"><p className="step-check-title">{"What to check"}</p><p>{solution.checkPoint}</p></div>}</>,
         }))} labels={{
-            title: "Step-by-step solution",
+            title: "Step-by-step fixes",
             summary: "{count} steps, {time} in total. The easiest checks come first, so stop as soon as the problem is fixed.",
             expandAll: "Expand all",
             collapseAll: "Collapse all",
@@ -93,9 +93,9 @@ export default async function ErrorPage({ params }: Props) {
             doneText: "If the same problem comes back, start again from step {n} on this page.",
         }}/>
       <div id="after-steps" className="doc-after">
-        <section className="doc-sheet"><h2>{"Frequently Asked Questions"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
-        {related.length > 0 && <section className="doc-sheet"><h2>{"Related PC FIX Issues"}</h2><ul className="doc-links">{related.map(problem => problem && <li key={problem.slug}><Link href={`/en/problems/${problem.slug}`}><span>{problem.category}</span>{problem.title}</Link></li>)}</ul></section>}
-        <section className="doc-sources"><h2>{"official reference document"}</h2><ul>{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul><p>{"Content review date: "}{entry.updatedAt.slice(0, 10)}</p></section>
+        <section className="doc-sheet"><h2>{"Frequently asked questions"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
+        {related.length > 0 && <section className="doc-sheet"><h2>{"Related PC FIX problems"}</h2><ul className="doc-links">{related.map(problem => problem && <li key={problem.slug}><Link href={`/en/problems/${problem.slug}`}><span>{problem.category}</span>{problem.title}</Link></li>)}</ul></section>}
+        <section className="doc-sources"><h2>{"Official references"}</h2><ul>{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul><p>{"Content reviewed: "}{entry.updatedAt.slice(0, 10)}</p></section>
       </div>
     </article>
     <div className="display-ad-sides"><DisplayAd label="Advertisement" placement="left"/><DisplayAd label="Advertisement" placement="right"/></div><DisplayAd label="Advertisement"/><SiteFooter /></main>;

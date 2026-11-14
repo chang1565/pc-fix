@@ -21,13 +21,22 @@ const COPY_COMMANDS = [
   "netsh winsock reset",
   "netsh int ip reset",
   "powercfg /lastwake",
+  "powercfg /waketimers",
+  "powercfg /devicequery wake_armed",
+  "powercfg /batteryreport",
+  "powercfg /requests",
+  "w32tm /resync",
   "powercfg /energy",
   "perfmon /rel",
   "shutdown /r /t 0",
 ].sort((a, b) => b.length - a.length);
+// 드라이브 문자가 바뀌는 명령은 정규식으로 통째로 잡는다(옵션까지 한 번에 복사되게).
+const COPY_PATTERNS = [
+  String.raw`sfc /scannow /offbootdir=[A-Z]:\\ /offwindir=[A-Z]:\\Windows`,
+];
 const INLINE_ONLY = /[A-Za-z0-9_.-]+\.(?:exe|msc|cpl)(?![A-Za-z0-9])/g;
 const COMMAND_RE = new RegExp(
-  `(${COPY_COMMANDS.map((c) => c.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&")).join("|")})`,
+  `(${[...COPY_PATTERNS, ...COPY_COMMANDS.map((c) => c.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&"))].join("|")})`,
   "g"
 );
 
@@ -196,9 +205,10 @@ function findCommands(steps: string[]): string[] {
 }
 
 // 여러 안내에서 함께 쓰는 짧은 공용 안내(한국어 전용). 단계 문장에 키워드가 있으면 그 단계 아래에 접어서 붙인다.
-const SHARED_GUIDES: { keyword: string; title: string; steps: ReactNode[] }[] = [
+const SHARED_GUIDES: { keyword: string; match: (step: string) => boolean; title: string; steps: ReactNode[] }[] = [
   {
     keyword: "작업 관리자",
+    match: (step) => step.includes("작업 관리자"),
     title: "작업 관리자 여는 법",
     steps: [
       <>키보드에서 <StepText text="Ctrl + Shift + Esc" locale="ko" />를 동시에 누릅니다.</>,
@@ -208,11 +218,15 @@ const SHARED_GUIDES: { keyword: string; title: string; steps: ReactNode[] }[] = 
   },
   {
     keyword: "관리자 권한",
+    // 설치 파일을 '관리자 권한으로 실행'하는 단계에는 붙이지 않는다. 터미널·명령 프롬프트를 쓰는 단계에만 붙인다.
+    match: (step) => /관리자/.test(step) && /(터미널|명령 프롬프트|PowerShell|cmd)/.test(step),
     title: "관리자 권한 터미널 여는 법",
     steps: [
       <>시작 버튼을 마우스 오른쪽 버튼으로 누르거나 <StepText text="Win + X" locale="ko" />를 누릅니다.</>,
       "터미널(관리자)를 선택합니다. Windows 10은 Windows PowerShell(관리자)입니다.",
       "사용자 계정 컨트롤 창이 뜨면 예를 누릅니다.",
+      <>시작 버튼이 보이지 않거나 화면이 검으면 <StepText text="Ctrl + Shift + Esc" locale="ko" />로 작업 관리자를 열고, 새 작업 실행에서 cmd를 입력한 뒤 &apos;관리자 권한으로 이 작업 만들기&apos;를 체크합니다.</>,
+      "단계에 명령 프롬프트라고 적힌 명령은 터미널 창 위쪽 ∨ 버튼에서 명령 프롬프트 탭을 열어 실행합니다.",
     ],
   },
 ];
@@ -221,7 +235,7 @@ type StepListProps = { steps: string[]; locale: string };
 
 export default function StepList({ steps, locale }: StepListProps) {
   const commands = findCommands(steps);
-  const guides = locale === "ko" ? SHARED_GUIDES.filter((g) => steps.some((s) => s.includes(g.keyword))) : [];
+  const guides = locale === "ko" ? SHARED_GUIDES.filter((g) => steps.some(g.match)) : [];
   return (
     <>
       <ol className="step-do">

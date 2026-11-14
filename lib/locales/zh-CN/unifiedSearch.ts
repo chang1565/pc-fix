@@ -7,7 +7,7 @@ export function searchPcFix(query: string) {
         ...problem, href: `/zh-CN/problems/${problem.slug}`,
     }));
     const errors = searchErrorCodes(query).map(entry => ({
-        ...entry, category: `\u9519\u8BEF\u4EE3\u7801\u00B7 ${entry.category}`, href: `/zh-CN/errors/${entry.slug}`,
+        ...entry, category: `\u9519\u8BEF\u4EE3\u7801 \u00B7 ${entry.category}`, href: `/zh-CN/errors/${entry.slug}`,
     }));
     const codePart = query.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
     const isCodeSearch = isExactErrorQuery(query) || (codePart.length >= 3 && errors.some(entry => entry.code.toLowerCase().replace(/[^a-z0-9]/g, "").includes(codePart)));

@@ -15,7 +15,7 @@ export default function SiteFooter() {
 
             <Link href="/ja/contact" className="hover:text-ink">{" \u304A\u554F\u3044\u5408\u308F\u305B "}</Link>
 
-            <Link href="/ja/privacy" className="hover:text-ink">{" \u500B\u4EBA\u60C5\u5831\u51E6\u7406\u65B9\u91DD "}</Link>
+            <Link href="/ja/privacy" className="hover:text-ink">{" \u30D7\u30E9\u30A4\u30D0\u30B7\u30FC\u30DD\u30EA\u30B7\u30FC "}</Link>
 
             <Link href="/ja/terms" className="hover:text-ink">{" \u5229\u7528\u898F\u7D04 "}</Link>
           </div>

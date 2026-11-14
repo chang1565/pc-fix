@@ -59,9 +59,9 @@ export default async function ErrorPage({ params }: Props) {
       </div>
       <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
         <h2 id="fit-title">{"\u307E\u305A\u3001\u3053\u306E\u8A18\u4E8B\u304C\u3042\u306A\u305F\u306E\u75C7\u72B6\u306B\u5408\u3063\u3066\u3044\u308B\u304B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044"}</h2>
-        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"\u6700\u521D\u306B\u78BA\u8A8D\u3059\u308B"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
+        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"\u6700\u521D\u306B\u78BA\u8A8D\u3059\u308B\u3053\u3068"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
         <div className="doc-fit-grid">
-          <div><p className="doc-sub">{"\u983B\u7E41\u306B\u767A\u751F\u3059\u308B\u72B6\u6CC1"}</p><p className="doc-text">{entry.commonSituations}</p></div>
+          <div><p className="doc-sub">{"\u3088\u304F\u3042\u308B\u767A\u751F\u72B6\u6CC1"}</p><p className="doc-text">{entry.commonSituations}</p></div>
           <div><p className="doc-sub">{"\u4E3B\u306A\u539F\u56E0"}</p><ul>{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></div>
         </div>
       </section>
@@ -69,7 +69,7 @@ export default async function ErrorPage({ params }: Props) {
             order: solution.order, title: solution.title, difficulty: translate(solution.difficulty), level: levels[index], time: solution.time,
             body: <>{solution.reason && <p className="guided-why">{solution.reason}</p>}<StepList steps={solution.steps} locale="ja"/>{solution.checkPoint && <div className="step-check"><p className="step-check-title">{"\u78BA\u8A8D\u30DD\u30A4\u30F3\u30C8"}</p><p>{solution.checkPoint}</p></div>}</>,
         }))} labels={{
-            title: "\u6BB5\u968E\u7684\u306A\u89E3\u6C7A\u7B56",
+            title: "\u624B\u9806\u3054\u3068\u306E\u89E3\u6C7A\u65B9\u6CD5",
             summary: "\u5168{count}\u30B9\u30C6\u30C3\u30D7\u3001\u3059\u3079\u3066\u884C\u3046\u3068{time}\u3002\u7C21\u5358\u306A\u78BA\u8A8D\u304B\u3089\u9806\u306B\u4E26\u3079\u3066\u3044\u308B\u306E\u3067\u3001\u89E3\u6C7A\u3057\u305F\u3089\u305D\u306E\u30B9\u30C6\u30C3\u30D7\u3067\u7D42\u4E86\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
             expandAll: "\u3059\u3079\u3066\u958B\u304F",
             collapseAll: "\u3059\u3079\u3066\u9589\u3058\u308B",
@@ -94,8 +94,8 @@ export default async function ErrorPage({ params }: Props) {
         }}/>
       <div id="after-steps" className="doc-after">
         <section className="doc-sheet"><h2>{"\u3088\u304F\u3042\u308B\u8CEA\u554F"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
-        {related.length > 0 && <section className="doc-sheet"><h2>{"\u95A2\u9023PC FIX\u306E\u554F\u984C"}</h2><ul className="doc-links">{related.map(problem => problem && <li key={problem.slug}><Link href={`/ja/problems/${problem.slug}`}><span>{problem.category}</span>{problem.title}</Link></li>)}</ul></section>}
-        <section className="doc-sources"><h2>{"\u516C\u5F0F\u53C2\u8003\u8CC7\u6599"}</h2><ul>{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul><p>{"\u5185\u5BB9\u30EC\u30D3\u30E5\u30FC\u65E5\uFF1A "}{entry.updatedAt.slice(0, 10)}</p></section>
+        {related.length > 0 && <section className="doc-sheet"><h2>{"\u95A2\u9023\u3059\u308BPC FIX\u306E\u554F\u984C"}</h2><ul className="doc-links">{related.map(problem => problem && <li key={problem.slug}><Link href={`/ja/problems/${problem.slug}`}><span>{problem.category}</span>{problem.title}</Link></li>)}</ul></section>}
+        <section className="doc-sources"><h2>{"\u516C\u5F0F\u53C2\u8003\u8CC7\u6599"}</h2><ul>{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul><p>{"\u5185\u5BB9\u306E\u78BA\u8A8D\u65E5\uFF1A "}{entry.updatedAt.slice(0, 10)}</p></section>
       </div>
     </article>
     <div className="display-ad-sides"><DisplayAd label="広告" placement="left"/><DisplayAd label="広告" placement="right"/></div><DisplayAd label="広告"/><SiteFooter /></main>;

@@ -2,6 +2,7 @@ import { staticPageMetadata } from "@/lib/staticPageMetadata";
 export const metadata = staticPageMetadata("/about");
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 
 export default function AboutPage() {
   return (
@@ -39,6 +40,14 @@ export default function AboutPage() {
               중요한 데이터가 있는 경우 먼저 백업하고,
               물리적인 고장이 의심되는 경우 전문적인 점검을 받는 것을
               권장합니다.
+            </p>
+
+            <p>
+              각 안내는 Microsoft·제조사 공식 문서와 실제 Windows 화면을 기준으로 원인 후보와 확인 순서를 정리하고, 직접 검토한 글에는 검토일을 표시합니다. 고장 원인을 확정하는 진단은 아닙니다.
+            </p>
+
+            <p>
+              PC FIX는 개인이 운영하며, 운영비를 위해 Google AdSense 광고를 게재합니다. 틀린 내용이나 문의는 <ContactEmail />로 알려 주세요.
             </p>
           </div>
         </div>

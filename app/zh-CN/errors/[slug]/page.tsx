@@ -24,7 +24,7 @@ export function generateStaticParams() { return errorCodes.map(entry => ({ slug:
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const entry = findErrorBySlug((await params).slug);
     if (!entry)
-        return { title: "\u672A\u627E\u5230\u9519\u8BEF", robots: { index: false } };
+        return { title: "\u627E\u4E0D\u5230\u8BE5\u9519\u8BEF", robots: { index: false } };
     return { title: entry.seoTitle, description: entry.seoDescription,
         alternates: languageAlternates(`/zh-CN/errors/${entry.slug}`),
         openGraph: { title: entry.seoTitle, description: entry.seoDescription, type: "article", url: `/zh-CN/errors/${entry.slug}`, siteName: "PC FIX" } };
@@ -59,7 +59,7 @@ export default async function ErrorPage({ params }: Props) {
       </div>
       <section className="doc-sheet doc-fit" aria-labelledby="fit-title">
         <h2 id="fit-title">{"\u8BF7\u5148\u786E\u8BA4\u672C\u6587\u662F\u5426\u7B26\u5408\u60A8\u7684\u60C5\u51B5"}</h2>
-        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"\u9996\u5148\u8981\u68C0\u67E5"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
+        {extras && extras.quickCheck.length > 0 && <div className="doc-quick"><p className="doc-sub">{"\u9996\u5148\u68C0\u67E5"}</p><ul>{extras.quickCheck.map(item => <li key={item}>{item}</li>)}</ul></div>}
         <div className="doc-fit-grid">
           <div><p className="doc-sub">{"\u7ECF\u5E38\u53D1\u751F\u7684\u60C5\u51B5"}</p><p className="doc-text">{entry.commonSituations}</p></div>
           <div><p className="doc-sub">{"\u4E3B\u8981\u539F\u56E0"}</p><ul>{entry.causes.map(cause => <li key={cause}>{cause}</li>)}</ul></div>
@@ -67,9 +67,9 @@ export default async function ErrorPage({ params }: Props) {
       </section>
       <GuidedSteps totalTime={totalTime(entry.solutions, "zh-CN")} advancedFrom={advancedStart(levels)} afterId="after-steps" steps={entry.solutions.map((solution, index) => ({
             order: solution.order, title: solution.title, difficulty: translate(solution.difficulty), level: levels[index], time: solution.time,
-            body: <>{solution.reason && <p className="guided-why">{solution.reason}</p>}<StepList steps={solution.steps} locale="zh-CN"/>{solution.checkPoint && <div className="step-check"><p className="step-check-title">{"\u786E\u8BA4\u70B9"}</p><p>{solution.checkPoint}</p></div>}</>,
+            body: <>{solution.reason && <p className="guided-why">{solution.reason}</p>}<StepList steps={solution.steps} locale="zh-CN"/>{solution.checkPoint && <div className="step-check"><p className="step-check-title">{"\u68C0\u67E5\u8981\u70B9"}</p><p>{solution.checkPoint}</p></div>}</>,
         }))} labels={{
-            title: "\u5206\u6B65\u89E3\u51B3\u65B9\u6848",
+            title: "\u5206\u6B65\u89E3\u51B3\u65B9\u6CD5",
             summary: "\u5171{count}\u6B65\uFF0C\u5168\u90E8\u5B8C\u6210\u7EA6\u9700{time}\u3002\u6309\u4ECE\u6613\u5230\u96BE\u7684\u987A\u5E8F\u6392\u5217\uFF0C\u95EE\u9898\u89E3\u51B3\u540E\u5373\u53EF\u505C\u6B62\u3002",
             expandAll: "\u5168\u90E8\u5C55\u5F00",
             collapseAll: "\u5168\u90E8\u6536\u8D77",
@@ -93,7 +93,7 @@ export default async function ErrorPage({ params }: Props) {
             doneText: "\u5982\u679C\u540C\u6837\u7684\u95EE\u9898\u518D\u6B21\u51FA\u73B0\uFF0C\u8BF7\u4ECE\u672C\u9875\u7B2C{n}\u6B65\u5F00\u59CB\u68C0\u67E5\u3002",
         }}/>
       <div id="after-steps" className="doc-after">
-        <section className="doc-sheet"><h2>{"\u5E38\u89C1\u95EE\u9898\u89E3\u7B54"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
+        <section className="doc-sheet"><h2>{"\u5E38\u89C1\u95EE\u9898"}</h2><div>{entry.faqs.map(faq => <FaqItem key={faq.question} {...faq}/>)}</div></section>
         {related.length > 0 && <section className="doc-sheet"><h2>{"\u76F8\u5173 PC FIX \u95EE\u9898"}</h2><ul className="doc-links">{related.map(problem => problem && <li key={problem.slug}><Link href={`/zh-CN/problems/${problem.slug}`}><span>{problem.category}</span>{problem.title}</Link></li>)}</ul></section>}
         <section className="doc-sources"><h2>{"\u5B98\u65B9\u53C2\u8003\u6587\u6863"}</h2><ul>{entry.sources.map(source => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a></li>)}</ul><p>{"\u5185\u5BB9\u5BA1\u6838\u65E5\u671F\uFF1A "}{entry.updatedAt.slice(0, 10)}</p></section>
       </div>

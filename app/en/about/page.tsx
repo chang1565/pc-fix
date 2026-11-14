@@ -3,6 +3,7 @@ import { staticPageMetadata } from "@/lib/staticPageMetadata";
 export const metadata = staticPageMetadata("/en/about");
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
+import ContactEmail from "@/components/ContactEmail";
 export default function AboutPage() {
     return (<main className="min-h-screen bg-surface">
       <SiteHeader />
@@ -19,6 +20,10 @@ export default function AboutPage() {
             <p>{" Where possible, solutions are organized starting with the easiest and least expensive method and progressing to more advanced steps. "}</p>
 
             <p>{" Because every computer environment may be different, the methods provided do not guarantee the same results in all situations. If you have important data, we recommend backing it up first and getting a professional inspection if you suspect a physical failure. "}</p>
+
+            <p>{" Each guide organizes cause candidates and confirmation procedures based on official Microsoft/manufacturer documents and actual Windows screens, and indicates the review date for articles that have been personally reviewed. This is not a diagnosis that determines the cause of the failure. "}</p>
+
+            <p>{" PC FIX is privately operated and runs Google AdSense ads to cover its operating expenses. Incorrect information or inquiries "}<ContactEmail />{"Please let us know. "}</p>
           </div>
         </div>
       </article>

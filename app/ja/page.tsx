@@ -142,7 +142,7 @@ export default function Home() {
         }}>
             <input type="search" aria-label="PCの症状またはエラーコードを検索" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例：ゲーム中の黒い画面、0xc0000005、Code 43" className="home-search"/>
 
-            {inputQuery && (<button type="button" onClick={handleClear} aria-label="クエリをクリア" className="home-clear">
+            {inputQuery && (<button type="button" onClick={handleClear} aria-label="検索語をクリア" className="home-clear">
                 ✕
               </button>)}
 
@@ -152,10 +152,10 @@ export default function Home() {
           <div className="home-examples">
             <p>{"\u3088\u304F\u691C\u7D22\u3055\u308C\u308B\u30AD\u30FC\u30EF\u30FC\u30C9"}</p>
             <div>
-              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u9ED2\u3044\u753B\u9762\u304C\u51FA\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u4E2D\u306E\u9ED2\u3044\u753B\u9762 "}</button>
-              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u306F\u5F3E\u304D\u7D9A\u3051\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u3092\u30AF\u30E9\u30C3\u30B7\u30E5\u3059\u308B "}</button>
-              <button type="button" onClick={() => handleExampleSearch("\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3059\u304E\u307E\u3057\u305F\u3002")}>{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3044 "}</button>
-              <button type="button" onClick={() => handleExampleSearch("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306F\u7A81\u7136\u3067\u304D\u307E\u305B\u3093\u3002")}>{" \u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306A\u3057 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u753B\u9762\u304C\u771F\u3063\u9ED2\u306B\u306A\u3063\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059")}>{" \u30B2\u30FC\u30E0\u4E2D\u306B\u753B\u9762\u304C\u771F\u3063\u9ED2 "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u304C\u4F55\u5EA6\u3082\u843D\u3061\u307E\u3059")}>{" \u30B2\u30FC\u30E0\u3092\u30AF\u30E9\u30C3\u30B7\u30E5\u3059\u308B "}</button>
+              <button type="button" onClick={() => handleExampleSearch("PC\u304C\u3068\u3066\u3082\u9045\u304F\u306A\u308A\u307E\u3057\u305F")}>{" PC\u304C\u9045\u304F\u306A\u3063\u305F "}</button>
+              <button type="button" onClick={() => handleExampleSearch("\u6025\u306B\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306B\u3064\u306A\u304C\u3089\u306A\u304F\u306A\u308A\u307E\u3057\u305F")}>{" \u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306B\u3064\u306A\u304C\u3089\u306A\u3044 "}</button>
             </div>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function Home() {
             </div>
 
             <p className="home-results-note">
-              &quot;{debouncedQuery}{"\u300C\u306B\u95A2\u9023\u3059\u308B\u554F\u984C\u3068\u30A8\u30E9\u30FC\u3067\u3059\u3002 "}</p>
+              &quot;{debouncedQuery}{"\"\u306B\u95A2\u9023\u3059\u308B\u554F\u984C\u3068\u30A8\u30E9\u30FC\u3067\u3059\u3002 "}</p>
 
             {searchResults.length > 0 ? (<>
                 <ol className="home-results">
@@ -263,7 +263,7 @@ export default function Home() {
             </section>
 
             <section className="home-how-sec">
-              <h2>{" PC FIX\u306F\u3053\u308C\u3092\u4F7F\u3046\u3060\u3051\u3067\u3059 "}</h2>
+              <h2>{" PC FIX\u306E\u4F7F\u3044\u65B9 "}</h2>
 
               <ol className="home-how">
                 <li>
@@ -283,7 +283,7 @@ export default function Home() {
                 <li>
                   <span aria-hidden="true">3</span>
                   <div>
-                    <h3>{" \u89E3\u6C7A\u3055\u308C\u308B\u307E\u3067\u306E\u307F\u9032\u3080 "}</h3>
+                    <h3>{" \u89E3\u6C7A\u3059\u308B\u307E\u3067\u9806\u306B\u9032\u3081\u308B "}</h3>
                     <p>{" \u554F\u984C\u304C\u89E3\u6C7A\u3057\u305F\u3089\u3001\u3088\u308A\u96E3\u3057\u3044\u30B9\u30C6\u30C3\u30D7\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
                   </div>
                 </li>

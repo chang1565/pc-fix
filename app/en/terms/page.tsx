@@ -25,18 +25,42 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 3. Protect your data and equipment "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 3. Protecting your data and equipment "}</h2>
 
               <p className="mt-2">{" We recommend backing up important data before changing system settings, working with storage devices, or removing components. "}</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-ink">{" 4. Professional inspection "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 4. Professional repair "}</h2>
 
               <p className="mt-2">{" We recommend that any issues that may be safety-related, such as power supply, battery, or damaged parts, be inspected by a professional rather than doing the work yourself. "}</p>
             </section>
 
-            <p className="border-t border-line pt-6 text-xs text-muted">{" Effective date: October 6, 2026 "}</p>
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 5. Advertisements and external links "}</h2>
+
+              <p className="mt-2">{" PC FIX displays Google AdSense ads. The contents of advertisements and links to external sites are the responsibility of the relevant advertisers and sites, and are not guaranteed by PC FIX. "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 6. Limitation of Liability "}</h2>
+
+              <p className="mt-2">{" The guidance is not a diagnosis that confirms the cause of the failure, but rather a summary of cause candidates and confirmation procedures. PC FIX is not responsible for any data loss or equipment damage resulting from following the instructions, unless there is intent or gross negligence. "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 7. Copyright "}</h2>
+
+              <p className="mt-2">{" The text and composition of the site are copyrighted by PC FIX. You are free to make short quotations with the source indicated, but if you wish to reproduce the entire piece and post it elsewhere, please first obtain permission via email on the contact page. "}</p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-ink">{" 8. Changes to Terms and Conditions "}</h2>
+
+              <p className="mt-2">{" If we change the terms and conditions, the changes will be posted on this page and the effective date below will be updated. "}</p>
+            </section>
+
+            <p className="border-t border-line pt-6 text-xs text-muted">{" Effective date: November 14, 2026 (Previous terms effective date: October 6, 2026) "}</p>
           </div>
         </div>
       </article>

@@ -32,6 +32,8 @@ for (const locale of languages) {
       if (value === "광고") return locale === "en" ? "Advertisement" : locale === "ja" ? "広告" : "广告";
       if (value === "개") return locale === "en" ? " results" : locale === "ja" ? "件" : "条";
       if (value === "개)") return locale === "en" ? " more)" : locale === "ja" ? "件)" : "条)";
+      // 숫자 바로 뒤에 붙는 단위라 번역 값의 앞 공백이 잘리지 않게 고정한다.
+      if (value.trim() === "개 오류") return locale === "en" ? " errors" : locale === "ja" ? "件のエラー" : "个错误";
       if (korean.test(value)) {
         if (!dictionary[value]) throw new Error(`Missing translation ${filename}: ${value}`);
         const leading = value.match(/^\s*/)[0], trailing = value.match(/\s*$/)[0];
