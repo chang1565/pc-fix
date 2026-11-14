@@ -4,14 +4,14 @@ export const metadata = staticPageMetadata("/ja/about");
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
 export default function AboutPage() {
-    return (<main className="min-h-screen bg-slate-50">
+    return (<main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">{" PC FIX\u306B\u3064\u3044\u3066 "}</h1>
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" PC FIX\u306B\u3064\u3044\u3066 "}</h1>
 
-          <div className="mt-6 space-y-6 text-sm leading-7 text-slate-600 sm:text-base">
+          <div className="mt-6 space-y-6 leading-8 text-[#3d444c]">
             <p>{" PC FIX\u306F\u3001\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u306E\u4F7F\u7528\u4E2D\u306B\u767A\u751F\u3059\u308B\u3055\u307E\u3056\u307E\u306A\u554F\u984C\u3092\u8AB0\u3067\u3082\u7C21\u5358\u306B\u89E3\u6C7A\u3067\u304D\u308B\u3088\u3046\u306B\u3059\u308B\u305F\u3081\u306B\u4F5C\u6210\u3055\u308C\u305F\u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0\u30AC\u30A4\u30C9\u3067\u3059\u3002 "}</p>
 
             <p>{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u306E\u554F\u984C\u3092\u691C\u7D22\u3057\u3088\u3046\u3068\u3059\u308B\u3068\u3001\u5C02\u9580\u7684\u306A\u7528\u8A9E\u3084\u8907\u96D1\u306A\u8AAC\u660E\u306B\u906D\u9047\u3059\u308B\u3053\u3068\u304C\u3088\u304F\u3042\u308A\u307E\u3059\u3002 PC FIX\u306F\u3001\u30E6\u30FC\u30B6\u30FC\u304C\u5B9F\u969B\u306B\u7D4C\u9A13\u3059\u308B\u75C7\u72B6\u306B\u57FA\u3065\u3044\u3066\u554F\u984C\u3092\u898B\u3064\u3051\u308B\u3053\u3068\u304C\u3067\u304D\u308B\u3088\u3046\u306B\u69CB\u6210\u3057\u3066\u3044\u307E\u3059\u3002 "}</p>

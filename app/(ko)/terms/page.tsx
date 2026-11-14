@@ -5,18 +5,18 @@ import SiteHeader from "@/components/SiteHeader";
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">
             이용약관
           </h1>
 
-          <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
+          <div className="mt-8 space-y-9 leading-8 text-[#3d444c]">
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 1. 서비스 목적
               </h2>
 
@@ -27,7 +27,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 2. 정보 이용
               </h2>
 
@@ -38,7 +38,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 3. 데이터 및 장비 보호
               </h2>
 
@@ -49,7 +49,7 @@ export default function TermsPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 4. 전문적인 점검
               </h2>
 
@@ -59,7 +59,7 @@ export default function TermsPage() {
               </p>
             </section>
 
-            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">
+            <p className="border-t border-line pt-6 text-xs text-muted">
               시행일: 2026년 10월 6일
             </p>
           </div>

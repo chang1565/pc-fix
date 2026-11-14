@@ -1,3 +1,4 @@
+import { problemSteps } from "./problemSteps/index";
 export type SolutionStep = {
   order: number;
   title: string;
@@ -167,6 +168,10 @@ const driverStep = (device: string) =>
 
 
 function buildSolutions(seed: ProblemSeed): SolutionStep[] {
+  // 증상 검수에서 preset 공통 단계가 맞지 않은 페이지는 직접 쓴 단계를 쓴다(data/problemSteps).
+  const custom = problemSteps[seed.slug];
+  if (custom) return withOrder(custom);
+
   const p = seed.preset;
 
   if (seed.slug === "battery-swollen") {

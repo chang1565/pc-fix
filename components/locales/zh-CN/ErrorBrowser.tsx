@@ -33,10 +33,10 @@ export default function ErrorBrowser() {
     const results = errorCodes.filter(entry => !category || entry.category === category);
     return <section className="mt-8">
     <div className="max-w-sm"><label htmlFor="error-category" className="mb-2 block text-sm font-semibold">{"\u7C7B\u522B"}</label>
-      <select id="error-category" value={category} onChange={event => update(event.target.value)} className="w-full rounded-xl border border-slate-300 bg-white p-4"><option value="">{"\u6240\u6709\u7C7B\u522B"}</option>{errorCategories.map(value => <option key={value}>{value}</option>)}</select>
+      <select id="error-category" value={category} onChange={event => update(event.target.value)} className="w-full rounded-xl border border-[#cfd4da] bg-paper p-3 focus:border-action focus:bg-surface"><option value="">{"\u6240\u6709\u7C7B\u522B"}</option>{errorCategories.map(value => <option key={value}>{value}</option>)}</select>
     </div>
-    <p role="status" className="my-6 text-sm text-slate-500">{results.length}{"\u72D7\u9519\u8BEF"}</p>
-    {results.length ? <div className="grid gap-4 md:grid-cols-2">{results.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
-            : <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center"><p>{"\u6CA1\u6709\u5339\u914D\u9519\u8BEF\u3002\u8BF7\u9009\u62E9\u4E0D\u540C\u7684\u7C7B\u522B\u3002"}</p><button onClick={() => update("")} className="mt-4 font-bold text-blue-600">{"\u67E5\u770B\u6240\u6709\u9519\u8BEF"}</button></div>}
+    <p role="status" className="mt-6 text-sm text-muted">{results.length}{"\u72D7\u9519\u8BEF"}</p>
+    {results.length ? <div className="mt-2 grid gap-x-10 md:grid-cols-2">{results.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
+            : <div className="mt-4 rounded-xl bg-paper p-8 text-center"><p>{"\u6CA1\u6709\u5339\u914D\u9519\u8BEF\u3002\u8BF7\u9009\u62E9\u4E0D\u540C\u7684\u7C7B\u522B\u3002"}</p><button onClick={() => update("")} className="mt-4 font-bold text-action">{"\u67E5\u770B\u6240\u6709\u9519\u8BEF"}</button></div>}
   </section>;
 }

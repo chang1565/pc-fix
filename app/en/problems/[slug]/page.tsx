@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FaqItem from "@/components/FaqItem";
+import StepList from "@/components/StepList";
+import { totalTime } from "@/lib/stepPlan";
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 import ErrorCard from "@/components/locales/en/ErrorCard";
@@ -116,7 +118,7 @@ export default async function ProblemPage({ params, }: PageProps) {
             },
         })),
     };
-    return (<main className="relative min-h-screen bg-slate-50 text-slate-900">
+    return (<main className="relative min-h-screen bg-surface text-ink">
       {/* JSON-LD */}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -133,257 +135,170 @@ export default async function ProblemPage({ params, }: PageProps) {
 
       <SiteHeader />
 
-      <div className="mx-auto max-w-5xl px-5 py-8 sm:py-12">
-        {/* Breadcrumb */}
-
-        <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm text-slate-500">
-          <Link href="/en" className="transition hover:text-blue-600">
+      <div className="mx-auto max-w-5xl px-5 py-8 sm:py-10">
+        <nav className="mb-5 flex flex-wrap items-center gap-2 text-sm text-muted">
+          <Link href="/en" className="hover:text-action hover:underline">
             PC FIX
           </Link>
 
-          <span>›</span>
+          <span aria-hidden="true">›</span>
 
-          <Link href={`/en/category/${encodeURIComponent(problem.category)}`} className="transition hover:text-blue-600">
+          <Link href={`/en/category/${encodeURIComponent(problem.category)}`} className="hover:text-action hover:underline">
             {problem.category}
           </Link>
-
-          <span>›</span>
-
-          <span className="text-slate-700">
-            {problem.title}
-          </span>
         </nav>
 
-        {/* 문제 소개 */}
-
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <div className="mb-4">
-            <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700">
-              {problem.category}
-            </span>
-          </div>
-
-          <h1 className="text-3xl font-black leading-tight tracking-tight text-slate-950 sm:text-4xl">
+        <article className="max-w-3xl">
+          <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
             {problem.title}
           </h1>
 
-          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
+          <p className="mt-4 text-lg leading-8 text-muted">
             {problem.description}
           </p>
 
-          <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50 p-4">
-            <p className="text-sm leading-6 text-blue-900">
-              <strong>{" Solving Order "}</strong>
+          <nav className="step-plan" aria-labelledby="step-plan-title">
+            <h2 id="step-plan-title">{"Check in this order"}</h2>
+            <p className="step-plan-note">{" Please check them in order from the top. If the issue is resolved, you do not need to proceed to the next step. "}</p>
+            <ol>
+              {problem.solutions.map((solution) => (<li key={solution.order}>
+                  <a href={`#solution-${solution.order}`}>
+                    <span className="step-plan-n">{solution.order}</span>
+                    <span className="step-plan-t">{solution.title}</span>
+                    <span className="step-plan-m">{solution.time}</span>
+                  </a>
+                </li>))}
+            </ol>
+            <p className="step-plan-foot">{" All steps:"}{" "}
+              {totalTime(problem.solutions, "en")}
+              {problem.solutions.every((solution) => solution.cost === "Free") && (<>
+                  <span aria-hidden="true"> · </span>{" No cost "}</>)}
+            </p>
+          </nav>
 
-              <br />{" We've organized the methods starting with the simplest and least expensive ones. Please check the solutions one by one, starting from the top. "}</p>
+          {extras && extras.quickCheck.length > 0 && (<section className="mt-10 rounded-xl bg-paper p-5 sm:p-6">
+              <h2 className="text-lg font-extrabold">{" Check this first "}</h2>
+
+              <ul className="mt-3 list-disc space-y-2 pl-5 leading-7">
+                {extras.quickCheck.map((item, index) => (<li key={index}>{item}</li>))}
+              </ul>
+            </section>)}
+
+          <div className="mt-8 grid gap-8 sm:grid-cols-2">
+            <section>
+              <h2 className="border-b border-ink pb-2 text-base font-extrabold">{" Do you have these symptoms? "}</h2>
+
+              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
+                {problem.symptoms.map((symptom, index) => (<li key={index}>{symptom}</li>))}
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="border-b border-ink pb-2 text-base font-extrabold">{" main causes "}</h2>
+
+              <ul className="mt-3 list-disc space-y-1.5 pl-5 leading-7 text-ink">
+                {problem.causes.map((cause, index) => (<li key={index}>{cause}</li>))}
+              </ul>
+            </section>
           </div>
-        </section>
 
-        {extras && extras.quickCheck.length > 0 && (<section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">{" Check this first "}</h2>
+          <section className="mt-14">
+            <h2 className="text-2xl font-extrabold tracking-tight">{" How to solve "}</h2>
 
-            <ul className="mt-5 space-y-3">
-              {extras.quickCheck.map((item, index) => (<li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
-                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-slate-400"/>
-                  <span>{item}</span>
+            <ol className="step-list mt-4">
+              {problem.solutions.map((solution) => (<li key={solution.order} id={`solution-${solution.order}`}>
+                    <span className="step-list-n" aria-hidden="true">
+                      {solution.order}
+                    </span>
+
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-bold leading-snug sm:text-[1.375rem]">
+                        {solution.title}
+                      </h3>
+
+                      <p className="step-list-meta">
+                        <span>{" Difficulty"}{" "}
+                          {translate(solution.difficulty)}
+                        </span>
+                        <span>{solution.time}</span>
+                        {solution.cost !== "Free" && <span>{solution.cost}</span>}
+                      </p>
+
+                      <p className="mt-3 leading-7 text-muted">
+                        {solution.reason}
+                      </p>
+
+                      <StepList steps={solution.steps} locale="en"/>
+
+                      {solution.checkPoint && (<div className="step-check">
+                          <p className="text-sm font-bold text-check">{" confirmation point "}</p>
+
+                          <p className="mt-0.5 leading-7">
+                            {solution.checkPoint}
+                          </p>
+                        </div>)}
+                    </div>
+                  </li>))}
+            </ol>
+          </section>
+
+          {problem.warning && (<section className="mt-10 border-l-4 border-caution bg-caution-soft px-5 py-4">
+              <h2 className="font-extrabold text-caution">{" Precautions "}</h2>
+
+              <p className="mt-1 leading-7">
+                {problem.warning}
+              </p>
+            </section>)}
+
+          {extras && (<section className="mt-10 border-t border-line pt-6">
+              {extras.sources.length > 0 && (<>
+                  <h2 className="font-bold">{"Official references"}</h2>
+                  <ul className="mt-3 space-y-2">
+                    {extras.sources.map((source) => (<li key={source.url}>
+                        <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-action underline">
+                          {source.title}
+                        </a>
+                      </li>))}
+                  </ul>
+                </>)}
+              <p className="mt-4 text-xs text-muted">{" Content review date: "}{extras.reviewedAt}{". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault. "}</p>
+            </section>)}
+
+          <section className="mt-12">
+            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{" Frequently Asked Questions "}</h2>
+
+            <div>
+              {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
+            </div>
+          </section>
+        </article>
+
+        {relatedProblems.length > 0 && (<section className="mt-12 max-w-3xl">
+            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{" Related issues "}</h2>
+
+            <p className="mt-3 text-sm text-muted">{" If the symptoms do not match exactly, please check the issue below. "}</p>
+
+            <ul className="mt-1">
+              {relatedProblems.map((relatedProblem) => (<li key={relatedProblem.slug} className="border-b border-line">
+                  <Link href={`/en/problems/${relatedProblem.slug}`} className="group flex items-baseline gap-3 py-3.5">
+                    <span className="w-16 shrink-0 text-xs text-muted">
+                      {relatedProblem.category}
+                    </span>
+
+                    <span className="font-semibold group-hover:text-action group-hover:underline">
+                      {relatedProblem.title}
+                    </span>
+                  </Link>
                 </li>))}
             </ul>
           </section>)}
 
-        {/* 증상 + 원인 */}
-
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">{" Do you have these symptoms? "}</h2>
-
-            <ul className="mt-5 space-y-3">
-              {problem.symptoms.map((symptom, index) => (<li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-500"/>
-
-                    <span>
-                      {symptom}
-                    </span>
-                  </li>))}
-            </ul>
-          </section>
-
-          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-black text-slate-950">{" main causes "}</h2>
-
-            <ul className="mt-5 space-y-3">
-              {problem.causes.map((cause, index) => (<li key={index} className="flex gap-3 text-sm leading-6 text-slate-700">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-orange-500"/>
-
-                    <span>
-                      {cause}
-                    </span>
-                  </li>))}
-            </ul>
-          </section>
-        </div>
-
-        {/* 해결 방법 */}
-
-        <section className="mt-10">
-          <div>
-            <h2 className="text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">{" How to solve "}</h2>
-
-            <p className="mt-2 text-sm text-slate-500">{" Please check them in order from the top. If the issue is resolved, you do not need to proceed to the next step. "}</p>
-          </div>
-
-          <div className="mt-6 space-y-6">
-            {problem.solutions.map((solution) => (<article key={solution.order} id={`solution-${solution.order}`} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                  <div className="border-b border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                      <div className="flex gap-4">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-black text-white">
-                          {solution.order}
-                        </div>
-
-                        <div>
-                          <h3 className="text-lg font-bold text-slate-950 sm:text-xl">
-                            {solution.title}
-                          </h3>
-
-                          <p className="mt-2 text-sm leading-6 text-slate-600">
-                            {solution.reason}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex shrink-0 flex-wrap gap-2 text-xs font-semibold">
-                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">{" Difficulty"}{" "}
-                          {translate(solution.difficulty)}
-                        </span>
-
-                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">{" time"}{" "}
-                          {solution.time}
-                        </span>
-
-                        <span className="rounded-full bg-white px-3 py-1.5 text-slate-700 ring-1 ring-slate-200">{" cost"}{" "}
-                          {solution.cost}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="px-5 py-6 sm:px-6">
-                    <ol className="space-y-4">
-                      {solution.steps.map((step, index) => (<li key={index} className="flex gap-3 text-sm leading-7 text-slate-700">
-                            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-slate-100 text-xs font-bold text-slate-600">
-                              {index + 1}
-                            </span>
-
-                            <span>
-                              {step}
-                            </span>
-                          </li>))}
-                    </ol>
-
-                    {solution.checkPoint && (<div className="mt-6 rounded-xl border border-green-200 bg-green-50 p-4">
-                        <p className="text-sm font-bold text-green-800">{" confirmation point "}</p>
-
-                        <p className="mt-1 text-sm leading-6 text-green-700">
-                          {solution.checkPoint}
-                        </p>
-                      </div>)}
-                  </div>
-                </article>))}
-          </div>
-        </section>
-
-        {/* 주의사항 */}
-
-        {problem.warning && (<section className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6">
-            <h2 className="text-lg font-black text-amber-900">{" Precautions "}</h2>
-
-            <p className="mt-2 text-sm leading-7 text-amber-800">
-              {problem.warning}
-            </p>
+        {relatedErrors.length > 0 && (<section className="mt-12 max-w-3xl">
+            <h2 className="border-b border-ink pb-2 text-xl font-extrabold">{"Related error code"}</h2>
+            <p className="mt-3 text-sm text-muted">{"If the code below appears on the screen, refer to the confirmation procedure for each error."}</p>
+            <div>{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
+            <Link href="/en/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{"View all error codes"}</Link>
           </section>)}
-
-
-
-
-
-
-        {extras && (<section className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-    {extras.sources.length > 0 && (<>
-        <h2 className="font-bold text-slate-950">{"Official references"}</h2>
-        <ul className="mt-3 space-y-2">
-          {extras.sources.map((source) => (<li key={source.url}>
-              <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">
-                {source.title}
-              </a>
-            </li>))}
-        </ul>
-      </>)}
-    <p className="mt-4 text-xs text-slate-500">{" Content review date: "}{extras.reviewedAt}{". This guide lists possible causes and the order to check them; it is not a diagnosis that confirms the cause of a fault. "}</p>
-  </section>)}
-
-    {/* 관련 문제 */}
-
-        {relatedProblems.length > 0 && (<>
-    {/* 관련 문제 위 여백 */}
-    <div aria-hidden="true" style={{
-                height: "96px",
-            }}/>
-
-    <section style={{
-                borderTop: "1px solid #e2e8f0",
-                paddingTop: "48px",
-            }}>
-      <div>
-        <h2 className="text-2xl font-black text-slate-950">{" Related issues "}</h2>
-
-        <p className="mt-2 text-sm text-slate-500">{" If the symptoms do not match exactly, please check the issue below. "}</p>
-      </div>
-
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        {relatedProblems.map((relatedProblem) => (<Link key={relatedProblem.slug} href={`/en/problems/${relatedProblem.slug}`} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
-            <span className="text-xs font-bold text-blue-600">
-              {relatedProblem.category}
-            </span>
-
-            <h3 className="mt-2 font-bold text-slate-950 group-hover:text-blue-600">
-              {relatedProblem.title}
-            </h3>
-
-            <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">
-              {relatedProblem.description}
-            </p>
-
-            <div className="mt-4 text-sm font-bold text-blue-600">{" View solutions \u2192 "}</div>
-          </Link>))}
-      </div>
-    </section>
-  </>)}
-        {relatedErrors.length > 0 && (<section className="mt-12">
-            <h2 className="text-2xl font-black">{"Related error code"}</h2>
-            <p className="mt-2 text-sm text-slate-500">{"If the code below appears on the screen, refer to the confirmation procedure for each error."}</p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">{relatedErrors.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
-            <Link href="/en/errors" className="mt-4 inline-block font-semibold text-blue-600">{"See all error codes \u2192"}</Link>
-          </section>)}
-        {/* 하단 CTA */}
-
-        <section className="mt-14 rounded-3xl bg-slate-900 p-7 text-white sm:p-9">
-          <h2 className="text-2xl font-black">{" Look for other symptoms too "}</h2>
-
-          <p className="mt-3 text-sm leading-6 text-slate-300">{" If you enter the symptoms you are currently seeing in the PC FIX search box, we will find the related problem. "}</p>
-
-          <Link href="/en" className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-bold text-slate-900 transition hover:bg-slate-100">{" Search for other issues \u2192 "}</Link>
-        </section>
-      <section className="mt-16">
-          <div>
-            <h2 className="text-2xl font-black text-slate-950">{" Frequently Asked Questions "}</h2>
-
-            <p className="mt-2 text-sm text-slate-500">{" We've put together a list of things we frequently check regarding this issue. "}</p>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            {faq.map((item, index) => (<FaqItem key={index} question={item.question} answer={item.answer}/>))}
-          </div>
-        </section>
       </div>
 
       <div className="display-ad-sides"><DisplayAd label="Advertisement" placement="left"/><DisplayAd label="Advertisement" placement="right"/></div><DisplayAd label="Advertisement"/><SiteFooter />

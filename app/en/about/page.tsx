@@ -4,14 +4,14 @@ export const metadata = staticPageMetadata("/en/about");
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 export default function AboutPage() {
-    return (<main className="min-h-screen bg-slate-50">
+    return (<main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">{" About PC FIX "}</h1>
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" About PC FIX "}</h1>
 
-          <div className="mt-6 space-y-6 text-sm leading-7 text-slate-600 sm:text-base">
+          <div className="mt-6 space-y-6 leading-8 text-[#3d444c]">
             <p>{" PC FIX is a troubleshooting guide created to help anyone easily solve various problems that occur while using a computer. "}</p>
 
             <p>{" When you try to search for a computer problem, you often come across technical terms or complicated explanations. PC FIX is structured to find problems based on the symptoms users actually experience. "}</p>

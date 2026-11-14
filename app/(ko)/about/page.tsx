@@ -5,16 +5,16 @@ import SiteHeader from "@/components/SiteHeader";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">
             PC FIX 소개
           </h1>
 
-          <div className="mt-6 space-y-6 text-sm leading-7 text-slate-600 sm:text-base">
+          <div className="mt-6 space-y-6 leading-8 text-[#3d444c]">
             <p>
               PC FIX는 컴퓨터 사용 중 발생하는 다양한 문제를
               누구나 쉽게 해결할 수 있도록 돕기 위해 만들어진

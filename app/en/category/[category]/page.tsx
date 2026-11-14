@@ -36,68 +36,59 @@ export default async function CategoryPage({ params }: PageProps) {
     }
     const guide = categoryGuide(decodedCategory);
     const titleBySlug = new Map(problems.map((problem) => [problem.slug, problem.title]));
-    return (<main className="min-h-screen bg-slate-50">
+    return (<main className="min-h-screen bg-surface text-ink">
       <SiteHeader />
 
-      <div className="mx-auto max-w-6xl px-5 py-10">
-        <nav className="mb-6 text-sm text-slate-500">
-          <Link href="/en" className="hover:text-blue-600">
+      <div className="mx-auto max-w-5xl px-5 py-8 sm:py-10">
+        <nav className="mb-5 text-sm text-muted">
+          <Link href="/en" className="hover:text-action hover:underline">
             PC FIX
           </Link>
-          <span className="mx-2">›</span>
-          <span>{decodedCategory}</span>
         </nav>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-7">
-          <span className="text-sm font-bold text-blue-600">{" Problem Category "}</span>
-
-          <h1 className="mt-2 text-3xl font-black text-slate-950">
+        <section className="max-w-3xl">
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] sm:text-4xl">
             {decodedCategory}
           </h1>
 
-          <p className="mt-3 text-slate-500">
+          <p className="mt-3 text-muted">
             {decodedCategory}{" problems and their solutions are collected here. "}</p>
 
-          {guide && (<p className="mt-4 leading-7 text-slate-700">
+          {guide && (<p className="mt-4 text-lg leading-8">
               {guide.intro}
             </p>)}
         </section>
 
-        {guide && guide.paths.length > 0 && (<section className="mt-8 rounded-2xl border border-slate-200 bg-white p-7">
-            <h2 className="text-xl font-black text-slate-950">{" Where to start by situation "}</h2>
+        {guide && guide.paths.length > 0 && (<section className="mt-8 max-w-3xl rounded-xl bg-paper p-5 sm:p-6">
+            <h2 className="text-lg font-extrabold">{" Where to start by situation "}</h2>
 
-            <ul className="mt-5 space-y-3">
-              {guide.paths.map((path) => (<li key={path.slug} className="text-sm leading-6 text-slate-700">
-                  <span>{path.when}</span>
-                  <span className="mx-2 text-slate-400">→</span>
-                  <Link href={`/en/problems/${path.slug}`} className="font-semibold text-blue-600 hover:underline">
-                    {titleBySlug.get(path.slug) ?? path.slug}
-                  </Link>
-                </li>))}
-            </ul>
+            <dl className="mt-3">
+              {guide.paths.map((path) => (<div key={path.slug} className="border-b border-line py-3 last:border-b-0">
+                  <dt className="text-sm text-muted">{path.when}</dt>
+                  <dd className="mt-0.5">
+                    <Link href={`/en/problems/${path.slug}`} className="font-semibold text-action hover:underline">
+                      {titleBySlug.get(path.slug) ?? path.slug}
+                    </Link>
+                  </dd>
+                </div>))}
+            </dl>
           </section>)}
 
-        <section className="mt-8">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-xl font-black text-slate-950">{" list of problems "}</h2>
+        <section className="mt-12">
+          <div className="flex items-baseline justify-between border-b-2 border-ink pb-3">
+            <h2 className="text-xl font-extrabold">{" list of problems "}</h2>
 
-            <span className="text-sm text-slate-400">
+            <span className="text-sm text-muted">
               {categoryProblems.length}{" results "}</span>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            {categoryProblems.map((problem) => (<Link key={problem.slug} href={`/en/problems/${problem.slug}`} className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
-                <h3 className="text-lg font-bold text-slate-950 group-hover:text-blue-600">
+          <ul className="grid md:grid-cols-2 md:gap-x-10">
+            {categoryProblems.map((problem) => (<li key={problem.slug} className="border-b border-line">
+                <Link href={`/en/problems/${problem.slug}`} className="group block py-3.5 font-semibold leading-6 hover:text-action hover:underline">
                   {problem.title}
-                </h3>
-
-                <p className="mt-2 text-sm leading-6 text-slate-500">
-                  {problem.description}
-                </p>
-
-                <div className="mt-5 text-sm font-bold text-blue-600">{" View solutions \u2192 "}</div>
-              </Link>))}
-          </div>
+                </Link>
+              </li>))}
+          </ul>
         </section>
       </div>
 

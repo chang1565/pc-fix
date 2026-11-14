@@ -5,19 +5,19 @@ import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
 import ContactEmail from "@/components/ContactEmail";
 export default function ContactPage() {
-    return (<main className="min-h-screen bg-slate-50">
+    return (<main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">{" \u8054\u7CFB\u6211\u4EEC "}</h1>
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" \u8054\u7CFB\u6211\u4EEC "}</h1>
 
-          <p className="mt-6 leading-7 text-slate-600">{" \u8FD9\u662F PC FIX \u5185\u5BB9\u9519\u8BEF\u3001\u66F4\u6B63\u8BF7\u6C42\u3001\u5408\u4F5C\u4F19\u4F34\u5173\u7CFB\u548C\u5176\u4ED6\u67E5\u8BE2\u7684\u9875\u9762\u3002 "}</p>
+          <p className="mt-6 leading-7 text-muted">{" \u8FD9\u662F PC FIX \u5185\u5BB9\u9519\u8BEF\u3001\u66F4\u6B63\u8BF7\u6C42\u3001\u5408\u4F5C\u4F19\u4F34\u5173\u7CFB\u548C\u5176\u4ED6\u67E5\u8BE2\u7684\u9875\u9762\u3002 "}</p>
 
-          <div className="mt-8 rounded-xl bg-slate-50 p-5">
-            <h2 className="font-bold text-slate-950">{" \u5982\u4F55\u8054\u7CFB\u6211\u4EEC "}</h2>
+          <div className="mt-8 rounded-xl bg-paper p-5 sm:p-6">
+            <h2 className="font-bold text-ink">{" \u5982\u4F55\u8054\u7CFB\u6211\u4EEC "}</h2>
 
-            <p className="mt-2 text-sm leading-6 text-slate-500">{" \u8BF7\u5C06\u4EFB\u4F55\u7591\u95EE\u53D1\u9001\u81F3\u4EE5\u4E0B\u7535\u5B50\u90AE\u4EF6\u5730\u5740\u3002 "}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{" \u8BF7\u5C06\u4EFB\u4F55\u7591\u95EE\u53D1\u9001\u81F3\u4EE5\u4E0B\u7535\u5B50\u90AE\u4EF6\u5730\u5740\u3002 "}</p>
 
             <div className="mt-3"><ContactEmail /></div>
           </div>

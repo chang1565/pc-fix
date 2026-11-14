@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ErrorBrowser from "@/components/ErrorBrowser";
@@ -11,8 +10,8 @@ export const metadata: Metadata = {
   alternates: languageAlternates("/errors"),
 };
 export default function ErrorsPage() {
-  return <main className="min-h-screen bg-slate-50 text-slate-900"><SiteHeader />
-    <div className="mx-auto max-w-6xl px-5 py-12"><h1 className="text-3xl font-black sm:text-4xl">오류 코드 목록</h1>
-      <p className="mt-4 max-w-3xl leading-7 text-slate-600">카테고리별 오류를 둘러보세요. 증상과 오류 코드 검색은 메인 검색창에서 한 번에 할 수 있습니다.</p>
-      <Link href="/" className="mt-5 inline-flex rounded-xl bg-blue-600 px-5 py-3 font-bold text-white">통합 검색으로 찾기 →</Link><ErrorBrowser /></div><SiteFooter /></main>;
+  return <main className="min-h-screen bg-surface text-ink"><SiteHeader />
+    <div className="mx-auto max-w-5xl px-5 py-10"><h1 className="text-3xl font-extrabold tracking-[-0.03em] sm:text-4xl">오류 코드 목록</h1>
+      <p className="mt-3 max-w-2xl leading-7 text-muted">카테고리별 오류를 둘러보세요. 증상과 오류 코드 검색은 메인 검색창에서 한 번에 할 수 있습니다.</p>
+      <ErrorBrowser /></div><SiteFooter /></main>;
 }

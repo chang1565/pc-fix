@@ -33,10 +33,10 @@ export default function ErrorBrowser() {
     const results = errorCodes.filter(entry => !category || entry.category === category);
     return <section className="mt-8">
     <div className="max-w-sm"><label htmlFor="error-category" className="mb-2 block text-sm font-semibold">{"\u30AB\u30C6\u30B4\u30EA\u30FC"}</label>
-      <select id="error-category" value={category} onChange={event => update(event.target.value)} className="w-full rounded-xl border border-slate-300 bg-white p-4"><option value="">{"\u5168\u30AB\u30C6\u30B4\u30EA"}</option>{errorCategories.map(value => <option key={value}>{value}</option>)}</select>
+      <select id="error-category" value={category} onChange={event => update(event.target.value)} className="w-full rounded-xl border border-[#cfd4da] bg-paper p-3 focus:border-action focus:bg-surface"><option value="">{"\u5168\u30AB\u30C6\u30B4\u30EA"}</option>{errorCategories.map(value => <option key={value}>{value}</option>)}</select>
     </div>
-    <p role="status" className="my-6 text-sm text-slate-500">{results.length}{"\u72AC\u306E\u30A8\u30E9\u30FC"}</p>
-    {results.length ? <div className="grid gap-4 md:grid-cols-2">{results.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
-            : <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center"><p>{"\u4E00\u81F4\u3059\u308B\u30A8\u30E9\u30FC\u306F\u3042\u308A\u307E\u305B\u3093\u3002\u5225\u306E\u30AB\u30C6\u30B4\u30EA\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}</p><button onClick={() => update("")} className="mt-4 font-bold text-blue-600">{"\u5B8C\u5168\u306A\u30A8\u30E9\u30FC\u3092\u898B\u308B"}</button></div>}
+    <p role="status" className="mt-6 text-sm text-muted">{results.length}{"\u72AC\u306E\u30A8\u30E9\u30FC"}</p>
+    {results.length ? <div className="mt-2 grid gap-x-10 md:grid-cols-2">{results.map(entry => <ErrorCard key={entry.slug} entry={entry}/>)}</div>
+            : <div className="mt-4 rounded-xl bg-paper p-8 text-center"><p>{"\u4E00\u81F4\u3059\u308B\u30A8\u30E9\u30FC\u306F\u3042\u308A\u307E\u305B\u3093\u3002\u5225\u306E\u30AB\u30C6\u30B4\u30EA\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002"}</p><button onClick={() => update("")} className="mt-4 font-bold text-action">{"\u5B8C\u5168\u306A\u30A8\u30E9\u30FC\u3092\u898B\u308B"}</button></div>}
   </section>;
 }

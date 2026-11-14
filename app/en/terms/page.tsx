@@ -4,39 +4,39 @@ export const metadata = staticPageMetadata("/en/terms");
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 export default function TermsPage() {
-    return (<main className="min-h-screen bg-slate-50">
+    return (<main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">{" Terms of Use "}</h1>
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" Terms of Use "}</h1>
 
-          <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
+          <div className="mt-8 space-y-9 leading-8 text-[#3d444c]">
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 1. Service purpose "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 1. Service purpose "}</h2>
 
               <p className="mt-2">{" PC FIX aims to provide general information to help you troubleshoot problems with your computer and related devices. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 2. Use of information "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 2. Use of information "}</h2>
 
               <p className="mt-2">{" The information provided on the site is provided for reference purposes, and results may vary depending on the user's computer environment. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 3. Protect your data and equipment "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 3. Protect your data and equipment "}</h2>
 
               <p className="mt-2">{" We recommend backing up important data before changing system settings, working with storage devices, or removing components. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 4. Professional inspection "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 4. Professional inspection "}</h2>
 
               <p className="mt-2">{" We recommend that any issues that may be safety-related, such as power supply, battery, or damaged parts, be inspected by a professional rather than doing the work yourself. "}</p>
             </section>
 
-            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{" Effective date: October 6, 2026 "}</p>
+            <p className="border-t border-line pt-6 text-xs text-muted">{" Effective date: October 6, 2026 "}</p>
           </div>
         </div>
       </article>

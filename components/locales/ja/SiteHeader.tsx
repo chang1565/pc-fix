@@ -2,28 +2,26 @@
 import Link from "next/link";
 import LanguageSelector from "@/components/LanguageSelector";
 import LanguageSuggestion from "@/components/LanguageSuggestion";
-export default function SiteHeader() {
+export default function SiteHeader({ showSearch = true }: {
+    showSearch?: boolean;
+}) {
     return (<>
-    <header className="border-b border-slate-200 bg-white">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4">
-        <Link href="/ja" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 font-black text-white">
-            P
-          </div>
+    <header className="border-b border-line bg-surface">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-5 gap-y-3 px-5 py-3">
+        <Link href="/ja" className="flex shrink-0 items-baseline gap-2">
+          <span className="text-lg font-extrabold tracking-tight text-ink">
+            PC FIX
+          </span>
 
-          <div>
-            <div className="text-lg font-black tracking-tight text-slate-950">
-              PC FIX
-            </div>
-
-            <div className="hidden text-[11px] text-slate-400 sm:block">{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u306E\u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0\u30AC\u30A4\u30C9 "}</div>
-          </div>
+          <span className="hidden text-xs text-muted sm:inline">{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u306E\u30C8\u30E9\u30D6\u30EB\u30B7\u30E5\u30FC\u30C6\u30A3\u30F3\u30B0\u30AC\u30A4\u30C9 "}</span>
         </Link>
 
-        <nav className="flex items-center gap-1 text-sm font-medium text-slate-600">
-          <Link href="/ja" className="rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950">{" \u691C\u7D22 "}</Link>
+        {showSearch && <form action="/ja" role="search" className="order-last w-full sm:order-none sm:w-auto sm:flex-1">
+          <input type="search" name="q" aria-label="PCの症状またはエラーコードを検索" placeholder="症状やエラーコードを検索" className="h-10 w-full rounded-md border border-line bg-paper px-3 text-sm text-ink placeholder:text-muted focus:border-action focus:bg-surface"/>
+        </form>}
 
-          <Link href="/ja/about" className="hidden rounded-lg px-3 py-2 transition hover:bg-slate-100 hover:text-slate-950 sm:block">{" PC FIX\u306B\u3064\u3044\u3066 "}</Link>
+        <nav className="ml-auto flex items-center gap-1 text-sm text-muted sm:ml-0">
+          <Link href="/ja/about" className="hidden rounded-md px-3 py-2 hover:text-ink sm:block">{" PC FIX\u306B\u3064\u3044\u3066 "}</Link>
           <LanguageSelector />
         </nav>
       </div>

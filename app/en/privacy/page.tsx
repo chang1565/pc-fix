@@ -4,16 +4,16 @@ export const metadata = staticPageMetadata("/en/privacy");
 import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 export default function PrivacyPage() {
-    return (<main className="min-h-screen bg-slate-50">
+    return (<main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">{" Privacy Policy "}</h1>
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" Privacy Policy "}</h1>
 
-          <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
+          <div className="mt-8 space-y-9 leading-8 text-[#3d444c]">
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 1. Information we collect directly "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 1. Information we collect directly "}</h2>
 
               <p className="mt-2">{" PC FIX has no sign-up, login or comment features and does not ask for personal information such as your name, phone number or email address. "}</p>
 
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 2. Access records "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 2. Access records "}</h2>
 
               <p className="mt-2">{" To deliver pages and block attacks, the PC FIX server and Cloudflare, our delivery and security service, may process access records such as IP address, browser type, requested address and time of access. "}</p>
 
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 3. Language cookie "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 3. Language cookie "}</h2>
 
               <p className="mt-2">{" If you choose a language in the language menu, only the selected language (ko, en, ja, zh-CN) is stored in the pcfix-language cookie for up to one year so the same language is shown on your next visit. "}</p>
 
@@ -39,33 +39,33 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 4. Google AdSense advertising "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 4. Google AdSense advertising "}</h2>
 
               <p className="mt-2">{" PC FIX shows Google AdSense ads. Third-party vendors, including Google, may use cookies to serve ads based on your prior visits to this site or other sites and to measure ad performance. "}</p>
 
               <p className="mt-2">{" Google's use of advertising cookies enables it to serve ads based on your visits to PC FIX and other websites. You can learn how Google uses this information at"}{" "}
-                <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">{" How Google uses information from sites or apps that use our services "}</a>{" . "}</p>
+                <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="font-semibold text-action hover:underline">{" How Google uses information from sites or apps that use our services "}</a>{" . "}</p>
 
               <p className="mt-2">{" You can turn off personalized ads in"}{" "}
-                <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">{" Google My Ad Center "}</a>{" , and opt out of third-party vendors' personalized advertising cookies at"}{" "}
-                <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline">
+                <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" className="font-semibold text-action hover:underline">{" Google My Ad Center "}</a>{" , and opt out of third-party vendors' personalized advertising cookies at"}{" "}
+                <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="font-semibold text-action hover:underline">
                   aboutads.info
                 </a>{" . Even if you turn off personalized ads, non-personalized ads may still be shown. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 5. Contact "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 5. Contact "}</h2>
 
               <p className="mt-2">{" For questions about how personal information is handled, please email the address on the contact page. "}</p>
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">{" 6. Changes to this policy "}</h2>
+              <h2 className="text-xl font-bold text-ink">{" 6. Changes to this policy "}</h2>
 
               <p className="mt-2">{" If the services or features we use change, we will update this policy and the effective date below. "}</p>
             </section>
 
-            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">{" Effective date: November 14, 2026 (previous policy effective October 6, 2026) "}</p>
+            <p className="border-t border-line pt-6 text-xs text-muted">{" Effective date: November 14, 2026 (previous policy effective October 6, 2026) "}</p>
           </div>
         </div>
       </article>

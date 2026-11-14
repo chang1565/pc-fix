@@ -5,18 +5,18 @@ import SiteHeader from "@/components/SiteHeader";
 
 export default function PrivacyPage() {
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">
             개인정보처리방침
           </h1>
 
-          <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
+          <div className="mt-8 space-y-9 leading-8 text-[#3d444c]">
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 1. 직접 수집하는 정보
               </h2>
 
@@ -34,7 +34,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 2. 접속 기록
               </h2>
 
@@ -48,7 +48,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 3. 언어 선택 쿠키
               </h2>
 
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 4. Google AdSense 광고
               </h2>
 
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
                   href="https://policies.google.com/technologies/partner-sites"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-blue-600 hover:underline"
+                  className="font-semibold text-action hover:underline"
                 >
                   Google 파트너 사이트 정보 사용 방식
                 </a>
@@ -89,7 +89,7 @@ export default function PrivacyPage() {
                   href="https://myadcenter.google.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-blue-600 hover:underline"
+                  className="font-semibold text-action hover:underline"
                 >
                   Google 내 광고 센터
                 </a>
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
                   href="https://www.aboutads.info/choices/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold text-blue-600 hover:underline"
+                  className="font-semibold text-action hover:underline"
                 >
                   aboutads.info
                 </a>
@@ -107,7 +107,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 5. 문의
               </h2>
 
@@ -117,7 +117,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-ink">
                 6. 방침 변경
               </h2>
 
@@ -126,7 +126,7 @@ export default function PrivacyPage() {
               </p>
             </section>
 
-            <p className="border-t border-slate-100 pt-6 text-xs text-slate-400">
+            <p className="border-t border-line pt-6 text-xs text-muted">
               시행일: 2026년 11월 14일 (이전 방침 시행일: 2026년 10월 6일)
             </p>
           </div>

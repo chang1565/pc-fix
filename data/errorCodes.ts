@@ -1,4 +1,5 @@
 import { problems } from "./problems";
+import { errorSteps } from "./errorSteps/index";
 export type ErrorCodeEntry = {
   slug: string; code: string; category: string; title: string;
   description: string; commonSituations: string; causes: string[]; firstCheck: string;
@@ -367,7 +368,8 @@ export const errorCodes: ErrorCodeEntry[] = groups.flatMap(group => group.entrie
     updatedAt: errorsUpdatedAt,
     // 위쪽 '자주 발생하는 상황'·'오류 의미'를 되풀이하던 단계 이유 문단과, 확인 포인트를 반복하던 FAQ는 없앴다.
     // '가장 먼저 확인할 것'은 화면 위쪽 상자 대신 1단계로만 보여준다.
-    solutions: [
+    // 검수에서 공통 2단계가 맞지 않은 오류는 직접 쓴 단계를 쓴다(data/errorSteps).
+    solutions: errorSteps[slugFor(group.category, code)]?.map((step, index) => ({ ...step, order: index + 1 })) ?? [
       { order: 1, title: "발생 조건 확인", reason: "", difficulty: "쉬움" as const, time: "5분", steps: [firstCheck], checkPoint: "오류 코드와 발생 시점, 최근 변경 내용을 함께 기록하세요." },
       { order: 2, title: `${name} 해결 절차`, reason: "", difficulty: "보통" as const, time: "10~30분", steps: action.split("|"), checkPoint },
     ],

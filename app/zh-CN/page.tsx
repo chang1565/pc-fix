@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import SiteFooter from "@/components/locales/zh-CN/SiteFooter";
 import SiteHeader from "@/components/locales/zh-CN/SiteHeader";
 import { problems } from "@/data/locales/zh-CN";
+import { errorCodes } from "@/data/locales/zh-CN";
 import { searchPcFix } from "@/lib/locales/zh-CN/unifiedSearch";
 const popularSlugs = [
     "game-black-screen-restart",
@@ -16,6 +17,16 @@ const popularSlugs = [
     "computer-shutdown",
     "computer-boot-failure",
     "usb-not-recognized",
+];
+const popularErrorSlugs = [
+    "critical-process-died",
+    "irql-not-less-or-equal",
+    "memory-management",
+    "inaccessible-boot-device",
+    "0xc000007b",
+    "device-manager-code-43",
+    "err-network-changed",
+    "0x80070057",
 ];
 export default function Home() {
     const [inputQuery, setInputQuery] = useState("");
@@ -79,6 +90,9 @@ export default function Home() {
     const popularProblems = popularSlugs
         .map((slug) => problems.find((problem) => problem.slug === slug))
         .filter(Boolean);
+    const popularErrors = popularErrorSlugs
+        .map((slug) => errorCodes.find((entry) => entry.slug === slug))
+        .filter((entry) => entry !== undefined);
     const categories = Array.from(new Set(problems.map((problem) => problem.category)));
     const isSearching = debouncedQuery.length > 0;
     function handleExampleSearch(example: string) {
@@ -91,215 +105,167 @@ export default function Home() {
         setDebouncedQuery("");
         updateSearchUrl("");
     }
-    return (<main className="relative min-h-screen bg-slate-50 text-slate-900">
-      <SiteHeader />
+    return (<main className="relative min-h-screen bg-surface text-ink">
+      <SiteHeader showSearch={false}/>
 
-      {/* HERO */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-5xl px-5 py-16 text-center sm:py-24">
-          <div className="mx-auto mb-5 inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">{" \u641C\u7D22\u7535\u8111\u6545\u969C\u73B0\u8C61\u548C\u9519\u8BEF\u4EE3\u7801 "}</div>
+      {/* 첫 화면: 지금 보이는 증상이나 오류 문구를 바로 입력하는 검색 */}
+      <section className="mx-auto max-w-5xl px-5 pb-10 pt-12 sm:pb-14 sm:pt-16">
+        <h1 className="max-w-3xl text-[2rem] font-extrabold leading-[1.25] tracking-[-0.03em] sm:text-5xl">{" \u7535\u8111\u51FA\u73B0\u95EE\u9898\u65F6\uFF0C "}<br />{" \u5E94\u8BE5\u5148\u68C0\u67E5\u4EC0\u4E48\uFF1F "}</h1>
 
-          <h1 className="text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">{" \u7535\u8111\u51FA\u73B0\u95EE\u9898\u65F6\uFF0C "}<br />
-            <span className="text-blue-600">{" \u5E94\u8BE5\u5148\u68C0\u67E5\u4EC0\u4E48\uFF1F "}</span>
-          </h1>
+        <p className="mt-4 max-w-2xl leading-7 text-muted sm:text-lg">{" \u76F4\u63A5\u8F93\u5165\u60A8\u9047\u5230\u7684\u6545\u969C\u73B0\u8C61\u6216\u5C4F\u5E55\u4E0A\u663E\u793A\u7684\u9519\u8BEF\u4EE3\u7801\u3002 "}</p>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-500 sm:text-lg">{" \u67E5\u627E\u7535\u8111\u4E0A\u51FA\u73B0\u7684\u5404\u79CD\u95EE\u9898\u7684\u75C7\u72B6\uFF0C\u5305\u62EC\u7535\u6E90\u3001\u542F\u52A8\u3001\u5C4F\u5E55\u3001\u84DD\u5C4F\u3001\u6E38\u620F\u548C\u4E92\u8054\u7F51\u3002 "}<br className="hidden sm:block"/>{" \u76F4\u63A5\u8F93\u5165\u60A8\u9047\u5230\u7684\u6545\u969C\u73B0\u8C61\u6216\u5C4F\u5E55\u4E0A\u663E\u793A\u7684\u9519\u8BEF\u4EE3\u7801\u3002 "}</p>
+        <div className="relative mt-7 max-w-2xl">
+          <input type="search" aria-label="搜索电脑故障现象或错误代码" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例如：游戏中黑屏、0xc0000005、Code 43" className="home-search"/>
 
-          {/* 검색 영역 */}
-          <div className="mx-auto mt-9" style={{
-            width: "min(760px, 100%)",
-        }}>
-            <div style={{
-            position: "relative",
-            width: "100%",
-        }}>
-              <input type="text" aria-label="搜索电脑故障现象或错误代码" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例如：游戏中黑屏、0xc0000005、Code 43" style={{
-            display: "block",
-            width: "100%",
-            height: "64px",
-            boxSizing: "border-box",
-            paddingLeft: "22px",
-            paddingRight: "54px",
-            borderRadius: "16px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#ffffff",
-            fontSize: "16px",
-            outline: "none",
-            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
-        }} className="placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"/>
+          {inputQuery && (<button type="button" onClick={handleClear} aria-label="清除搜索词" className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-md text-muted hover:bg-line hover:text-ink">
+              ✕
+            </button>)}
+        </div>
 
-              {inputQuery && (<button type="button" onClick={handleClear} aria-label="清除搜索词" style={{
-                position: "absolute",
-                right: "14px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "34px",
-                height: "34px",
-                borderRadius: "8px",
-            }} className="text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
-                  ✕
-                </button>)}
-            </div>
-
-            <p className="mt-4 text-xs text-slate-400">{" \u9664\u4E86\u75C7\u72B6\u4E4B\u5916\uFF0C\u60A8\u8FD8\u53EF\u4EE5\u641C\u7D22\u9519\u8BEF\u4EE3\u7801\uFF0C\u4F8B\u5982 0xc0000005 \u548C\u4EE3\u7801 43\u3002 "}</p>
-
-            {/* 빠른 검색 */}
-            <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs text-slate-500">
-              <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u51FA\u73B0\u9ED1\u5C4F\u5E76\u91CD\u65B0\u542F\u52A8\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u6E38\u620F\u603B\u662F\u5D29\u6E83")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u6E38\u620F\u5D29\u6E83 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u6211\u7684\u7535\u8111\u592A\u6162\u4E86")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u7535\u8111\u901F\u5EA6\u53D8\u6162 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u7F51\u7EDC\u7A81\u7136\u4E0D\u80FD\u7528\u4E86")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u6CA1\u6709\u4E92\u8054\u7F51 "}</button>
-            </div>
-          </div>
+        <div className="home-examples">
+          <button type="button" onClick={() => handleExampleSearch("\u73A9\u6E38\u620F\u65F6\u51FA\u73B0\u9ED1\u5C4F\u5E76\u91CD\u65B0\u542F\u52A8\u3002")}>{" \u73A9\u6E38\u620F\u65F6\u9ED1\u5C4F "}</button>
+          <button type="button" onClick={() => handleExampleSearch("\u6E38\u620F\u603B\u662F\u5D29\u6E83")}>{" \u6E38\u620F\u5D29\u6E83 "}</button>
+          <button type="button" onClick={() => handleExampleSearch("\u6211\u7684\u7535\u8111\u592A\u6162\u4E86")}>{" \u7535\u8111\u901F\u5EA6\u53D8\u6162 "}</button>
+          <button type="button" onClick={() => handleExampleSearch("\u7F51\u7EDC\u7A81\u7136\u4E0D\u80FD\u7528\u4E86")}>{" \u6CA1\u6709\u4E92\u8054\u7F51 "}</button>
         </div>
       </section>
 
-      {/* 본문 */}
-      <div className="mx-auto max-w-6xl px-5 py-12">
+      <div className="mx-auto max-w-5xl px-5 pb-14">
         {isSearching ? (<section>
-            <div className="mb-6 flex items-end justify-between gap-4">
-              <div>
-                <h2 className="text-2xl font-black text-slate-950">{" \u641C\u7D22\u7ED3\u679C "}</h2>
+            <div className="flex items-baseline justify-between gap-4 border-b-2 border-ink pb-3">
+              <h2 className="text-xl font-extrabold">{" \u641C\u7D22\u7ED3\u679C "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">
-                  &quot;{debouncedQuery}{"\u201C\u4E0E\u4EE5\u4E0B\u76F8\u5173\u7684\u95EE\u9898\u548C\u9519\u8BEF\uFF1A "}</p>
-              </div>
-
-              <span className="text-sm text-slate-400">
+              <span className="text-sm text-muted">
                 {searchResults.length}{"\u6761 "}</span>
             </div>
 
+            <p className="mt-3 text-sm text-muted">
+              &quot;{debouncedQuery}{"\u201C\u4E0E\u4EE5\u4E0B\u76F8\u5173\u7684\u95EE\u9898\u548C\u9519\u8BEF\uFF1A "}</p>
+
             {searchResults.length > 0 ? (<>
-                <div className="grid gap-4 md:grid-cols-2">
+                <ol className="mt-2">
                   {searchResults
                     .slice(0, expandedQuery === debouncedQuery ? undefined : 10)
-                    .map((problem, index) => (<Link key={problem.href} href={problem.href} className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="text-xs font-bold text-blue-600">
+                    .map((problem, index) => (<li key={problem.href} className="border-b border-line">
+                        <Link href={problem.href} className="group block py-4">
+                          <span className="text-xs text-muted">
                             {problem.category}
                           </span>
 
-                          {index === 0 && (<span className="rounded-full bg-green-50 px-2.5 py-1 text-[11px] font-bold text-green-700">{" \u6700\u76F8\u5173 "}</span>)}
-                        </div>
+                          {index === 0 && (<span className="ml-2 text-xs font-bold text-action">{" \u6700\u76F8\u5173 "}</span>)}
 
-                        <h3 className="mt-3 text-lg font-bold text-slate-950 group-hover:text-blue-600">
-                          {problem.title}
-                        </h3>
+                          <h3 className="mt-1 text-lg font-bold group-hover:text-action group-hover:underline">
+                            {problem.title}
+                          </h3>
 
-                        <p className="mt-2 text-sm leading-6 text-slate-500">
-                          {problem.description}
-                        </p>
+                          <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted">
+                            {problem.description}
+                          </p>
+                        </Link>
+                      </li>))}
+                </ol>
 
-                        <div className="mt-5 text-sm font-semibold text-blue-600">{" \u67E5\u770B\u89E3\u51B3\u65B9\u6CD5 \u2192 "}</div>
-                      </Link>))}
-                </div>
+                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="mt-6 rounded-md border border-line bg-surface px-4 py-2.5 text-sm font-bold text-action hover:border-action">{"\u67E5\u770B\u66F4\u591A\u641C\u7D22\u7ED3\u679C\uFF08"}{searchResults.length - 10}{"\u6761)"}</button>)}
+              </>) : (<div className="mt-6 rounded-md border border-line bg-surface p-6">
+                <h3 className="font-bold">{" \u6211\u627E\u4E0D\u5230\u4EFB\u4F55\u76F8\u5173\u95EE\u9898\u3002 "}</h3>
 
-                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<div className="mt-6 text-center"><button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="rounded-xl border border-blue-200 bg-white px-5 py-3 text-sm font-bold text-blue-600">{"\u67E5\u770B\u66F4\u591A\u641C\u7D22\u7ED3\u679C\uFF08"}{searchResults.length - 10}{"\u6761)"}</button></div>)}
-                <div className="mt-8 text-center">
-                  <button type="button" onClick={handleClear} className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-blue-300 hover:text-blue-600">{" \u641C\u7D22\u5176\u4ED6\u95EE\u9898 "}</button>
-                </div>
-              </>) : (<div className="rounded-2xl border border-slate-200 bg-white p-8 text-center">
-                <div className="text-4xl">
-                  🔎
-                </div>
+                <p className="mt-2 text-sm leading-6 text-muted">{" \u8BF7\u66F4\u8BE6\u7EC6\u5730\u8F93\u5165\u60A8\u7684\u75C7\u72B6\u3002 "}<br />{" \u793A\u4F8B\uFF1A\u201C\u6E38\u620F\u671F\u95F4\u5C4F\u5E55\u5173\u95ED\uFF0C\u4F46\u4E3B\u673A\u4FDD\u6301\u6253\u5F00\u72B6\u6001\u3002\u201D "}</p>
 
-                <h3 className="mt-4 text-lg font-bold text-slate-950">{" \u6211\u627E\u4E0D\u5230\u4EFB\u4F55\u76F8\u5173\u95EE\u9898\u3002 "}</h3>
-
-                <p className="mt-2 text-sm leading-6 text-slate-500">{" \u8BF7\u66F4\u8BE6\u7EC6\u5730\u8F93\u5165\u60A8\u7684\u75C7\u72B6\u3002 "}<br />{" \u793A\u4F8B\uFF1A\u201C\u6E38\u620F\u671F\u95F4\u5C4F\u5E55\u5173\u95ED\uFF0C\u4F46\u4E3B\u673A\u4FDD\u6301\u6253\u5F00\u72B6\u6001\u3002\u201D "}</p>
-
-                <button type="button" onClick={handleClear} className="mt-5 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700">{" \u518D\u6B21\u641C\u7D22 "}</button>
+                <button type="button" onClick={handleClear} className="mt-4 rounded-md bg-action px-4 py-2.5 text-sm font-bold text-white hover:bg-action-strong">{" \u518D\u6B21\u641C\u7D22 "}</button>
               </div>)}
           </section>) : (<>
-            {/* 자주 발생하는 문제 */}
-            <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u5E38\u89C1\u7535\u8111\u95EE\u9898 "}</h2>
+            <div className="grid gap-12 md:grid-cols-[1.25fr_1fr] md:gap-14">
+              <section>
+                <h2 className="home-h2">{" \u5E38\u89C1\u7535\u8111\u95EE\u9898 "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">{" \u9996\u5148\u68C0\u67E5\u6700\u5E38\u89C1\u7684\u7535\u8111\u95EE\u9898\u3002 "}</p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {popularProblems.map((problem) => {
+                <ul>
+                  {popularProblems.map((problem) => {
                 if (!problem) {
                     return null;
                 }
-                return (<Link key={problem.slug} href={`/zh-CN/problems/${problem.slug}`} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
-                      <span className="text-xs font-bold text-blue-600">
-                        {problem.category}
-                      </span>
+                return (<li key={problem.slug} className="border-b border-line">
+                        <Link href={`/zh-CN/problems/${problem.slug}`} className="group flex items-baseline gap-3 py-3">
+                          <span className="w-14 shrink-0 text-xs text-muted">
+                            {problem.category}
+                          </span>
 
-                      <h3 className="mt-2 font-bold leading-6 text-slate-950 group-hover:text-blue-600">
-                        {problem.title}
-                      </h3>
-
-                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">
-                        {problem.description}
-                      </p>
-                    </Link>);
+                          <span className="font-semibold leading-6 group-hover:text-action group-hover:underline">
+                            {problem.title}
+                          </span>
+                        </Link>
+                      </li>);
             })}
-              </div>
-            </section>
+                </ul>
+              </section>
 
-            {/* 카테고리 */}
+              <section>
+                <h2 className="home-h2">{" \u5E38\u89C1\u9519\u8BEF\u4EE3\u7801 "}</h2>
+
+                <ul>
+                  {popularErrors.map((entry) => (<li key={entry.slug} className="border-b border-line">
+                      <Link href={`/zh-CN/errors/${entry.slug}`} className="group flex items-baseline justify-between gap-3 py-3">
+                        <span className="home-code group-hover:text-action group-hover:underline">
+                          {entry.code}
+                        </span>
+
+                        <span className="shrink-0 text-xs text-muted">
+                          {entry.category}
+                        </span>
+                      </Link>
+                    </li>))}
+                </ul>
+
+                <Link href="/zh-CN/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{" \u67E5\u770B\u5168\u90E8\u9519\u8BEF\u4EE3\u7801 "}</Link>
+              </section>
+            </div>
+
             <section className="mt-14">
-              <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u6309\u7C7B\u522B\u6D4F\u89C8 "}</h2>
+              <h2 className="home-h2">{" \u6309\u7C7B\u522B\u6D4F\u89C8 "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">{" \u5982\u679C\u60A8\u77E5\u9053\u95EE\u9898\u51FA\u5728\u54EA\u91CC\uFF0C\u8BF7\u5728\u7C7B\u522B\u4E2D\u67E5\u627E\u3002 "}</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              <ul className="grid grid-cols-2 gap-x-8 sm:grid-cols-3 lg:grid-cols-4">
                 {categories.map((category) => {
                 const count = problems.filter((problem) => problem.category === category).length;
-                return (<Link key={category} href={`/zh-CN/category/${encodeURIComponent(category)}`} className="rounded-xl border border-slate-200 bg-white p-5 transition hover:border-blue-300 hover:shadow-sm">
-                      <div className="font-bold text-slate-950">
-                        {category}
-                      </div>
+                return (<li key={category} className="border-b border-line">
+                      <Link href={`/zh-CN/category/${encodeURIComponent(category)}`} className="group flex items-baseline justify-between gap-2 py-3">
+                        <span className="font-semibold group-hover:text-action group-hover:underline">
+                          {category}
+                        </span>
 
-                      <div className="mt-1 text-xs text-slate-400">{" \u95EE\u9898 "}{count}{"\u6761 "}</div>
-                    </Link>);
+                        <span className="text-sm tabular-nums text-muted">
+                          {count}
+                        </span>
+                      </Link>
+                    </li>);
             })}
-              </div>
+              </ul>
             </section>
 
-            {/* 사용 방법 */}
-            <section className="mt-14 rounded-3xl bg-slate-900 px-6 py-10 text-white sm:px-10">
-              <h2 className="text-2xl font-black">{" \u60A8\u53EF\u4EE5\u50CF\u8FD9\u6837\u4F7F\u7528 PC FIX\uFF1A "}</h2>
+            <section className="mt-14">
+              <h2 className="home-h2">{" \u60A8\u53EF\u4EE5\u50CF\u8FD9\u6837\u4F7F\u7528 PC FIX\uFF1A "}</h2>
 
-              <div className="mt-8 grid gap-6 md:grid-cols-3">
-                <div>
-                  <div className="text-sm font-black text-blue-400">
-                    01
+              <ol className="home-how">
+                <li>
+                  <span aria-hidden="true">1</span>
+                  <div>
+                    <h3 className="font-bold">{" \u6309\u539F\u6837\u641C\u7D22\u75C7\u72B6 "}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted">{" \u4E0D\u8981\u4F7F\u7528\u884C\u8BDD\uFF0C\u800C\u662F\u4F7F\u7528\u60A8\u5B9E\u9645\u770B\u5230\u7684\u5185\u5BB9\u3002 "}</p>
                   </div>
-
-                  <h3 className="mt-2 font-bold">{" \u6309\u539F\u6837\u641C\u7D22\u75C7\u72B6 "}</h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{" \u4E0D\u8981\u4F7F\u7528\u884C\u8BDD\uFF0C\u800C\u662F\u4F7F\u7528\u60A8\u5B9E\u9645\u770B\u5230\u7684\u5185\u5BB9\u3002 "}</p>
-                </div>
-
-                <div>
-                  <div className="text-sm font-black text-blue-400">
-                    02
+                </li>
+                <li>
+                  <span aria-hidden="true">2</span>
+                  <div>
+                    <h3 className="font-bold">{" \u7528\u7B80\u5355\u7684\u65B9\u6CD5\u68C0\u67E5\u4E00\u4E0B "}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted">{" \u6211\u4EEC\u5C06\u9010\u6B65\u6307\u5BFC\u60A8\uFF0C\u4ECE\u6210\u672C\u8F83\u4F4E\u3001\u98CE\u9669\u8F83\u5C0F\u7684\u89E3\u51B3\u65B9\u6848\u5F00\u59CB\u3002 "}</p>
                   </div>
-
-                  <h3 className="mt-2 font-bold">{" \u7528\u7B80\u5355\u7684\u65B9\u6CD5\u68C0\u67E5\u4E00\u4E0B "}</h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{" \u6211\u4EEC\u5C06\u9010\u6B65\u6307\u5BFC\u60A8\uFF0C\u4ECE\u6210\u672C\u8F83\u4F4E\u3001\u98CE\u9669\u8F83\u5C0F\u7684\u89E3\u51B3\u65B9\u6848\u5F00\u59CB\u3002 "}</p>
-                </div>
-
-                <div>
-                  <div className="text-sm font-black text-blue-400">
-                    03
+                </li>
+                <li>
+                  <span aria-hidden="true">3</span>
+                  <div>
+                    <h3 className="font-bold">{" \u4EC5\u7EE7\u7EED\u76F4\u81F3\u89E3\u51B3 "}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted">{" \u5982\u679C\u95EE\u9898\u5F97\u5230\u89E3\u51B3\uFF0C\u5219\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u66F4\u56F0\u96BE\u7684\u6B65\u9AA4\u3002 "}</p>
                   </div>
-
-                  <h3 className="mt-2 font-bold">{" \u4EC5\u7EE7\u7EED\u76F4\u81F3\u89E3\u51B3 "}</h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{" \u5982\u679C\u95EE\u9898\u5F97\u5230\u89E3\u51B3\uFF0C\u5219\u65E0\u9700\u7EE7\u7EED\u6267\u884C\u66F4\u56F0\u96BE\u7684\u6B65\u9AA4\u3002 "}</p>
-                </div>
-              </div>
+                </li>
+              </ol>
             </section>
           </>)}
       </div>

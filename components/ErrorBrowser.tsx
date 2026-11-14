@@ -28,10 +28,10 @@ export default function ErrorBrowser() {
   const results = errorCodes.filter(entry => !category || entry.category === category);
   return <section className="mt-8">
     <div className="max-w-sm"><label htmlFor="error-category" className="mb-2 block text-sm font-semibold">카테고리</label>
-      <select id="error-category" value={category} onChange={event => update(event.target.value)} className="w-full rounded-xl border border-slate-300 bg-white p-4"><option value="">전체 카테고리</option>{errorCategories.map(value => <option key={value}>{value}</option>)}</select>
+      <select id="error-category" value={category} onChange={event => update(event.target.value)} className="w-full rounded-xl border border-[#cfd4da] bg-paper p-3 focus:border-action focus:bg-surface"><option value="">전체 카테고리</option>{errorCategories.map(value => <option key={value}>{value}</option>)}</select>
     </div>
-    <p role="status" className="my-6 text-sm text-slate-500">{results.length}개 오류</p>
-    {results.length ? <div className="grid gap-4 md:grid-cols-2">{results.map(entry => <ErrorCard key={entry.slug} entry={entry} />)}</div>
-      : <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center"><p>일치하는 오류가 없습니다. 다른 카테고리를 선택하세요.</p><button onClick={() => update("")} className="mt-4 font-bold text-blue-600">전체 오류 보기</button></div>}
+    <p role="status" className="mt-6 text-sm text-muted">{results.length}개 오류</p>
+    {results.length ? <div className="mt-2 grid gap-x-10 md:grid-cols-2">{results.map(entry => <ErrorCard key={entry.slug} entry={entry} />)}</div>
+      : <div className="mt-4 rounded-xl bg-paper p-8 text-center"><p>일치하는 오류가 없습니다. 다른 카테고리를 선택하세요.</p><button onClick={() => update("")} className="mt-4 font-bold text-action">전체 오류 보기</button></div>}
   </section>;
 }

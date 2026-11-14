@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { ErrorCodeEntry } from "@/data/errorCodes";
 
+// 오류 코드 목록의 한 줄. 카드 대신 구분선으로 나눈 목록 행으로 보여준다.
 export default function ErrorCard({ entry }: { entry: ErrorCodeEntry }) {
-  return <Link href={`/errors/${entry.slug}`} className="block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-blue-300 hover:shadow-md">
-    <span className="text-xs font-bold text-blue-600">오류 코드 · {entry.category}</span>
-    <h3 className="mt-3 break-words text-lg font-bold text-slate-950">{entry.title}</h3>
-    <p className="mt-2 text-sm leading-6 text-slate-600">{entry.description}</p>
-    <p className="mt-5 text-sm font-semibold text-blue-600">해결 방법 보기 →</p>
+  return <Link href={`/errors/${entry.slug}`} className="group block border-b border-line py-4">
+    <span className="text-xs text-muted">{entry.category}</span>
+    <h3 className="mt-1 break-words text-ink group-hover:text-action"><span className="home-code group-hover:underline">{entry.code}</span>{entry.title.startsWith(entry.code) && entry.title.length > entry.code.length ? <span className="ml-2 font-semibold">{entry.title.slice(entry.code.length).trim()}</span> : null}</h3>
+    <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted">{entry.description}</p>
   </Link>;
 }

@@ -5,19 +5,19 @@ import SiteFooter from "@/components/locales/en/SiteFooter";
 import SiteHeader from "@/components/locales/en/SiteHeader";
 import ContactEmail from "@/components/ContactEmail";
 export default function ContactPage() {
-    return (<main className="min-h-screen bg-slate-50">
+    return (<main className="min-h-screen bg-surface">
       <SiteHeader />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
-        <div className="rounded-2xl border border-slate-200 bg-white p-7 sm:p-10">
-          <h1 className="text-3xl font-black text-slate-950">{" Contact us "}</h1>
+      <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
+        <div>
+          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" Contact us "}</h1>
 
-          <p className="mt-6 leading-7 text-slate-600">{" This is a page for PC FIX content errors, correction requests, partnerships, and other inquiries. "}</p>
+          <p className="mt-6 leading-7 text-muted">{" This is a page for PC FIX content errors, correction requests, partnerships, and other inquiries. "}</p>
 
-          <div className="mt-8 rounded-xl bg-slate-50 p-5">
-            <h2 className="font-bold text-slate-950">{" How to contact us "}</h2>
+          <div className="mt-8 rounded-xl bg-paper p-5 sm:p-6">
+            <h2 className="font-bold text-ink">{" How to contact us "}</h2>
 
-            <p className="mt-2 text-sm leading-6 text-slate-500">{" Please send any inquiries to the email address below. "}</p>
+            <p className="mt-2 text-sm leading-6 text-muted">{" Please send any inquiries to the email address below. "}</p>
 
             <div className="mt-3"><ContactEmail /></div>
           </div>

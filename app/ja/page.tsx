@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import SiteFooter from "@/components/locales/ja/SiteFooter";
 import SiteHeader from "@/components/locales/ja/SiteHeader";
 import { problems } from "@/data/locales/ja";
+import { errorCodes } from "@/data/locales/ja";
 import { searchPcFix } from "@/lib/locales/ja/unifiedSearch";
 const popularSlugs = [
     "game-black-screen-restart",
@@ -16,6 +17,16 @@ const popularSlugs = [
     "computer-shutdown",
     "computer-boot-failure",
     "usb-not-recognized",
+];
+const popularErrorSlugs = [
+    "critical-process-died",
+    "irql-not-less-or-equal",
+    "memory-management",
+    "inaccessible-boot-device",
+    "0xc000007b",
+    "device-manager-code-43",
+    "err-network-changed",
+    "0x80070057",
 ];
 export default function Home() {
     const [inputQuery, setInputQuery] = useState("");
@@ -79,6 +90,9 @@ export default function Home() {
     const popularProblems = popularSlugs
         .map((slug) => problems.find((problem) => problem.slug === slug))
         .filter(Boolean);
+    const popularErrors = popularErrorSlugs
+        .map((slug) => errorCodes.find((entry) => entry.slug === slug))
+        .filter((entry) => entry !== undefined);
     const categories = Array.from(new Set(problems.map((problem) => problem.category)));
     const isSearching = debouncedQuery.length > 0;
     function handleExampleSearch(example: string) {
@@ -91,215 +105,167 @@ export default function Home() {
         setDebouncedQuery("");
         updateSearchUrl("");
     }
-    return (<main className="relative min-h-screen bg-slate-50 text-slate-900">
-      <SiteHeader />
+    return (<main className="relative min-h-screen bg-surface text-ink">
+      <SiteHeader showSearch={false}/>
 
-      {/* HERO */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-5xl px-5 py-16 text-center sm:py-24">
-          <div className="mx-auto mb-5 inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">{" PC\u306E\u75C7\u72B6\u3084\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u691C\u7D22 "}</div>
+      {/* 첫 화면: 지금 보이는 증상이나 오류 문구를 바로 입력하는 검색 */}
+      <section className="mx-auto max-w-5xl px-5 pb-10 pt-12 sm:pb-14 sm:pt-16">
+        <h1 className="max-w-3xl text-[2rem] font-extrabold leading-[1.25] tracking-[-0.03em] sm:text-5xl">{" \u30D1\u30BD\u30B3\u30F3\u306E\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u304D\u3001 "}<br />{" \u307E\u305A\u4F55\u3092\u78BA\u8A8D\u3059\u308C\u3070\u3088\u3044\u3067\u3057\u3087\u3046\u304B\uFF1F "}</h1>
 
-          <h1 className="text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">{" \u30D1\u30BD\u30B3\u30F3\u306E\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u304D\u3001 "}<br />
-            <span className="text-blue-600">{" \u307E\u305A\u4F55\u3092\u78BA\u8A8D\u3059\u308C\u3070\u3088\u3044\u3067\u3057\u3087\u3046\u304B\uFF1F "}</span>
-          </h1>
+        <p className="mt-4 max-w-2xl leading-7 text-muted sm:text-lg">{" \u73FE\u5728\u306E\u75C7\u72B6\u3084\u753B\u9762\u306B\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u3001\u305D\u306E\u307E\u307E\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-500 sm:text-lg">{" \u96FB\u6E90\u3001\u30D6\u30FC\u30C8\u3001\u753B\u9762\u3001\u30D6\u30EB\u30FC\u30B9\u30AF\u30EA\u30FC\u30F3\u3001\u30B2\u30FC\u30E0\u3001\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306A\u3069\u3001PC\u3067\u767A\u751F\u3059\u308B\u3055\u307E\u3056\u307E\u306A\u554F\u984C\u3092\u75C7\u72B6\u3068\u3057\u3066\u898B\u3064\u3051\u3066\u304F\u3060\u3055\u3044\u3002 "}<br className="hidden sm:block"/>{" \u73FE\u5728\u306E\u75C7\u72B6\u3084\u753B\u9762\u306B\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u3001\u305D\u306E\u307E\u307E\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
+        <div className="relative mt-7 max-w-2xl">
+          <input type="search" aria-label="PCの症状またはエラーコードを検索" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例：ゲーム中の黒い画面、0xc0000005、Code 43" className="home-search"/>
 
-          {/* 검색 영역 */}
-          <div className="mx-auto mt-9" style={{
-            width: "min(760px, 100%)",
-        }}>
-            <div style={{
-            position: "relative",
-            width: "100%",
-        }}>
-              <input type="text" aria-label="PCの症状またはエラーコードを検索" value={inputQuery} onChange={(event) => setInputQuery(event.target.value)} placeholder="例：ゲーム中の黒い画面、0xc0000005、Code 43" style={{
-            display: "block",
-            width: "100%",
-            height: "64px",
-            boxSizing: "border-box",
-            paddingLeft: "22px",
-            paddingRight: "54px",
-            borderRadius: "16px",
-            border: "1px solid #cbd5e1",
-            backgroundColor: "#ffffff",
-            fontSize: "16px",
-            outline: "none",
-            boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
-        }} className="placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"/>
+          {inputQuery && (<button type="button" onClick={handleClear} aria-label="クエリをクリア" className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-md text-muted hover:bg-line hover:text-ink">
+              ✕
+            </button>)}
+        </div>
 
-              {inputQuery && (<button type="button" onClick={handleClear} aria-label="クエリをクリア" style={{
-                position: "absolute",
-                right: "14px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                width: "34px",
-                height: "34px",
-                borderRadius: "8px",
-            }} className="text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
-                  ✕
-                </button>)}
-            </div>
-
-            <p className="mt-4 text-xs text-slate-400">{" \u75C7\u72B6\u3060\u3051\u3067\u306A\u304F\u30010xc0000005\u3001Code 43\u306A\u3069\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3082\u691C\u7D22\u3067\u304D\u307E\u3059\u3002 "}</p>
-
-            {/* 빠른 검색 */}
-            <div className="mt-5 flex flex-wrap justify-center gap-2 text-xs text-slate-500">
-              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u9ED2\u3044\u753B\u9762\u304C\u51FA\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30B2\u30FC\u30E0\u4E2D\u306E\u9ED2\u3044\u753B\u9762 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u306F\u5F3E\u304D\u7D9A\u3051\u307E\u3059\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30B2\u30FC\u30E0\u3092\u30AF\u30E9\u30C3\u30B7\u30E5\u3059\u308B "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3059\u304E\u307E\u3057\u305F\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3044 "}</button>
-
-              <button type="button" onClick={() => handleExampleSearch("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306F\u7A81\u7136\u3067\u304D\u307E\u305B\u3093\u3002")} className="rounded-full border border-slate-200 bg-white px-4 py-2 transition hover:border-blue-300 hover:text-blue-600">{" \u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306A\u3057 "}</button>
-            </div>
-          </div>
+        <div className="home-examples">
+          <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u4E2D\u306B\u9ED2\u3044\u753B\u9762\u304C\u51FA\u3066\u518D\u8D77\u52D5\u3057\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u4E2D\u306E\u9ED2\u3044\u753B\u9762 "}</button>
+          <button type="button" onClick={() => handleExampleSearch("\u30B2\u30FC\u30E0\u306F\u5F3E\u304D\u7D9A\u3051\u307E\u3059\u3002")}>{" \u30B2\u30FC\u30E0\u3092\u30AF\u30E9\u30C3\u30B7\u30E5\u3059\u308B "}</button>
+          <button type="button" onClick={() => handleExampleSearch("\u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3059\u304E\u307E\u3057\u305F\u3002")}>{" \u30B3\u30F3\u30D4\u30E5\u30FC\u30BF\u304C\u9045\u3044 "}</button>
+          <button type="button" onClick={() => handleExampleSearch("\u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306F\u7A81\u7136\u3067\u304D\u307E\u305B\u3093\u3002")}>{" \u30A4\u30F3\u30BF\u30FC\u30CD\u30C3\u30C8\u306A\u3057 "}</button>
         </div>
       </section>
 
-      {/* 본문 */}
-      <div className="mx-auto max-w-6xl px-5 py-12">
+      <div className="mx-auto max-w-5xl px-5 pb-14">
         {isSearching ? (<section>
-            <div className="mb-6 flex items-end justify-between gap-4">
-              <div>
-                <h2 className="text-2xl font-black text-slate-950">{" \u691C\u7D22\u7D50\u679C "}</h2>
+            <div className="flex items-baseline justify-between gap-4 border-b-2 border-ink pb-3">
+              <h2 className="text-xl font-extrabold">{" \u691C\u7D22\u7D50\u679C "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">
-                  &quot;{debouncedQuery}{"\u300C\u306B\u95A2\u9023\u3059\u308B\u554F\u984C\u3068\u30A8\u30E9\u30FC\u3067\u3059\u3002 "}</p>
-              </div>
-
-              <span className="text-sm text-slate-400">
+              <span className="text-sm text-muted">
                 {searchResults.length}{"\u4EF6 "}</span>
             </div>
 
+            <p className="mt-3 text-sm text-muted">
+              &quot;{debouncedQuery}{"\u300C\u306B\u95A2\u9023\u3059\u308B\u554F\u984C\u3068\u30A8\u30E9\u30FC\u3067\u3059\u3002 "}</p>
+
             {searchResults.length > 0 ? (<>
-                <div className="grid gap-4 md:grid-cols-2">
+                <ol className="mt-2">
                   {searchResults
                     .slice(0, expandedQuery === debouncedQuery ? undefined : 10)
-                    .map((problem, index) => (<Link key={problem.href} href={problem.href} className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="text-xs font-bold text-blue-600">
+                    .map((problem, index) => (<li key={problem.href} className="border-b border-line">
+                        <Link href={problem.href} className="group block py-4">
+                          <span className="text-xs text-muted">
                             {problem.category}
                           </span>
 
-                          {index === 0 && (<span className="rounded-full bg-green-50 px-2.5 py-1 text-[11px] font-bold text-green-700">{" \u6700\u3082\u95A2\u9023\u6027\u304C\u9AD8\u3044 "}</span>)}
-                        </div>
+                          {index === 0 && (<span className="ml-2 text-xs font-bold text-action">{" \u6700\u3082\u95A2\u9023\u6027\u304C\u9AD8\u3044 "}</span>)}
 
-                        <h3 className="mt-3 text-lg font-bold text-slate-950 group-hover:text-blue-600">
-                          {problem.title}
-                        </h3>
+                          <h3 className="mt-1 text-lg font-bold group-hover:text-action group-hover:underline">
+                            {problem.title}
+                          </h3>
 
-                        <p className="mt-2 text-sm leading-6 text-slate-500">
-                          {problem.description}
-                        </p>
+                          <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted">
+                            {problem.description}
+                          </p>
+                        </Link>
+                      </li>))}
+                </ol>
 
-                        <div className="mt-5 text-sm font-semibold text-blue-600">{" \u5BFE\u51E6\u65B9\u6CD5\u3092\u898B\u308B \u2192 "}</div>
-                      </Link>))}
-                </div>
+                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="mt-6 rounded-md border border-line bg-surface px-4 py-2.5 text-sm font-bold text-action hover:border-action">{"\u691C\u7D22\u7D50\u679C\u3092\u3082\u3063\u3068\u898B\u308B\uFF08"}{searchResults.length - 10}{"\u4EF6)"}</button>)}
+              </>) : (<div className="mt-6 rounded-md border border-line bg-surface p-6">
+                <h3 className="font-bold">{" \u95A2\u9023\u3059\u308B\u554F\u984C\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002 "}</h3>
 
-                {searchResults.length > 10 && expandedQuery !== debouncedQuery && (<div className="mt-6 text-center"><button type="button" onClick={() => setExpandedQuery(debouncedQuery)} className="rounded-xl border border-blue-200 bg-white px-5 py-3 text-sm font-bold text-blue-600">{"\u691C\u7D22\u7D50\u679C\u3092\u3082\u3063\u3068\u898B\u308B\uFF08"}{searchResults.length - 10}{"\u4EF6)"}</button></div>)}
-                <div className="mt-8 text-center">
-                  <button type="button" onClick={handleClear} className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:border-blue-300 hover:text-blue-600">{" \u4ED6\u306E\u554F\u984C\u3092\u691C\u7D22\u3059\u308B "}</button>
-                </div>
-              </>) : (<div className="rounded-2xl border border-slate-200 bg-white p-8 text-center">
-                <div className="text-4xl">
-                  🔎
-                </div>
+                <p className="mt-2 text-sm leading-6 text-muted">{" \u75C7\u72B6\u3092\u3082\u3046\u5C11\u3057\u8A73\u3057\u304F\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}<br />{" \u4F8B\uFF1A\u300C\u30B2\u30FC\u30E0\u4E2D\u306B\u753B\u9762\u304C\u6D88\u3048\u3001\u672C\u4F53\u306F\u70B9\u706F\u3057\u7D9A\u3051\u3066\u3044\u307E\u3059\u300D "}</p>
 
-                <h3 className="mt-4 text-lg font-bold text-slate-950">{" \u95A2\u9023\u3059\u308B\u554F\u984C\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u3002 "}</h3>
-
-                <p className="mt-2 text-sm leading-6 text-slate-500">{" \u75C7\u72B6\u3092\u3082\u3046\u5C11\u3057\u8A73\u3057\u304F\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}<br />{" \u4F8B\uFF1A\u300C\u30B2\u30FC\u30E0\u4E2D\u306B\u753B\u9762\u304C\u6D88\u3048\u3001\u672C\u4F53\u306F\u70B9\u706F\u3057\u7D9A\u3051\u3066\u3044\u307E\u3059\u300D "}</p>
-
-                <button type="button" onClick={handleClear} className="mt-5 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-blue-700">{" \u3082\u3046\u4E00\u5EA6\u691C\u7D22\u3059\u308B "}</button>
+                <button type="button" onClick={handleClear} className="mt-4 rounded-md bg-action px-4 py-2.5 text-sm font-bold text-white hover:bg-action-strong">{" \u3082\u3046\u4E00\u5EA6\u691C\u7D22\u3059\u308B "}</button>
               </div>)}
           </section>) : (<>
-            {/* 자주 발생하는 문제 */}
-            <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u3088\u304F\u3042\u308BPC\u306E\u30C8\u30E9\u30D6\u30EB "}</h2>
+            <div className="grid gap-12 md:grid-cols-[1.25fr_1fr] md:gap-14">
+              <section>
+                <h2 className="home-h2">{" \u3088\u304F\u3042\u308BPC\u306E\u30C8\u30E9\u30D6\u30EB "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">{" \u591A\u304F\u767A\u751F\u3059\u308BPC\u306E\u554F\u984C\u304B\u3089\u78BA\u8A8D\u3057\u3066\u307F\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {popularProblems.map((problem) => {
+                <ul>
+                  {popularProblems.map((problem) => {
                 if (!problem) {
                     return null;
                 }
-                return (<Link key={problem.slug} href={`/ja/problems/${problem.slug}`} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md">
-                      <span className="text-xs font-bold text-blue-600">
-                        {problem.category}
-                      </span>
+                return (<li key={problem.slug} className="border-b border-line">
+                        <Link href={`/ja/problems/${problem.slug}`} className="group flex items-baseline gap-3 py-3">
+                          <span className="w-14 shrink-0 text-xs text-muted">
+                            {problem.category}
+                          </span>
 
-                      <h3 className="mt-2 font-bold leading-6 text-slate-950 group-hover:text-blue-600">
-                        {problem.title}
-                      </h3>
-
-                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-500">
-                        {problem.description}
-                      </p>
-                    </Link>);
+                          <span className="font-semibold leading-6 group-hover:text-action group-hover:underline">
+                            {problem.title}
+                          </span>
+                        </Link>
+                      </li>);
             })}
-              </div>
-            </section>
+                </ul>
+              </section>
 
-            {/* 카테고리 */}
+              <section>
+                <h2 className="home-h2">{" \u3088\u304F\u691C\u7D22\u3055\u308C\u308B\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9 "}</h2>
+
+                <ul>
+                  {popularErrors.map((entry) => (<li key={entry.slug} className="border-b border-line">
+                      <Link href={`/ja/errors/${entry.slug}`} className="group flex items-baseline justify-between gap-3 py-3">
+                        <span className="home-code group-hover:text-action group-hover:underline">
+                          {entry.code}
+                        </span>
+
+                        <span className="shrink-0 text-xs text-muted">
+                          {entry.category}
+                        </span>
+                      </Link>
+                    </li>))}
+                </ul>
+
+                <Link href="/ja/errors" className="mt-4 inline-block text-sm font-semibold text-action hover:underline">{" \u3059\u3079\u3066\u306E\u30A8\u30E9\u30FC\u30B3\u30FC\u30C9\u3092\u898B\u308B "}</Link>
+              </section>
+            </div>
+
             <section className="mt-14">
-              <div className="mb-6">
-                <h2 className="text-2xl font-black text-slate-950">{" \u30AB\u30C6\u30B4\u30EA\u304B\u3089\u63A2\u3059 "}</h2>
+              <h2 className="home-h2">{" \u30AB\u30C6\u30B4\u30EA\u304B\u3089\u63A2\u3059 "}</h2>
 
-                <p className="mt-1 text-sm text-slate-500">{" \u554F\u984C\u304C\u767A\u751F\u3057\u305F\u5206\u91CE\u304C\u308F\u304B\u3063\u3066\u3044\u308B\u5834\u5408\u306F\u3001\u30AB\u30C6\u30B4\u30EA\u3067\u898B\u3064\u3051\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              <ul className="grid grid-cols-2 gap-x-8 sm:grid-cols-3 lg:grid-cols-4">
                 {categories.map((category) => {
                 const count = problems.filter((problem) => problem.category === category).length;
-                return (<Link key={category} href={`/ja/category/${encodeURIComponent(category)}`} className="rounded-xl border border-slate-200 bg-white p-5 transition hover:border-blue-300 hover:shadow-sm">
-                      <div className="font-bold text-slate-950">
-                        {category}
-                      </div>
+                return (<li key={category} className="border-b border-line">
+                      <Link href={`/ja/category/${encodeURIComponent(category)}`} className="group flex items-baseline justify-between gap-2 py-3">
+                        <span className="font-semibold group-hover:text-action group-hover:underline">
+                          {category}
+                        </span>
 
-                      <div className="mt-1 text-xs text-slate-400">{" \u554F\u984C "}{count}{"\u4EF6 "}</div>
-                    </Link>);
+                        <span className="text-sm tabular-nums text-muted">
+                          {count}
+                        </span>
+                      </Link>
+                    </li>);
             })}
-              </div>
+              </ul>
             </section>
 
-            {/* 사용 방법 */}
-            <section className="mt-14 rounded-3xl bg-slate-900 px-6 py-10 text-white sm:px-10">
-              <h2 className="text-2xl font-black">{" PC FIX\u306F\u3053\u308C\u3092\u4F7F\u3046\u3060\u3051\u3067\u3059 "}</h2>
+            <section className="mt-14">
+              <h2 className="home-h2">{" PC FIX\u306F\u3053\u308C\u3092\u4F7F\u3046\u3060\u3051\u3067\u3059 "}</h2>
 
-              <div className="mt-8 grid gap-6 md:grid-cols-3">
-                <div>
-                  <div className="text-sm font-black text-blue-400">
-                    01
+              <ol className="home-how">
+                <li>
+                  <span aria-hidden="true">1</span>
+                  <div>
+                    <h3 className="font-bold">{" \u75C7\u72B6\u3092\u305D\u306E\u307E\u307E\u691C\u7D22 "}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted">{" \u5C02\u9580\u7528\u8A9E\u306E\u4EE3\u308F\u308A\u306B\u5B9F\u969B\u306B\u898B\u3048\u308B\u73FE\u8C61\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
                   </div>
-
-                  <h3 className="mt-2 font-bold">{" \u75C7\u72B6\u3092\u305D\u306E\u307E\u307E\u691C\u7D22 "}</h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{" \u5C02\u9580\u7528\u8A9E\u306E\u4EE3\u308F\u308A\u306B\u5B9F\u969B\u306B\u898B\u3048\u308B\u73FE\u8C61\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002 "}</p>
-                </div>
-
-                <div>
-                  <div className="text-sm font-black text-blue-400">
-                    02
+                </li>
+                <li>
+                  <span aria-hidden="true">2</span>
+                  <div>
+                    <h3 className="font-bold">{" \u7C21\u5358\u306A\u65B9\u6CD5\u304B\u3089\u78BA\u8A8D "}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted">{" \u30B3\u30B9\u30C8\u3068\u30EA\u30B9\u30AF\u306E\u5C11\u306A\u3044\u89E3\u6C7A\u7B56\u304B\u3089\u9806\u756A\u306B\u6848\u5185\u3057\u307E\u3059\u3002 "}</p>
                   </div>
-
-                  <h3 className="mt-2 font-bold">{" \u7C21\u5358\u306A\u65B9\u6CD5\u304B\u3089\u78BA\u8A8D "}</h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{" \u30B3\u30B9\u30C8\u3068\u30EA\u30B9\u30AF\u306E\u5C11\u306A\u3044\u89E3\u6C7A\u7B56\u304B\u3089\u9806\u756A\u306B\u6848\u5185\u3057\u307E\u3059\u3002 "}</p>
-                </div>
-
-                <div>
-                  <div className="text-sm font-black text-blue-400">
-                    03
+                </li>
+                <li>
+                  <span aria-hidden="true">3</span>
+                  <div>
+                    <h3 className="font-bold">{" \u89E3\u6C7A\u3055\u308C\u308B\u307E\u3067\u306E\u307F\u9032\u3080 "}</h3>
+                    <p className="mt-1 text-sm leading-6 text-muted">{" \u554F\u984C\u304C\u89E3\u6C7A\u3057\u305F\u3089\u3001\u3088\u308A\u96E3\u3057\u3044\u30B9\u30C6\u30C3\u30D7\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
                   </div>
-
-                  <h3 className="mt-2 font-bold">{" \u89E3\u6C7A\u3055\u308C\u308B\u307E\u3067\u306E\u307F\u9032\u3080 "}</h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{" \u554F\u984C\u304C\u89E3\u6C7A\u3057\u305F\u3089\u3001\u3088\u308A\u96E3\u3057\u3044\u30B9\u30C6\u30C3\u30D7\u306B\u9032\u3080\u5FC5\u8981\u306F\u3042\u308A\u307E\u305B\u3093\u3002 "}</p>
-                </div>
-              </div>
+                </li>
+              </ol>
             </section>
           </>)}
       </div>
