@@ -9,18 +9,29 @@ export default function ContactPage() {
       <SiteHeader />
 
       <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" \u8054\u7CFB\u6211\u4EEC "}</h1>
+        <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{"\u8054\u7CFB\u6211\u4EEC"}</h1>
 
-          <p className="mt-6 leading-7 text-muted">{" \u8FD9\u662F PC FIX \u5185\u5BB9\u9519\u8BEF\u3001\u66F4\u6B63\u8BF7\u6C42\u3001\u5408\u4F5C\u4F19\u4F34\u5173\u7CFB\u548C\u5176\u4ED6\u67E5\u8BE2\u7684\u9875\u9762\u3002 "}</p>
+        <p className="mt-6 leading-7 text-muted">{"\u6211\u4EEC\u53D7\u7406\u6587\u7AE0\u5185\u5BB9\u9519\u8BEF\u3001\u4FEE\u6539\u8BF7\u6C42\u3001\u4E2A\u4EBA\u4FE1\u606F\u76F8\u5173\u8BF7\u6C42\u4EE5\u53CA\u5408\u4F5C\u54A8\u8BE2\u3002"}</p>
 
-          <div className="mt-8 rounded-xl bg-paper p-5 sm:p-6">
-            <h2 className="font-bold text-ink">{" \u5982\u4F55\u8054\u7CFB\u6211\u4EEC "}</h2>
+        <div className="mt-8 rounded-xl bg-paper p-5 sm:p-6">
+          <h2 className="font-bold text-ink">{"\u7535\u5B50\u90AE\u4EF6"}</h2>
+          <div className="mt-3"><ContactEmail /></div>
+        </div>
 
-            <p className="mt-2 text-sm leading-6 text-muted">{" \u5982\u6709\u7591\u95EE\uFF0C\u8BF7\u53D1\u9001\u90AE\u4EF6\u81F3\u4EE5\u4E0B\u5730\u5740\u3002 "}</p>
+        <div className="mt-8 space-y-4 leading-7 text-[#3d444c]">
+          <h2 className="text-xl font-extrabold text-ink">{"\u63D0\u4EA4\u4FEE\u6539\u8BF7\u6C42\u65F6"}</h2>
+          <p>{"\u9644\u4E0A\u4EE5\u4E0B\u4FE1\u606F\u53EF\u4EE5\u5E2E\u52A9\u6211\u4EEC\u66F4\u5FEB\u786E\u8BA4\u3002"}</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>{"\u6709\u95EE\u9898\u7684\u9875\u9762\u5730\u5740"}</li>
+            <li>{"\u54EA\u4E00\u6B65\u3001\u54EA\u91CC\u4E0D\u4E00\u6837(\u83DC\u5355\u540D\u79F0\u3001\u5C4F\u5E55\u4E0A\u663E\u793A\u7684\u6587\u5B57)"}</li>
+            <li>{"Windows \u7248\u672C\u4EE5\u53CA\u7535\u8111\u7684\u5382\u5546\u548C\u578B\u53F7"}</li>
+          </ul>
+          <p>{"\u8BF7\u4E0D\u8981\u53D1\u9001\u59D3\u540D\u3001\u7535\u8BDD\u53F7\u7801\u3001\u8D26\u6237\u4FE1\u606F\u6216\u4EA7\u54C1\u5BC6\u94A5\uFF0C\u786E\u8BA4\u95EE\u9898\u65F6\u4E0D\u9700\u8981\u8FD9\u4E9B\u4FE1\u606F\u3002"}</p>
 
-            <div className="mt-3"><ContactEmail /></div>
-          </div>
+          <h2 className="pt-2 text-xl font-extrabold text-ink">{"\u6211\u4EEC\u4E0D\u63D0\u4F9B\u4E00\u5BF9\u4E00\u7684\u6545\u969C\u54A8\u8BE2"}</h2>
+          <p>{"PC FIX \u6536\u5230\u7684\u6765\u4FE1\u7528\u4E8E\u6539\u8FDB\u516C\u5F00\u7684\u6307\u5357\u3002\u6211\u4EEC\u65E0\u6CD5\u8FDC\u7A0B\u8BCA\u65AD\u6216\u7EF4\u4FEE\u67D0\u4E00\u53F0\u7535\u8111\uFF0C\u5982\u679C\u6309\u6B65\u9AA4\u64CD\u4F5C\u4ECD\u672A\u89E3\u51B3\uFF0C\u8BF7\u8054\u7CFB\u5382\u5546\u5BA2\u670D\u6216\u9644\u8FD1\u7684\u7EF4\u4FEE\u5E97\u68C0\u67E5\u3002"}</p>
+
+          <p>{"\u67E5\u9605\u6216\u5220\u9664\u4E2A\u4EBA\u4FE1\u606F\u7684\u8BF7\u6C42\uFF0C\u6211\u4EEC\u4F1A\u5728 10 \u5929\u5185\u544A\u77E5\u5904\u7406\u7ED3\u679C\u3002\u8BE6\u60C5\u8BF7\u67E5\u770B\u9690\u79C1\u653F\u7B56\u3002"}</p>
         </div>
       </article>
 

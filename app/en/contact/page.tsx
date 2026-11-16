@@ -9,18 +9,29 @@ export default function ContactPage() {
       <SiteHeader />
 
       <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" Contact us "}</h1>
+        <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{"Contact us"}</h1>
 
-          <p className="mt-6 leading-7 text-muted">{" This is a page for PC FIX content errors, correction requests, partnerships, and other inquiries. "}</p>
+        <p className="mt-6 leading-7 text-muted">{"We handle corrections to our guides, requests about personal information, and partnership inquiries."}</p>
 
-          <div className="mt-8 rounded-xl bg-paper p-5 sm:p-6">
-            <h2 className="font-bold text-ink">{" How to contact us "}</h2>
+        <div className="mt-8 rounded-xl bg-paper p-5 sm:p-6">
+          <h2 className="font-bold text-ink">{"Email"}</h2>
+          <div className="mt-3"><ContactEmail /></div>
+        </div>
 
-            <p className="mt-2 text-sm leading-6 text-muted">{" Please send any inquiries to the email address below. "}</p>
+        <div className="mt-8 space-y-4 leading-7 text-[#3d444c]">
+          <h2 className="text-xl font-extrabold text-ink">{"When you report a mistake"}</h2>
+          <p>{"Including the following helps us check it faster."}</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>{"The address of the page"}</li>
+            <li>{"Which step was different and how (menu names, text shown on screen)"}</li>
+            <li>{"Your Windows version and the computer's manufacturer and model"}</li>
+          </ul>
+          <p>{"Please do not send your name, phone number, account details or product keys. We do not need them to check a guide."}</p>
 
-            <div className="mt-3"><ContactEmail /></div>
-          </div>
+          <h2 className="pt-2 text-xl font-extrabold text-ink">{"We do not offer one-to-one repair support"}</h2>
+          <p>{"PC FIX uses messages to improve its published guides. We cannot diagnose or repair a specific computer remotely, so if the steps do not fix your problem, contact the manufacturer's support or a local repair shop."}</p>
+
+          <p>{"We reply to requests to access or delete personal information within 10 days. See the Privacy Policy for details."}</p>
         </div>
       </article>
 

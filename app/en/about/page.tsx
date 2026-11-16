@@ -9,22 +9,29 @@ export default function AboutPage() {
       <SiteHeader />
 
       <article className="mx-auto max-w-[720px] px-5 pb-16 pt-10 sm:pt-14">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{" About PC FIX "}</h1>
+        <h1 className="text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl">{"About PC FIX"}</h1>
 
-          <div className="mt-6 space-y-6 leading-8 text-[#3d444c]">
-            <p>{" PC FIX is a troubleshooting guide created to help anyone easily solve various problems that occur while using a computer. "}</p>
+        <div className="mt-6 space-y-6 leading-8 text-[#3d444c]">
+          <p>{"PC FIX helps you find possible causes and a checking order for computer problems, starting from the symptom you see or the error code on screen. Guides are grouped by where the problem shows up: power, startup, Windows, display, storage, network and peripherals."}</p>
 
-            <p>{" When you try to search for a computer problem, you often come across technical terms or complicated explanations. PC FIX is structured to find problems based on the symptoms users actually experience. "}</p>
+          <h2 className="pt-2 text-xl font-extrabold text-ink">{"How the guides are written"}</h2>
+          <ul className="list-disc space-y-2 pl-5">
+            <li>{"Titles use the symptom or error message people actually search for."}</li>
+            <li>{"Steps start with the cheapest, lowest-risk checks. Steps that are hard to undo or involve opening the computer are marked as advanced."}</li>
+            <li>{"Each step says what to check and what to do next depending on the result."}</li>
+            <li>{"Commands, settings locations and error code meanings are based on official Microsoft and manufacturer documentation, linked under References at the end of each guide."}</li>
+            <li>{"Guides that have been reviewed again by hand show the review date."}</li>
+          </ul>
 
-            <p>{" Where possible, solutions are organized starting with the easiest and least expensive method and progressing to more advanced steps. "}</p>
+          <h2 className="pt-2 text-xl font-extrabold text-ink">{"Limits of these guides"}</h2>
+          <p>{"The guides list possible causes and an order to check them in. They are not a diagnosis that confirms what is broken. Menu names and results can differ depending on your hardware and Windows version. Back up important data first, and for safety-related symptoms such as a swollen battery or a burning smell, stop and have the device inspected instead of working on it yourself."}</p>
+          <p>{"The English, Japanese and Chinese pages were translated from the Korean originals with a translation tool. Commands and error codes are checked automatically against the original, but the text has not been reviewed by a native speaker."}</p>
 
-            <p>{" Because every computer environment may be different, the methods provided do not guarantee the same results in all situations. If you have important data, we recommend backing it up first and getting a professional inspection if you suspect a physical failure. "}</p>
+          <h2 className="pt-2 text-xl font-extrabold text-ink">{"Who runs PC FIX and advertising"}</h2>
+          <p>{"PC FIX is run by an individual and shows Google AdSense ads to cover running costs. Ads appear only in spaces labeled \"Advertisement\", and advertising does not affect the order or content of any troubleshooting steps."}</p>
 
-            <p>{" Each guide organizes cause candidates and confirmation procedures based on official Microsoft/manufacturer documents and actual Windows screens, and indicates the review date for articles that have been personally reviewed. This is not a diagnosis that determines the cause of the failure. "}</p>
-
-            <p>{" PC FIX is privately operated and runs Google AdSense ads to cover its operating expenses. Incorrect information or inquiries "}<ContactEmail />{"Please let us know. "}</p>
-          </div>
+          <h2 className="pt-2 text-xl font-extrabold text-ink">{"Report a mistake"}</h2>
+          <p>{"If a step does not match what you see, or something is wrong, email "}<ContactEmail />{". We check the report, update the guide and refresh its review date."}</p>
         </div>
       </article>
 
