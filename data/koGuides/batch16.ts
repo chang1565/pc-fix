@@ -33,7 +33,7 @@ export const batch16Errors: Record<string, KoGuide> = {
   "0x800f081f": {
     reviewedAt: "2026-11-19",
     description:
-      "0x800F081F(CBS_E_SOURCE_MISSING)는 Windows가 기능을 켜거나 구성요소를 고치는 데 필요한 원본 파일을 찾지 못했다는 뜻입니다. 주로 .NET Framework 3.5를 켤 때나 DISM /RestoreHealth를 실행할 때 나타납니다. 원본을 따로 지정하지 않았다면 Windows Update 쪽을, 직접 /Source를 지정했다면 그 경로와 이미지 버전부터 봅니다.",
+      "0x800F081F(CBS_E_SOURCE_MISSING)는 Windows가 기능을 켜거나 구성요소를 고치는 데 필요한 원본 파일을 찾지 못했다는 뜻입니다. 주로 .NET Framework 3.5를 켤 때나 DISM /RestoreHealth를 실행할 때 나타납니다. 원본을 따로 지정하지 않았다면 Windows Update 쪽을, 직접 /Source를 지정했다면 그 경로와 이미지 버전부터 봅니다. Windows 11 26H1(빌드 28000) 이후 버전에서는 .NET Framework 3.5를 Windows 기능으로 켤 수 없고 Microsoft가 제공하는 별도 설치 파일로 설치합니다.",
     quickCheck: [
       "실패한 작업이 ‘Windows 기능 켜기/끄기’의 .NET Framework 3.5인가요, 아니면 관리자 터미널에서 실행한 DISM /RestoreHealth인가요?",
       "명령에 /Source를 붙여 ISO나 폴더를 직접 지정했나요? 지정했다면 그 경로에 실제로 파일이 들어 있는지가 첫 확인 대상입니다.",
@@ -139,7 +139,7 @@ export const batch16Errors: Record<string, KoGuide> = {
   "0x800f0906": {
     reviewedAt: "2026-11-19",
     description:
-      "0x800F0906(CBS_E_DOWNLOAD_FAILURE)은 .NET Framework 3.5 같은 주문형 기능을 켤 때 Windows Update에서 원본 파일을 내려받지 못했다는 뜻입니다. 기능 설치 파일은 PC에 들어 있지 않고 켤 때 받아 오기 때문에, 인터넷·프록시·회사 업데이트 서버 설정이 결과를 좌우합니다. 네트워크 경로가 막혔는지, 조직 정책이 막았는지부터 나눕니다.",
+      "0x800F0906(CBS_E_DOWNLOAD_FAILURE)은 .NET Framework 3.5 같은 주문형 기능을 켤 때 Windows Update에서 원본 파일을 내려받지 못했다는 뜻입니다. 기능 설치 파일은 PC에 들어 있지 않고 켤 때 받아 오기 때문에, 인터넷·프록시·회사 업데이트 서버 설정이 결과를 좌우합니다. 네트워크 경로가 막혔는지, 조직 정책이 막았는지부터 나눕니다. Windows 11 26H1(빌드 28000) 이후 버전에서는 .NET Framework 3.5를 Windows 기능으로 켤 수 없고 Microsoft가 제공하는 별도 설치 파일로 설치합니다.",
     quickCheck: [
       "브라우저에서 다른 사이트는 정상적으로 열리나요? 아무 사이트도 안 열리면 인터넷 연결 문제부터 해결해야 합니다.",
       "회사·학교에서 지급한 PC인가요? 그렇다면 WSUS 같은 관리 서버가 원본 다운로드를 막고 있을 수 있습니다.",
@@ -475,7 +475,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "로그인 후 설정 → Windows 업데이트에서 다시 시도합니다.",
         ],
         checkPoint:
-          "재부팅 후 설치되면 보류 작업 때문이었습니다. 같은 0x80073712가 나오면 DISM으로 저장소 상태를 검사합니다.",
+          "재부팅 후 설치되면 보류 작업 때문이었을 가능성이 큽니다. 같은 0x80073712가 나오면 DISM으로 저장소 상태를 검사합니다.",
       },
       {
         title: "DISM으로 구성요소 저장소 검사와 복구",
@@ -580,7 +580,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "로그인 후 다른 프로그램을 열지 않고 설정 → Windows 업데이트에서 다시 시도합니다.",
         ],
         checkPoint:
-          "이번에 설치되면 동시 실행 충돌이었습니다. 아무것도 돌지 않았는데 같은 코드가 나오면 보안 프로그램을 비교합니다.",
+          "이번에 설치되면 동시 실행 충돌이었을 가능성이 큽니다. 아무것도 돌지 않았는데 같은 코드가 나오면 보안 프로그램을 비교합니다.",
       },
       {
         title: "타사 백신 실시간 보호를 잠시 끄고 비교",
@@ -1230,7 +1230,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "같은 .NET 업데이트를 다시 설치합니다. 계속 실패하면 Microsoft Update 카탈로그에서 그 KB를 받아 직접 실행합니다.",
         ],
         checkPoint:
-          "복구 후 설치되면 .NET 구성요소 문제였습니다. 수동 설치도 실패하면 오류 시각의 C:\\Windows\\Logs\\CBS\\CBS.log를 함께 보관해 지원 문의 때 사용합니다.",
+          "복구 후 설치되면 .NET 구성요소 문제였을 가능성이 큽니다. 수동 설치도 실패하면 오류 시각의 C:\\Windows\\Logs\\CBS\\CBS.log를 함께 보관해 지원 문의 때 사용합니다.",
       },
       {
         title: "WinRE 업데이트라면 복구 환경 상태 확인",
@@ -1336,7 +1336,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "업데이트를 다시 확인합니다.",
         ],
         checkPoint:
-          "새로 받아 설치되면 업데이트 데이터 문제였습니다. 같은 코드가 반복되면 CBS 로그에서 어떤 경로인지 확인합니다.",
+          "새로 받아 설치되면 업데이트 데이터 문제였을 가능성이 큽니다. 같은 코드가 반복되면 CBS 로그에서 어떤 경로인지 확인합니다.",
       },
       {
         title: "CBS 로그에서 찾지 못한 경로 확인",
@@ -1804,7 +1804,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "이어서 sfc /scannow 를 실행한 뒤 재부팅하고 장치 관리자를 다시 확인합니다.",
         ],
         checkPoint:
-          "복구 후 장치들이 정상으로 돌아오면 시스템 파일 문제였습니다. 그래도 남으면 문제가 시작되기 전 날짜의 복원 지점으로 시스템 복원(rstrui)을 검토합니다.",
+          "복구 후 장치들이 정상으로 돌아오면 시스템 파일 문제였을 가능성이 큽니다. 그래도 남으면 문제가 시작되기 전 날짜의 복원 지점으로 시스템 복원(rstrui)을 검토합니다.",
       },
     ],
     faqs: [
@@ -1851,7 +1851,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "PC를 켠 뒤 장치를 다시 연결하고 장치 관리자에서 상태를 봅니다.",
         ],
         checkPoint:
-          "다시 연결 후 정상이면 일시적인 장치 오류 상태였습니다. 곧 다시 코드 43이 붙으면 연결과 전원 쪽을 확인합니다.",
+          "다시 연결 후 정상이면 일시적인 장치 오류 상태였을 가능성이 큽니다. 곧 다시 코드 43이 붙으면 연결과 전원 쪽을 확인합니다.",
       },
       {
         title: "USB 장치는 포트·케이블·다른 PC로 구분",
@@ -1880,7 +1880,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "PC를 다시 시작하고 장치를 연결합니다.",
         ],
         checkPoint:
-          "절전 해제 후 코드 43이 다시 나지 않으면 절전 기능과의 충돌이었습니다. 변화가 없으면 설정을 원래대로 돌려도 됩니다.",
+          "절전 해제 후 코드 43이 다시 나지 않으면 절전 기능과의 충돌이었을 가능성이 큽니다. 변화가 없으면 설정을 원래대로 돌려도 됩니다.",
       },
       {
         title: "그래픽카드는 드라이버를 깨끗이 다시 설치",
@@ -1895,7 +1895,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "최근 드라이버 업데이트 직후 생긴 문제라면 한 단계 이전 버전을 설치해 비교합니다.",
         ],
         checkPoint:
-          "드라이버를 다시 설치한 뒤 정상이면 소프트웨어 문제였습니다. 새 드라이버로도 곧바로 코드 43이 붙으면 장착·전원 상태를 확인합니다.",
+          "드라이버를 다시 설치한 뒤 정상이면 소프트웨어 문제였을 가능성이 큽니다. 새 드라이버로도 곧바로 코드 43이 붙으면 장착·전원 상태를 확인합니다.",
       },
       {
         title: "데스크톱 그래픽카드 재장착과 보조 전원 확인",
@@ -1910,7 +1910,7 @@ export const batch16Errors: Record<string, KoGuide> = {
           "6핀·8핀 보조 전원 커넥터를 딸깍 소리가 날 때까지 끝까지 꽂고 덮개를 닫은 뒤 켭니다.",
         ],
         checkPoint:
-          "재장착 후 정상이면 접촉 문제였습니다. 그래도 코드 43이 남고 다른 PC에서도 같은 증상이면 카드 자체 이상일 수 있으니 제조사 보증 수리를 문의합니다.",
+          "재장착 후 정상이면 접촉 문제였을 가능성이 큽니다. 그래도 코드 43이 남고 다른 PC에서도 같은 증상이면 카드 자체 이상일 수 있으니 제조사 보증 수리를 문의합니다.",
       },
     ],
     faqs: [

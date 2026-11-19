@@ -567,7 +567,7 @@ export const batch18Errors: Record<string, KoGuide> = {
       {
         question: "Visual C++ 2015, 2017, 2019, 2022를 각각 설치해야 하나요?",
         answer:
-          "Microsoft 문서에 따르면 2017 이후 버전은 같은 v14 재배포 파일을 공유하므로 최신 v14 패키지 하나(x86·x64)로 충분합니다. 2013 이하 버전은 별도 패키지입니다.",
+          "Microsoft 문서에 따르면 Visual C++ 2015, 2017, 2019, 2022는 같은 v14 재배포 파일을 공유하므로 최신 v14 패키지 하나(x86·x64)로 충분합니다. 2013 이하 버전은 별도 패키지입니다.",
       },
     ],
     sources: [VC_REDIST, WIN_SECURITY],
@@ -1327,7 +1327,7 @@ export const batch18Errors: Record<string, KoGuide> = {
         difficulty: "쉬움",
         time: "10분",
         steps: [
-          "VC80은 Visual Studio 2005, VC90은 2008, VC100은 2010입니다. Microsoft Learn Visual C++ 다운로드 문서에서 해당 연도의 SP1 패키지를 찾습니다.",
+          "VC80은 Visual Studio 2005, VC90은 2008입니다. Microsoft Learn Visual C++ 다운로드 문서에서 해당 연도의 SP1 패키지를 찾습니다.",
           "processorArchitecture가 x86이면 x86 패키지를, amd64이면 x64 패키지를 설치합니다. 모르면 둘 다 설치합니다.",
           "PC를 다시 시작하고 앱을 실행합니다.",
         ],
