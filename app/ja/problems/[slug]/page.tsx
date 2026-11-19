@@ -124,15 +124,15 @@ export default async function ProblemPage({ params, }: PageProps) {
       {/* JSON-LD */}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "<"),
+            __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
         }}/>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(articleJsonLd).replace(/</g, "<"),
+            __html: JSON.stringify(articleJsonLd).replace(/</g, "\\u003c"),
         }}/>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqJsonLd).replace(/</g, "<"),
+            __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
         }}/>
 
       <SiteHeader />

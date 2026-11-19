@@ -49,7 +49,7 @@ export default async function ErrorPage({ params }: Props) {
     const name = entry.title.startsWith(entry.code) ? entry.title.slice(entry.code.length).trim() : "";
     const related = entry.relatedProblemSlugs.map(findProblemBySlug).filter(item => Boolean(item));
     return <main className="doc relative min-h-screen text-ink">
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "<") }}/>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas).replace(/</g, "\\u003c") }}/>
     <SiteHeader />
     <article className="doc-wrap">
       <div className="doc-intro">

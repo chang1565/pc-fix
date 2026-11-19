@@ -180,7 +180,7 @@ export default async function ProblemPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd
-          ).replace(/</g, "\u003c"),
+          ).replace(/</g, "\\u003c"),
         }}
       />
 
@@ -189,7 +189,7 @@ export default async function ProblemPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             articleJsonLd
-          ).replace(/</g, "\u003c"),
+          ).replace(/</g, "\\u003c"),
         }}
       />
 
@@ -198,7 +198,7 @@ export default async function ProblemPage({
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             faqJsonLd
-          ).replace(/</g, "\u003c"),
+          ).replace(/</g, "\\u003c"),
         }}
       />
 
