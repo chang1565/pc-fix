@@ -37,9 +37,9 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
-  const problem = findProblemBySlug(slug);
+  const found = findProblemBySlug(slug);
 
-  if (!problem) {
+  if (!found) {
     return {
       title: "문제를 찾을 수 없습니다 | PC FIX",
 
@@ -49,6 +49,8 @@ export async function generateMetadata({
       },
     };
   }
+
+  const { problem } = applyProblemGuide(found);
 
   return {
     title: problem.seoTitle,
@@ -64,6 +66,7 @@ export async function generateMetadata({
       title: problem.seoTitle,
       description: problem.seoDescription,
       type: "article",
+      url: `/problems/${problem.slug}`,
       siteName: "PC FIX",
     },
   };

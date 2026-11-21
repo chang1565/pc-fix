@@ -1363,7 +1363,7 @@ export const batch5Problems: Record<string, KoGuide> = {
         steps: [
           "고급 옵션 → 문제 해결 → 고급 옵션 → 명령 프롬프트를 엽니다.",
           "dir C:\\Windows, dir D:\\Windows로 Windows 폴더가 있는 드라이브를 찾습니다. 아래는 C인 경우이며 찾은 문자로 바꿔 씁니다.",
-          "chkdsk C: /f를 실행해 파일 시스템 오류를 고칩니다.",
+          "가능하면 중요한 파일을 먼저 옮긴 뒤 chkdsk C: /f를 실행해 파일 시스템 오류를 고칩니다. BitLocker로 잠겨 있다는 메시지가 나오면 manage-bde -unlock C: -RecoveryPassword 48자리복구키 로 먼저 잠금을 풉니다.",
           "sfc /scannow /offbootdir=C:\\ /offwindir=C:\\Windows를 실행해 시스템 파일을 검사합니다.",
           "bcdboot C:\\Windows를 실행해 부팅 파일을 다시 만든 뒤 다시 시작합니다.",
         ],
@@ -1457,7 +1457,7 @@ export const batch5Problems: Record<string, KoGuide> = {
         steps: [
           "고급 옵션 → 명령 프롬프트에서 dir C:\\Windows로 Windows가 있는 드라이브를 찾습니다. 없으면 D, E 순서로 바꿔 봅니다. 아래 명령의 C는 찾은 문자로 바꿉니다.",
           "notepad를 실행하고 파일 → 열기 창에서 파일 형식을 '모든 파일'로 바꿔 중요한 파일을 외장 드라이브로 복사합니다.",
-          "백업 뒤 chkdsk C: /f로 파일 시스템 오류를 검사합니다. 비정상적으로 오래 걸리거나 읽기 오류가 나오면 중단하고 저장장치 점검을 먼저 받습니다.",
+          "백업 뒤 chkdsk C: /f로 파일 시스템 오류를 검사합니다. BitLocker로 잠겨 있다는 메시지가 나오면 manage-bde -unlock C: -RecoveryPassword 48자리복구키 로 먼저 잠금을 풉니다. 비정상적으로 오래 걸리거나 읽기 오류가 나오면 중단하고 저장장치 점검을 먼저 받습니다.",
           "bcdboot C:\\Windows로 부팅 파일을 다시 만든 뒤 USB를 빼고 다시 시작합니다.",
         ],
         checkPoint: "다시 시작해 Windows가 켜지면 SSD 제조사 도구로 SMART 상태를 확인해 두세요. 검사 중 읽기 오류가 많았다면 정상 부팅이 되더라도 드라이브 교체를 검토하는 편이 안전합니다.",

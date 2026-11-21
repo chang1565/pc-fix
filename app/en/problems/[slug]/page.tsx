@@ -27,8 +27,8 @@ export function generateStaticParams() {
 }
 export async function generateMetadata({ params, }: PageProps): Promise<Metadata> {
     const { slug } = await params;
-    const problem = findProblemBySlug(slug);
-    if (!problem) {
+    const found = findProblemBySlug(slug);
+    if (!found) {
         return {
             title: "Problem not found | PC FIX",
             robots: {
@@ -37,6 +37,7 @@ export async function generateMetadata({ params, }: PageProps): Promise<Metadata
             },
         };
     }
+    const { problem } = applyProblemGuide(found);
     return {
         title: problem.seoTitle,
         alternates: languageAlternates(`/en/problems/${problem.slug}`),
@@ -49,6 +50,7 @@ export async function generateMetadata({ params, }: PageProps): Promise<Metadata
             title: problem.seoTitle,
             description: problem.seoDescription,
             type: "article",
+            url: `/en/problems/${problem.slug}`,
             siteName: "PC FIX",
         },
     };

@@ -127,6 +127,7 @@ export default function Home() {
         updateSearchUrl("");
     }
     return (<main className="home-page relative min-h-screen text-ink">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"PC FIX\",\"alternateName\":\"pcfixbase\",\"url\":\"https://pcfixbase.com/\"}" }}/>
       <SiteHeader showSearch={false} tone="dark"/>
 
       {/* 첫 화면: 지금 보이는 증상이나 오류 문구를 바로 입력하는 검색 */}
