@@ -22,4 +22,4 @@ npm run build
 
 For new Korean content, `node scripts/translate-content.mjs` fills missing dictionary entries, then the generator applies manual overrides. This development tool uses a public Google translation endpoint that is not a contracted Cloud Translation API; availability during regeneration is not guaranteed. Pages serve saved translations without contacting any translation service at runtime.
 
-Each page has a language-specific canonical URL, links to other languages through hreflang, and localized article language metadata. The sitemap contains 1,284 public URLs across four languages. This makes foreign-language pages crawlable; indexing is determined by search engines.
+Each page has a language-specific canonical URL, links to other languages through hreflang, and localized article language metadata. The sitemap contains 1,018 URLs. Korean, English and Japanese pages are all listed. Simplified Chinese lists only the paths in `data/zhIndexable.json`; other Chinese pages stay available to visitors but send `X-Robots-Tag: noindex, follow` and are left out of hreflang. Indexing is determined by search engines.

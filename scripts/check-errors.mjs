@@ -64,6 +64,8 @@ for (const query of ["게임하다 검은화면 재부팅", "메모리", "인터
 const first = sitemap(), second = sitemap();
 assert.deepEqual(first, second);
 assert.equal(new Set(first.map(entry => entry.url)).size, first.length);
-assert.equal(first.length, 4 * (1 + 4 + new Set(problems.map(problem => problem.category)).size + 217 + 1 + 80));
+const zhIndexable = load("data/zhIndexable.json");
+assert.equal(first.length, 3 * (1 + 4 + new Set(problems.map(problem => problem.category)).size + 217 + 1 + 80) + zhIndexable.length);
+assert.equal(first.filter(item => new URL(item.url).pathname.startsWith("/zh-CN")).length, zhIndexable.length);
 for (const entry of errorCodes) assert.ok(first.some(item => item.url.endsWith(`/errors/${entry.slug}`)));
 console.log(`PASS: ${problems.length} problems, ${errorCodes.length} errors, ${errorCategories.length} categories, ${first.length} sitemap URLs; exact code and symptom search, unique metadata, valid links, stable dates.`);

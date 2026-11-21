@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { problems } from "@/data/problems";
 import { errorCodes, errorsUpdatedAt } from "@/data/errorCodes";
-import { locales, localizePath, languageAlternates } from "@/lib/localization";
+import { isIndexablePath, locales, localizePath, languageAlternates } from "@/lib/localization";
 import { categoryGuide, guideReviewedAt } from "@/lib/koGuide";
 
 const baseUrl =
@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return pages.flatMap(page => {
     const pathname = new URL(page.url).pathname;
     const languages = Object.fromEntries(Object.entries(languageAlternates(pathname).languages).map(([locale, route]) => [locale, `${baseUrl}${route}`]));
-    return locales.map(locale => ({
+    return locales.filter(locale => isIndexablePath(localizePath(pathname, locale))).map(locale => ({
       ...page,
       url: `${baseUrl}${localizePath(pathname, locale)}`,
       ...(page.lastModified ? { lastModified: locale === "ko" && koModified.has(pathname) ? koModified.get(pathname) : contentRestoredAt } : {}),

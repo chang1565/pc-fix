@@ -12,7 +12,7 @@
 | --- | --- |
 | 콘텐츠 | 증상 217개, 오류 코드 80개, 카테고리 18개 |
 | 언어 | 한국어, 영어, 일본어, 중국어 간체 |
-| 공개 URL | 사이트맵 기준 1,284개 |
+| 검색 대상 URL | 사이트맵 기준 1,018개 |
 | 기술 | Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4 |
 | 운영 | Ubuntu 홈서버, Docker Compose, Cloudflare |
 
